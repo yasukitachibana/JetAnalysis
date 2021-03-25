@@ -1,0 +1,37 @@
+#ifndef NAIVENEGATIVESUB_H
+#define NAIVENEGATIVESUB_H
+
+#include "SubtractionModuleBase.h"
+#include <iostream>
+
+class NaiveNegativeSub : public SubtractionModuleBase {
+private:
+  
+  // Allows the registration of the module so that it is available to be used by the Analysis framework.
+  static RegisterSubtractionModule<NaiveNegativeSub> reg;
+  const std::string name;
+  
+public:
+  NaiveNegativeSub(std::string name_in = "NaiveNegativeSub");
+  ~NaiveNegativeSub();
+  std::string Name(){return name;}
+  
+  std::vector <fastjet::PseudoJet>
+  JetSub(double jetR,
+         std::vector <fastjet::PseudoJet> jets,
+         std::vector<std::shared_ptr<Particle>> particle_list );
+  
+  std::vector < std::shared_ptr<fastjet::PseudoJet> >
+  JetSub(double jetR,
+         std::vector < std::shared_ptr<fastjet::PseudoJet> > jets,
+         std::vector<std::shared_ptr<Particle>> particle_list );
+  
+  
+  
+  double ptSub( std::shared_ptr<Particle> particle );
+  double nSub( std::shared_ptr<Particle> particle );
+
+  
+};
+
+#endif // NAIVENEGATIVESUB_H
