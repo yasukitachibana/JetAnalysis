@@ -24,12 +24,12 @@ NaiveNegativeSub::JetSub(double jetR,
   std::vector<std::shared_ptr<fastjet::PseudoJet>> jets_out;
   
   for( auto &j : jets ){
-
+    
     double e_j = j->e();
     double px_j = j->px();
     double py_j = j->py();
     double pz_j = j->pz();
-
+    
     for( auto& p : particle_list ){
       if( p->pstat() == -1 && j->delta_R(p->GetPseudoJet()) <= jetR ){
         e_j -= p->e();
@@ -37,11 +37,14 @@ NaiveNegativeSub::JetSub(double jetR,
         py_j -= p->py();
         pz_j -= p->pz();
       }
-  }
-  
+    }
+    
+    
+    
+    
     j->reset( px_j, py_j, pz_j, e_j );
     jets_out.push_back(j);
-
+    
   }
   return jets_out;
 }
@@ -55,21 +58,24 @@ std::vector <fastjet::PseudoJet> NaiveNegativeSub::JetSub(double jetR,
   
   for( auto &j : jets ){
     
-    double e_j = j.e();
-    double px_j = j.px();
-    double py_j = j.py();
-    double pz_j = j.pz();
-    
+    double e_sub=0.0, px_sub=0.0, py_sub=0.0, pz_sub=0.0;
     for( auto& p : particle_list ){
       if( p->pstat() == -1 && j.delta_R(p->GetPseudoJet()) <= jetR ){
-        e_j -= p->e();
-        px_j -= p->px();
-        py_j -= p->py();
-        pz_j -= p->pz();
+        e_sub += p->e();
+        px_sub += p->px();
+        py_sub += p->py();
+        pz_sub += p->pz();
       }
     }
     
-    j.reset( px_j, py_j, pz_j, e_j );
+    if( e_sub > DBL_EPSILON ){
+      double e_j = j.e()-e_sub;
+      double px_j = j.px()-px_sub;
+      double py_j = j.py()-py_sub;
+      double pz_j = j.pz()-pz_sub;
+      j.reset( px_j, py_j, pz_j, e_j );
+    }
+    
     jets_out.push_back(j);
     
   }
@@ -81,21 +87,21 @@ std::vector <fastjet::PseudoJet> NaiveNegativeSub::JetSub(double jetR,
 // Particles
 //###############################################################################################################
 double NaiveNegativeSub::ptSub( std::shared_ptr<Particle> particle ){
-    
-    if( particle->pstat() != -1 ){
-        return particle->perp();
-    }else{
-        return -1.0 * particle->perp();
-    }
-    
+  
+  if( particle->pstat() != -1 ){
+    return particle->perp();
+  }else{
+    return -1.0 * particle->perp();
+  }
+  
 }
 
 double NaiveNegativeSub::nSub( std::shared_ptr<Particle> particle ){
-    
-    if( particle->pstat() != -1 ){
-        return 1.0;
-    }else{
-        return -1.0;
-    }
-    
+  
+  if( particle->pstat() != -1 ){
+    return 1.0;
+  }else{
+    return -1.0;
+  }
+  
 }

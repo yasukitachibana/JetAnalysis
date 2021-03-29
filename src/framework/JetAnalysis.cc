@@ -1,5 +1,6 @@
 #include "JetAnalysis.h"
 #include "EventAnalysis.h"
+#include "CombineEvents.h"
 #include "SetXML.h"
 #include "SetFile.h"
 
@@ -74,8 +75,8 @@ void JetAnalysis::Exec() {
   auto sub_ptr = SubtractionModuleFactory::createInstance(subtraction_method);
   auto load_ptr = LoadFileModuleFactory::createInstance(input_file_style);
 
-//  sub_ptr->Init()
-//  load_ptr->Init()
+  sub_ptr->Init();
+  load_ptr->Init();
   reco_ptr->Init(sub_ptr);
   
   for(auto &obs: observables){
@@ -95,7 +96,7 @@ void JetAnalysis::Exec() {
       EventAnalysis ea(obs_ptr);
       ea.Init();
       ea.Analyze();
-      
+      ea.Clear();
     }else{
       std::cout << "[JetAnalysis] Skip Event Analysis " << std::endl;
     }
@@ -103,8 +104,11 @@ void JetAnalysis::Exec() {
     std::cout <<  "---------------------------------------------------------" << std::endl;
     if( running_mode == 0 || running_mode == 2 ){
       std::cout << "[JetAnalysis] -Combine-" << std::endl;
-//      CombineEvents ce;
-//      ce.Combine();
+      
+      CombineEvents ce(obs_ptr);
+      ce.Init();
+      ce.Combine();
+      ce.Clear();
     }else{
       std::cout << "[JetAnalysis] Skip Combine " << std::endl;
     }
