@@ -20,9 +20,14 @@ void EventAnalysis::Init(){
   ptHat = SetXML::Instance()->GetElementVectorDouble({"ptHat","Item"});
   nSeq = SetXML::Instance()->GetElementInt({"inputFiles","divNum"});
   if( nSeq == 0){
-    nSeq++;
+    nSeq = 1;
   }
 
+}
+
+void EventAnalysis::Clear(){
+  ptHat.clear();
+  ptHat.shrink_to_fit();
 }
 
 void EventAnalysis::Analyze(){

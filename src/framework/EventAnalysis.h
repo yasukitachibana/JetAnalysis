@@ -16,6 +16,7 @@ public:
 
   void Init();
   void Analyze();
+  void Clear();
 
 private:
   

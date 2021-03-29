@@ -22,8 +22,21 @@ void ReconstructionModuleBase::Init(std::shared_ptr<SubtractionModuleBase> sub_p
   sub_ptr = nullptr;
   sub_ptr=sub_ptr_in;
   
+  void SetJetPtCut();
   //  ReadParametersFromXML();
   
 }
+
+std::vector<fastjet::PseudoJet>
+ReconstructionModuleBase::JetReco( double r_cone, std::vector<std::shared_ptr<Particle>> particle_list ){
+  std::vector <fastjet::PseudoJet> jets;
+  return jets;
+}
+
+void ReconstructionModuleBase::SetJetPtCut(double pt_jet_cut){
+  jetPtCut=pt_jet_cut;
+  std::cout << "[SubtractionModuleBase] pt_jet cut: " << jetPtCut << " GeV" << std::endl;
+}
+
 
 

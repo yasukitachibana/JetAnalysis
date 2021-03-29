@@ -16,14 +16,15 @@
 #include "LoadFileModuleBase.h"
 
 #include "Histogram.h"
+#include "Hist1D.h"
 
 
 class AnalysisModuleBase{
-
+  
 public:
   
   virtual ~AnalysisModuleBase(){}
-
+  
   void Init(std::shared_ptr<ReconstructionModuleBase> reco_ptr_in,
             std::shared_ptr<SubtractionModuleBase> sub_ptr_in,
             std::shared_ptr<LoadFileModuleBase> load_ptr_in);
@@ -32,28 +33,64 @@ public:
   void Analyze(std::string input_file_name);
   void Clear();
   
+  void Combine(std::vector<double> ptHat);
+  
   virtual std::string Name(){ return "N/A"; }
-
+  
+  long getMemoryUsage();
+  
 protected:
   
   std::vector<std::shared_ptr<Histogram>> hist_list;
   
   std::shared_ptr<ReconstructionModuleBase> reco_ptr;
   std::shared_ptr<SubtractionModuleBase> sub_ptr;
-
+  
 private:
   std::shared_ptr<LoadFileModuleBase> load_ptr;
   //=========================================
-  virtual void ReadOptionParametersFromXML(){}
-  virtual void ShowOptionSetting(){}
-  virtual void GenerateHist(double ptHatMin, double ptHatMax);
-
+  virtual void SetObservable
+  (fastjet::PseudoJet jet,
+   std::vector<std::shared_ptr<Particle>> particle_list,
+   int ir, std::vector<std::array<int, 2>> i_j ){}
+  //=========================================
+  virtual int ReadOptionParametersFromXML(){return 1;}
+  virtual void ShowParamsSetting(){}
+  virtual std::string GetParamsTag( int i ){ return ""; }
+  //=========================================
+  virtual std::shared_ptr<Histogram> CreateHist( std::string hist_name, int iv );
+  virtual void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){}
+  //=========================================
+  virtual void OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list);
+  //=========================================
+  void GenerateHist(double ptHatMin, double ptHatMax);
+  void DeleteHist();
+  std::string
+  GetHistName( double ptHatMin, double ptHatMax,
+              int iv, int ir, int ijp, int ijr, int ipp, int ipr,
+              int ip);
+  int GetHistIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+  //=========================================
   void ReadParametersFromXML();
   void ShowObservableSetting();
   void ShowJetSetting();
   void ShowParticleSetting();
   void SetLargestRapidity();
-  void InitHist();
+  void SetJetPtCut();
+  //=========================================
+  void EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num);
+  //=========================================
+  bool JetTrigger(fastjet::PseudoJet jets, std::vector<std::array<int, 2>> &i_j, int ir );
+  //=========================================
+  bool NeutrinoCheck( std::shared_ptr<Particle> p );
+  //=========================================
+  bool ChargedCheck(std::shared_ptr<Particle> p);
+  bool ChargeTrigger(std::shared_ptr<Particle> p, int charged);
+  //=========================================
+  bool RapidityCut( std::shared_ptr<Particle> p );
+  double GetRapidity( std::shared_ptr<Particle> p );
+  double GetRapidity( fastjet::PseudoJet j );
+  double GetRapidity( std::shared_ptr<fastjet::PseudoJet> j );
   //=========================================
   Pythia8::Pythia pythia;
   //=========================================
@@ -76,6 +113,7 @@ private:
   //=========================================
   std::vector<std::string> variables;
   std::vector< std::vector<double> > binSettings;
+  int nParams;
   //=========================================
   double largestRapidity;
   //=========================================
@@ -102,12 +140,15 @@ private:
   }
   std::string JetRapType(){return RapType(jetRapidity);}
   std::string ParticleRapType(){return RapType(particleRapidity);}
-
+  
   //=========================================
   static const int nNeutrino = 4;
   std::array<int, nNeutrino> pidNeutrino{12, 14, 16, 13};//abosolute values of neutrino/anti-neutrino pids.
   //=========================================
-
+  void LoadHist( double ptHatMin, double ptHatMax,
+                int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+  //=========================================
+  
 };
 
 
@@ -121,17 +162,17 @@ private:
 // analysismodulefactory, registeranalysismodule
 //###############################################################################################################
 /// template function for creating a new module. used to register the module.
-template <typename t> std::shared_ptr<AnalysisModuleBase> createAnalysisModule() {
-  return std::make_shared<t>();
+template <typename T> std::shared_ptr<AnalysisModuleBase> createAnalysisModule() {
+  return std::make_shared<T>();
 }
 
 // factory to create and keep track of new modules
 class AnalysisModuleFactory {
 public:
   virtual ~AnalysisModuleFactory() {}
-
+  
   typedef std::map<std::string, std::shared_ptr<AnalysisModuleBase> (*)()> map_type;
-
+  
   /// creates an instance of an object based on the name if the name is registered in the map.
   static std::shared_ptr<AnalysisModuleBase> createInstance(std::string const &s) {
     
@@ -142,7 +183,7 @@ public:
     }
     return it->second();
   }
-
+  
 protected:
   /// creates and access the module map
   static map_type *getMap() {
@@ -152,7 +193,7 @@ protected:
     }
     return moduleMap;
   }
-
+  
 private:
   /// contains the map to all of the modules
   static map_type *moduleMap;
@@ -162,13 +203,13 @@ private:
  * @class registeranalysismodule
  * @brief registers analysis modules in the factory map
  */
-template <typename t>
+template <typename T>
 class RegisterAnalysisModule : public AnalysisModuleFactory {
 public:
   /// registers the name of the module to map to a function that can create the module
   RegisterAnalysisModule(std::string const &s) {
     //std::cout << "[registeranalysismodule] registering '" << s << "' to the map" << std::endl;
-    getMap()->insert(std::make_pair(s, &createAnalysisModule<t>));
+    getMap()->insert(std::make_pair(s, &createAnalysisModule<T>));
   }
 };
 

@@ -68,22 +68,26 @@ std::string SetFile::GetDivTail(int i_seq){
 
 std::string
 SetFile::GetHistName(double ptHatMin, double ptHatMax,
+                     std::string observable,
+                     std::string variable,
                      double jetR,
                      double jetPtMin, double jetPtMax,
                      double jetRapMin, double jetRapMax,
-                     double hadPtMin, double hadPtMax,
-                     double hadRapMin, double hadRapMax,
+                     double particlePtMin, double particlePtMax,
+                     double particleRapMin, double particleRapMax,
                      std::string tag /* = "" */ ){
   
   std::ostringstream oss;
   
   oss << std::fixed
   << "hist_" << "ptHat" << std::setprecision(0) << (ptHatMin) << "-" << (ptHatMax) << "_"
+  << observable << "_"
+  << variable << "_"
   << "jetr" << std::setprecision(1) << (jetR) << "_"
   << "ptj" << std::setprecision(0) << (jetPtMin) << "-" << (jetPtMax) << "_"
   << "rapj" << std::setprecision(1) << (jetRapMin) << "-" << (jetRapMax) << "_"
-  << "pt" << std::setprecision(1) << (hadPtMin) << "-" << (hadPtMax) << "_"
-  << "rap" << std::setprecision(1) << (hadRapMin) << "-" << (hadRapMax);
+  << "pt" << std::setprecision(1) << (particlePtMin) << "-" << (particlePtMax) << "_"
+  << "rap" << std::setprecision(1) << (particleRapMin) << "-" << (particleRapMax);
   
   if( tag != ""){
     oss << "_" << tag;
@@ -96,21 +100,25 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
 
 std::string
 SetFile::GetHistName(double jetPtMin, double jetPtMax,
+                     std::string observable,
+                     std::string variable,
                      double jetR,
                      double jetRapMin, double jetRapMax,
-                     double hadPtMin, double hadPtMax,
-                     double hadRapMin, double hadRapMax,
+                     double particlePtMin, double particlePtMax,
+                     double particleRapMin, double particleRapMax,
                      std::string tag /* = "" */ ){
   
   std::ostringstream oss;
   
   oss << std::fixed
   << "hist_total_"
+  << observable << "_"
+  << variable << "_"
   << "jetr" << std::setprecision(1) << (jetR) << "_"
   << "ptj" << std::setprecision(0) << (jetPtMin) << "-" << (jetPtMax) << "_"
   << "rapj" << std::setprecision(1) << (jetRapMin) << "-" << (jetRapMax) << "_"
-  << "pt" << std::setprecision(1) << (hadPtMin) << "-" << (hadPtMax) << "_"
-  << "rap" << std::setprecision(1) << (hadRapMin) << "-" << (hadRapMax);
+  << "pt" << std::setprecision(1) << (particlePtMin) << "-" << (particlePtMax) << "_"
+  << "rap" << std::setprecision(1) << (particleRapMin) << "-" << (particleRapMax);
   
   if( tag != ""){
     oss << "_" << tag;

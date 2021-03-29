@@ -13,6 +13,7 @@ class SubtractionModuleBase{
 public:
   
   virtual ~SubtractionModuleBase(){}
+  virtual void Init(){}
   virtual std::string Name(){ return "N/A"; }
   
   virtual std::vector <fastjet::PseudoJet>

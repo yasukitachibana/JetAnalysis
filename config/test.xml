@@ -8,16 +8,16 @@
   <!-- Jet Reconstruction-->
   <jetReco>
     <reconstructionMethod>StandardReco</reconstructionMethod>
-    <jetR><Item>0.4</Item><Item>1.0</Item></jetR>
+    <jetR><Item>0.4</Item><Item>0.6</Item></jetR>
     <chJet>0</chJet><!-- 0: full jet, 1: charged jet -->
     <statJet>
       <Item>0</Item><Item>1</Item><Item>-1</Item>
     </statJet>
-    <jetRapidity>1</jetRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
-    <jetRapMin><Item>0</Item>  <Item>0</Item></jetRapMin>
-    <jetRapMax><Item>0.5</Item><Item>1</Item></jetRapMax>
+    <jetRapidity>0</jetRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin><Item>0</Item></jetRapMin>
+    <jetRapMax><Item>1.5</Item></jetRapMax>
     <jetPtMin><Item>0</Item></jetPtMin>
-    <jetPtMax><Item>5020</Item></jetPtMax>
+    <jetPtMax><Item>300</Item></jetPtMax>
   </jetReco>
   
   <observable>
@@ -28,7 +28,7 @@
       <statParticle>
         <Item>0</Item><Item>1</Item><Item>-1</Item>
       </statParticle>
-      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
+      <particleRapidity>0</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
       <particleRapMin><Item>0.0</Item></particleRapMin>
       <particleRapMax><Item>3.0</Item></particleRapMax>
       <particlePtMin><Item>0.0</Item></particlePtMin>
@@ -42,34 +42,14 @@
           <Item>30</Item>
           <Item>40</Item>
           <Item>50</Item>
-          <Item>60</Item>
-          <Item>70</Item>
-          <Item>80</Item>
-          <Item>90</Item>
-          <Item>100</Item>
-          <Item>110</Item>
-          <Item>120</Item>
-          <Item>130</Item>
-          <Item>140</Item>
-          <Item>150</Item>
         </pt>
         <pt2>
-          <Item>0</Item>
-          <Item>10</Item>
-          <Item>20</Item>
-          <Item>30</Item>
           <Item>40</Item>
-          <Item>50</Item>
           <Item>60</Item>
-          <Item>70</Item>
           <Item>80</Item>
-          <Item>90</Item>
           <Item>100</Item>
-          <Item>110</Item>
           <Item>120</Item>
-          <Item>130</Item>
           <Item>140</Item>
-          <Item>150</Item>
         </pt2>
       </var>
       
@@ -83,7 +63,7 @@
       </statParticle>
       <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
       <particleRapMin><Item>0.0</Item></particleRapMin>
-      <particleRapMax><Item>3.0</Item></particleRapMax>
+      <particleRapMax><Item>1.5</Item></particleRapMax>
       <particlePtMin><Item>0.0</Item></particlePtMin>
       <particlePtMax><Item>300</Item></particlePtMax>
       
@@ -95,16 +75,7 @@
           <Item>30</Item>
           <Item>40</Item>
           <Item>50</Item>
-          <Item>60</Item>
-          <Item>70</Item>
-          <Item>80</Item>
-          <Item>90</Item>
           <Item>100</Item>
-          <Item>110</Item>
-          <Item>120</Item>
-          <Item>130</Item>
-          <Item>140</Item>
-          <Item>150</Item>
         </pt>
 
       </var>

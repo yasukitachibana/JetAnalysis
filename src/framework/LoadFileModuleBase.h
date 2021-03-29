@@ -4,9 +4,13 @@
 //#include "Pythia8/Pythia.h"
 //#include "Particle.h"
 
+#include "Particle.h"
+
+#include <map>
 #include <vector>
 #include <iostream>
-#include <map>
+#include <fstream>
+#include <sstream>
 
 
 class LoadFileModuleBase{
@@ -14,7 +18,23 @@ class LoadFileModuleBase{
 public:
   
   virtual ~LoadFileModuleBase(){}
+  virtual void Init(){}
+  
   virtual std::string Name(){ return "N/A"; }
+  
+  virtual void Load(std::string input_filename){}
+  virtual void Clear(){}
+  
+  virtual void GetParticleList(){}
+  virtual int GetLine(){return 0;}
+  virtual void ShowLine(){}
+  virtual int EventEnd(){return 0;}
+  virtual int ValidLine(){return 0;}
+  virtual int Last(){return 1;}
+  virtual void LoadSigma(std::string sigma_filename, double &sigma, double &sigma_err){}
+  
+  virtual std::shared_ptr<Particle> GetParticle(){return nullptr;}
+
 
 private:
   

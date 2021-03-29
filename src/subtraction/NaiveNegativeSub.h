@@ -3,6 +3,7 @@
 
 #include "SubtractionModuleBase.h"
 #include <iostream>
+#include <float.h>
 
 class NaiveNegativeSub : public SubtractionModuleBase {
 private:

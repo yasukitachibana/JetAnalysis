@@ -4,6 +4,8 @@
 //#include "Pythia8/Pythia.h"
 //#include "Particle.h"
 
+#include "fastjet/ClusterSequence.hh"
+
 #include "SubtractionModuleBase.h"
 
 #include <vector>
@@ -18,12 +20,20 @@ public:
   virtual ~ReconstructionModuleBase(){}
   virtual std::string Name(){ return "N/A"; }
 
+  virtual std::vector<fastjet::PseudoJet>
+  JetReco( double r_cone, std::vector<std::shared_ptr<Particle>> particle_list );
+
   void Init(std::shared_ptr<SubtractionModuleBase> sub_ptr_in);
+
+  void SetJetPtCut(double pt_jet_cut);
 
 
 protected:
   std::shared_ptr<SubtractionModuleBase> sub_ptr;
+  double jetPtCut;
+  
 private:
+
   
 };
 
