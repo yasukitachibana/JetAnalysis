@@ -8,7 +8,7 @@
   <!-- Jet Reconstruction-->
   <jetReco>
     <reconstructionMethod>StandardReco</reconstructionMethod>
-    <jetR><Item>0.4</Item><Item>0.6</Item></jetR>
+    <jetR><Item>0.4</Item></jetR>
     <chJet>0</chJet><!-- 0: full jet, 1: charged jet -->
     <statJet>
       <Item>0</Item><Item>1</Item><Item>-1</Item>
@@ -16,47 +16,142 @@
     <jetRapidity>0</jetRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin><Item>0</Item></jetRapMin>
     <jetRapMax><Item>1.5</Item></jetRapMax>
-    <jetPtMin><Item>0</Item></jetPtMin>
+    <jetPtMin><Item>120</Item></jetPtMin>
     <jetPtMax><Item>300</Item></jetPtMax>
   </jetReco>
   
   <observable>
     <!-- Hadrons -->
-    <JetSpec>
-      <name>Jet Spectrum</name>
-      <chParticle>0</chParticle><!-- 0: full jet, 1: charged jet -->
-      <statParticle>
-        <Item>0</Item><Item>1</Item><Item>-1</Item>
-      </statParticle>
-      <particleRapidity>0</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
-      <particleRapMin><Item>0.0</Item></particleRapMin>
-      <particleRapMax><Item>3.0</Item></particleRapMax>
-      <particlePtMin><Item>0.0</Item></particlePtMin>
-      <particlePtMax><Item>300</Item></particlePtMax>
-      
-      <var>
-        <pt>
-          <Item>0</Item>
-          <Item>10</Item>
-          <Item>20</Item>
-          <Item>30</Item>
-          <Item>40</Item>
-          <Item>50</Item>
-        </pt>
-        <pt2>
-          <Item>40</Item>
-          <Item>60</Item>
-          <Item>80</Item>
-          <Item>100</Item>
-          <Item>120</Item>
-          <Item>140</Item>
-        </pt2>
-      </var>
-      
-    </JetSpec>
+<!--    <JetSpec>-->
+<!--      <name>Jet Spectrum</name>-->
+<!--      <chParticle>0</chParticle><!-- 0: full jet, 1: charged jet -->-->
+<!--      <statParticle>-->
+<!--        <Item>0</Item><Item>1</Item><Item>-1</Item>-->
+<!--      </statParticle>-->
+<!--      <particleRapidity>0</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->-->
+<!--      <particleRapMin><Item>0.0</Item></particleRapMin>-->
+<!--      <particleRapMax><Item>3.0</Item></particleRapMax>-->
+<!--      <particlePtMin><Item>0.0</Item></particlePtMin>-->
+<!--      <particlePtMax><Item>300</Item></particlePtMax>-->
+<!--      -->
+<!--      <var>-->
+<!--        <pt>-->
+<!--          <Item>0</Item>-->
+<!--          <Item>10</Item>-->
+<!--          <Item>20</Item>-->
+<!--          <Item>30</Item>-->
+<!--          <Item>40</Item>-->
+<!--          <Item>50</Item>-->
+<!--        </pt>-->
+<!--        <pt2>-->
+<!--          <Item>40</Item>-->
+<!--          <Item>60</Item>-->
+<!--          <Item>80</Item>-->
+<!--          <Item>100</Item>-->
+<!--          <Item>120</Item>-->
+<!--          <Item>140</Item>-->
+<!--        </pt2>-->
+<!--      </var>-->
+<!--      -->
+<!--    </JetSpec>-->
     
-    <ParticleSpec>
-      <name>Particle Spectrum</name>
+<!--    <ParticleSpec>-->
+<!--      <name>Particle Spectrum</name>-->
+<!--      <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->-->
+<!--      <statParticle>-->
+<!--        <Item>0</Item><Item>1</Item><Item>-1</Item>-->
+<!--      </statParticle>-->
+<!--      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->-->
+<!--      <particleRapMin><Item>0.0</Item></particleRapMin>-->
+<!--      <particleRapMax><Item>1.5</Item></particleRapMax>-->
+<!--      <particlePtMin><Item>0.0</Item></particlePtMin>-->
+<!--      <particlePtMax><Item>300</Item></particlePtMax>-->
+<!--      -->
+<!--      <var>-->
+<!--        <pt>-->
+<!--          <Item>0</Item>-->
+<!--          <Item>10</Item>-->
+<!--          <Item>20</Item>-->
+<!--          <Item>30</Item>-->
+<!--          <Item>40</Item>-->
+<!--          <Item>50</Item>-->
+<!--          <Item>100</Item>-->
+<!--        </pt>-->
+<!---->
+<!--      </var>-->
+<!---->
+<!--    </ParticleSpec>-->
+<!--    -->
+<!--    <FragF>-->
+<!--      <name>Jet Fragmentation Function</name>-->
+<!--      <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->-->
+<!--      <statParticle>-->
+<!--        <Item>0</Item><Item>1</Item><Item>-1</Item>-->
+<!--      </statParticle>-->
+<!--      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->-->
+<!--      <particleRapMin><Item>0.0</Item></particleRapMin>-->
+<!--      <particleRapMax><Item>1.5</Item></particleRapMax>-->
+<!--      <particlePtMin><Item>1.0</Item></particlePtMin>-->
+<!--      <particlePtMax><Item>300</Item></particlePtMax>-->
+<!--      -->
+<!--      <var>-->
+<!--        <pt>-->
+<!--          <Item>0</Item>-->
+<!--          <Item>10</Item>-->
+<!--          <Item>20</Item>-->
+<!--          <Item>30</Item>-->
+<!--          <Item>40</Item>-->
+<!--          <Item>50</Item>-->
+<!--          <Item>100</Item>-->
+<!--        </pt>-->
+<!---->
+<!--        <z>-->
+<!--          <Item>0</Item>-->
+<!--          <Item>0.1</Item>-->
+<!--          <Item>0.5</Item>-->
+<!--          <Item>1.0</Item>-->
+<!--        </z>-->
+<!---->
+<!--      </var>-->
+<!---->
+<!--    </FragF>-->
+
+<!--    <JetShape>-->
+<!--      <name>Jet Shape Function</name>-->
+<!--      <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->-->
+<!--      <statParticle>-->
+<!--        <Item>0</Item><Item>1</Item><Item>-1</Item>-->
+<!--      </statParticle>-->
+<!--      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->-->
+<!--      <particleRapMin><Item>0.0</Item></particleRapMin>-->
+<!--      <particleRapMax><Item>1.5</Item></particleRapMax>-->
+<!--      <particlePtMin><Item>1.0</Item></particlePtMin>-->
+<!--      <particlePtMax><Item>300</Item></particlePtMax>-->
+<!--      -->
+<!--      <var>-->
+<!--        <r>-->
+<!--          <Item>0</Item>-->
+<!--          <Item>0.05</Item>-->
+<!--          <Item>0.1</Item>-->
+<!--          <Item>0.15</Item>-->
+<!--          <Item>0.2</Item>-->
+<!--          <Item>0.25</Item>-->
+<!--          <Item>0.3</Item>-->
+<!--          <Item>0.35</Item>-->
+<!--          <Item>0.4</Item>-->
+<!--          <Item>0.45</Item>-->
+<!--          <Item>0.5</Item>-->
+<!--          <Item>0.6</Item>-->
+<!--          <Item>0.7</Item>-->
+<!--          <Item>0.8</Item>-->
+<!--          <Item>1.0</Item>-->
+<!--        </r>-->
+<!--      </var>-->
+<!---->
+<!--    </JetShape>-->
+
+    <JetShape2D>
+      <name>Jet Shape Function [2D]</name>
       <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->
       <statParticle>
         <Item>0</Item><Item>1</Item><Item>-1</Item>
@@ -64,26 +159,42 @@
       <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
       <particleRapMin><Item>0.0</Item></particleRapMin>
       <particleRapMax><Item>1.5</Item></particleRapMax>
-      <particlePtMin><Item>0.0</Item></particlePtMin>
+      <particlePtMin><Item>1.0</Item></particlePtMin>
       <particlePtMax><Item>300</Item></particlePtMax>
       
       <var>
-        <pt>
+        <r>
           <Item>0</Item>
-          <Item>10</Item>
-          <Item>20</Item>
-          <Item>30</Item>
-          <Item>40</Item>
-          <Item>50</Item>
-          <Item>100</Item>
-        </pt>
-
+          <Item>0.05</Item>
+          <Item>0.1</Item>
+          <Item>0.15</Item>
+          <Item>0.2</Item>
+          <Item>0.25</Item>
+          <Item>0.3</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+          <Item>0.45</Item>
+          <Item>0.5</Item>
+          <Item>0.6</Item>
+          <Item>0.7</Item>
+          <Item>0.8</Item>
+          <Item>1.0</Item>
+        </r>
       </var>
 
-    </ParticleSpec>
-    
-    
-    
+      <nBinPhi>60</nBinPhi>
+      <boundPhi>
+        <Item>-3.141592653589793238462643383279502884197</Item>
+        <Item>3.141592653589793238462643383279502884197</Item>
+      </boundPhi>
+      <nBinEta>60</nBinEta>
+      <boundEta>
+        <Item>-3.0</Item>
+        <Item>3.0</Item>
+      </boundEta>
+      
+    </JetShape2D>
+
   </observable>
   
   <inputFiles>

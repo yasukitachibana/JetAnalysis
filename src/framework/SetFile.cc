@@ -37,7 +37,7 @@ void SetFile::Init(std::string m_in_name, std::string m_out_name){
   sigma_join = SetXML::Instance()->GetElementText({"inputFiles","sigma","join"});
   sigma_tail = SetXML::Instance()->GetElementText({"inputFiles","sigma","tail"});
   
-
+  
   
 }
 
@@ -99,10 +99,10 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
 
 
 std::string
-SetFile::GetHistName(double jetPtMin, double jetPtMax,
-                     std::string observable,
+SetFile::GetHistName(std::string observable,
                      std::string variable,
                      double jetR,
+                     double jetPtMin, double jetPtMax,
                      double jetRapMin, double jetRapMax,
                      double particlePtMin, double particlePtMax,
                      double particleRapMin, double particleRapMax,

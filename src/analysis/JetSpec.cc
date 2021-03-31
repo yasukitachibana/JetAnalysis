@@ -17,19 +17,60 @@ JetSpec::~JetSpec(){
 }
 
 void JetSpec::SetObservable
- (fastjet::PseudoJet jet,
-  std::vector<std::shared_ptr<Particle>> particle_list,
-  int ir, std::vector<std::array<int, 2>> i_j ){
-   
-   for( auto ij: i_j){
-//     for( int i_had_pt = 0; i_had_pt < hadPtMin.size(); i_had_pt++ ){
-//       for( int i_had_rap = 0; i_had_rap < hadRapMin.size(); i_had_rap++ ){
-//         
-//         GetHist(i_r_jet,ij[0],ij[1],i_had_pt,i_had_rap,0)->Fill( jet.perp(), 1.0 );
-//         
-//       }
-//     }
-   }
-      
+(fastjet::PseudoJet jet,
+ std::vector<std::shared_ptr<Particle>> particle_list,
+ int ir, std::vector<std::array<int, 2>> i_j ){
   
+  for( int iv = 0; iv < variables.size(); iv++ ){
+    for( auto ij: i_j){
+      for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+        for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+          for( int ip = 0; ip < nParams; ip++ ){
+            
+            //std::cout << "[JetSpec] ptjet=" << jet.perp() << std::endl;
+            hist_list[GetHistIndex(iv,ir,ij[0],ij[1],ipp,ipr,ip)]->Fill( jet.perp(), 1.0 );
+            
+          }//ip
+        }//ipr
+      }//ipp
+    }//ij
+  }//iv
+  
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+void JetSpec::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){
+
+  std::string hist_name = GetHistName( iv, ir, ijp, ijr, ipp, ipr, ip );
+  std::cout << "[JetSpec] hist_name = " << hist_name << std::endl;
+
+  
+  double delta_rapidity = 2.0*(jetRapMax[ijr]-jetRapMin[ijr]);
+  std::cout << "[JetSpec] delta_rapidity = " << delta_rapidity << std::endl;
+
+  
+  auto total_hist = CreateHist(hist_name, iv);
+  total_hist->Init();
+
+  double nJetTotal = 0.0;
+  
+  for( auto hist: hist_list ){
+    double n_ev = hist->Nev();
+    if( n_ev != 0 ){
+      nJetTotal += hist->GetNjetSigmaOverEev();
+      double sigma = hist->Sigma();
+      total_hist->Add(hist, sigma/n_ev );
+    }
+  }
+
+  total_hist->Print("count_");
+
+  total_hist->Scale(1.0,"width");
+  total_hist->Print("jetspec_dNdpt_");
+  total_hist->Scale(1.0/delta_rapidity);
+  total_hist->Print("jetspec_dNdptdrap_");
+  
+  total_hist->DeleteTH();
+
+
 }
