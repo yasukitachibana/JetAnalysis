@@ -36,6 +36,10 @@ double Histogram::GetNjetSigmaOverEev(){
   return sigma*nJet/nEv;
 }
 
+double Histogram::GetSigmaOverEev(){
+  return sigma/nEv;
+}
+
 
 
 

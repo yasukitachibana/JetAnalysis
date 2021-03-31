@@ -22,6 +22,8 @@ private:
   std::shared_ptr<Histogram> CreateHist( std::string hist_name, int iv );
   
   int ReadOptionParametersFromXML();
+  void ShowParamsSetting();
+  std::string GetParamsTag( int i );
   
   int nBinPhi;
   int nBinEta;
@@ -29,9 +31,13 @@ private:
   std::vector<double> boundEta;
 
   int mixedEvent;
-  std::vector<std::shared_ptr<Particle>> mixEvParticles;
+  void LoadMixedEvent();
+  std::vector<std::vector<std::shared_ptr<Particle>>> mixEvParticleList;
+  std::string GetMixedEventFileName(int iv, int ir, int ijp, int ijr, int ipp, int ipr);
 
+  
   std::vector<double> sidebandRap;
+
   
 public:
   JetShape2D(std::string name_in = "JetShape2D");
