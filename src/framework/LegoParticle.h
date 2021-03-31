@@ -3,14 +3,18 @@
 
 #include "Particle.h"
 
-#include <iostream>
 #include <vector>
-
-namespace LegoParticle {
-
-void Load();
-
-
-}
-
+class LegoParticle {
+  
+public:
+  LegoParticle(){}
+  ~LegoParticle(){}
+  
+  void Load( std::string filename );
+  std::vector<std::shared_ptr<Particle>> GetParticles();
+  void Clear();
+  
+private:
+  
+};
 #endif

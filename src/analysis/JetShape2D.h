@@ -2,6 +2,7 @@
 #define JETSHAPE2D_H
 
 #include "AnalysisModuleBase.h"
+#include "LegoParticle.h"
 #include "Hist2D.h"
 #include <iostream>
 

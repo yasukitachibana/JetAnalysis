@@ -41,12 +41,18 @@ void JetShape2D::LoadMixedEvent(){
           for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
             for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
               
-              std::vector<std::shared_ptr<Particle>> mix_ev_particles;
-              //std::string hist_name = "";
+              
+              std::string hist_name = GetMixedEventFileName(iv, ir, ijp, ijr, ipp, ipr);
               //                std::string hist_name = GetHistName( ptHatMin, ptHatMax, iv, ir, ijp, ijr, ipp, ipr, ip );
               //                auto hist_this_bin = CreateHist(hist_name, iv);
               //                hist_this_bin->Init();
               //                hist_list.push_back(hist_this_bin);
+
+              
+              LegoParticle lp;
+              lp.Load("");
+              auto mix_ev_particles = lp.GetParticles();
+              lp.Clear();
               mixEvParticleList.push_back(mix_ev_particles);
               
             }//had_rap
@@ -77,6 +83,7 @@ JetShape2D::GetMixedEventFileName(int iv, int ir, int ijp, int ijr, int ipp, int
 //                                     particlePtMin[ipp], particlePtMax[ipp],
 //                                     particleRapMin[ipr], particleRapMax[ipr], "" );
 //  return histname;
+  return "";
 }
 
 
