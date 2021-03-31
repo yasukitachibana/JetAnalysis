@@ -20,6 +20,9 @@ void ParticleSpec::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> parti
   for( auto& p : particle_list ){
     std::vector<std::array<int, 2>> i_p;
     if( ParticleTrigger(p, i_p)){
+
+      double val = p->perp();
+      double n = sub_ptr->nSub(p);
       
       for( auto iparticle: i_p){
         for( int iv = 0; iv < variables.size(); iv++ ){
@@ -28,9 +31,8 @@ void ParticleSpec::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> parti
               for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
                 for( int ip = 0; ip < nParams; ip++ ){
                   
-                  double pt = sub_ptr->ptSub(p);
                   hist_list[GetHistIndex(iv,ir,ijp,ijr,iparticle[0],iparticle[1],ip)]
-                  ->Fill( pt, 1.0 );
+                  ->Fill( val, n );
                   
                 }
               }

@@ -35,6 +35,8 @@ public:
   
   void SetSigma(double sigma, double sigma_err);
   double GetNjetSigmaOverEev();
+  double GetSigmaOverEev();
+
   
   virtual void DeleteTH(){}
   
