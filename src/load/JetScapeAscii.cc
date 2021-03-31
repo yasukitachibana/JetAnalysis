@@ -47,7 +47,7 @@ void JetScapeAscii::Clear(){
   //std::cout << "[JetScapeAscii] Before Clear." <<std::endl;
   //std::cout << "input_str_stream: " <<input_str_stream.str() <<std::endl;
   //std::cout << "input_line: " << input_line <<std::endl;
-  input_str_stream.str(""); // バッファをクリアする。
+  input_str_stream.str("");
   input_str_stream.clear(std::stringstream::goodbit);
   input_line.clear();
   input_line.shrink_to_fit();
