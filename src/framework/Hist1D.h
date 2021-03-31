@@ -1,0 +1,57 @@
+#ifndef HIST1D_H_
+#define HIST1D_H_
+
+#include "Histogram.h"
+#include "TH1.h"
+
+class Hist1D: public Histogram {
+public:
+  
+  Hist1D(std::string histname_in, std::vector<double> binEdges_in);
+  ~Hist1D();
+
+  void Fill( double x );
+  void Fill( double x, double val);
+  void Print(std::string name = "", bool addHistname = true);
+  void LoadHistFromFile();
+  
+  void Scale(double factor, std::string width = "");
+  void Normalize(std::string width  = "");
+  
+  void Add(std::shared_ptr<Histogram> h);
+  void Add(std::shared_ptr<Histogram> h, double factor);
+  void Add(std::shared_ptr<Hist1D> h);
+  void Add(std::shared_ptr<Hist1D> h, double factor);
+  
+  void SetErrors(Hist1D h_err2);
+  void SetErrors(std::shared_ptr<Hist1D> h_err2);
+  void SetErrors(TH1D *h_err2);
+
+  TH1D* GetTH1D(){return Hist;}
+  
+  void DeleteTH(){
+    delete[] binEdges;
+    delete Hist;
+  }
+  
+  double GetVal(int ix){ return Hist->GetBinContent(ix+1);}
+  double GetErr(int ix){ return Hist->GetBinError(ix+1);}
+  double GetX(int ix){ return Hist->GetXaxis()->GetBinCenter(ix+1);}
+  int GetNbinsX(){ return Hist->GetNbinsX();}
+  int GetNbinsY(){ return Hist->GetNbinsY();}
+
+  
+private:
+  
+  TH1D* Hist;
+  int nBin;
+  double* binEdges;
+
+  void InitHist();
+  void DivideWithError( double norm, double norm_error );
+  void Add(TH1D *h);
+  void Add(TH1D *h, double factor);
+
+};
+
+#endif 
