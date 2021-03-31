@@ -1,0 +1,492 @@
+dependent_variables:
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 251.186 - 316.224}
+  - {name: abs. rapidity(jet), value: 0 - 0.3}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: pp}
+  values: 
+  - errors:
+    - {label: stat, symerror: 7.3904}
+    - asymerror: {minus: -6.94126, plus: 7.03973}
+      label: sys
+    value: 525.434
+  - errors:
+    - {label: stat, symerror: 5.38556}
+    - asymerror: {minus: -5.01003, plus: 4.39805}
+      label: sys
+    value: 408.761
+  - errors:
+    - {label: stat, symerror: 3.3555}
+    - asymerror: {minus: -3.11132, plus: 2.09169}
+      label: sys
+    value: 294.033
+  - errors:
+    - {label: stat, symerror: 2.11547}
+    - asymerror: {minus: -2.67623, plus: 2.04437}
+      label: sys
+    value: 189.12
+  - errors:
+    - {label: stat, symerror: 1.28553}
+    - asymerror: {minus: -1.66005, plus: 1.12344}
+      label: sys
+    value: 111.041
+  - errors:
+    - {label: stat, symerror: 0.758056}
+    - asymerror: {minus: -1.20438, plus: 0.855071}
+      label: sys
+    value: 61.2463
+  - errors:
+    - {label: stat, symerror: 0.416716}
+    - asymerror: {minus: -0.622685, plus: 0.500027}
+      label: sys
+    value: 29.3531
+  - errors:
+    - {label: stat, symerror: 0.218887}
+    - asymerror: {minus: -0.329833, plus: 0.22962}
+      label: sys
+    value: 12.8381
+  - errors:
+    - {label: stat, symerror: 0.106759}
+    - asymerror: {minus: -0.123251, plus: 0.0804003}
+      label: sys
+    value: 4.85042
+  - errors:
+    - {label: stat, symerror: 0.0453035}
+    - asymerror: {minus: -0.0395479, plus: 0.023326}
+      label: sys
+    value: 1.39313
+  - errors:
+    - {label: stat, symerror: 0.016206}
+    - asymerror: {minus: -0.0144935, plus: 0.0143157}
+      label: sys
+    value: 0.287088
+  - errors:
+    - {label: stat, symerror: 0.00385755}
+    - asymerror: {minus: -0.00277744, plus: 0.00270026}
+      label: sys
+    value: 0.026542
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 251.186 - 316.224}
+  - {name: abs. rapidity(jet), value: 0 - 0.3}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 0-10%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 59.9726}
+    - asymerror: {minus: -72.5836, plus: 56.6036}
+      label: sys
+    value: 874.005
+  - errors:
+    - {label: stat, symerror: 26.963}
+    - asymerror: {minus: -25.5412, plus: 25.4289}
+      label: sys
+    value: 554.729
+  - errors:
+    - {label: stat, symerror: 10.429}
+    - asymerror: {minus: -22.1416, plus: 9.32297}
+      label: sys
+    value: 347.157
+  - errors:
+    - {label: stat, symerror: 4.69901}
+    - asymerror: {minus: -6.31722, plus: 3.17226}
+      label: sys
+    value: 165.339
+  - errors:
+    - {label: stat, symerror: 2.65301}
+    - asymerror: {minus: -2.2575, plus: 2.68764}
+      label: sys
+    value: 89.0502
+  - errors:
+    - {label: stat, symerror: 1.57767}
+    - asymerror: {minus: -1.8304, plus: 0.711051}
+      label: sys
+    value: 50.4766
+  - errors:
+    - {label: stat, symerror: 0.862594}
+    - asymerror: {minus: -0.665695, plus: 0.458428}
+      label: sys
+    value: 24.1008
+  - errors:
+    - {label: stat, symerror: 0.458713}
+    - asymerror: {minus: -0.427716, plus: 0.133858}
+      label: sys
+    value: 10.9156
+  - errors:
+    - {label: stat, symerror: 0.229079}
+    - asymerror: {minus: -0.238883, plus: 0.0898135}
+      label: sys
+    value: 4.3924
+  - errors:
+    - {label: stat, symerror: 0.100043}
+    - asymerror: {minus: -0.0804904, plus: 0.0486304}
+      label: sys
+    value: 1.3954
+  - errors:
+    - {label: stat, symerror: 0.0347825}
+    - asymerror: {minus: -0.0372532, plus: 0.0287443}
+      label: sys
+    value: 0.310145
+  - errors:
+    - {label: stat, symerror: 0.00771125}
+    - asymerror: {minus: -0.00587459, plus: 0.00566212}
+      label: sys
+    value: 0.0270232
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 251.186 - 316.224}
+  - {name: abs. rapidity(jet), value: 0 - 0.3}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 10-20%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 58.2838}
+    - asymerror: {minus: -73.565, plus: 49.6629}
+      label: sys
+    value: 753.677
+  - errors:
+    - {label: stat, symerror: 27.8476}
+    - asymerror: {minus: -42.7842, plus: 15.0778}
+      label: sys
+    value: 546.871
+  - errors:
+    - {label: stat, symerror: 10.9542}
+    - asymerror: {minus: -10.7288, plus: 5.87298}
+      label: sys
+    value: 304.226
+  - errors:
+    - {label: stat, symerror: 5.47861}
+    - asymerror: {minus: -6.20146, plus: 2.94344}
+      label: sys
+    value: 168.179
+  - errors:
+    - {label: stat, symerror: 3.25796}
+    - asymerror: {minus: -3.45676, plus: 1.42499}
+      label: sys
+    value: 98.7003
+  - errors:
+    - {label: stat, symerror: 1.88756}
+    - asymerror: {minus: -1.38492, plus: 1.34374}
+      label: sys
+    value: 53.2415
+  - errors:
+    - {label: stat, symerror: 1.07412}
+    - asymerror: {minus: -0.854014, plus: 0.457756}
+      label: sys
+    value: 27.5195
+  - errors:
+    - {label: stat, symerror: 0.551798}
+    - asymerror: {minus: -0.385132, plus: 0.299012}
+      label: sys
+    value: 11.5652
+  - errors:
+    - {label: stat, symerror: 0.271447}
+    - asymerror: {minus: -0.200766, plus: 0.0975964}
+      label: sys
+    value: 4.49609
+  - errors:
+    - {label: stat, symerror: 0.125887}
+    - asymerror: {minus: -0.0909398, plus: 0.117944}
+      label: sys
+    value: 1.56686
+  - errors:
+    - {label: stat, symerror: 0.044979}
+    - asymerror: {minus: -0.036898, plus: 0.0243591}
+      label: sys
+    value: 0.3558
+  - errors:
+    - {label: stat, symerror: 0.0103823}
+    - asymerror: {minus: -0.00485318, plus: 0.00449326}
+      label: sys
+    value: 0.0331423
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 251.186 - 316.224}
+  - {name: abs. rapidity(jet), value: 0 - 0.3}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 20-30%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 63.0233}
+    - asymerror: {minus: -55.9354, plus: 75.4815}
+      label: sys
+    value: 826.153
+  - errors:
+    - {label: stat, symerror: 31.239}
+    - asymerror: {minus: -31.8683, plus: 23.7966}
+      label: sys
+    value: 570.06
+  - errors:
+    - {label: stat, symerror: 13.7096}
+    - asymerror: {minus: -25.2566, plus: 10.3811}
+      label: sys
+    value: 336.587
+  - errors:
+    - {label: stat, symerror: 6.86252}
+    - asymerror: {minus: -13.8669, plus: 3.52215}
+      label: sys
+    value: 167.735
+  - errors:
+    - {label: stat, symerror: 4.00929}
+    - asymerror: {minus: -5.13898, plus: 1.62792}
+      label: sys
+    value: 93.4069
+  - errors:
+    - {label: stat, symerror: 2.44657}
+    - asymerror: {minus: -3.81813, plus: 0.685105}
+      label: sys
+    value: 55.9435
+  - errors:
+    - {label: stat, symerror: 1.34443}
+    - asymerror: {minus: -2.26889, plus: 0.964447}
+      label: sys
+    value: 27.0677
+  - errors:
+    - {label: stat, symerror: 0.727228}
+    - asymerror: {minus: -0.965235, plus: 0.222045}
+      label: sys
+    value: 12.6207
+  - errors:
+    - {label: stat, symerror: 0.343731}
+    - asymerror: {minus: -0.360899, plus: 0.21204}
+      label: sys
+    value: 4.48941
+  - errors:
+    - {label: stat, symerror: 0.141438}
+    - asymerror: {minus: -0.119094, plus: 0.0906214}
+      label: sys
+    value: 1.26645
+  - errors:
+    - {label: stat, symerror: 0.0553786}
+    - asymerror: {minus: -0.050395, plus: 0.0296281}
+      label: sys
+    value: 0.33812
+  - errors:
+    - {label: stat, symerror: 0.0139979}
+    - asymerror: {minus: -0.0135693, plus: 0.00701675}
+      label: sys
+    value: 0.0381013
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 251.186 - 316.224}
+  - {name: abs. rapidity(jet), value: 0 - 0.3}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 30-40%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 67.5847}
+    - asymerror: {minus: -30.7507, plus: 39.02}
+      label: sys
+    value: 658.088
+  - errors:
+    - {label: stat, symerror: 35.9157}
+    - asymerror: {minus: -7.23362, plus: 11.2423}
+      label: sys
+    value: 509.501
+  - errors:
+    - {label: stat, symerror: 16.6652}
+    - asymerror: {minus: -4.87082, plus: 6.4689}
+      label: sys
+    value: 308.965
+  - errors:
+    - {label: stat, symerror: 8.88659}
+    - asymerror: {minus: -3.48078, plus: 4.13835}
+      label: sys
+    value: 168.005
+  - errors:
+    - {label: stat, symerror: 5.42142}
+    - asymerror: {minus: -2.56351, plus: 1.36379}
+      label: sys
+    value: 101.352
+  - errors:
+    - {label: stat, symerror: 3.25487}
+    - asymerror: {minus: -1.14552, plus: 1.78581}
+      label: sys
+    value: 58.2994
+  - errors:
+    - {label: stat, symerror: 1.55828}
+    - asymerror: {minus: -0.425589, plus: 0.443118}
+      label: sys
+    value: 21.2627
+  - errors:
+    - {label: stat, symerror: 0.919354}
+    - asymerror: {minus: -0.25059, plus: 0.211703}
+      label: sys
+    value: 11.7735
+  - errors:
+    - {label: stat, symerror: 0.491076}
+    - asymerror: {minus: -0.164555, plus: 0.185692}
+      label: sys
+    value: 5.46604
+  - errors:
+    - {label: stat, symerror: 0.197794}
+    - asymerror: {minus: -0.0525532, plus: 0.118874}
+      label: sys
+    value: 1.47928
+  - errors:
+    - {label: stat, symerror: 0.0780153}
+    - asymerror: {minus: -0.0231909, plus: 0.0578507}
+      label: sys
+    value: 0.397529
+  - errors:
+    - {label: stat, symerror: 0.022398}
+    - asymerror: {minus: -0.0156397, plus: 0.0155652}
+      label: sys
+    value: 0.0534975
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 251.186 - 316.224}
+  - {name: abs. rapidity(jet), value: 0 - 0.3}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 40-60%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 56.0873}
+    - asymerror: {minus: -51.3146, plus: 48.478}
+      label: sys
+    value: 630.78
+  - errors:
+    - {label: stat, symerror: 32.6989}
+    - asymerror: {minus: -28.9396, plus: 25.6703}
+      label: sys
+    value: 506.834
+  - errors:
+    - {label: stat, symerror: 15.7536}
+    - asymerror: {minus: -24.2559, plus: 10.6008}
+      label: sys
+    value: 278.168
+  - errors:
+    - {label: stat, symerror: 9.00855}
+    - asymerror: {minus: -7.56496, plus: 4.55526}
+      label: sys
+    value: 161.714
+  - errors:
+    - {label: stat, symerror: 5.32659}
+    - asymerror: {minus: -3.20997, plus: 1.867}
+      label: sys
+    value: 91.0446
+  - errors:
+    - {label: stat, symerror: 3.13937}
+    - asymerror: {minus: -1.68228, plus: 0.80055}
+      label: sys
+    value: 50.604
+  - errors:
+    - {label: stat, symerror: 1.80688}
+    - asymerror: {minus: -1.23393, plus: 0.567816}
+      label: sys
+    value: 26.9389
+  - errors:
+    - {label: stat, symerror: 0.981889}
+    - asymerror: {minus: -0.643988, plus: 0.657231}
+      label: sys
+    value: 12.6077
+  - errors:
+    - {label: stat, symerror: 0.494436}
+    - asymerror: {minus: -0.492294, plus: 0.153805}
+      label: sys
+    value: 5.12475
+  - errors:
+    - {label: stat, symerror: 0.191126}
+    - asymerror: {minus: -0.146791, plus: 0.0617973}
+      label: sys
+    value: 1.27926
+  - errors:
+    - {label: stat, symerror: 0.0754027}
+    - asymerror: {minus: -0.0569986, plus: 0.0557277}
+      label: sys
+    value: 0.323575
+  - errors:
+    - {label: stat, symerror: 0.00543677}
+    - asymerror: {minus: -0.00425587, plus: 0.00140327}
+      label: sys
+    value: 0.00823059
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 251.186 - 316.224}
+  - {name: abs. rapidity(jet), value: 0 - 0.3}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 60-80%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 86.1182}
+    - asymerror: {minus: -47.7085, plus: 38.2266}
+      label: sys
+    value: 584.909
+  - errors:
+    - {label: stat, symerror: 55.1901}
+    - asymerror: {minus: -20.2302, plus: 15.7105}
+      label: sys
+    value: 398.531
+  - errors:
+    - {label: stat, symerror: 31.0373}
+    - asymerror: {minus: -10.0449, plus: 9.64009}
+      label: sys
+    value: 255.008
+  - errors:
+    - {label: stat, symerror: 19.6146}
+    - asymerror: {minus: -4.17468, plus: 5.63129}
+      label: sys
+    value: 176.233
+  - errors:
+    - {label: stat, symerror: 12.2118}
+    - asymerror: {minus: -2.40128, plus: 1.9939}
+      label: sys
+    value: 110.27
+  - errors:
+    - {label: stat, symerror: 7.31997}
+    - asymerror: {minus: -1.74259, plus: 3.32977}
+      label: sys
+    value: 62.731
+  - errors:
+    - {label: stat, symerror: 3.79555}
+    - asymerror: {minus: -1.35072, plus: 0.43453}
+      label: sys
+    value: 26.58
+  - errors:
+    - {label: stat, symerror: 2.04761}
+    - asymerror: {minus: -0.205949, plus: 0.192631}
+      label: sys
+    value: 12.2298
+  - errors:
+    - {label: stat, symerror: 1.15614}
+    - asymerror: {minus: -1.66875, plus: 0.121696}
+      label: sys
+    value: 6.20685
+  - errors:
+    - {label: stat, symerror: 0.420775}
+    - asymerror: {minus: -0.213385, plus: 0.0643381}
+      label: sys
+    value: 1.37188
+  - errors:
+    - {label: stat, symerror: 0.0718734}
+    - asymerror: {minus: -0.0126093, plus: 0.0333089}
+      label: sys
+    value: 0.0906483
+  - errors:
+    - {label: stat, symerror: 0.000904074}
+    - asymerror: {minus: -0.000129281, plus: 0.00024467}
+      label: sys
+    value: 0.000336371
+independent_variables:
+- header: {name: z}
+  values:
+  - {high: 0.0068, low: 0.0046}
+  - {high: 0.01, low: 0.0068}
+  - {high: 0.0158, low: 0.01}
+  - {high: 0.0251, low: 0.0158}
+  - {high: 0.0398, low: 0.0251}
+  - {high: 0.0631, low: 0.0398}
+  - {high: 0.1, low: 0.0631}
+  - {high: 0.1585, low: 0.1}
+  - {high: 0.2512, low: 0.1585}
+  - {high: 0.3981, low: 0.2512}
+  - {high: 0.631, low: 0.3981}
+  - {high: 1, low: 0.631}

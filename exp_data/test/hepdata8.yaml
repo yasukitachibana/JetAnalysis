@@ -1,0 +1,852 @@
+dependent_variables:
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 199.525 - 251.186}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: pp}
+  values: 
+  - errors:
+    - {label: stat, symerror: 1.85981}
+    - asymerror: {minus: -6.10345, plus: 5.58181}
+      label: sys
+    value: 380.216
+  - errors:
+    - {label: stat, symerror: 1.54805}
+    - asymerror: {minus: -4.39559, plus: 4.4838}
+      label: sys
+    value: 334.301
+  - errors:
+    - {label: stat, symerror: 1.26305}
+    - asymerror: {minus: -3.43647, plus: 3.35677}
+      label: sys
+    value: 282.521
+  - errors:
+    - {label: stat, symerror: 1.02627}
+    - asymerror: {minus: -2.66761, plus: 2.41342}
+      label: sys
+    value: 236.526
+  - errors:
+    - {label: stat, symerror: 0.815529}
+    - asymerror: {minus: -2.04681, plus: 2.03534}
+      label: sys
+    value: 189.709
+  - errors:
+    - {label: stat, symerror: 0.649847}
+    - asymerror: {minus: -1.81002, plus: 1.63049}
+      label: sys
+    value: 152.309
+  - errors:
+    - {label: stat, symerror: 0.511924}
+    - asymerror: {minus: -1.56804, plus: 1.43951}
+      label: sys
+    value: 119.396
+  - errors:
+    - {label: stat, symerror: 0.398099}
+    - asymerror: {minus: -1.24162, plus: 1.18891}
+      label: sys
+    value: 91.1507
+  - errors:
+    - {label: stat, symerror: 0.306219}
+    - asymerror: {minus: -0.913211, plus: 0.868091}
+      label: sys
+    value: 68.0746
+  - errors:
+    - {label: stat, symerror: 0.231867}
+    - asymerror: {minus: -0.781182, plus: 0.767374}
+      label: sys
+    value: 49.2705
+  - errors:
+    - {label: stat, symerror: 0.173127}
+    - asymerror: {minus: -0.606022, plus: 0.581553}
+      label: sys
+    value: 34.7105
+  - errors:
+    - {label: stat, symerror: 0.127823}
+    - asymerror: {minus: -0.397725, plus: 0.376676}
+      label: sys
+    value: 23.8745
+  - errors:
+    - {label: stat, symerror: 0.0928639}
+    - asymerror: {minus: -0.313616, plus: 0.30933}
+      label: sys
+    value: 15.9607
+  - errors:
+    - {label: stat, symerror: 0.0660263}
+    - asymerror: {minus: -0.230773, plus: 0.205145}
+      label: sys
+    value: 10.2413
+  - errors:
+    - {label: stat, symerror: 0.0461409}
+    - asymerror: {minus: -0.186948, plus: 0.162413}
+      label: sys
+    value: 6.35964
+  - errors:
+    - {label: stat, symerror: 0.0316901}
+    - asymerror: {minus: -0.129855, plus: 0.0987303}
+      label: sys
+    value: 3.80553
+  - errors:
+    - {label: stat, symerror: 0.020494}
+    - asymerror: {minus: -0.0696007, plus: 0.0609207}
+      label: sys
+    value: 2.05146
+  - errors:
+    - {label: stat, symerror: 0.0127326}
+    - asymerror: {minus: -0.0422034, plus: 0.0395095}
+      label: sys
+    value: 1.02521
+  - errors:
+    - {label: stat, symerror: 0.00763206}
+    - asymerror: {minus: -0.0222621, plus: 0.0201116}
+      label: sys
+    value: 0.478282
+  - errors:
+    - {label: stat, symerror: 0.00437204}
+    - asymerror: {minus: -0.00945935, plus: 0.00880694}
+      label: sys
+    value: 0.203833
+  - errors:
+    - {label: stat, symerror: 0.00210589}
+    - asymerror: {minus: -0.00623804, plus: 0.00657819}
+      label: sys
+    value: 0.0638714
+  - errors:
+    - {label: stat, symerror: 0.000781571}
+    - asymerror: {minus: -0.00187699, plus: 0.0019236}
+      label: sys
+    value: 0.0106836
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 199.525 - 251.186}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 0-10%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 15.6389}
+    - asymerror: {minus: -24.0042, plus: 27.6933}
+      label: sys
+    value: 664.674
+  - errors:
+    - {label: stat, symerror: 9.76984}
+    - asymerror: {minus: -18.361, plus: 18.3948}
+      label: sys
+    value: 516.738
+  - errors:
+    - {label: stat, symerror: 5.88733}
+    - asymerror: {minus: -13.4218, plus: 10.4928}
+      label: sys
+    value: 407.834
+  - errors:
+    - {label: stat, symerror: 3.44085}
+    - asymerror: {minus: -10.776, plus: 6.31202}
+      label: sys
+    value: 284.7
+  - errors:
+    - {label: stat, symerror: 2.19247}
+    - asymerror: {minus: -6.04949, plus: 4.66226}
+      label: sys
+    value: 207.687
+  - errors:
+    - {label: stat, symerror: 1.52048}
+    - asymerror: {minus: -4.33547, plus: 3.44865}
+      label: sys
+    value: 148.163
+  - errors:
+    - {label: stat, symerror: 1.10563}
+    - asymerror: {minus: -3.50688, plus: 2.46185}
+      label: sys
+    value: 107.473
+  - errors:
+    - {label: stat, symerror: 0.808678}
+    - asymerror: {minus: -2.21347, plus: 1.9342}
+      label: sys
+    value: 77.6597
+  - errors:
+    - {label: stat, symerror: 0.612548}
+    - asymerror: {minus: -1.72469, plus: 1.2564}
+      label: sys
+    value: 56.8363
+  - errors:
+    - {label: stat, symerror: 0.463379}
+    - asymerror: {minus: -1.08616, plus: 0.909514}
+      label: sys
+    value: 41.3096
+  - errors:
+    - {label: stat, symerror: 0.348235}
+    - asymerror: {minus: -0.879588, plus: 0.685153}
+      label: sys
+    value: 29.5919
+  - errors:
+    - {label: stat, symerror: 0.255989}
+    - asymerror: {minus: -0.618455, plus: 0.455549}
+      label: sys
+    value: 20.4448
+  - errors:
+    - {label: stat, symerror: 0.186456}
+    - asymerror: {minus: -0.512888, plus: 0.342037}
+      label: sys
+    value: 13.9971
+  - errors:
+    - {label: stat, symerror: 0.136747}
+    - asymerror: {minus: -0.425223, plus: 0.218662}
+      label: sys
+    value: 9.58232
+  - errors:
+    - {label: stat, symerror: 0.0973117}
+    - asymerror: {minus: -0.323445, plus: 0.184954}
+      label: sys
+    value: 6.26955
+  - errors:
+    - {label: stat, symerror: 0.0667126}
+    - asymerror: {minus: -0.227826, plus: 0.102017}
+      label: sys
+    value: 3.85403
+  - errors:
+    - {label: stat, symerror: 0.0451608}
+    - asymerror: {minus: -0.136786, plus: 0.0932344}
+      label: sys
+    value: 2.2739
+  - errors:
+    - {label: stat, symerror: 0.0264801}
+    - asymerror: {minus: -0.083345, plus: 0.0378409}
+      label: sys
+    value: 1.10818
+  - errors:
+    - {label: stat, symerror: 0.0166273}
+    - asymerror: {minus: -0.0378432, plus: 0.0256732}
+      label: sys
+    value: 0.570804
+  - errors:
+    - {label: stat, symerror: 0.00962106}
+    - asymerror: {minus: -0.0179585, plus: 0.0198293}
+      label: sys
+    value: 0.257255
+  - errors:
+    - {label: stat, symerror: 0.00459375}
+    - asymerror: {minus: -0.00730779, plus: 0.00846169}
+      label: sys
+    value: 0.0781174
+  - errors:
+    - {label: stat, symerror: 0.0014748}
+    - asymerror: {minus: -0.00182011, plus: 0.00197344}
+      label: sys
+    value: 0.0109002
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 199.525 - 251.186}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 10-20%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 15.8513}
+    - asymerror: {minus: -11.6278, plus: 29.7111}
+      label: sys
+    value: 621.431
+  - errors:
+    - {label: stat, symerror: 10.1681}
+    - asymerror: {minus: -12.8101, plus: 14.2689}
+      label: sys
+    value: 506.007
+  - errors:
+    - {label: stat, symerror: 6.35255}
+    - asymerror: {minus: -11.931, plus: 9.7555}
+      label: sys
+    value: 392.892
+  - errors:
+    - {label: stat, symerror: 3.91985}
+    - asymerror: {minus: -8.44021, plus: 4.52718}
+      label: sys
+    value: 281.848
+  - errors:
+    - {label: stat, symerror: 2.56652}
+    - asymerror: {minus: -6.09924, plus: 2.78237}
+      label: sys
+    value: 201.143
+  - errors:
+    - {label: stat, symerror: 1.83961}
+    - asymerror: {minus: -4.07664, plus: 2.14356}
+      label: sys
+    value: 150.509
+  - errors:
+    - {label: stat, symerror: 1.34854}
+    - asymerror: {minus: -3.13098, plus: 4.09758}
+      label: sys
+    value: 108.951
+  - errors:
+    - {label: stat, symerror: 1.03092}
+    - asymerror: {minus: -2.45718, plus: 2.00816}
+      label: sys
+    value: 81.4969
+  - errors:
+    - {label: stat, symerror: 0.758178}
+    - asymerror: {minus: -1.41111, plus: 1.21521}
+      label: sys
+    value: 57.09
+  - errors:
+    - {label: stat, symerror: 0.593367}
+    - asymerror: {minus: -1.24218, plus: 0.801566}
+      label: sys
+    value: 43.9246
+  - errors:
+    - {label: stat, symerror: 0.437973}
+    - asymerror: {minus: -1.15571, plus: 0.611283}
+      label: sys
+    value: 30.5775
+  - errors:
+    - {label: stat, symerror: 0.323387}
+    - asymerror: {minus: -0.698407, plus: 0.465714}
+      label: sys
+    value: 21.286
+  - errors:
+    - {label: stat, symerror: 0.23893}
+    - asymerror: {minus: -0.544561, plus: 0.345315}
+      label: sys
+    value: 14.8733
+  - errors:
+    - {label: stat, symerror: 0.169805}
+    - asymerror: {minus: -0.421781, plus: 0.199383}
+      label: sys
+    value: 9.68261
+  - errors:
+    - {label: stat, symerror: 0.121496}
+    - asymerror: {minus: -0.36076, plus: 0.135114}
+      label: sys
+    value: 6.35857
+  - errors:
+    - {label: stat, symerror: 0.0843312}
+    - asymerror: {minus: -0.266465, plus: 0.115993}
+      label: sys
+    value: 3.98909
+  - errors:
+    - {label: stat, symerror: 0.0534871}
+    - asymerror: {minus: -0.161411, plus: 0.0617422}
+      label: sys
+    value: 2.13792
+  - errors:
+    - {label: stat, symerror: 0.0345876}
+    - asymerror: {minus: -0.0711435, plus: 0.0502896}
+      label: sys
+    value: 1.17923
+  - errors:
+    - {label: stat, symerror: 0.0191494}
+    - asymerror: {minus: -0.0279601, plus: 0.030244}
+      label: sys
+    value: 0.530313
+  - errors:
+    - {label: stat, symerror: 0.0111957}
+    - asymerror: {minus: -0.0157794, plus: 0.0159706}
+      label: sys
+    value: 0.239743
+  - errors:
+    - {label: stat, symerror: 0.00493071}
+    - asymerror: {minus: -0.00719772, plus: 0.00995861}
+      label: sys
+    value: 0.0654489
+  - errors:
+    - {label: stat, symerror: 0.00158236}
+    - asymerror: {minus: -0.00141603, plus: 0.00399693}
+      label: sys
+    value: 0.00961088
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 199.525 - 251.186}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 20-30%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 16.6978}
+    - asymerror: {minus: -17.8263, plus: 30.806}
+      label: sys
+    value: 582.147
+  - errors:
+    - {label: stat, symerror: 11.0489}
+    - asymerror: {minus: -15.4662, plus: 16.2973}
+      label: sys
+    value: 486.235
+  - errors:
+    - {label: stat, symerror: 6.99619}
+    - asymerror: {minus: -11.8879, plus: 9.82215}
+      label: sys
+    value: 368.117
+  - errors:
+    - {label: stat, symerror: 4.47785}
+    - asymerror: {minus: -10.1105, plus: 5.32877}
+      label: sys
+    value: 267.28
+  - errors:
+    - {label: stat, symerror: 3.0583}
+    - asymerror: {minus: -4.86615, plus: 4.13703}
+      label: sys
+    value: 196.683
+  - errors:
+    - {label: stat, symerror: 2.19282}
+    - asymerror: {minus: -3.6851, plus: 2.97738}
+      label: sys
+    value: 142.512
+  - errors:
+    - {label: stat, symerror: 1.68321}
+    - asymerror: {minus: -4.37998, plus: 2.89573}
+      label: sys
+    value: 109.948
+  - errors:
+    - {label: stat, symerror: 1.27301}
+    - asymerror: {minus: -2.8977, plus: 2.17506}
+      label: sys
+    value: 80.2797
+  - errors:
+    - {label: stat, symerror: 0.962531}
+    - asymerror: {minus: -1.45554, plus: 1.51977}
+      label: sys
+    value: 59.0235
+  - errors:
+    - {label: stat, symerror: 0.742605}
+    - asymerror: {minus: -1.20437, plus: 1.00339}
+      label: sys
+    value: 44.3769
+  - errors:
+    - {label: stat, symerror: 0.558202}
+    - asymerror: {minus: -0.824613, plus: 0.599586}
+      label: sys
+    value: 31.8824
+  - errors:
+    - {label: stat, symerror: 0.419993}
+    - asymerror: {minus: -0.869041, plus: 0.434044}
+      label: sys
+    value: 22.8464
+  - errors:
+    - {label: stat, symerror: 0.307508}
+    - asymerror: {minus: -0.666297, plus: 0.35136}
+      label: sys
+    value: 15.6653
+  - errors:
+    - {label: stat, symerror: 0.21008}
+    - asymerror: {minus: -0.434338, plus: 0.258732}
+      label: sys
+    value: 9.60351
+  - errors:
+    - {label: stat, symerror: 0.148682}
+    - asymerror: {minus: -0.28528, plus: 0.137072}
+      label: sys
+    value: 6.14484
+  - errors:
+    - {label: stat, symerror: 0.102771}
+    - asymerror: {minus: -0.207565, plus: 0.110998}
+      label: sys
+    value: 3.83775
+  - errors:
+    - {label: stat, symerror: 0.0685747}
+    - asymerror: {minus: -0.105808, plus: 0.0773787}
+      label: sys
+    value: 2.24575
+  - errors:
+    - {label: stat, symerror: 0.0406188}
+    - asymerror: {minus: -0.04754, plus: 0.0419729}
+      label: sys
+    value: 1.1119
+  - errors:
+    - {label: stat, symerror: 0.0273916}
+    - asymerror: {minus: -0.0518194, plus: 0.0511678}
+      label: sys
+    value: 0.633013
+  - errors:
+    - {label: stat, symerror: 0.0146405}
+    - asymerror: {minus: -0.0234641, plus: 0.024985}
+      label: sys
+    value: 0.255454
+  - errors:
+    - {label: stat, symerror: 0.00588634}
+    - asymerror: {minus: -0.00888764, plus: 0.00936898}
+      label: sys
+    value: 0.059982
+  - errors:
+    - {label: stat, symerror: 0.00154415}
+    - asymerror: {minus: -0.00131617, plus: 0.00229362}
+      label: sys
+    value: 0.00770955
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 199.525 - 251.186}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 30-40%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 17.0085}
+    - asymerror: {minus: -21.8864, plus: 28.5674}
+      label: sys
+    value: 494.392
+  - errors:
+    - {label: stat, symerror: 11.5076}
+    - asymerror: {minus: -15.5617, plus: 17.6146}
+      label: sys
+    value: 416.369
+  - errors:
+    - {label: stat, symerror: 7.73021}
+    - asymerror: {minus: -15.0052, plus: 8.86654}
+      label: sys
+    value: 340.384
+  - errors:
+    - {label: stat, symerror: 5.3963}
+    - asymerror: {minus: -8.07847, plus: 8.39058}
+      label: sys
+    value: 271.781
+  - errors:
+    - {label: stat, symerror: 3.77863}
+    - asymerror: {minus: -6.68675, plus: 3.8164}
+      label: sys
+    value: 195.183
+  - errors:
+    - {label: stat, symerror: 2.81347}
+    - asymerror: {minus: -3.88221, plus: 2.9581}
+      label: sys
+    value: 146.461
+  - errors:
+    - {label: stat, symerror: 2.16124}
+    - asymerror: {minus: -3.24457, plus: 2.68954}
+      label: sys
+    value: 112.898
+  - errors:
+    - {label: stat, symerror: 1.657}
+    - asymerror: {minus: -2.16536, plus: 1.93379}
+      label: sys
+    value: 84.8535
+  - errors:
+    - {label: stat, symerror: 1.24293}
+    - asymerror: {minus: -1.61647, plus: 1.00536}
+      label: sys
+    value: 60.8256
+  - errors:
+    - {label: stat, symerror: 0.950263}
+    - asymerror: {minus: -1.33348, plus: 0.791606}
+      label: sys
+    value: 45.2126
+  - errors:
+    - {label: stat, symerror: 0.705491}
+    - asymerror: {minus: -1.01062, plus: 0.521377}
+      label: sys
+    value: 31.5968
+  - errors:
+    - {label: stat, symerror: 0.538445}
+    - asymerror: {minus: -0.792761, plus: 0.494849}
+      label: sys
+    value: 23.2621
+  - errors:
+    - {label: stat, symerror: 0.382697}
+    - asymerror: {minus: -0.575282, plus: 0.355612}
+      label: sys
+    value: 15.173
+  - errors:
+    - {label: stat, symerror: 0.279943}
+    - asymerror: {minus: -0.396268, plus: 0.254711}
+      label: sys
+    value: 10.3241
+  - errors:
+    - {label: stat, symerror: 0.198224}
+    - asymerror: {minus: -0.415998, plus: 0.186034}
+      label: sys
+    value: 6.68579
+  - errors:
+    - {label: stat, symerror: 0.127756}
+    - asymerror: {minus: -0.225144, plus: 0.127075}
+      label: sys
+    value: 3.70639
+  - errors:
+    - {label: stat, symerror: 0.0820546}
+    - asymerror: {minus: -0.118328, plus: 0.0734499}
+      label: sys
+    value: 2.07986
+  - errors:
+    - {label: stat, symerror: 0.0538134}
+    - asymerror: {minus: -0.0741855, plus: 0.0546741}
+      label: sys
+    value: 1.17504
+  - errors:
+    - {label: stat, symerror: 0.0292562}
+    - asymerror: {minus: -0.0369009, plus: 0.0334469}
+      label: sys
+    value: 0.515534
+  - errors:
+    - {label: stat, symerror: 0.0173173}
+    - asymerror: {minus: -0.0212505, plus: 0.0167803}
+      label: sys
+    value: 0.239801
+  - errors:
+    - {label: stat, symerror: 0.00944585}
+    - asymerror: {minus: -0.00768939, plus: 0.0121667}
+      label: sys
+    value: 0.084682
+  - errors:
+    - {label: stat, symerror: 0.00253558}
+    - asymerror: {minus: -0.00232157, plus: 0.00236635}
+      label: sys
+    value: 0.0113456
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 199.525 - 251.186}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 40-60%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 15.1499}
+    - asymerror: {minus: -18.8754, plus: 22.6445}
+      label: sys
+    value: 500.508
+  - errors:
+    - {label: stat, symerror: 10.4639}
+    - asymerror: {minus: -12.5133, plus: 11.2104}
+      label: sys
+    value: 402.588
+  - errors:
+    - {label: stat, symerror: 7.25544}
+    - asymerror: {minus: -7.66126, plus: 6.31634}
+      label: sys
+    value: 311.665
+  - errors:
+    - {label: stat, symerror: 5.24971}
+    - asymerror: {minus: -8.02482, plus: 4.51261}
+      label: sys
+    value: 244.883
+  - errors:
+    - {label: stat, symerror: 3.96723}
+    - asymerror: {minus: -5.52588, plus: 3.91001}
+      label: sys
+    value: 194.202
+  - errors:
+    - {label: stat, symerror: 2.98403}
+    - asymerror: {minus: -3.64324, plus: 3.87673}
+      label: sys
+    value: 144.473
+  - errors:
+    - {label: stat, symerror: 2.23031}
+    - asymerror: {minus: -3.85902, plus: 2.87081}
+      label: sys
+    value: 105.563
+  - errors:
+    - {label: stat, symerror: 1.79884}
+    - asymerror: {minus: -2.50433, plus: 2.37983}
+      label: sys
+    value: 86.1406
+  - errors:
+    - {label: stat, symerror: 1.36061}
+    - asymerror: {minus: -1.89911, plus: 1.58481}
+      label: sys
+    value: 62.597
+  - errors:
+    - {label: stat, symerror: 1.02347}
+    - asymerror: {minus: -1.53404, plus: 1.09372}
+      label: sys
+    value: 44.5884
+  - errors:
+    - {label: stat, symerror: 0.752557}
+    - asymerror: {minus: -1.36325, plus: 0.828184}
+      label: sys
+    value: 30.9989
+  - errors:
+    - {label: stat, symerror: 0.590405}
+    - asymerror: {minus: -0.945841, plus: 0.655393}
+      label: sys
+    value: 23.9066
+  - errors:
+    - {label: stat, symerror: 0.415545}
+    - asymerror: {minus: -0.437046, plus: 0.432109}
+      label: sys
+    value: 15.3385
+  - errors:
+    - {label: stat, symerror: 0.298868}
+    - asymerror: {minus: -0.411057, plus: 0.231269}
+      label: sys
+    value: 10.0608
+  - errors:
+    - {label: stat, symerror: 0.205694}
+    - asymerror: {minus: -0.350706, plus: 0.153071}
+      label: sys
+    value: 6.24459
+  - errors:
+    - {label: stat, symerror: 0.13805}
+    - asymerror: {minus: -0.223258, plus: 0.111267}
+      label: sys
+    value: 3.73947
+  - errors:
+    - {label: stat, symerror: 0.0955827}
+    - asymerror: {minus: -0.141974, plus: 0.0965361}
+      label: sys
+    value: 2.36557
+  - errors:
+    - {label: stat, symerror: 0.0592173}
+    - asymerror: {minus: -0.0729986, plus: 0.0963139}
+      label: sys
+    value: 1.24357
+  - errors:
+    - {label: stat, symerror: 0.0330048}
+    - asymerror: {minus: -0.0358991, plus: 0.0421664}
+      label: sys
+    value: 0.544979
+  - errors:
+    - {label: stat, symerror: 0.0181589}
+    - asymerror: {minus: -0.0175933, plus: 0.0207104}
+      label: sys
+    value: 0.225025
+  - errors:
+    - {label: stat, symerror: 0.00804524}
+    - asymerror: {minus: -0.00765154, plus: 0.00932546}
+      label: sys
+    value: 0.0579338
+  - errors:
+    - {label: stat, symerror: 0.00199601}
+    - asymerror: {minus: -0.00139844, plus: 0.00163037}
+      label: sys
+    value: 0.0071205
+- header: {name: D(z)}
+  qualifiers:
+  - {name: RE, value: jet fragmentation function}
+  - {name: pT(jet), value: 199.525 - 251.186}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: Centrality, value: 60-80%}
+  values: 
+  - errors:
+    - {label: stat, symerror: 24.0799}
+    - asymerror: {minus: -11.6053, plus: 18.9215}
+      label: sys
+    value: 466.467
+  - errors:
+    - {label: stat, symerror: 17.7064}
+    - asymerror: {minus: -8.79547, plus: 14.8418}
+      label: sys
+    value: 364.1
+  - errors:
+    - {label: stat, symerror: 14.3149}
+    - asymerror: {minus: -12.7816, plus: 11.3975}
+      label: sys
+    value: 330.075
+  - errors:
+    - {label: stat, symerror: 10.4004}
+    - asymerror: {minus: -9.93203, plus: 5.31138}
+      label: sys
+    value: 233.562
+  - errors:
+    - {label: stat, symerror: 8.59361}
+    - asymerror: {minus: -5.64754, plus: 5.21051}
+      label: sys
+    value: 205.256
+  - errors:
+    - {label: stat, symerror: 6.14006}
+    - asymerror: {minus: -4.6847, plus: 3.87707}
+      label: sys
+    value: 136.146
+  - errors:
+    - {label: stat, symerror: 4.94088}
+    - asymerror: {minus: -9.17292, plus: 2.1573}
+      label: sys
+    value: 112.141
+  - errors:
+    - {label: stat, symerror: 3.72035}
+    - asymerror: {minus: -1.82482, plus: 1.48964}
+      label: sys
+    value: 81.5188
+  - errors:
+    - {label: stat, symerror: 3.02494}
+    - asymerror: {minus: -2.50954, plus: 1.72758}
+      label: sys
+    value: 67.4663
+  - errors:
+    - {label: stat, symerror: 2.21248}
+    - asymerror: {minus: -1.28049, plus: 0.980215}
+      label: sys
+    value: 45.9902
+  - errors:
+    - {label: stat, symerror: 1.64196}
+    - asymerror: {minus: -0.844379, plus: 0.788256}
+      label: sys
+    value: 32.3546
+  - errors:
+    - {label: stat, symerror: 1.29869}
+    - asymerror: {minus: -0.909584, plus: 1.00671}
+      label: sys
+    value: 25.2485
+  - errors:
+    - {label: stat, symerror: 0.87456}
+    - asymerror: {minus: -0.705814, plus: 1.28844}
+      label: sys
+    value: 14.9568
+  - errors:
+    - {label: stat, symerror: 0.634775}
+    - asymerror: {minus: -0.428529, plus: 0.575941}
+      label: sys
+    value: 9.93477
+  - errors:
+    - {label: stat, symerror: 0.446674}
+    - asymerror: {minus: -0.273149, plus: 0.474823}
+      label: sys
+    value: 6.44702
+  - errors:
+    - {label: stat, symerror: 0.308421}
+    - asymerror: {minus: -0.17401, plus: 0.220184}
+      label: sys
+    value: 3.98178
+  - errors:
+    - {label: stat, symerror: 0.211178}
+    - asymerror: {minus: -0.140632, plus: 0.0958492}
+      label: sys
+    value: 2.43482
+  - errors:
+    - {label: stat, symerror: 0.106128}
+    - asymerror: {minus: -0.0672219, plus: 0.0876728}
+      label: sys
+    value: 0.935248
+  - errors:
+    - {label: stat, symerror: 0.0589486}
+    - asymerror: {minus: -0.0247036, plus: 0.0343504}
+      label: sys
+    value: 0.410753
+  - errors:
+    - {label: stat, symerror: 0.0346095}
+    - asymerror: {minus: -0.0110846, plus: 0.0330259}
+      label: sys
+    value: 0.190296
+  - errors:
+    - {label: stat, symerror: 0.021071}
+    - asymerror: {minus: -0.0105302, plus: 0.0169624}
+      label: sys
+    value: 0.0750331
+  - errors:
+    - {label: stat, symerror: 0.00369885}
+    - asymerror: {minus: -0.00184802, plus: 0.00222149}
+      label: sys
+    value: 0.00726666
+independent_variables:
+- header: {name: z}
+  values:
+  - {high: 0.00794328, low: 0.00630957}
+  - {high: 0.01, low: 0.00794328}
+  - {high: 0.0125893, low: 0.01}
+  - {high: 0.0158489, low: 0.0125893}
+  - {high: 0.0199526, low: 0.0158489}
+  - {high: 0.0251189, low: 0.0199526}
+  - {high: 0.0316228, low: 0.0251189}
+  - {high: 0.0398107, low: 0.0316228}
+  - {high: 0.0501187, low: 0.0398107}
+  - {high: 0.0630957, low: 0.0501187}
+  - {high: 0.0794328, low: 0.0630957}
+  - {high: 0.1, low: 0.0794328}
+  - {high: 0.125893, low: 0.1}
+  - {high: 0.158489, low: 0.125893}
+  - {high: 0.199526, low: 0.158489}
+  - {high: 0.251189, low: 0.199526}
+  - {high: 0.316228, low: 0.251189}
+  - {high: 0.398107, low: 0.316228}
+  - {high: 0.501187, low: 0.398107}
+  - {high: 0.630958, low: 0.501187}
+  - {high: 0.794329, low: 0.630958}
+  - {high: 1, low: 0.794329}
