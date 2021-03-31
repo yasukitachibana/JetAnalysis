@@ -1,0 +1,536 @@
+dependent_variables:
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 0.3 - 0.8}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '0-10%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0217884}
+    - asymerror: {minus: 0.00308869, plus: 0.00337481}
+      label: sys
+    value: 1.03076
+  - errors:
+    - {label: stat, symerror: 0.0133504}
+    - asymerror: {minus: 0.0053432, plus: 0.00900807}
+      label: sys
+    value: 1.00947
+  - errors:
+    - {label: stat, symerror: 0.00935214}
+    - asymerror: {minus: 0, plus: 0.00511286}
+      label: sys
+    value: 1.02204
+  - errors:
+    - {label: stat, symerror: 0.00858692}
+    - asymerror: {minus: 0.0073257, plus: 0.0102139}
+      label: sys
+    value: 1.00799
+  - errors:
+    - {label: stat, symerror: 0.00919707}
+    - asymerror: {minus: 0.0030776, plus: 0}
+      label: sys
+    value: 1.03143
+  - errors:
+    - {label: stat, symerror: 0.0105448}
+    - asymerror: {minus: 0, plus: 0.0084287}
+      label: sys
+    value: 1.01665
+  - errors:
+    - {label: stat, symerror: 0.0124698}
+    - asymerror: {minus: 0.00245205, plus: 0}
+      label: sys
+    value: 0.966438
+  - errors:
+    - {label: stat, symerror: 0.0185992}
+    - asymerror: {minus: 0.00750796, plus: 0.00517569}
+      label: sys
+    value: 1.03293
+  - errors:
+    - {label: stat, symerror: 0.0289074}
+    - asymerror: {minus: 0.0190132, plus: 0.0184897}
+      label: sys
+    value: 0.976331
+  - errors:
+    - {label: stat, symerror: 0.0663887}
+    - asymerror: {minus: 0.0269844, plus: 0.0547516}
+      label: sys
+    value: 0.865263
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 0.8 - 1.2}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '0-10%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0245893}
+    - asymerror: {minus: 0.0088033, plus: 0.00769162}
+      label: sys
+    value: 1.06602
+  - errors:
+    - {label: stat, symerror: 0.0147078}
+    - asymerror: {minus: 0.018818, plus: 0.0214008}
+      label: sys
+    value: 1.01774
+  - errors:
+    - {label: stat, symerror: 0.010335}
+    - asymerror: {minus: 0.00672555, plus: 0.013233}
+      label: sys
+    value: 1.02927
+  - errors:
+    - {label: stat, symerror: 0.00951418}
+    - asymerror: {minus: 0.0125926, plus: 0.012327}
+      label: sys
+    value: 1.01174
+  - errors:
+    - {label: stat, symerror: 0.0101695}
+    - asymerror: {minus: 0.00285891, plus: 0}
+      label: sys
+    value: 1.0373
+  - errors:
+    - {label: stat, symerror: 0.0116727}
+    - asymerror: {minus: 0, plus: 0.00343139}
+      label: sys
+    value: 1.03133
+  - errors:
+    - {label: stat, symerror: 0.0143544}
+    - asymerror: {minus: 0.00926995, plus: 0.00357288}
+      label: sys
+    value: 1.02153
+  - errors:
+    - {label: stat, symerror: 0.0199362}
+    - asymerror: {minus: 0.0201587, plus: 0.0100672}
+      label: sys
+    value: 1.0221
+  - errors:
+    - {label: stat, symerror: 0.0318552}
+    - asymerror: {minus: 0.00428758, plus: 0.0152753}
+      label: sys
+    value: 1.0089
+  - errors:
+    - {label: stat, symerror: 0.0656122}
+    - asymerror: {minus: 0.0207537, plus: 0.0735655}
+      label: sys
+    value: 0.834142
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 1.2 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '0-10%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0236397}
+    - asymerror: {minus: 0, plus: 0.00294505}
+      label: sys
+    value: 1.06105
+  - errors:
+    - {label: stat, symerror: 0.0139268}
+    - asymerror: {minus: 0.00722811, plus: 0.0046345}
+      label: sys
+    value: 1.00158
+  - errors:
+    - {label: stat, symerror: 0.00989613}
+    - asymerror: {minus: 0.00553931, plus: 0.00693433}
+      label: sys
+    value: 1.02367
+  - errors:
+    - {label: stat, symerror: 0.00896759}
+    - asymerror: {minus: 0.0192986, plus: 0.0232569}
+      label: sys
+    value: 1.01879
+  - errors:
+    - {label: stat, symerror: 0.00987844}
+    - asymerror: {minus: 0.0146878, plus: 0.0120644}
+      label: sys
+    value: 1.05873
+  - errors:
+    - {label: stat, symerror: 0.0113282}
+    - asymerror: {minus: 0.00544516, plus: 0.015862}
+      label: sys
+    value: 1.05868
+  - errors:
+    - {label: stat, symerror: 0.0133269}
+    - asymerror: {minus: 0.0100033, plus: 0.0107033}
+      label: sys
+    value: 1.01419
+  - errors:
+    - {label: stat, symerror: 0.0186786}
+    - asymerror: {minus: 0.0124101, plus: 0.00178762}
+      label: sys
+    value: 1.03343
+  - errors:
+    - {label: stat, symerror: 0.0286038}
+    - asymerror: {minus: 0.0325642, plus: 0.0198233}
+      label: sys
+    value: 0.985708
+  - errors:
+    - {label: stat, symerror: 0.0659642}
+    - asymerror: {minus: 0.0206494, plus: 0.0484754}
+      label: sys
+    value: 0.904008
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 0.3 - 0.8}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '10-20%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0216338}
+    - asymerror: {minus: 0.00318054, plus: 0.00293828}
+      label: sys
+    value: 1.05257
+  - errors:
+    - {label: stat, symerror: 0.0133873}
+    - asymerror: {minus: 0.0037326, plus: 0.00903547}
+      label: sys
+    value: 0.994035
+  - errors:
+    - {label: stat, symerror: 0.0101116}
+    - asymerror: {minus: 0.00319232, plus: 0.00516145}
+      label: sys
+    value: 0.98929
+  - errors:
+    - {label: stat, symerror: 0.00995846}
+    - asymerror: {minus: 0.00418271, plus: 0.000488947}
+      label: sys
+    value: 1.0013
+  - errors:
+    - {label: stat, symerror: 0.0107139}
+    - asymerror: {minus: 0.00942903, plus: 0.0160694}
+      label: sys
+    value: 1.00725
+  - errors:
+    - {label: stat, symerror: 0.0121867}
+    - asymerror: {minus: 0.00739352, plus: 0.0170174}
+      label: sys
+    value: 0.994423
+  - errors:
+    - {label: stat, symerror: 0.015646}
+    - asymerror: {minus: 0.00417628, plus: 0.0104626}
+      label: sys
+    value: 1.00205
+  - errors:
+    - {label: stat, symerror: 0.0230156}
+    - asymerror: {minus: 0.0199915, plus: 0.0265171}
+      label: sys
+    value: 1.0548
+  - errors:
+    - {label: stat, symerror: 0.0340608}
+    - asymerror: {minus: 0.00654026, plus: 0.016877}
+      label: sys
+    value: 0.94868
+  - errors:
+    - {label: stat, symerror: 0.078731}
+    - asymerror: {minus: 0.00519379, plus: 0.0545179}
+      label: sys
+    value: 0.883546
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 0.8 - 1.2}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '10-20%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0230449}
+    - asymerror: {minus: 0.00424866, plus: 0.00716368}
+      label: sys
+    value: 0.996237
+  - errors:
+    - {label: stat, symerror: 0.0146145}
+    - asymerror: {minus: 0.00122468, plus: 0.00399512}
+      label: sys
+    value: 0.978107
+  - errors:
+    - {label: stat, symerror: 0.0111772}
+    - asymerror: {minus: 0.00284156, plus: 0.00245858}
+      label: sys
+    value: 0.989355
+  - errors:
+    - {label: stat, symerror: 0.0107988}
+    - asymerror: {minus: 0.00981452, plus: 0.00896636}
+      label: sys
+    value: 0.989633
+  - errors:
+    - {label: stat, symerror: 0.0118996}
+    - asymerror: {minus: 0.00443929, plus: 0.00438274}
+      label: sys
+    value: 1.01454
+  - errors:
+    - {label: stat, symerror: 0.0134431}
+    - asymerror: {minus: 0.0014578, plus: 0.00429482}
+      label: sys
+    value: 0.997776
+  - errors:
+    - {label: stat, symerror: 0.018496}
+    - asymerror: {minus: 0.000364763, plus: 0.0101826}
+      label: sys
+    value: 1.09311
+  - errors:
+    - {label: stat, symerror: 0.025538}
+    - asymerror: {minus: 0.0128195, plus: 0.0205564}
+      label: sys
+    value: 1.08289
+  - errors:
+    - {label: stat, symerror: 0.0374415}
+    - asymerror: {minus: 0, plus: 0.0151694}
+      label: sys
+    value: 0.981223
+  - errors:
+    - {label: stat, symerror: 0.0781127}
+    - asymerror: {minus: 0.0296426, plus: 0.0779891}
+      label: sys
+    value: 0.843217
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 1.2 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '10-20%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0230385}
+    - asymerror: {minus: 0, plus: 0.00194747}
+      label: sys
+    value: 1.05099
+  - errors:
+    - {label: stat, symerror: 0.014236}
+    - asymerror: {minus: 0.0040493, plus: 0.00198573}
+      label: sys
+    value: 0.99455
+  - errors:
+    - {label: stat, symerror: 0.0109695}
+    - asymerror: {minus: 0.00848407, plus: 0.00926592}
+      label: sys
+    value: 1.0149
+  - errors:
+    - {label: stat, symerror: 0.0107295}
+    - asymerror: {minus: 0.0162687, plus: 0.0163888}
+      label: sys
+    value: 1.03221
+  - errors:
+    - {label: stat, symerror: 0.011548}
+    - asymerror: {minus: 0.00478595, plus: 0.00927977}
+      label: sys
+    value: 1.03421
+  - errors:
+    - {label: stat, symerror: 0.0129349}
+    - asymerror: {minus: 0.00617238, plus: 0.0120651}
+      label: sys
+    value: 1.01348
+  - errors:
+    - {label: stat, symerror: 0.0170028}
+    - asymerror: {minus: 0.0108053, plus: 0.0112634}
+      label: sys
+    value: 1.06769
+  - errors:
+    - {label: stat, symerror: 0.023675}
+    - asymerror: {minus: 0.00570168, plus: 0.0106205}
+      label: sys
+    value: 1.08008
+  - errors:
+    - {label: stat, symerror: 0.0324418}
+    - asymerror: {minus: 0.0115062, plus: 0.0178607}
+      label: sys
+    value: 0.914889
+  - errors:
+    - {label: stat, symerror: 0.0670759}
+    - asymerror: {minus: 0.0153071, plus: 0.0371132}
+      label: sys
+    value: 0.772609
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 0.3 - 0.8}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '20-30%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0239893}
+    - asymerror: {minus: 0.00152895, plus: 0.000880431}
+      label: sys
+    value: 0.991735
+  - errors:
+    - {label: stat, symerror: 0.0155602}
+    - asymerror: {minus: 0.000522547, plus: 0.00278807}
+      label: sys
+    value: 0.984892
+  - errors:
+    - {label: stat, symerror: 0.0126152}
+    - asymerror: {minus: 0, plus: 0.00350868}
+      label: sys
+    value: 1.01309
+  - errors:
+    - {label: stat, symerror: 0.012188}
+    - asymerror: {minus: 0.00863081, plus: 0.00777422}
+      label: sys
+    value: 1.00481
+  - errors:
+    - {label: stat, symerror: 0.0131371}
+    - asymerror: {minus: 0.00328937, plus: 0.0034891}
+      label: sys
+    value: 1.01024
+  - errors:
+    - {label: stat, symerror: 0.0152384}
+    - asymerror: {minus: 0, plus: 0.0016931}
+      label: sys
+    value: 1.01127
+  - errors:
+    - {label: stat, symerror: 0.0182852}
+    - asymerror: {minus: 0.00817812, plus: 0}
+      label: sys
+    value: 0.976821
+  - errors:
+    - {label: stat, symerror: 0.0270607}
+    - asymerror: {minus: 0.0135085, plus: 0.014291}
+      label: sys
+    value: 1.02686
+  - errors:
+    - {label: stat, symerror: 0.0384868}
+    - asymerror: {minus: 0.0148923, plus: 0.0134602}
+      label: sys
+    value: 0.889584
+  - errors:
+    - {label: stat, symerror: 0.11683}
+    - asymerror: {minus: 0.0535092, plus: 0.117843}
+      label: sys
+    value: 0.917485
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 0.8 - 1.2}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '20-30%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0272801}
+    - asymerror: {minus: 0.00226124, plus: 0.0010628}
+      label: sys
+    value: 1.03687
+  - errors:
+    - {label: stat, symerror: 0.0173258}
+    - asymerror: {minus: 0.00686357, plus: 0.00445149}
+      label: sys
+    value: 0.998317
+  - errors:
+    - {label: stat, symerror: 0.0138437}
+    - asymerror: {minus: 0.00907129, plus: 0.00844754}
+      label: sys
+    value: 1.01461
+  - errors:
+    - {label: stat, symerror: 0.0134918}
+    - asymerror: {minus: 0.0129907, plus: 0.00962348}
+      label: sys
+    value: 1.01568
+  - errors:
+    - {label: stat, symerror: 0.0147557}
+    - asymerror: {minus: 0.00741679, plus: 0.00803298}
+      label: sys
+    value: 1.03364
+  - errors:
+    - {label: stat, symerror: 0.016715}
+    - asymerror: {minus: 0.00365493, plus: 0}
+      label: sys
+    value: 1.00987
+  - errors:
+    - {label: stat, symerror: 0.0205593}
+    - asymerror: {minus: 0.0152693, plus: 0.0176008}
+      label: sys
+    value: 1.00616
+  - errors:
+    - {label: stat, symerror: 0.0285543}
+    - asymerror: {minus: 0.00860713, plus: 0.0258112}
+      label: sys
+    value: 0.994758
+  - errors:
+    - {label: stat, symerror: 0.0430549}
+    - asymerror: {minus: 0.0109086, plus: 0.0445768}
+      label: sys
+    value: 0.93053
+  - errors:
+    - {label: stat, symerror: 0.12134}
+    - asymerror: {minus: 0.0711604, plus: 0.145152}
+      label: sys
+    value: 0.953526
+- header: {name: R D(z)(|y|) / R D(z)(|y|<0.3)}
+  qualifiers:
+  - {name: RE, value: ratio of R_D(z)(|y|) / R_D(z)(|y|<0.3)}
+  - {name: abs. rapidity(jet), value: 1.2 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '20-30%'}
+  - {name: pTjet, units: GeV, value: '126 - 158.488'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0259911}
+    - asymerror: {minus: 0.00435061, plus: 0.00434742}
+      label: sys
+    value: 1.01678
+  - errors:
+    - {label: stat, symerror: 0.0164378}
+    - asymerror: {minus: 0.0106978, plus: 0.0100705}
+      label: sys
+    value: 0.978061
+  - errors:
+    - {label: stat, symerror: 0.0136918}
+    - asymerror: {minus: 0.0142306, plus: 0.0155316}
+      label: sys
+    value: 1.04043
+  - errors:
+    - {label: stat, symerror: 0.013011}
+    - asymerror: {minus: 0.0190297, plus: 0.0240577}
+      label: sys
+    value: 1.02001
+  - errors:
+    - {label: stat, symerror: 0.0140854}
+    - asymerror: {minus: 0.0203719, plus: 0.0213967}
+      label: sys
+    value: 1.03138
+  - errors:
+    - {label: stat, symerror: 0.0164715}
+    - asymerror: {minus: 0.0189292, plus: 0.0136015}
+      label: sys
+    value: 1.05483
+  - errors:
+    - {label: stat, symerror: 0.019778}
+    - asymerror: {minus: 0.0143481, plus: 0.00286166}
+      label: sys
+    value: 1.03599
+  - errors:
+    - {label: stat, symerror: 0.0268239}
+    - asymerror: {minus: 0.0218348, plus: 0.0166543}
+      label: sys
+    value: 1.00684
+  - errors:
+    - {label: stat, symerror: 0.0392731}
+    - asymerror: {minus: 0.0357318, plus: 0.0299233}
+      label: sys
+    value: 0.924463
+  - errors:
+    - {label: stat, symerror: 0.0960947}
+    - asymerror: {minus: 0.0214783, plus: 0.0861742}
+      label: sys
+    value: 0.775799
+independent_variables:
+- header: {name: pT_jet, units: GEV}
+  values:
+  - {high: 0.0158, low: 0.01}
+  - {high: 0.0251, low: 0.0158}
+  - {high: 0.0398, low: 0.0251}
+  - {high: 0.0631, low: 0.0398}
+  - {high: 0.1, low: 0.0631}
+  - {high: 0.1585, low: 0.1}
+  - {high: 0.2512, low: 0.1585}
+  - {high: 0.3981, low: 0.2512}
+  - {high: 0.631, low: 0.3981}
+  - {high: 1, low: 0.631}

@@ -1,0 +1,13 @@
+hepdata_atlas_jet_ff_5tev:
+  data_save_dir: './hepdata_atlas_jet_ff_5tev'
+  data_url: 'https://www.hepdata.net/download/table/ins1673177/Table{}/2/yaml'
+  data_table_first: 0
+  data_table_last: 88
+  data_inspire: 'https://inspirehep.net/literature/1673177'
+
+hepdata_cms_jet_prop_5tev:
+  data_save_dir: 'hepdata_cms_jet_prop_5tev'
+  data_url: 'https://www.hepdata.net/download/table/ins1658057/Table{}/1/yaml'
+  data_table_first: 1
+  data_table_last: 12
+  data_inspire: 'https://inspirehep.net/literature/1658057'

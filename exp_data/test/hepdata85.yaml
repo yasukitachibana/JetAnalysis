@@ -1,0 +1,232 @@
+dependent_variables:
+- header: {name: delta N}
+  qualifiers:
+  - {name: RE, value: excess particles in jet in PbPb compared to pp collisions}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '0-10%'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0237036}
+    - asymerror: {minus: 0.125959, plus: 0.0815491}
+      label: sys
+    value: 1.44521
+  - errors:
+    - {label: stat, symerror: 0.0352615}
+    - asymerror: {minus: 0.150555, plus: 0.111723}
+      label: sys
+    value: 1.81265
+  - errors:
+    - {label: stat, symerror: 0.0577997}
+    - asymerror: {minus: 0.185117, plus: 0.11971}
+      label: sys
+    value: 2.06142
+  - errors:
+    - {label: stat, symerror: 0.106281}
+    - asymerror: {minus: 0.179842, plus: 0.267128}
+      label: sys
+    value: 2.3445
+  - errors:
+    - {label: stat, symerror: 0.202011}
+    - asymerror: {minus: 0.324964, plus: 0.260352}
+      label: sys
+    value: 1.97409
+  - errors:
+    - {label: stat, symerror: 0.396294}
+    - asymerror: {minus: 0.309266, plus: 0.349035}
+      label: sys
+    value: 2.17457
+- header: {name: delta N}
+  qualifiers:
+  - {name: RE, value: excess particles in jet in PbPb compared to pp collisions}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '10-20%'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0230705}
+    - asymerror: {minus: 0.118834, plus: 0.104855}
+      label: sys
+    value: 1.35067
+  - errors:
+    - {label: stat, symerror: 0.0350322}
+    - asymerror: {minus: 0.159601, plus: 0.146685}
+      label: sys
+    value: 1.65513
+  - errors:
+    - {label: stat, symerror: 0.0590195}
+    - asymerror: {minus: 0.13684, plus: 0.160448}
+      label: sys
+    value: 1.88444
+  - errors:
+    - {label: stat, symerror: 0.105586}
+    - asymerror: {minus: 0.556704, plus: 0.138238}
+      label: sys
+    value: 1.77476
+  - errors:
+    - {label: stat, symerror: 0.205425}
+    - asymerror: {minus: 0.497121, plus: 0.359136}
+      label: sys
+    value: 2.35938
+  - errors:
+    - {label: stat, symerror: 0.413392}
+    - asymerror: {minus: 0.310705, plus: 1.23975}
+      label: sys
+    value: 3.04718
+- header: {name: delta N}
+  qualifiers:
+  - {name: RE, value: excess particles in jet in PbPb compared to pp collisions}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '20-30%'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0252048}
+    - asymerror: {minus: 0.0993984, plus: 0.086212}
+      label: sys
+    value: 1.08474
+  - errors:
+    - {label: stat, symerror: 0.0374922}
+    - asymerror: {minus: 0.148003, plus: 0.082096}
+      label: sys
+    value: 1.37908
+  - errors:
+    - {label: stat, symerror: 0.0621664}
+    - asymerror: {minus: 0.304311, plus: 0.0962582}
+      label: sys
+    value: 1.5455
+  - errors:
+    - {label: stat, symerror: 0.109224}
+    - asymerror: {minus: 0.29639, plus: 0.166824}
+      label: sys
+    value: 1.43166
+  - errors:
+    - {label: stat, symerror: 0.215398}
+    - asymerror: {minus: 0.58069, plus: 0.182374}
+      label: sys
+    value: 1.41391
+  - errors:
+    - {label: stat, symerror: 0.406048}
+    - asymerror: {minus: 1.08741, plus: 0.685754}
+      label: sys
+    value: 2.06865
+- header: {name: delta N}
+  qualifiers:
+  - {name: RE, value: excess particles in jet in PbPb compared to pp collisions}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '30-40%'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0246953}
+    - asymerror: {minus: 0.0811441, plus: 0.0556347}
+      label: sys
+    value: 0.874119
+  - errors:
+    - {label: stat, symerror: 0.0386243}
+    - asymerror: {minus: 0.080733, plus: 0.0708718}
+      label: sys
+    value: 1.17989
+  - errors:
+    - {label: stat, symerror: 0.0651275}
+    - asymerror: {minus: 0.119731, plus: 0.0495515}
+      label: sys
+    value: 1.09382
+  - errors:
+    - {label: stat, symerror: 0.118954}
+    - asymerror: {minus: 0.0867, plus: 0.0512852}
+      label: sys
+    value: 1.16086
+  - errors:
+    - {label: stat, symerror: 0.237828}
+    - asymerror: {minus: 0.192957, plus: 0.103366}
+      label: sys
+    value: 1.23771
+  - errors:
+    - {label: stat, symerror: 0.459575}
+    - asymerror: {minus: 0.123849, plus: 0.571957}
+      label: sys
+    value: 0.899767
+- header: {name: delta N}
+  qualifiers:
+  - {name: RE, value: excess particles in jet in PbPb compared to pp collisions}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '40-60%'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0211043}
+    - asymerror: {minus: 0.0833485, plus: 0.0384452}
+      label: sys
+    value: 0.576217
+  - errors:
+    - {label: stat, symerror: 0.0329762}
+    - asymerror: {minus: 0.0605327, plus: 0.057687}
+      label: sys
+    value: 0.684233
+  - errors:
+    - {label: stat, symerror: 0.0574762}
+    - asymerror: {minus: 0.102082, plus: 0.0304219}
+      label: sys
+    value: 0.787676
+  - errors:
+    - {label: stat, symerror: 0.101156}
+    - asymerror: {minus: 0.121626, plus: 0.0338179}
+      label: sys
+    value: 0.792533
+  - errors:
+    - {label: stat, symerror: 0.217428}
+    - asymerror: {minus: 0.0820228, plus: 0.225866}
+      label: sys
+    value: 1.00874
+  - errors:
+    - {label: stat, symerror: 0.411249}
+    - asymerror: {minus: 0.31511, plus: 0.292038}
+      label: sys
+    value: -0.199446
+- header: {name: delta N}
+  qualifiers:
+  - {name: RE, value: excess particles in jet in PbPb compared to pp collisions}
+  - {name: abs. rapidity(jet), value: 0 - 2.1}
+  - {name: SQRT(S), units: GeV, value: '5020.0'}
+  - {name: centrality, value: '60-80%'}
+  values: 
+  - errors:
+    - {label: stat, symerror: 0.0302143}
+    - asymerror: {minus: 0.0508753, plus: 0.0518221}
+      label: sys
+    value: 0.116906
+  - errors:
+    - {label: stat, symerror: 0.052256}
+    - asymerror: {minus: 0.0806294, plus: 0.0481917}
+      label: sys
+    value: 0.183076
+  - errors:
+    - {label: stat, symerror: 0.0944217}
+    - asymerror: {minus: 0.114771, plus: 0.0557486}
+      label: sys
+    value: 0.613098
+  - errors:
+    - {label: stat, symerror: 0.169942}
+    - asymerror: {minus: 0.0955602, plus: 0.134207}
+      label: sys
+    value: 0.329287
+  - errors:
+    - {label: stat, symerror: 0.341677}
+    - asymerror: {minus: 0.156025, plus: 0.284975}
+      label: sys
+    value: 0.597535
+  - errors:
+    - {label: stat, symerror: 0.525087}
+    - asymerror: {minus: 0.406383, plus: 0.110437}
+      label: sys
+    value: -1.11225
+independent_variables:
+- header: {name: pT_jet, units: GEV}
+  values:
+  - {high: 158.488, low: 126}
+  - {high: 199.525, low: 158.488}
+  - {high: 251.186, low: 199.525}
+  - {high: 316.224, low: 251.186}
+  - {high: 398.101, low: 316.224}
+  - {high: 501.178, low: 398.101}
