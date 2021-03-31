@@ -42,15 +42,16 @@ public:
               double particleRapMin, double particleRapMax,
               std::string tag  = "" );
   
+  
   std::string
-  GetHistName(double jetPtMin, double jetPtMax,
-              std::string observable,
+  GetHistName(std::string observable,
               std::string variable,
               double jetR,
+              double jetPtMin, double jetPtMax,
               double jetRapMin, double jetRapMax,
               double particlePtMin, double particlePtMax,
               double particleRapMin, double particleRapMax,
-              std::string tag  = "" );
+              std::string tag = "" );
   
   std::string GetOutPath(std::string name);
   

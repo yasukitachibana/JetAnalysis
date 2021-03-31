@@ -241,6 +241,21 @@ std::string AnalysisModuleBase::GetHistName( double ptHatMin, double ptHatMax,
   return histname;
 }
 
+std::string AnalysisModuleBase::GetHistName( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){
+  
+  std::string tag = GetParamsTag( ip );
+  
+  std::string histname
+  = SetFile::Instance()->GetHistName(Name(),
+                                     variables[iv],
+                                     jetR[ir],
+                                     jetPtMin[ijp], jetPtMax[ijp],
+                                     jetRapMin[ijr], jetRapMax[ijr],
+                                     particlePtMin[ipp], particlePtMax[ipp],
+                                     particleRapMin[ipr], particleRapMax[ipr], tag);
+  return histname;
+}
+
 
 int AnalysisModuleBase::GetHistIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){
   return
@@ -374,18 +389,45 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, std::vector<std::arr
   return trigger;
 }
 
+bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, std::vector<std::array<int, 2>> &i_p ){
+  
+  if( !StatCheck(p) ){ return false; }
+  if( !ChargeTrigger(p,chParticle) ){ return false; }
+  
+  bool trigger = false;
+  double pt = p->perp();
+  double rapidity = GetRapidity(p);
+  
+  for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+    for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+      
+      if( pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
+         fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] ){
+        
+        std::array<int, 2> iparticle = {ipp,ipr};
+        i_p.push_back(iparticle);
+        
+        trigger = true;
+      }
+      
+      
+    }//rap
+  }//pt
+  
+  return trigger;
+}
+
 //###############################################################################################################
-//bool AnalysisModuleBase::StatCheck(std::shared_ptr<Particle> p){
-//
-//  for(auto st:statHad){
-//    if( st==p->pstat() ){
-//      return true;
-//    }
-//  }
-//
-//  return false;
-//
-//}
+bool AnalysisModuleBase::StatCheck(std::shared_ptr<Particle> p){
+  
+  for(auto st:statParticle){
+    if( st==p->pstat() ){
+      return true;
+    }
+  }
+  
+  return false;
+}
 
 //###############################################################################################################
 bool AnalysisModuleBase::NeutrinoCheck( std::shared_ptr<Particle> p ){
