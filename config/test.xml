@@ -182,6 +182,8 @@
         </r>
       </var>
 
+      <mixedEvent>0</mixedEvent>
+
       <nBinPhi>60</nBinPhi>
       <boundPhi>
         <Item>-3.141592653589793238462643383279502884197</Item>
@@ -192,6 +194,11 @@
         <Item>-3.0</Item>
         <Item>3.0</Item>
       </boundEta>
+      
+      <sidebandRap>
+        <Item>1.5</Item>
+        <Item>2.5</Item>
+      </sidebandRap>
       
     </JetShape2D>
 

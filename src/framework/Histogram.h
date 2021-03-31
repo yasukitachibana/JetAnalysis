@@ -43,6 +43,20 @@ public:
   
   virtual std::string HistName();
   
+  virtual void SetSidebandHist(std::shared_ptr<Histogram> h, double min, double max){}
+  
+  //------------------------------------------------------
+  virtual int GetNbinsX(){return 0;}
+  virtual int GetNbinsY(){return 0;}
+  virtual double GetX( int ix ){return 0;}
+  virtual double GetY( int iy ){return 0;}
+  virtual double GetVal( int ix){return 0;}
+  virtual double GetErr( int ix){return 0;}
+  virtual double GetVal( int ix, int iy ){return 0;}
+  virtual double GetErr( int ix, int iy ){return 0;}
+  //------------------------------------------------------
+
+
   //+++++++++++++++++++++++++++++++++++++
   double Nev(){return nEv;}
   void EventCount(int n){nEv+=double(n);}
