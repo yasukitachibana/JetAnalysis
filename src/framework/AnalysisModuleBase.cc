@@ -2,6 +2,7 @@
 #include "SetXML.h"
 #include "SetFile.h"
 
+
 //###############################################################################################################
 // AnalysisModuleFactory, RegisterAnalysisModule
 //###############################################################################################################
@@ -533,6 +534,8 @@ void AnalysisModuleBase::Combine(std::vector<double> ptHat){
       }//jet_pt
     }//jetR
   }//variable
+  
+  CombineFinisher();
   
 }
 

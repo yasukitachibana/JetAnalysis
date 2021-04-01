@@ -13,27 +13,30 @@ ParticleBase::ParticleBase(const ParticleBase &srp)
   pid_ = srp.pid_;
   plabel_ = srp.plabel_;
   pstat_ = srp.pstat_;
+  n_particle_ = srp.n_particle_;
 }
 
-ParticleBase::ParticleBase(int label, int id, int stat, const FourVector &p) {
+ParticleBase::ParticleBase(int label, int id, int stat, const FourVector &p, double n) {
   
   set_label(label);
   set_id(id);
   set_stat(stat);
   reset_momentum(p);
+  set_n_particle(n);
   
   assert(InternalHelperPythia.particleData.isParticle(id));
   set_restmass(InternalHelperPythia.particleData.m0(id));
   
 }
 
-ParticleBase::ParticleBase(int label, int id, int stat, int fjui, const FourVector &p) {
+ParticleBase::ParticleBase(int label, int id, int stat, int fjui, const FourVector &p, double n) {
   
   set_label(label);
   set_id(id);
   set_stat(stat);
-  reset_momentum(p);
   set_fjui(fjui);
+  reset_momentum(p);
+  set_n_particle(n);
   
   assert(InternalHelperPythia.particleData.isParticle(id));
   set_restmass(InternalHelperPythia.particleData.m0(id));
@@ -41,11 +44,12 @@ ParticleBase::ParticleBase(int label, int id, int stat, int fjui, const FourVect
 }
 
 ParticleBase::ParticleBase(int label, int id, int stat,
-                           double pt, double eta, double phi, double e) {
+                           double pt, double eta, double phi, double e, double n) {
   set_label(label);
   set_id(id);
   set_stat(stat);
   reset_momentum(pt * cos(phi), pt * sin(phi), pt * sinh(eta), e);
+  set_n_particle(n);
   
   assert(InternalHelperPythia.particleData.isParticle(id));
   set_restmass(InternalHelperPythia.particleData.m0(id));
@@ -53,12 +57,13 @@ ParticleBase::ParticleBase(int label, int id, int stat,
 }
 
 ParticleBase::ParticleBase(int label, int id, int stat, int fjui,
-                           double pt, double eta, double phi, double e) {
+                           double pt, double eta, double phi, double e, double n) {
   set_label(label);
   set_id(id);
   set_stat(stat);
-  reset_momentum(pt * cos(phi), pt * sin(phi), pt * sinh(eta), e);
   set_fjui(fjui);
+  reset_momentum(pt * cos(phi), pt * sin(phi), pt * sinh(eta), e);
+  set_n_particle(n);
   
   assert(InternalHelperPythia.particleData.isParticle(id));
   set_restmass(InternalHelperPythia.particleData.m0(id));
@@ -70,17 +75,21 @@ void ParticleBase::clear() {
   pid_ = 0;
   pstat_ = 0;
   mass_ = -1;
+  n_particle_ = 1.0;
 }
 
 void ParticleBase::set_label(int label) { plabel_ = label; }
 void ParticleBase::set_id(int id) { pid_ = id; }
 void ParticleBase::set_stat(int stat) { pstat_ = stat; }
 void ParticleBase::set_restmass(double mass_input) { mass_ = mass_input;}
+void ParticleBase::set_n_particle(double n) {n_particle_ = n;}
 
 //  start getters
 const int ParticleBase::pid() const { return (pid_); }
 const int ParticleBase::pstat() const { return (pstat_); }
 const int ParticleBase::plabel() const { return (plabel_); }
+const double ParticleBase::n_particle() const { return (n_particle_); }
+
 const FourVector ParticleBase::p_in() const {
   return (FourVector(px(), py(), pz(), e()));
 }
@@ -139,16 +148,17 @@ ParticleBase &ParticleBase::operator=(const ParticleBase &c) {
 //===========================================================================================================================
 Particle::Particle(const Particle &srh): ParticleBase::ParticleBase(srh) {}
 
-Particle::Particle(int label, int id, int stat, const FourVector &p)
-: ParticleBase::ParticleBase(label, id, stat, p){}
-Particle::Particle(int label, int id, int stat, int fjui, const FourVector &p)
-: ParticleBase::ParticleBase(label, id, stat, fjui, p){}
+Particle::Particle(int label, int id, int stat, const FourVector &p, double n)
+: ParticleBase::ParticleBase(label, id, stat, p, n){}
 
-Particle::Particle(int label, int id, int stat, double pt, double eta, double phi, double e)
-: ParticleBase::ParticleBase(label, id, stat, pt, eta, phi, e){}
+Particle::Particle(int label, int id, int stat, int fjui, const FourVector &p, double n)
+: ParticleBase::ParticleBase(label, id, stat, fjui, p, n){}
 
-Particle::Particle(int label, int id, int stat, int fjui, double pt, double eta, double phi, double e)
-: ParticleBase::ParticleBase(label, id, stat, fjui, pt, eta, phi, e){}
+Particle::Particle(int label, int id, int stat, double pt, double eta, double phi, double e, double n)
+: ParticleBase::ParticleBase(label, id, stat, pt, eta, phi, e, n){}
+
+Particle::Particle(int label, int id, int stat, int fjui, double pt, double eta, double phi, double e, double n)
+: ParticleBase::ParticleBase(label, id, stat, fjui, pt, eta, phi, e, n){}
 
 Particle &Particle::operator=(Particle &c) {
   ParticleBase::operator=(c);

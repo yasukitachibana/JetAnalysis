@@ -97,13 +97,14 @@ public:
 public:
   ParticleBase() : PseudoJet(){};
   ParticleBase(const ParticleBase &srp);
-  ParticleBase(int label, int id, int stat, const FourVector &p );
+  
+  ParticleBase(int label, int id, int stat, const FourVector &p, double n=1.0 );
   ParticleBase(int label, int id, int stat, int fjui, //fjui: fastjet user index
-               const FourVector &p );
+               const FourVector &p, double n=1.0  );
   ParticleBase(int label, int id, int stat,
-               double pt, double eta, double phi, double e);
+               double pt, double eta, double phi, double e, double n=1.0 );
   ParticleBase(int label, int id, int stat, int fjui, //fjui: fastjet user index
-               double pt, double eta, double phi, double e);
+               double pt, double eta, double phi, double e, double n=1.0 );
 
   
   virtual ~ParticleBase(){};
@@ -114,11 +115,13 @@ public:
   void set_label(int label);
   void set_id(int id);
   void set_stat(int stat);
+  void set_n_particle(double n);
   
   //  Getters
   const int pid() const;
   const int pstat() const;
   const int plabel() const;
+  const double n_particle() const;
   const FourVector p_in() const;
   const double restmass();
   const double p(int i);
@@ -137,7 +140,7 @@ protected:
   int pstat_;  ///< status of particle
   int plabel_; ///< the line number in the event record
   double mass_; ///< rest mass of the particle \todo Only maintain PID, look up mass from PDG
-  
+  double n_particle_;    ///< particle number
   
 };// END BASE CLASS
 
@@ -151,10 +154,10 @@ class Particle : public ParticleBase {
   
 public:
   Particle(const Particle &srp);
-  Particle(int label, int id, int stat, const FourVector &p );
-  Particle(int label, int id, int stat, int fjui, const FourVector &p );
-  Particle(int label, int id, int stat, double pt, double eta, double phi, double e);
-  Particle(int label, int id, int stat, int fjui, double pt, double eta, double phi, double e);
+  Particle(int label, int id, int stat, const FourVector &p, double n=1.0  );
+  Particle(int label, int id, int stat, int fjui, const FourVector &p, double n=1.0  );
+  Particle(int label, int id, int stat, double pt, double eta, double phi, double e, double n=1.0 );
+  Particle(int label, int id, int stat, int fjui, double pt, double eta, double phi, double e, double n=1.0 );
 
   Particle &operator=(Particle &c);
   Particle &operator=(const Particle &c);

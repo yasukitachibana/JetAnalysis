@@ -73,9 +73,9 @@ void Hist2D::Print(std::string name, bool addHistname /* = true */ ){
   
 }
 
-void Hist2D::LoadHistFromFile(){
+void Hist2D::LoadHistFromFile(std::string name){
   
-  std::string outfile_path = SetFile::Instance()->GetOutPath(histname+".txt");
+  std::string outfile_path = SetFile::Instance()->GetOutPath(name+histname+".txt");
   std::cout << "[Hist2D] Loading File:"<< outfile_path <<std::endl;
   
   
@@ -101,7 +101,7 @@ void Hist2D::LoadHistFromFile(){
   
   std::string str;
   
-  double x_l, x_c, x_h, y_l, y_c, y_h, con, err, njet, nev;
+  double x_c, x_l, x_h, y_c, y_l, y_h, con, err, njet, nev;
   
   int ix=1;
   int iy=1;
@@ -111,7 +111,7 @@ void Hist2D::LoadHistFromFile(){
       
       sscanf(str.data(),
              "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
-             &x_l, &x_c, &x_h, &y_l, &y_c, &y_h, &con, &err, &njet, &nev);
+             &x_c, &x_l, &x_h, &y_c, &y_l, &y_h, &con, &err, &njet, &nev);
       
       
       Hist->SetBinContent(ix, iy, con);

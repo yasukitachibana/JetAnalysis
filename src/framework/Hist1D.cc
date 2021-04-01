@@ -65,9 +65,9 @@ void Hist1D::Print(std::string name, bool addHistname /* = true */ ){
   
 }
 
-void Hist1D::LoadHistFromFile(){
+void Hist1D::LoadHistFromFile(std::string name){
   
-  std::string outfile_path = SetFile::Instance()->GetOutPath(histname+".txt");
+  std::string outfile_path = SetFile::Instance()->GetOutPath(name+histname+".txt");
   std::cout << "[Hist1D] Loading File:"<< outfile_path <<std::endl;
   
   

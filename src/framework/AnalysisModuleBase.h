@@ -96,6 +96,7 @@ private:
   virtual std::string GetParamsTag( int i ){ return ""; }
   //=========================================
   virtual void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){}
+  virtual void CombineFinisher(){}
   //=========================================
   virtual void OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list);
   //=========================================

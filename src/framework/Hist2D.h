@@ -18,7 +18,7 @@ public:
   void Fill( double x, double y );
   void Fill( double x, double y, double val);
   void Print(std::string name = "", bool addHistname = true);
-  void LoadHistFromFile();
+  void LoadHistFromFile(std::string name = "");
 
   void Scale(double factor, std::string width = "");
 //  void Normalize(std::string width  = "");
