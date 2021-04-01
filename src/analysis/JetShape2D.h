@@ -19,6 +19,8 @@ private:
    int ir, std::vector<std::array<int, 2>> i_j );
 
   void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+  void CombineFinisher();
+  void GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr);
   
   std::shared_ptr<Histogram> CreateHist( std::string hist_name, int iv );
   
@@ -35,7 +37,7 @@ private:
   void LoadMixedEvent();
   std::vector<std::vector<std::shared_ptr<Particle>>> mixEvParticleList;
   std::string GetMixedEventFileName(int iv, int ir, int ijp, int ijr, int ipp, int ipr);
-
+  int GetMixedEvIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr);
   
   std::vector<double> sidebandRap;
 

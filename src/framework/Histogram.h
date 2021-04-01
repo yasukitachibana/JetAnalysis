@@ -28,7 +28,7 @@ public:
   void Print();
   virtual void Print(std::string name, bool addHistname = true){}
   
-  virtual void LoadHistFromFile(){}
+  virtual void LoadHistFromFile(std::string name = ""){}
   
   virtual void Scale(double factor, std::string width = ""){}
   virtual void Normalize(std::string width  = ""){}

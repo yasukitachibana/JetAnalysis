@@ -41,18 +41,13 @@ void JetShape2D::LoadMixedEvent(){
           for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
             for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
               
-              
-              std::string hist_name = GetMixedEventFileName(iv, ir, ijp, ijr, ipp, ipr);
-              //                std::string hist_name = GetHistName( ptHatMin, ptHatMax, iv, ir, ijp, ijr, ipp, ipr, ip );
-              //                auto hist_this_bin = CreateHist(hist_name, iv);
-              //                hist_this_bin->Init();
-              //                hist_list.push_back(hist_this_bin);
-
-              
+              std::string file_name = GetMixedEventFileName(iv, ir, ijp, ijr, ipp, ipr);
+              //-------------------------------------------------------
               LegoParticle lp;
-              lp.Load("");
+              lp.Load(file_name);
               auto mix_ev_particles = lp.GetParticles();
               lp.Clear();
+              //-------------------------------------------------------
               mixEvParticleList.push_back(mix_ev_particles);
               
             }//had_rap
@@ -69,23 +64,35 @@ void JetShape2D::LoadMixedEvent(){
 std::string
 JetShape2D::GetMixedEventFileName(int iv, int ir, int ijp, int ijr, int ipp, int ipr){
   
-//  hist_total_MixedEvent_r_jetr0.4_ptj120-300_rapj0.0-1.5_pt1.0-300.0_rap0.0-2.4.txt
-//
-//
-//  std::string outfile_path = SetFile::Instance()->GetOutPath(histname+".txt");
-//
-//  std::string histname
-//  = SetFile::Instance()->GetHistName(Name(),
-//                                     variables[iv],
-//                                     jetR[ir],
-//                                     jetPtMin[ijp], jetPtMax[ijp],
-//                                     jetRapMin[ijr], jetRapMax[ijr],
-//                                     particlePtMin[ipp], particlePtMax[ipp],
-//                                     particleRapMin[ipr], particleRapMax[ipr], "" );
-//  return histname;
-  return "";
+  std::string histname
+  = SetFile::Instance()->GetHistName("MixedEvent",
+                                     variables[iv],
+                                     jetR[ir],
+                                     jetPtMin[ijp], jetPtMax[ijp],
+                                     jetRapMin[ijr], jetRapMax[ijr],
+                                     particlePtMin[ipp], particlePtMax[ipp],
+                                     particleRapMin[ipr], particleRapMax[ipr], "" );
+  
+  std::string file_path = SetFile::Instance()->GetOutPath(histname+".txt");
+  
+  return file_path;
 }
 
+int JetShape2D::GetMixedEvIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr){
+  
+  return
+  particleRapMin.size()*
+  (particlePtMin.size()*
+   (jetRapMin.size()*
+    (jetPtMin.size()*
+     (jetR.size()*
+      (iv)
+      +ir)
+     +ijp)
+    +ijr)
+   +ipp)
+  +ipr;
+}
 
 
 void JetShape2D::ShowParamsSetting(){
@@ -132,7 +139,8 @@ void JetShape2D::SetObservable
          for( auto iparticle: i_p){
            for( int iv = 0; iv < variables.size(); iv++ ){
              
-             hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],iparticle[0],iparticle[1],0)]->Fill(delta_phi, delta_eta, pt);
+             hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],iparticle[0],iparticle[1],0)]
+             ->Fill(delta_phi, delta_eta, pt);
              
            }
          }
@@ -142,28 +150,29 @@ void JetShape2D::SetObservable
    }
    //--------------------------------------------------------------------------------------------------
    if(!mixedEvent){return;}
-   for( auto& p : particle_list ){
-     //  for( auto& p : mixEvParticles ){
-     std::vector<std::array<int, 2>> i_p;
-     if( ParticleTrigger(p, i_p)){
-       
-       double n = sub_ptr->nSub(p);
-       
-       double delta_eta = p->eta() - jet.eta() ;
-       double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
-       
-       for( auto ijet: i_j){
-         for( auto iparticle: i_p){
-           for( int iv = 0; iv < variables.size(); iv++ ){
+   
+   //--
+   for( auto ijet: i_j){
+     for( int iv = 0; iv < variables.size(); iv++ ){
+       for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+         for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+           
+           for( auto& p : mixEvParticleList.at(GetMixedEvIndex(iv,ir,ijet[0],ijet[1],ipp,ipr)) ){
              
-             hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],iparticle[0],iparticle[1],1)]->Fill(delta_phi, delta_eta, n);
+             double n = p->n_particle();
+             double delta_eta = p->eta() - jet.eta() ;
+             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
+             
+             hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],ipp,ipr,1)]
+             ->Fill(delta_phi, delta_eta, n);
              
            }
+           
          }
        }
-       
-     }// trigger
+     }
    }
+   
    //--------------------------------------------------------------------------------------------------
    
  }
@@ -171,11 +180,7 @@ void JetShape2D::SetObservable
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void JetShape2D::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){
   
-  if( ip > 0){return;}
-  
   std::string hist_name = GetHistName( iv, ir, ijp, ijr, ipp, ipr, ip );
-  //std::cout << "[JetShape2D] hist_name = " << hist_name << std::endl;
-  
   
   auto total_hist = CreateHist("2d_"+hist_name, iv);
   total_hist->Init();
@@ -198,17 +203,104 @@ void JetShape2D::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr,
   }
   
   total_hist->Scale(1.0/nJetTotal);
-  total_hist->Print("count_before_sub_");
+  total_hist->Print("raw_");
   
-  auto sideband_hist = CreateHist("sideband_"+hist_name, iv);
+  total_hist->DeleteTH();
+  
+}
+//
+//  auto sideband_hist = CreateHist("sideband_"+hist_name, iv);
+//  sideband_hist->Init();
+//  sideband_hist->SetSidebandHist(total_hist,sidebandRap[0],sidebandRap[1]);
+//  sideband_hist->Print();
+//
+//  total_hist->Add( sideband_hist, -1.0 );
+//  sideband_hist->DeleteTH();
+//  total_hist->Print("count_");
+
+
+
+
+
+
+//  auto jetshape_hist
+//  = std::make_shared<Hist1D>(hist_name, binSettings[iv]);
+//  jetshape_hist->Init();
+//
+//  auto jetshape_err2_hist
+//  = std::make_shared<Hist1D>("err2_"+hist_name, binSettings[iv]);
+//  jetshape_err2_hist->Init();
+//
+//  int n_phi = total_hist->GetNbinsX();
+//  int n_eta = total_hist->GetNbinsY();
+//
+//  for(int i_phi=0; i_phi<n_phi; i_phi++){
+//    for(int i_eta=0; i_eta<n_eta; i_eta++){
+//
+//      double delta_phi = total_hist->GetX(i_phi);
+//      double delta_eta = total_hist->GetY(i_eta);
+//      double val = total_hist->GetVal(i_phi,i_eta);
+//      double err = total_hist->GetErr(i_phi,i_eta);
+//
+//      double delta_r = sqrt(delta_phi*delta_phi+delta_eta*delta_eta);
+//
+//      jetshape_hist->Fill(delta_r, val);
+//      jetshape_err2_hist->Fill(delta_r, err*err);
+//
+//    }
+//  }
+//  total_hist->DeleteTH();
+//
+//  jetshape_hist->SetErrors(jetshape_err2_hist);
+//  jetshape_err2_hist->DeleteTH();
+//
+//  jetshape_hist->Scale(1.0,"width");
+//  jetshape_hist->Print("jetshape_");
+//  jetshape_hist->Normalize("width");
+//  jetshape_hist->Print("normalized_jetshape_");
+//  jetshape_hist->DeleteTH();
+
+//}
+
+void JetShape2D::CombineFinisher(){
+  std::cout << "[JetShape2D] Finisher" << std::endl;
+  for( int iv = 0; iv < variables.size(); iv++ ){
+    for( int ir = 0; ir < jetR.size(); ir++ ){
+      for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
+        for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
+          for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+            for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+              
+              GetJetShape(iv, ir, ijp, ijr, ipp, ipr);
+              
+            }//had_rap
+          }//had_pt
+        }//jet_rap
+      }//jet_pt
+    }//jetR
+  }//variable
+}
+
+void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr){
+  
+  std::string hist_name = GetHistName( iv, ir, ijp, ijr, ipp, ipr, 0 );
+  
+  auto hist = CreateHist("2d_" + hist_name, iv);
+  hist->Init();
+  hist->LoadHistFromFile("raw_");
+  
+  if(mixedEvent){
+    
+  }
+  
+  auto sideband_hist = CreateHist("sideband_2d_"+hist_name, iv);
   sideband_hist->Init();
-  sideband_hist->SetSidebandHist(total_hist,sidebandRap[0],sidebandRap[1]);
+  sideband_hist->SetSidebandHist(hist,sidebandRap[0],sidebandRap[1]);
   sideband_hist->Print();
   
-  total_hist->Add( sideband_hist, -1.0 );
+  hist->Add( sideband_hist, -1.0 );
   sideband_hist->DeleteTH();
-  total_hist->Print("count_");
-  
+  hist->Print();
   
   auto jetshape_hist
   = std::make_shared<Hist1D>(hist_name, binSettings[iv]);
@@ -218,33 +310,42 @@ void JetShape2D::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr,
   = std::make_shared<Hist1D>("err2_"+hist_name, binSettings[iv]);
   jetshape_err2_hist->Init();
   
-  int n_phi = total_hist->GetNbinsX();
-  int n_eta = total_hist->GetNbinsY();
+  int n_phi = hist->GetNbinsX();
+  int n_eta = hist->GetNbinsY();
   
   for(int i_phi=0; i_phi<n_phi; i_phi++){
     for(int i_eta=0; i_eta<n_eta; i_eta++){
       
-      double delta_phi = total_hist->GetX(i_phi);
-      double delta_eta = total_hist->GetY(i_eta);
-      double val = total_hist->GetVal(i_phi,i_eta);
-      double err = total_hist->GetErr(i_phi,i_eta);
-      
-      double delta_r = sqrt(delta_phi*delta_phi+delta_eta*delta_eta);
-      
-      jetshape_hist->Fill(delta_r, val);
-      jetshape_err2_hist->Fill(delta_r, err*err);
-      
+      //      double delta_phi = total_hist->GetX(i_phi);
+      //      double delta_eta = total_hist->GetY(i_eta);
+      //      double val = total_hist->GetVal(i_phi,i_eta);
+      //      double err = total_hist->GetErr(i_phi,i_eta);
+      //
+      //      double delta_r = sqrt(delta_phi*delta_phi+delta_eta*delta_eta);
+      //
+      //      jetshape_hist->Fill(delta_r, val);
+      //      jetshape_err2_hist->Fill(delta_r, err*err);
+      //
     }
   }
-  total_hist->DeleteTH();
+  //  total_hist->DeleteTH();
+  //
+  //  jetshape_hist->SetErrors(jetshape_err2_hist);
+  //  jetshape_err2_hist->DeleteTH();
+  //
+  //  jetshape_hist->Scale(1.0,"width");
+  //  jetshape_hist->Print("jetshape_");
+  //  jetshape_hist->Normalize("width");
+  //  jetshape_hist->Print("normalized_jetshape_");
+  //  jetshape_hist->DeleteTH();
   
-  jetshape_hist->SetErrors(jetshape_err2_hist);
-  jetshape_err2_hist->DeleteTH();
   
-  jetshape_hist->Scale(1.0,"width");
-  jetshape_hist->Print("jetshape_");
-  jetshape_hist->Normalize("width");
-  jetshape_hist->Print("normalized_jetshape_");
-  jetshape_hist->DeleteTH();
+  
+  
+  
+  
+  
+  
+  hist->DeleteTH();
   
 }

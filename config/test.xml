@@ -193,7 +193,7 @@
       </statParticle>
       <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
       <particleRapMin><Item>0.0</Item></particleRapMin>
-      <particleRapMax><Item>1.5</Item></particleRapMax>
+      <particleRapMax><Item>2.4</Item></particleRapMax>
       <particlePtMin><Item>1.0</Item></particlePtMin>
       <particlePtMax><Item>300</Item></particlePtMax>
       
