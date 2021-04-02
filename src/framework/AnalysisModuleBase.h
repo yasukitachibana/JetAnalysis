@@ -18,6 +18,8 @@
 #include "Histogram.h"
 #include "Hist1D.h"
 
+//#define _GNU_SOURCE
+#include <sys/resource.h>
 
 class AnalysisModuleBase{
   
