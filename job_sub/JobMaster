@@ -1,0 +1,16 @@
+#!/bin/bash
+echo ""
+cd $1
+echo "-------------"
+echo "Current Dir: "
+pwd
+echo "-------------"
+echo "Job Submission is Starting"
+echo "command: " $2
+$2
+echo "-------------"
+echo "Job Ends"
+echo "-------------"
+cd ~/
+pwd
+echo ""
