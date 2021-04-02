@@ -108,12 +108,12 @@
       
       <mixedEvent>1</mixedEvent>
       
-      <nBinPhi>628</nBinPhi>
+      <nBinPhi>63</nBinPhi>
       <boundPhi>
         <Item>-3.141592653589793238462643383279502884197</Item>
         <Item>3.141592653589793238462643383279502884197</Item>
       </boundPhi>
-      <nBinEta>600</nBinEta>
+      <nBinEta>60</nBinEta>
       <boundEta>
         <Item>-3.0</Item>
         <Item>3.0</Item>
