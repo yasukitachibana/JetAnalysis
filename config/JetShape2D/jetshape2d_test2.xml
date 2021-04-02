@@ -22,45 +22,45 @@
   
   <observable>
     
-    <MixedEvent>
-      <name>Mixed Event [2D]</name>
-      <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->
-      <statParticle>
-        <Item>0</Item><Item>1</Item><Item>-1</Item>
-      </statParticle>
-      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
-      <particleRapMin>
-        <Item>0.0</Item>
-      </particleRapMin>
-      <particleRapMax>
-        <Item>2.4</Item>
-      </particleRapMax>
-      <particlePtMin>
-        <Item>0.0</Item><Item>0.7</Item><Item>2.0</Item><Item>4.0</Item><Item>0.0</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item> <Item>8.0</Item><Item>12.0</Item><Item>16.0</Item>
-      </particlePtMin>
-      <particlePtMax>
-        <Item>300</Item><Item>300</Item><Item>300</Item><Item>300</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item><Item>8.0</Item><Item>12.0</Item><Item>16.0</Item><Item>20.0</Item>
-      </particlePtMax>
-      
-      <var>
-        <r>
-          <Item>0</Item>
-        </r>
-        <!-- dummy -->
-      </var>
-      
-      <nBinPhi>1256</nBinPhi>
-      <boundPhi>
-        <Item>-3.141592653589793238462643383279502884197</Item>
-        <Item>3.141592653589793238462643383279502884197</Item>
-      </boundPhi>
-      <nBinEta>1200</nBinEta>
-      <boundEta>
-        <Item>-2.4</Item>
-        <Item>2.4</Item>
-      </boundEta>
-      
-    </MixedEvent>
+<!--    <MixedEvent>-->
+<!--      <name>Mixed Event [2D]</name>-->
+<!--      <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->-->
+<!--      <statParticle>-->
+<!--        <Item>0</Item><Item>1</Item><Item>-1</Item>-->
+<!--      </statParticle>-->
+<!--      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->-->
+<!--      <particleRapMin>-->
+<!--        <Item>0.0</Item>-->
+<!--      </particleRapMin>-->
+<!--      <particleRapMax>-->
+<!--        <Item>2.4</Item>-->
+<!--      </particleRapMax>-->
+<!--      <particlePtMin>-->
+<!--        <Item>0.0</Item><Item>0.7</Item><Item>2.0</Item><Item>4.0</Item><Item>0.0</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item> <Item>8.0</Item><Item>12.0</Item><Item>16.0</Item>-->
+<!--      </particlePtMin>-->
+<!--      <particlePtMax>-->
+<!--        <Item>300</Item><Item>300</Item><Item>300</Item><Item>300</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item><Item>8.0</Item><Item>12.0</Item><Item>16.0</Item><Item>20.0</Item>-->
+<!--      </particlePtMax>-->
+<!--      -->
+<!--      <var>-->
+<!--        <r>-->
+<!--          <Item>0</Item>-->
+<!--        </r>-->
+<!--        <!-- dummy -->-->
+<!--      </var>-->
+<!--      -->
+<!--      <nBinPhi>1256</nBinPhi>-->
+<!--      <boundPhi>-->
+<!--        <Item>-3.141592653589793238462643383279502884197</Item>-->
+<!--        <Item>3.141592653589793238462643383279502884197</Item>-->
+<!--      </boundPhi>-->
+<!--      <nBinEta>1200</nBinEta>-->
+<!--      <boundEta>-->
+<!--        <Item>-2.4</Item>-->
+<!--        <Item>2.4</Item>-->
+<!--      </boundEta>-->
+<!--      -->
+<!--    </MixedEvent>-->
     
     
     <JetShape2D>
@@ -106,7 +106,7 @@
         </r>
       </var>
       
-      <mixedEvent>1</mixedEvent>
+      <mixedEvent>0</mixedEvent>
       
       <nBinPhi>628</nBinPhi>
       <boundPhi>
