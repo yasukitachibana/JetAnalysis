@@ -42,6 +42,7 @@ public:
   
   virtual void Add(std::shared_ptr<Histogram> h){}
   virtual void Add(std::shared_ptr<Histogram> h, double factor){}
+  virtual void Divide(std::shared_ptr<Histogram> h){}
   
   virtual std::string HistName();
   
@@ -56,6 +57,8 @@ public:
   virtual double GetErr( int ix){return 0;}
   virtual double GetVal( int ix, int iy ){return 0;}
   virtual double GetErr( int ix, int iy ){return 0;}
+  virtual int FindBinX(double x){ return 0; }
+  virtual int FindBinY(double y){ return 0; }
   //------------------------------------------------------
 
 
@@ -77,6 +80,8 @@ public:
   double Sigma(){return sigma;}
   double SigmaErr(){return sigma_err;}
   //+++++++++++++++++++++++++++++++++++++
+  
+  virtual void DivideWithError( double norm, double norm_error ){}
 
 protected:
   std::string histname;

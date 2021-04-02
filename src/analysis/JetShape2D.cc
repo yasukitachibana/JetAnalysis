@@ -208,59 +208,6 @@ void JetShape2D::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr,
   total_hist->DeleteTH();
   
 }
-//
-//  auto sideband_hist = CreateHist("sideband_"+hist_name, iv);
-//  sideband_hist->Init();
-//  sideband_hist->SetSidebandHist(total_hist,sidebandRap[0],sidebandRap[1]);
-//  sideband_hist->Print();
-//
-//  total_hist->Add( sideband_hist, -1.0 );
-//  sideband_hist->DeleteTH();
-//  total_hist->Print("count_");
-
-
-
-
-
-
-//  auto jetshape_hist
-//  = std::make_shared<Hist1D>(hist_name, binSettings[iv]);
-//  jetshape_hist->Init();
-//
-//  auto jetshape_err2_hist
-//  = std::make_shared<Hist1D>("err2_"+hist_name, binSettings[iv]);
-//  jetshape_err2_hist->Init();
-//
-//  int n_phi = total_hist->GetNbinsX();
-//  int n_eta = total_hist->GetNbinsY();
-//
-//  for(int i_phi=0; i_phi<n_phi; i_phi++){
-//    for(int i_eta=0; i_eta<n_eta; i_eta++){
-//
-//      double delta_phi = total_hist->GetX(i_phi);
-//      double delta_eta = total_hist->GetY(i_eta);
-//      double val = total_hist->GetVal(i_phi,i_eta);
-//      double err = total_hist->GetErr(i_phi,i_eta);
-//
-//      double delta_r = sqrt(delta_phi*delta_phi+delta_eta*delta_eta);
-//
-//      jetshape_hist->Fill(delta_r, val);
-//      jetshape_err2_hist->Fill(delta_r, err*err);
-//
-//    }
-//  }
-//  total_hist->DeleteTH();
-//
-//  jetshape_hist->SetErrors(jetshape_err2_hist);
-//  jetshape_err2_hist->DeleteTH();
-//
-//  jetshape_hist->Scale(1.0,"width");
-//  jetshape_hist->Print("jetshape_");
-//  jetshape_hist->Normalize("width");
-//  jetshape_hist->Print("normalized_jetshape_");
-//  jetshape_hist->DeleteTH();
-
-//}
 
 void JetShape2D::CombineFinisher(){
   std::cout << "[JetShape2D] Finisher" << std::endl;
@@ -291,6 +238,18 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   
   if(mixedEvent){
     
+    std::string me_hist_name = GetHistName( iv, ir, ijp, ijr, ipp, ipr, 1 );
+    auto me_hist = CreateHist("2d_" + me_hist_name, iv);
+    me_hist->Init();
+    me_hist->LoadHistFromFile("raw_");
+    double ix0 = me_hist->FindBinX(0.0);
+    double iy0 = me_hist->FindBinY(0.0);
+    double me00 = me_hist->GetVal(ix0,iy0);
+    double me00_err = me_hist->GetErr(ix0,iy0);
+    me_hist->DivideWithError( me00, me00_err );
+    me_hist->Print("scaled_");
+    hist->Divide(me_hist);
+    hist->Print("corrected_acceptance_");
   }
   
   auto sideband_hist = CreateHist("sideband_2d_"+hist_name, iv);
@@ -316,36 +275,26 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   for(int i_phi=0; i_phi<n_phi; i_phi++){
     for(int i_eta=0; i_eta<n_eta; i_eta++){
       
-      //      double delta_phi = total_hist->GetX(i_phi);
-      //      double delta_eta = total_hist->GetY(i_eta);
-      //      double val = total_hist->GetVal(i_phi,i_eta);
-      //      double err = total_hist->GetErr(i_phi,i_eta);
-      //
-      //      double delta_r = sqrt(delta_phi*delta_phi+delta_eta*delta_eta);
-      //
-      //      jetshape_hist->Fill(delta_r, val);
-      //      jetshape_err2_hist->Fill(delta_r, err*err);
-      //
+      double delta_phi = hist->GetX(i_phi);
+      double delta_eta = hist->GetY(i_eta);
+      double val = hist->GetVal(i_phi,i_eta);
+      double err = hist->GetErr(i_phi,i_eta);
+      double delta_r = sqrt(delta_phi*delta_phi+delta_eta*delta_eta);
+
+      jetshape_hist->Fill(delta_r, val);
+      jetshape_err2_hist->Fill(delta_r, err*err);
+      
     }
   }
-  //  total_hist->DeleteTH();
-  //
-  //  jetshape_hist->SetErrors(jetshape_err2_hist);
-  //  jetshape_err2_hist->DeleteTH();
-  //
-  //  jetshape_hist->Scale(1.0,"width");
-  //  jetshape_hist->Print("jetshape_");
-  //  jetshape_hist->Normalize("width");
-  //  jetshape_hist->Print("normalized_jetshape_");
-  //  jetshape_hist->DeleteTH();
-  
-  
-  
-  
-  
-  
-  
-  
   hist->DeleteTH();
+  
+  jetshape_hist->SetErrors(jetshape_err2_hist);
+  jetshape_err2_hist->DeleteTH();
+  
+  jetshape_hist->Scale(1.0,"width");
+  jetshape_hist->Print("jetshape_");
+  jetshape_hist->Normalize("width");
+  jetshape_hist->Print("normalized_jetshape_");
+  jetshape_hist->DeleteTH();
   
 }

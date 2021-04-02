@@ -211,6 +211,19 @@ void Hist2D::Add(Hist2D h){
 void Hist2D::Add(Hist2D h, double factor){
   Add(h.GetTH2D(), factor);
 }
+
+void Hist2D::Divide(TH2D *h){
+  Hist->Divide(h);
+}
+
+void Hist2D::Divide(std::shared_ptr<Histogram> h){
+  Divide(std::dynamic_pointer_cast<Hist2D>(h));
+}
+
+void Hist2D::Divide(std::shared_ptr<Hist2D> h){
+  Divide(h->GetTH2D());
+}
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
