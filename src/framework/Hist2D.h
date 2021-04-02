@@ -31,6 +31,9 @@ public:
 
   void Add(Hist2D h);
   void Add(Hist2D h, double factor);
+  
+  void Divide(std::shared_ptr<Histogram> h);
+  void Divide(std::shared_ptr<Hist2D> h);
 
   //
   TH2D* GetTH2D(){return Hist;}
@@ -48,12 +51,16 @@ public:
   double GetY( int iy ){ return Hist->GetYaxis()->GetBinCenter(iy+1);}
   int GetNbinsX(){ return Hist->GetNbinsX();}
   int GetNbinsY(){ return Hist->GetNbinsY();}
+  int FindBinX(double x){ return Hist->GetXaxis()->FindBin(x)-1;}
+  int FindBinY(double y){ return Hist->GetYaxis()->FindBin(y)-1;}
 
   
   
   void SetSidebandHist(std::shared_ptr<Histogram> h, double min, double max);
   void SetSidebandHist(std::shared_ptr<Hist2D> h, double min, double max);
   void SetSidebandHist(Hist2D h, double min, double max);
+  
+  void DivideWithError( double norm, double norm_error );
   
 private:
 
@@ -64,12 +71,13 @@ private:
   std::vector<double> boundY;
 
   void InitHist();
-  void DivideWithError( double norm, double norm_error );
+
   
   void SetSidebandHist(TH2D *h, double min, double max);
   
   void Add(TH2D *h);
   void Add(TH2D *h, double factor);
+  void Divide(TH2D *h);
 
 };
 

@@ -24,6 +24,10 @@ public:
   void Add(std::shared_ptr<Hist1D> h);
   void Add(std::shared_ptr<Hist1D> h, double factor);
   
+  void Divide(std::shared_ptr<Histogram> h);
+  void Divide(std::shared_ptr<Hist1D> h);
+
+  
   void SetErrors(Hist1D h_err2);
   void SetErrors(std::shared_ptr<Hist1D> h_err2);
   void SetErrors(TH1D *h_err2);
@@ -39,8 +43,8 @@ public:
   double GetErr(int ix){ return Hist->GetBinError(ix+1);}
   double GetX(int ix){ return Hist->GetXaxis()->GetBinCenter(ix+1);}
   int GetNbinsX(){ return Hist->GetNbinsX();}
-  int GetNbinsY(){ return Hist->GetNbinsY();}
-
+  int FindBinX(double x){ return Hist->GetXaxis()->FindBin(x);}
+  void DivideWithError( double norm, double norm_error );
   
 private:
   
@@ -49,9 +53,9 @@ private:
   double* binEdges;
 
   void InitHist();
-  void DivideWithError( double norm, double norm_error );
   void Add(TH1D *h);
   void Add(TH1D *h, double factor);
+  void Divide(TH1D *h);
 
 };
 

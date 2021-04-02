@@ -13,9 +13,9 @@
     <statJet>
       <Item>0</Item><Item>1</Item><Item>-1</Item>
     </statJet>
-    <jetRapidity>0</jetRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapidity>1</jetRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin><Item>0</Item></jetRapMin>
-    <jetRapMax><Item>1.5</Item></jetRapMax>
+    <jetRapMax><Item>1.6</Item></jetRapMax>
     <jetPtMin><Item>120</Item></jetPtMin>
     <jetPtMax><Item>300</Item></jetPtMax>
   </jetReco>
@@ -116,41 +116,39 @@
     <!---->
     <!--    </FragF>-->
     
-    <!--    <JetShape>-->
-    <!--      <name>Jet Shape Function</name>-->
-    <!--      <chParticle>1</chParticle>-->
-    <!-- 0: full jet, 1: charged jet-->
-    <!--      <statParticle>-->
-    <!--        <Item>0</Item><Item>1</Item><Item>-1</Item>-->
-    <!--      </statParticle>-->
-    <!--      <particleRapidity>1</particleRapidity>-->
-    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
-    <!--      <particleRapMin><Item>0.0</Item></particleRapMin>-->
-    <!--      <particleRapMax><Item>1.5</Item></particleRapMax>-->
-    <!--      <particlePtMin><Item>1.0</Item></particlePtMin>-->
-    <!--      <particlePtMax><Item>300</Item></particlePtMax>-->
-    <!--      -->
-    <!--      <var>-->
-    <!--        <r>-->
-    <!--          <Item>0</Item>-->
-    <!--          <Item>0.05</Item>-->
-    <!--          <Item>0.1</Item>-->
-    <!--          <Item>0.15</Item>-->
-    <!--          <Item>0.2</Item>-->
-    <!--          <Item>0.25</Item>-->
-    <!--          <Item>0.3</Item>-->
-    <!--          <Item>0.35</Item>-->
-    <!--          <Item>0.4</Item>-->
-    <!--          <Item>0.45</Item>-->
-    <!--          <Item>0.5</Item>-->
-    <!--          <Item>0.6</Item>-->
-    <!--          <Item>0.7</Item>-->
-    <!--          <Item>0.8</Item>-->
-    <!--          <Item>1.0</Item>-->
-    <!--        </r>-->
-    <!--      </var>-->
-    <!---->
-    <!--    </JetShape>-->
+<!--        <JetShape>-->
+<!--          <name>Jet Shape Function</name>-->
+<!--          <chParticle>1</chParticle>-->
+<!--          <statParticle>-->
+<!--            <Item>0</Item><Item>1</Item><Item>-1</Item>-->
+<!--          </statParticle>-->
+<!--          <particleRapidity>1</particleRapidity>-->
+<!--          <particleRapMin><Item>0.0</Item></particleRapMin>-->
+<!--          <particleRapMax><Item>2.4</Item></particleRapMax>-->
+<!--          <particlePtMin><Item>0.7</Item></particlePtMin>-->
+<!--          <particlePtMax><Item>300</Item></particlePtMax>-->
+<!--          -->
+<!--          <var>-->
+<!--            <r>-->
+<!--              <Item>0</Item>-->
+<!--              <Item>0.05</Item>-->
+<!--              <Item>0.1</Item>-->
+<!--              <Item>0.15</Item>-->
+<!--              <Item>0.2</Item>-->
+<!--              <Item>0.25</Item>-->
+<!--              <Item>0.3</Item>-->
+<!--              <Item>0.35</Item>-->
+<!--              <Item>0.4</Item>-->
+<!--              <Item>0.45</Item>-->
+<!--              <Item>0.5</Item>-->
+<!--              <Item>0.6</Item>-->
+<!--              <Item>0.7</Item>-->
+<!--              <Item>0.8</Item>-->
+<!--              <Item>1.0</Item>-->
+<!--            </r>-->
+<!--          </var>-->
+<!--    -->
+<!--        </JetShape>-->
     
     <MixedEvent>
       <name>Mixed Event [2D]</name>
@@ -161,7 +159,7 @@
       <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
       <particleRapMin><Item>0.0</Item></particleRapMin>
       <particleRapMax><Item>2.4</Item></particleRapMax>
-      <particlePtMin><Item>1.0</Item></particlePtMin>
+      <particlePtMin><Item>0.7</Item></particlePtMin>
       <particlePtMax><Item>300</Item></particlePtMax>
       
       <var>
@@ -194,7 +192,7 @@
       <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
       <particleRapMin><Item>0.0</Item></particleRapMin>
       <particleRapMax><Item>2.4</Item></particleRapMax>
-      <particlePtMin><Item>1.0</Item></particlePtMin>
+      <particlePtMin><Item>0.7</Item></particlePtMin>
       <particlePtMax><Item>300</Item></particlePtMax>
       
       <var>
@@ -231,8 +229,8 @@
       </boundEta>
       
       <sidebandRap>
-        <Item>1.5</Item>
-        <Item>2.5</Item>
+        <Item>10</Item>
+        <Item>10</Item>
       </sidebandRap>
       
     </JetShape2D>

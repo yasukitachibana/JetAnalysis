@@ -178,6 +178,30 @@ void Hist1D::Add(std::shared_ptr<Hist1D> h, double factor){
   Add(h->GetTH1D(), factor);
 }
 
+
+
+
+void Hist1D::Divide(TH1D *h){
+  Hist->Divide(h);
+}
+
+void Hist1D::Divide(std::shared_ptr<Histogram> h){
+  Divide(std::dynamic_pointer_cast<Hist1D>(h));
+}
+
+void Hist1D::Divide(std::shared_ptr<Hist1D> h){
+  Divide(h->GetTH1D());
+}
+
+
+
+
+
+
+
+
+
+
 void Hist1D::SetErrors(Hist1D h_err2){
   SetErrors(h_err2.GetTH1D());
 }
