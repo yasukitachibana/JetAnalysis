@@ -83,7 +83,7 @@ protected:
 
   virtual std::shared_ptr<Histogram> CreateHist( std::string hist_name, int iv );
   
-  bool ParticleTrigger(std::shared_ptr<Particle> p, std::vector<std::array<int, 2>> &i_p );
+  bool ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr);
   
 private:
   std::shared_ptr<LoadFileModuleBase> load_ptr;
@@ -91,7 +91,7 @@ private:
   virtual void SetObservable
   (fastjet::PseudoJet jet,
    std::vector<std::shared_ptr<Particle>> particle_list,
-   int ir, std::vector<std::array<int, 2>> i_j ){}
+   int ir, int ijp, int ijr ){}
   //=========================================
   virtual int ReadOptionParametersFromXML(){return 1;}
   virtual void ShowParamsSetting(){}
@@ -114,7 +114,7 @@ private:
   //=========================================
   void EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num);
   //=========================================
-  bool JetTrigger(fastjet::PseudoJet jets, std::vector<std::array<int, 2>> &i_j, int ir );
+  bool JetTrigger(fastjet::PseudoJet jets, int ir, int ijp, int ijr );
   //=========================================
   bool NeutrinoCheck( std::shared_ptr<Particle> p );
   //=========================================

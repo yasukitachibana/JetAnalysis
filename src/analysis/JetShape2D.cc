@@ -120,58 +120,57 @@ std::shared_ptr<Histogram> JetShape2D::CreateHist( std::string hist_name, int iv
   return std::make_shared<Hist2D>(hist_name, nBinPhi, boundPhi, nBinEta, boundEta);
 }
 
+
 void JetShape2D::SetObservable
- (fastjet::PseudoJet jet,
-  std::vector<std::shared_ptr<Particle>> particle_list,
-  int ir, std::vector<std::array<int, 2>> i_j ){
-   
-   //--------------------------------------------------------------------------------------------------
-   for( auto& p : particle_list ){
-     std::vector<std::array<int, 2>> i_p;
-     if( ParticleTrigger(p, i_p)){
-       
-       double pt = sub_ptr->ptSub(p);
-       
-       double delta_eta = p->eta() - jet.eta() ;
-       double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
-       
-       for( auto ijet: i_j){
-         for( auto iparticle: i_p){
-           for( int iv = 0; iv < variables.size(); iv++ ){
-             
-             hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],iparticle[0],iparticle[1],0)]
-             ->Fill(delta_phi, delta_eta, pt);
-             
-           }
-         }
-       }
-       
-     }// trigger
-   }
+(fastjet::PseudoJet jet,
+ std::vector<std::shared_ptr<Particle>> particle_list,
+ int ir, int ijp, int ijr ){
+  
+//--------------------------------------------------------------------------------------------------
+  for( int iv = 0; iv < variables.size(); iv++ ){
+    for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+      for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+        
+        int index = GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,0);
+        hist_list[index]->JetTriggered();
+        
+        for( auto p : particle_list ){
+          if( ParticleTrigger(p, ipp,ipr) ){
+            double pt = sub_ptr->ptSub(p);
+            double delta_eta = p->eta() - jet.eta() ;
+            double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
+
+            hist_list[index]->Fill(delta_phi, delta_eta, pt);
+          }
+        }
+        
+      }
+    }
+  }
+//--------------------------------------------------------------------------------------------------
    //--------------------------------------------------------------------------------------------------
    if(!mixedEvent){return;}
-   
    //--
-   for( auto ijet: i_j){
-     for( int iv = 0; iv < variables.size(); iv++ ){
-       for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
-         for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
-           
-           for( auto& p : mixEvParticleList.at(GetMixedEvIndex(iv,ir,ijet[0],ijet[1],ipp,ipr)) ){
-             
-             double n = p->n_particle();
-             double delta_eta = p->eta() - jet.eta() ;
-             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
-             
-             hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],ipp,ipr,1)]
-             ->Fill(delta_phi, delta_eta, n);
-             
-           }
-           
-         }
-       }
-     }
-   }
+//   for( auto ijet: i_j){
+//     for( int iv = 0; iv < variables.size(); iv++ ){
+//       for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+//         for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+//           
+//           for( auto& p : mixEvParticleList.at(GetMixedEvIndex(iv,ir,ijet[0],ijet[1],ipp,ipr)) ){
+//             
+//             double n = p->n_particle();
+//             double delta_eta = p->eta() - jet.eta() ;
+//             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
+//             
+//             hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],ipp,ipr,1)]
+//             ->Fill(delta_phi, delta_eta, n);
+//             
+//           }
+//           
+//         }
+//       }
+//     }
+//   }
    
    //--------------------------------------------------------------------------------------------------
    

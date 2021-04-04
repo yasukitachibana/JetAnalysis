@@ -343,79 +343,82 @@ void AnalysisModuleBase::OneEventAnalysis(std::vector<std::shared_ptr<Particle>>
     // Get Jets Reconstructed with Jet Cone Size = r_cone
     std::vector <fastjet::PseudoJet> jets = reco_ptr->JetReco( r_cone, particle_list);
     for(auto j:jets){
-      std::vector<std::array<int, 2>> i_j;
-      if( JetTrigger(j, i_j, ir) ){
-        
-        SetObservable(j, particle_list, ir, i_j);
-        
-      }//trigger
+      
+      for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
+        for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
+
+          if( JetTrigger(j, ir, ijp, ijr) ){
+
+            SetObservable(j, particle_list, ir, ijp, ijr );
+      
+          }//trigger
+          
+        }
+      }
     }//jet
   }//jetR
   
 }
 
 //###############################################################################################################
-bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, std::vector<std::array<int, 2>> &i_j, int ir ){
+bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr ){
   
   double pt_jet = jet.perp();
   double rapidity_jet = GetRapidity(jet);
-  bool trigger = false;
-  for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
-    for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
-      
-      if( pt_jet >= jetPtMin[ijp] &&
-         pt_jet < jetPtMax[ijp] &&
-         fabs(rapidity_jet) >= jetRapMin[ijr] &&
-         fabs(rapidity_jet) < jetRapMax[ijr] ){
-        
-        std::array<int, 2> ij = {ijp,ijr};
-        i_j.push_back(ij);
-        trigger = true;
-        //-----------------------------------------------------------------------------------------------------
-        for( int iv = 0; iv < variables.size(); iv++ ){
-          for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
-            for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
-              for( int ip = 0; ip < nParams; ip++ ){
-                hist_list[GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,ip)]
-                ->JetTriggered();
-              }//option
-            }//particle_rap
-          }//particle_pt
-        }//variable
-        //-----------------------------------------------------------------------------------------------------
-      }//trigger
-    }//jet_rap
-  }//jet_pt
   
-  return trigger;
+  if( pt_jet >= jetPtMin[ijp] &&
+     pt_jet < jetPtMax[ijp] &&
+     fabs(rapidity_jet) >= jetRapMin[ijr] &&
+     fabs(rapidity_jet) < jetRapMax[ijr] )
+  {
+    return true;
+  }//trigger
+  
+  return false;
 }
 
-bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, std::vector<std::array<int, 2>> &i_p ){
+//bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, std::vector<std::array<int, 2>> &i_p ){
+//  
+//  if( !StatCheck(p) ){ return false; }
+//  if( !ChargeTrigger(p,chParticle) ){ return false; }
+//  
+//  bool trigger = false;
+//  double pt = p->perp();
+//  double rapidity = GetRapidity(p);
+//  
+//  for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+//    for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+//      
+//      if( pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
+//         fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] ){
+//        
+//        std::array<int, 2> iparticle = {ipp,ipr};
+//        i_p.push_back(iparticle);
+//        
+//        trigger = true;
+//      }
+//      
+//      
+//    }//rap
+//  }//pt
+//  
+//  return trigger;
+//}
+
+bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr){
   
-  if( !StatCheck(p) ){ return false; }
-  if( !ChargeTrigger(p,chParticle) ){ return false; }
-  
-  bool trigger = false;
-  double pt = p->perp();
-  double rapidity = GetRapidity(p);
-  
-  for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
-    for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
-      
-      if( pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
-         fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] ){
-        
-        std::array<int, 2> iparticle = {ipp,ipr};
-        i_p.push_back(iparticle);
-        
-        trigger = true;
-      }
-      
-      
-    }//rap
-  }//pt
-  
-  return trigger;
+  if( ChargeTrigger(p,chParticle) && StatCheck(p) ){
+    
+    double pt = p->perp();
+    double rapidity = GetRapidity(p);
+
+    if( pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
+       fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] ){
+      return true;
+    }
+    
+  }
+  return false;
 }
 
 //###############################################################################################################

@@ -35,35 +35,33 @@ std::shared_ptr<Histogram> MixedEvent::CreateHist( std::string hist_name, int iv
 
 void MixedEvent::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list){
   
+  
+  
   for( auto& p : particle_list ){
-    std::vector<std::array<int, 2>> i_p;
-    if( ParticleTrigger(p, i_p)){
-      
-      double n = sub_ptr->nSub(p);
-      double phi = p->phi_std();
-      double eta = p->eta();
+    
+    double n = sub_ptr->nSub(p);
+    double phi = p->phi_std();
+    double eta = p->eta();
+    
+    for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+      for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+        
+        if(ParticleTrigger(p,ipp,ipr)){
+          for( int iv = 0; iv < variables.size(); iv++ ){
+            
+            hist_list[GetHistIndex(iv,0,0,0,ipp,ipr,0)]
+            ->Fill(phi, eta, n);
 
-
-      
-      for( auto iparticle: i_p){
-        for( int iv = 0; iv < variables.size(); iv++ ){
-          for( int ir = 0; ir < jetR.size(); ir++ ){
-            for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
-              for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
-                for( int ip = 0; ip < nParams; ip++ ){
-                  
-                  hist_list[GetHistIndex(iv,ir,ijp,ijr,iparticle[0],iparticle[1],ip)]
-                  ->Fill(phi, eta, n);
-                  
-                }
-              }
-            }
           }
         }
+        
       }
-      
-    }//trigger
+    }
+    
   }
+
+  
+  
   
 }
 
