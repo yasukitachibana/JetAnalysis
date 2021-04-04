@@ -18,49 +18,49 @@ FragF::~FragF(){
 }
 
 void FragF::SetObservable
-(fastjet::PseudoJet jet,
- std::vector<std::shared_ptr<Particle>> particle_list,
- int ir, std::vector<std::array<int, 2>> i_j ){
-  
-  for( auto& p : particle_list ){
-    std::vector<std::array<int, 2>> i_p;
-    if( ParticleTrigger(p, i_p)){
-      
-      double delta_eta = p->eta() - jet.eta() ;
-      double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
-      double delta_r = TMath::Sqrt( delta_eta*delta_eta + delta_phi*delta_phi);
-      
-      if( delta_r <= jetR[ir] ){
-        
-        for( auto ijet: i_j){
-          for( auto iparticle: i_p){
-            
-            for( int ip = 0; ip < nParams; ip++ ){
-              for( int iv = 0; iv < variables.size(); iv++ ){
-                
-                double val = p->perp(); // particle pt
-                double n = sub_ptr->nSub(p);
-                
-                if( variables[iv] == "z" ){
-                  double jpt = jet.perp();
-                  val =val*cos(delta_r)/jpt;
-                }
-                
-                hist_list[GetHistIndex(iv,ir,ijet[0],ijet[1],iparticle[0],iparticle[1],ip)]->Fill( val, n );
-                
-                
-              }
-            }
-          }
-        }
-        
-        
-      }// inside th jet cone
-      
-    }// trigger
-  }
-  
-}
+ (fastjet::PseudoJet jet,
+  std::vector<std::shared_ptr<Particle>> particle_list,
+  int ir, int ijp, int ijr ){
+   
+   //--------------------------------------------------------------------------------------------------
+   for( int iv = 0; iv < variables.size(); iv++ ){
+     for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+       for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+         
+         int index = GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,0);
+         hist_list[index]->JetTriggered();
+         
+         for( auto p : particle_list ){
+           if( ParticleTrigger(p, ipp, ipr) ){
+             
+             double delta_eta = p->eta() - jet.eta() ;
+             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
+             double delta_r = TMath::Sqrt( delta_eta*delta_eta + delta_phi*delta_phi);
+             
+              //--------------------------------------------------------------------------------------------------
+             if( delta_r <= jetR[ir] ){
+               
+               double val = p->perp(); // particle pt
+               double n = sub_ptr->nSub(p);
+               
+               if( variables[iv] == "z" ){
+                 double jpt = jet.perp();
+                 val =val*cos(delta_r)/jpt;
+               }
+               
+               hist_list[index]->Fill( val, n );
+               
+             }
+              //--------------------------------------------------------------------------------------------------
+
+           }
+         }
+         
+       }//ipr
+     }//ipp
+   }//iv
+   //--------------------------------------------------------------------------------------------------
+ }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void FragF::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){
