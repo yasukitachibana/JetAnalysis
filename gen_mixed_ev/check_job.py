@@ -16,7 +16,7 @@ def GheckJob(id, tag):
  
  
 def NumberOfRunningJobs(id,tag):
-  command = 'squeue -u {} | grep {} | wc'.format(id,tag)
+  cmd = 'squeue -u {} | grep {} | wc'.format(id,tag)
   #cmd = 'ls | wc'
   out = subprocess.Popen(
       cmd, stdout=subprocess.PIPE,
