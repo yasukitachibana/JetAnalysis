@@ -13,10 +13,10 @@ def GenerateMixedEvent(id, nev, input, ecm):
   
   ptHatBins = jf.PtHatBins(ecm)
   sigmas, sigma_errs = LoadSigmaFiles(input,  ptHatBins)
-  print(sigmas)
+  #print(sigmas)
   sigmas = Normalization(sigmas)
   sigmas = Cumulation(sigmas)
-  print(sigmas)
+  #print(sigmas)
   
   for iev in range(nev):
     print( iev, '/', nev)
@@ -95,7 +95,7 @@ def main():
   
   end = time.time()
   
-  elapsed_time = (end - start)/360
+  elapsed_time = (end - start)/3600
   print(elapsed_time, 'hours')
 
 
