@@ -2,6 +2,7 @@ import random
 import os
 import numpy as np
 import jetscape_files as jf
+import time
 
 def GenerateMixedEvent(id, nev, input, ecm):
 
@@ -78,6 +79,8 @@ def DecideEvent( input_file, output_file ):
 
 def main():
   
+  start = time.time()
+  
   import argparse
   parser = argparse.ArgumentParser()
     
@@ -89,6 +92,11 @@ def main():
   args = parser.parse_args()
   
   GenerateMixedEvent(args.id, args.nev, args.input, args.ecm)
+  
+  end = time.time()
+  
+  elapsed_time = (end - start)/360
+  print(elapsed_time, 'hours')
 
 
 #    parser.add_argument("--time", type=str, default="720:00:00")
