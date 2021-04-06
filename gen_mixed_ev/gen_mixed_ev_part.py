@@ -12,8 +12,10 @@ def GenerateMixedEvent(id, nev, input, ecm):
   
   ptHatBins = jf.PtHatBins(ecm)
   sigmas, sigma_errs = LoadSigmaFiles(input,  ptHatBins)
+  print(sigmas)
   sigmas = Normalization(sigmas)
   sigmas = Cumulation(sigmas)
+  print(sigmas)
   
   for iev in range(nev):
     print( iev, '/', nev)
