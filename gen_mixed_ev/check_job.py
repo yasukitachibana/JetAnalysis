@@ -9,8 +9,10 @@ def GheckJob(id, tag):
   while n_run > 0:
     #time.sleep(120)
     time.sleep(10)
-    n_run = NumberOfRunningJobs(id,tag)
-    print( n_run, '\b-jobs are running now.')
+    n_run_now = NumberOfRunningJobs(id,tag)
+    if n_run_now != n_run:
+      n_run = n_run_now
+      print( n_run, '\b-jobs are running now.')
 
   return 1
   
