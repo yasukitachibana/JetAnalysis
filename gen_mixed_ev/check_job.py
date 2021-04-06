@@ -4,7 +4,7 @@ import time
 
 def GheckJob(id, tag):
 
-  n_run = NumberOfRUnningJobs(id,tag)
+  n_run = NumberOfRunningJobs(id,tag)
   while n_run > 0:
     #time.sleep(120)
     time.sleep(10)
