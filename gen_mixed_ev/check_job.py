@@ -34,9 +34,10 @@ def main():
   
   args = parser.parse_args()
   
-  n_run = NumberOfRunningJobs(args.u, args.tag)
-  GheckJob(id, tag)
-  print(n_run)
+#  n_run = NumberOfRunningJobs(args.u, args.tag)
+#    print(n_run)
+  GheckJob(args.u, args.tag)
+
 
 
 if __name__ == '__main__':
