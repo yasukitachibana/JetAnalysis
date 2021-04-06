@@ -5,11 +5,12 @@ import time
 def GheckJob(id, tag):
 
   n_run = NumberOfRunningJobs(id,tag)
+  print( n_run, '\b-jobs are running now.')
   while n_run > 0:
     #time.sleep(120)
     time.sleep(10)
     n_run = NumberOfRunningJobs(id,tag)
-    print( n_ev, '\b-jobs are running now.')
+    print( n_run, '\b-jobs are running now.')
 
   return 1
   
