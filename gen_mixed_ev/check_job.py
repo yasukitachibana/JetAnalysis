@@ -2,7 +2,7 @@ import os
 import subprocess
 import time
 
-def GheckJob(id, tag):
+def CheckJob(id, tag):
 
   n_run = NumberOfRunningJobs(id,tag)
   print( n_run, '\b-jobs are running now.')
@@ -39,7 +39,7 @@ def main():
   
 #  n_run = NumberOfRunningJobs(args.u, args.tag)
 #    print(n_run)
-  GheckJob(args.u, args.tag)
+  CheckJob(args.u, args.tag)
 
 
 
