@@ -2,11 +2,11 @@ import os
 import subprocess
 import time
 
-def CheckJob(id, tag):
+def CheckJob(id, tag, n_trigg):
 
   n_run = NumberOfRunningJobs(id,tag)
   print( n_run, '\b-jobs are running now.')
-  while n_run > 0:
+  while n_run > n_trigg:
     #time.sleep(120)
     time.sleep(10)
     n_run_now = NumberOfRunningJobs(id,tag)
