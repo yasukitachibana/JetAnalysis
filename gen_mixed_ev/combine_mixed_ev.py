@@ -19,6 +19,7 @@ def CombineMixedEvent(id_start, id_end, input):
     event_set = f_event_set.read()
     f_event_set.close()
     f_mixed_event.write(event_set)
+    os.remove(input_file)
 
   f_mixed_event.close()
 #############################################################################################################
