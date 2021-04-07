@@ -27,14 +27,14 @@ def JobSubmission(nev, input, nodes, ecm, tag, que):
     cmd = cmd.format( str(index), str(int(n_per_node_list[index])), input, str(ecm) )
     slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, tag+str(index), '16G')
     print(slurm_cmd,'\n---')
-    #os.system(slurm_cmd)
+    os.system(slurm_cmd)
     
     
   cmd = 'python combine_mixed_ev.py --id_start {} --id_end {} --input {} --tag {} -- wait {}'
   cmd = cmd.format( str(0), str(int(nodes-1)), input, tag, 1 )
   slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, 'co_'+tag, '16G')
   print(slurm_cmd,'\n---')
-  #os.system(slurm_cmd)
+  os.system(slurm_cmd)
 
 
   
