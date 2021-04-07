@@ -41,7 +41,7 @@ def main():
   args = parser.parse_args()
   
   
-  if args.wait and cj.CheckJob('go5410', args.tag):
+  if args.wait and cj.CheckJob('go5410', args.tag, 1):
     CombineMixedEvent(args.id_start, args.id_end, args.input)
   
   end = time.time()
