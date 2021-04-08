@@ -2,6 +2,10 @@
 #include "SetXML.h"
 #include "SetFile.h"
 
+//###############################################################################################################
+// Initialize static MakeUniqueHelper.here
+Pythia8::Pythia AnalysisModuleBase::InternalHelperPythia("IntentionallyEmpty",false);
+//###############################################################################################################
 
 //###############################################################################################################
 // AnalysisModuleFactory, RegisterAnalysisModule
@@ -37,11 +41,53 @@ void AnalysisModuleBase::Init(std::shared_ptr<ReconstructionModuleBase> reco_ptr
   SetLargestRapidity();
 }
 
-void AnalysisModuleBase::ReadParametersFromXML(){
+void AnalysisModuleBase::Set(double ptHatMin, double ptHatMax){
+  GenerateHist(ptHatMin, ptHatMax);
+}
+
+void AnalysisModuleBase::Clear(){
+  for( auto hist: hist_list){
+    hist->Print();
+  }
+  DeleteHist();
+}
+
+void AnalysisModuleBase::Combine(std::vector<double> ptHat){
   
+  for( int iv = 0; iv < variables.size(); iv++ ){
+    for( int ir = 0; ir < jetR.size(); ir++ ){
+      for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
+        for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
+          for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
+            for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
+              for( int ip = 0; ip < nParams; ip++ ){
+                
+                //_____________________________________________________________________________________
+                int nPtHatBins = ptHat.size()-1;
+                for(int i_pthat_bin = 0; i_pthat_bin < nPtHatBins; i_pthat_bin++ ){
+                  LoadHist( ptHat[i_pthat_bin], ptHat[i_pthat_bin+1], iv, ir, ijp, ijr, ipp, ipr, ip );
+                }
+                //_____________________________________________________________________________________
+                CombineHist( iv, ir, ijp, ijr, ipp, ipr, ip );
+                DeleteHist();
+                
+              }//option parameters
+            }//had_rap
+          }//had_pt
+        }//jet_rap
+      }//jet_pt
+    }//jetR
+  }//variable
+  
+  CombineFinisher();
+  
+}
+
+//###############################################################################################################
+
+void AnalysisModuleBase::ReadParametersFromXML(){
   //###############################################################################################################
   jetR = SetXML::Instance()->GetElementVectorDouble({"jetReco","jetR","Item"});
-  //###############################################################################################################
   chJet = SetXML::Instance()->GetElementInt({"jetReco","chJet"});
   statJet = SetXML::Instance()->GetElementVectorInt({"jetReco", "statJet", "Item"});
   jetRapidity = SetXML::Instance()->GetElementInt({"jetReco","jetRapidity"});
@@ -59,16 +105,12 @@ void AnalysisModuleBase::ReadParametersFromXML(){
   particlePtMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMax","Item"});
   //###############################################################################################################
   variables = SetXML::Instance()->GetElementNameVector({"observable", Name().c_str(), "var"});
-  
   for( auto var : variables ){
     std::vector<double> bins = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "var", var.c_str(), "Item"});
     binSettings.push_back(bins);
   }
-  
   //###############################################################################################################
   nParams = ReadOptionParametersFromXML();
-  //###############################################################################################################
-  
   //###############################################################################################################
   std::cout << std::endl;
   std::cout << "[AnalyzeBase] **********************************************"<< std::endl;
@@ -80,7 +122,6 @@ void AnalysisModuleBase::ReadParametersFromXML(){
   std::cout << "[AnalyzeBase] **********************************************"<< std::endl;
   std::cout << std::endl;
   //###############################################################################################################
-  
   if(chJet == 1 && chParticle == 0 ){
     std::cout << std::endl;
     std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
@@ -90,9 +131,9 @@ void AnalysisModuleBase::ReadParametersFromXML(){
     std::cout << std::endl;
     exit(-1);
   }
-  
 }
 
+//###############################################################################################################
 void AnalysisModuleBase::ShowObservableSetting(){
   std::cout << "[AnalyzeBase] ***-------------------------------------------"<< std::endl;
   std::cout << "[AnalyzeBase] *** [" << Name()<< "]" << std::endl;
@@ -134,6 +175,20 @@ void AnalysisModuleBase::ShowParticleSetting(){
     std::cout << "[AnalyzeBase] *** " << particleRapMin[i] << " < |" << ParticleRapType() << "| < " << particleRapMax[i] << std::endl;
   }
 }
+//###############################################################################################################
+void AnalysisModuleBase::SetJetPtCut(){
+  double jetPtCut= 10000.0;
+  double pt = 0.0;
+  
+  for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
+    pt = jetPtMin[ijp];
+    if( jetPtCut > pt ){
+      jetPtCut = pt;
+    }
+  }
+  jetPtCut = 0.6*jetPtCut;
+  reco_ptr->SetJetPtCut(jetPtCut);
+}
 
 void  AnalysisModuleBase::SetLargestRapidity(){
   largestRapidity=0.0;
@@ -155,28 +210,6 @@ void  AnalysisModuleBase::SetLargestRapidity(){
   }
   std::cout << "[AnalyzeBase] Largest Rapidity: " << largestRapidity<< std::endl;
 }
-
-
-//###############################################################################################################
-void AnalysisModuleBase::Set(double ptHatMin, double ptHatMax){
-  GenerateHist(ptHatMin, ptHatMax);
-}
-
-void AnalysisModuleBase::Clear(){
-  for( auto hist: hist_list){
-    hist->Print();
-  }
-  DeleteHist();
-}
-
-void AnalysisModuleBase::DeleteHist(){
-  for( auto hist: hist_list ){
-    hist->DeleteTH();
-  }
-  hist_list.clear();
-  hist_list.shrink_to_fit();
-}
-
 //###############################################################################################################
 
 void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax){
@@ -198,8 +231,8 @@ void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax){
                 hist_list.push_back(hist_this_bin);
                 nHist ++;
                 //std::string hist_name_test = hist_list[GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,ip)]->HistName();
-                //if(hist_name != hist_name_test){ std::cout << "Error!! Exit." << std::endl; exit(-1);}
                 
+                //
               }//option parameters
             }//had_rap
           }//had_pt
@@ -207,26 +240,39 @@ void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax){
       }//jet_pt
     }//jetR
   }//variable
+  
   std::cout << "[AnalyzeBase] number of generated histogram: " << nHist << std::endl;
   
 }
 
-
-
-std::shared_ptr<Histogram> AnalysisModuleBase::CreateHist( std::string hist_name, int iv ){
-  return std::make_shared<Hist1D>(hist_name, binSettings[iv]);
+void AnalysisModuleBase::LoadHist( double ptHatMin, double ptHatMax,
+                                  int iv,int ir,int ijp,int ijr,int ipp,int ipr,int ip){
+  //*******************************************************************************************
+  std::string hist_name = GetHistName( ptHatMin, ptHatMax, iv, ir, ijp, ijr, ipp, ipr, ip );
+  auto hist_this_bin = CreateHist(hist_name, iv);
+  hist_this_bin->Init();
+  hist_this_bin->LoadHistFromFile();
+  //*******************************************************************************************
+  double sigma, sigma_err;
+  std::string sigma_file_name =  SetFile::Instance()->GetSigmaFileName(ptHatMin, ptHatMax);
+  std::cout << "[AnalysisModuleBase] Load Sigma File: " << sigma_file_name << std::endl;
+  load_ptr->LoadSigma(sigma_file_name, sigma, sigma_err);
+  std::cout << "[AnalysisModuleBase] Sigma = " << sigma << ", sigma error = " << sigma_err << std::endl;
+  hist_this_bin->SetSigma(sigma, sigma_err);
+  //*******************************************************************************************
+  hist_list.push_back(hist_this_bin);
 }
 
-
-
-//###############################################################################################################
+void AnalysisModuleBase::DeleteHist(){
+  for( auto hist: hist_list ){
+    hist->DeleteTH();
+  }
+  hist_list.clear();
+  hist_list.shrink_to_fit();
+}
 
 std::string AnalysisModuleBase::GetHistName( double ptHatMin, double ptHatMax,
-                                            int iv,
-                                            int ir,
-                                            int ijp, int ijr,
-                                            int ipp, int ipr,
-                                            int ip){
+                                            int iv,int ir,int ijp, int ijr,int ipp,int ipr,int ip){
   
   std::string tag = GetParamsTag( ip );
   
@@ -257,209 +303,12 @@ std::string AnalysisModuleBase::GetHistName( int iv, int ir, int ijp, int ijr, i
   return histname;
 }
 
-
 int AnalysisModuleBase::GetHistIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){
-  return
-  nParams*
-  (particleRapMin.size()*
-   (particlePtMin.size()*
-    (jetRapMin.size()*
-     (jetPtMin.size()*
-      (jetR.size()*
-       (iv)
-       +ir)
-      +ijp)
-     +ijr)
-    +ipp)
-   +ipr)
-  +ip;
+  return nParams*(particleRapMin.size()*(particlePtMin.size()*(jetRapMin.size()*(jetPtMin.size()*(jetR.size()*(iv)+ir)+ijp)+ijr)+ipp)+ipr)+ip;
 }
 
-//###############################################################################################################
-void AnalysisModuleBase::Analyze(std::string input_file_name){
-  
-  std::cout << "[AnalysisModuleBase] Analyze " << Name() <<" ("<<std::to_string(getMemoryUsage())<<"MB) ..."<< std::endl;
-  //std::cout << "[AnalysisModuleBase] check hist name " <<  hist_list[0]->HistName() << std::endl;
-  load_ptr->Load(input_file_name);
-  //*******************************************************************************************
-  std::vector<std::shared_ptr<Particle>> particle_list;
-  
-  int event_num = 0;
-  while( load_ptr->GetLine() ){
-    //load_ptr->ShowLine();
-    if( load_ptr->EventEnd() ){
-      //**************
-      EventEndMark( particle_list, event_num );
-      //**************
-    }else if( load_ptr->ValidLine() ){
-      //**************
-      auto p = load_ptr->GetParticle();
-      if( RapidityCut(p) && ChargeTrigger(p, chJet) && (!NeutrinoCheck(p)) ){
-        particle_list.push_back(p);
-      }
-      //**************
-    }
-    
-  }
-  if( load_ptr->Last() ){
-    //**************
-    EventEndMark( particle_list, event_num );
-    //**************
-  }
-  std::cout << "\n[AnalysisModuleBase] Last Event" << event_num <<" -- DONE! ("<<std::to_string(getMemoryUsage())<<"MB) ..."<< std::endl;
-  //*******************************************************************************************
-  load_ptr->Clear();
-}
-
-//###############################################################################################################
-void AnalysisModuleBase::EventEndMark
-(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num)
-{
-  
-  if(event_num%2500==0){
-    std::cout
-    << "Event" << event_num
-    <<" ("<<std::to_string(getMemoryUsage())<<"MB) "<< std::flush;
-    if( ((event_num/2500)+1)%5==0 ){
-      std::cout<<std::endl;
-    }
-  }
-  
-  for( auto hist: hist_list){
-    hist->EventCount();
-  }
-  
-  OneEventAnalysis(particle_list);
-  particle_list.clear();
-  particle_list.shrink_to_fit();
-  event_num++;
-}
-
-//###############################################################################################################
-void AnalysisModuleBase::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list){
-  
-  for(int ir = 0; ir < jetR.size(); ir++ ){
-    double r_cone = jetR[ir];
-    // Get Jets Reconstructed with Jet Cone Size = r_cone
-    std::vector <fastjet::PseudoJet> jets = reco_ptr->JetReco( r_cone, particle_list);
-    for(auto j:jets){
-      
-      for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
-        for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
-
-          if( JetTrigger(j, ir, ijp, ijr) ){
-
-            SetObservable(j, particle_list, ir, ijp, ijr );
-      
-          }//trigger
-          
-        }
-      }
-    }//jet
-  }//jetR
-  
-}
-
-//###############################################################################################################
-bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr ){
-  
-  double pt_jet = jet.perp();
-  double rapidity_jet = GetRapidity(jet);
-  
-  if( pt_jet >= jetPtMin[ijp] &&
-     pt_jet < jetPtMax[ijp] &&
-     fabs(rapidity_jet) >= jetRapMin[ijr] &&
-     fabs(rapidity_jet) < jetRapMax[ijr] )
-  {
-    return true;
-  }//trigger
-  
-  return false;
-}
-
-//bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, std::vector<std::array<int, 2>> &i_p ){
-//  
-//  if( !StatCheck(p) ){ return false; }
-//  if( !ChargeTrigger(p,chParticle) ){ return false; }
-//  
-//  bool trigger = false;
-//  double pt = p->perp();
-//  double rapidity = GetRapidity(p);
-//  
-//  for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
-//    for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
-//      
-//      if( pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
-//         fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] ){
-//        
-//        std::array<int, 2> iparticle = {ipp,ipr};
-//        i_p.push_back(iparticle);
-//        
-//        trigger = true;
-//      }
-//      
-//      
-//    }//rap
-//  }//pt
-//  
-//  return trigger;
-//}
-
-bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr){
-  
-  if( ChargeTrigger(p,chParticle) && StatCheck(p) ){
-    
-    double pt = p->perp();
-    double rapidity = GetRapidity(p);
-
-    if( pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
-       fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] ){
-      return true;
-    }
-    
-  }
-  return false;
-}
-
-//###############################################################################################################
-bool AnalysisModuleBase::StatCheck(std::shared_ptr<Particle> p){
-  
-  for(auto st:statParticle){
-    if( st==p->pstat() ){
-      return true;
-    }
-  }
-  
-  return false;
-}
-
-//###############################################################################################################
-bool AnalysisModuleBase::NeutrinoCheck( std::shared_ptr<Particle> p ){
-  int pid = p->pid();
-  for(int i =0; i < nNeutrino; i++){
-    if( abs(pid) == pidNeutrino[i] ){
-      return true;
-    }
-  }
-  return false;
-}
-
-//###############################################################################################################
-bool AnalysisModuleBase::ChargedCheck(std::shared_ptr<Particle> p){
-  double charge = pythia.particleData.charge( p->pid() );
-  if( fabs( charge ) > 0.0001 /* min. value of charge */  ){
-    return true;
-  }else{
-    return false;
-  }
-}
-
-bool AnalysisModuleBase::ChargeTrigger(std::shared_ptr<Particle> p, int charged){
-  if( charged==0 || ChargedCheck(p) ){
-    return true;
-  }else{
-    return false;
-  }
+std::shared_ptr<Histogram> AnalysisModuleBase::CreateHist( std::string hist_name, int iv ){
+  return std::make_shared<Hist1D>(hist_name, binSettings[iv]);
 }
 
 //###############################################################################################################
@@ -494,73 +343,76 @@ double AnalysisModuleBase::GetRapidity( std::shared_ptr<fastjet::PseudoJet> j ){
 double AnalysisModuleBase::GetRapidity( std::shared_ptr<Particle> p ){
   return GetRapidity( p->GetPseudoJet() );
 }
-
 //###############################################################################################################
-void AnalysisModuleBase::SetJetPtCut(){
-  double jetPtCut= 10000.0;
-  double pt = 0.0;
-  
-  for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
-    pt = jetPtMin[ijp];
-    if( jetPtCut > pt ){
-      jetPtCut = pt;
+bool AnalysisModuleBase::ChargedCheck(std::shared_ptr<Particle> p){
+  double charge = InternalHelperPythia.particleData.charge( p->pid() );
+  if( fabs( charge ) > 0.0001 /* min. value of charge */  ){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+bool AnalysisModuleBase::ChargeTrigger(std::shared_ptr<Particle> p, int charged){
+  if( charged==0 || ChargedCheck(p) ){
+    return true;
+  }else{
+    return false;
+  }
+}
+//###############################################################################################################
+bool AnalysisModuleBase::NeutrinoCheck( std::shared_ptr<Particle> p ){
+  int pid = p->pid();
+  for(int i =0; i < nNeutrino; i++){
+    if( abs(pid) == pidNeutrino[i] ){
+      return true;
     }
   }
-  jetPtCut = 0.6*jetPtCut;
-  reco_ptr->SetJetPtCut(jetPtCut);
+  return false;
 }
-
 //###############################################################################################################
-void AnalysisModuleBase::Combine(std::vector<double> ptHat){
+bool AnalysisModuleBase::StatCheck(std::shared_ptr<Particle> p){
   
-  for( int iv = 0; iv < variables.size(); iv++ ){
-    for( int ir = 0; ir < jetR.size(); ir++ ){
-      for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
-        for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
-          for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
-            for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){
-              for( int ip = 0; ip < nParams; ip++ ){
-                
-                //_____________________________________________________________________________________
-                int nPtHatBins = ptHat.size()-1;
-                for(int i_pthat_bin = 0; i_pthat_bin < nPtHatBins; i_pthat_bin++ ){
-                  LoadHist( ptHat[i_pthat_bin], ptHat[i_pthat_bin+1], iv, ir, ijp, ijr, ipp, ipr, ip );
-                }
-                //_____________________________________________________________________________________
-                CombineHist( iv, ir, ijp, ijr, ipp, ipr, ip );
-                DeleteHist();
-                
-              }//option parameters
-            }//had_rap
-          }//had_pt
-        }//jet_rap
-      }//jet_pt
-    }//jetR
-  }//variable
+  for(auto st:statParticle){
+    if( st==p->pstat() ){
+      return true;
+    }
+  }
   
-  CombineFinisher();
+  return false;
+}
+//###############################################################################################################
+bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr ){
   
+  double pt_jet = jet.perp();
+  double rapidity_jet = GetRapidity(jet);
+  
+  if( pt_jet >= jetPtMin[ijp] &&
+     pt_jet < jetPtMax[ijp] &&
+     fabs(rapidity_jet) >= jetRapMin[ijr] &&
+     fabs(rapidity_jet) < jetRapMax[ijr] )
+  {
+    return true;
+  }//trigger
+  
+  return false;
 }
 
-
-void AnalysisModuleBase::LoadHist( double ptHatMin, double ptHatMax,
-                                  int iv,int ir,int ijp,int ijr,int ipp,int ipr,int ip){
-  //*******************************************************************************************
-  std::string hist_name = GetHistName( ptHatMin, ptHatMax, iv, ir, ijp, ijr, ipp, ipr, ip );
-  auto hist_this_bin = CreateHist(hist_name, iv);
-  hist_this_bin->Init();
-  hist_this_bin->LoadHistFromFile();
-  //*******************************************************************************************
-  double sigma, sigma_err;
-  std::string sigma_file_name =  SetFile::Instance()->GetSigmaFileName(ptHatMin, ptHatMax);
-  std::cout << "[AnalysisModuleBase] Load Sigma File: " << sigma_file_name << std::endl;
-  load_ptr->LoadSigma(sigma_file_name, sigma, sigma_err);
-  std::cout << "[AnalysisModuleBase] Sigma = " << sigma << ", sigma error = " << sigma_err << std::endl;
-  hist_this_bin->SetSigma(sigma, sigma_err);
-  //*******************************************************************************************
-  hist_list.push_back(hist_this_bin);
+bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr){
+  
+  if( ChargeTrigger(p,chParticle) && StatCheck(p) ){
+    
+    double pt = p->perp();
+    double rapidity = GetRapidity(p);
+    
+    if( pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
+       fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] ){
+      return true;
+    }
+    
+  }
+  return false;
 }
-
 
 //###############################################################################################################
 long AnalysisModuleBase::getMemoryUsage()
