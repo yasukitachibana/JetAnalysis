@@ -4,7 +4,7 @@
 
 CombineEvents::CombineEvents(std::shared_ptr<AnalysisModuleBase> obs_ptr_in)
 :obs_ptr(obs_ptr_in){
-    std::cout << "-@-Creating CombineEvents for "<< obs_ptr->Name() <<std::endl;
+  std::cout << "-@-Creating CombineEvents for "<< obs_ptr->Name() <<std::endl;
 }
 
 

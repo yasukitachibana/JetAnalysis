@@ -26,28 +26,33 @@ class AnalysisModuleBase{
 public:
   
   virtual ~AnalysisModuleBase(){}
-  
+  //=========================================
+  virtual std::string Name(){ return "N/A"; }
+  //=========================================
   void Init(std::shared_ptr<ReconstructionModuleBase> reco_ptr_in,
             std::shared_ptr<SubtractionModuleBase> sub_ptr_in,
             std::shared_ptr<LoadFileModuleBase> load_ptr_in);
-  
   void Set(double ptHatMin, double ptHatMax);
-  void Analyze(std::string input_file_name);
   void Clear();
-  
   void Combine(std::vector<double> ptHat);
-  
-  virtual std::string Name(){ return "N/A"; }
-  
+  //=========================================
+  virtual void Analyze(std::string input_file_name){}
+  //=========================================
+  static Pythia8::Pythia InternalHelperPythia;
   long getMemoryUsage();
+  //=========================================
   
 protected:
-  
+  //=========================================
+  virtual void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){}
+  virtual void CombineFinisher(){}
+  //=========================================
+  virtual std::shared_ptr<Histogram> CreateHist( std::string hist_name, int iv );
+  //=========================================
   std::vector<std::shared_ptr<Histogram>> hist_list;
-  
   std::shared_ptr<ReconstructionModuleBase> reco_ptr;
   std::shared_ptr<SubtractionModuleBase> sub_ptr;
-  
+  std::shared_ptr<LoadFileModuleBase> load_ptr;
   //=========================================
   std::vector<double> jetR;
   int chJet;
@@ -65,72 +70,57 @@ protected:
   std::vector<double> particleRapMax;
   std::vector<double> particlePtMin;
   std::vector<double> particlePtMax;
-  //
+  //--
   int nParams;
   std::vector<std::string> variables;
-  
-  //=========================================
   std::vector< std::vector<double> > binSettings;
   //=========================================
-  std::string
-  GetHistName( double ptHatMin, double ptHatMax,
-              int iv, int ir, int ijp, int ijr, int ipp, int ipr,
-              int ip);
-  std::string
-  GetHistName( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
-  
+  std::string GetHistName( double ptHatMin, double ptHatMax,
+                          int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+  std::string GetHistName( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   int GetHistIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
-
-  virtual std::shared_ptr<Histogram> CreateHist( std::string hist_name, int iv );
-  
-  bool ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr);
-  
-private:
-  std::shared_ptr<LoadFileModuleBase> load_ptr;
-  //=========================================
-  virtual void SetObservable
-  (fastjet::PseudoJet jet,
-   std::vector<std::shared_ptr<Particle>> particle_list,
-   int ir, int ijp, int ijr ){}
-  //=========================================
-  virtual int ReadOptionParametersFromXML(){return 1;}
-  virtual void ShowParamsSetting(){}
-  virtual std::string GetParamsTag( int i ){ return ""; }
-  //=========================================
-  virtual void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){}
-  virtual void CombineFinisher(){}
-  //=========================================
-  virtual void OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list);
-  //=========================================
-  void GenerateHist(double ptHatMin, double ptHatMax);
-  void DeleteHist();
-  //=========================================
-  void ReadParametersFromXML();
-  void ShowObservableSetting();
-  void ShowJetSetting();
-  void ShowParticleSetting();
-  void SetLargestRapidity();
-  void SetJetPtCut();
-  //=========================================
-  void EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num);
-  //=========================================
-  bool JetTrigger(fastjet::PseudoJet jets, int ir, int ijp, int ijr );
-  //=========================================
-  bool NeutrinoCheck( std::shared_ptr<Particle> p );
-  //=========================================
-  bool StatCheck(std::shared_ptr<Particle> p);
-  //=========================================
-  bool ChargedCheck(std::shared_ptr<Particle> p);
-  bool ChargeTrigger(std::shared_ptr<Particle> p, int charged);
   //=========================================
   bool RapidityCut( std::shared_ptr<Particle> p );
   double GetRapidity( std::shared_ptr<Particle> p );
   double GetRapidity( fastjet::PseudoJet j );
   double GetRapidity( std::shared_ptr<fastjet::PseudoJet> j );
   //=========================================
-  Pythia8::Pythia pythia;
+  bool ChargeTrigger(std::shared_ptr<Particle> p, int charged);
+  bool ChargedCheck(std::shared_ptr<Particle> p);
+  //=========================================
+  bool NeutrinoCheck( std::shared_ptr<Particle> p );
+  //=========================================
+  bool StatCheck(std::shared_ptr<Particle> p);
+  //=========================================
+  bool JetTrigger(fastjet::PseudoJet jets, int ir, int ijp, int ijr );
+  bool ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr);
+  //=========================================
+  
+private:
+  //=========================================
+  void LoadHist( double ptHatMin, double ptHatMax,
+                int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+  //=========================================
+  void ReadParametersFromXML();
+  //--
+  void ShowObservableSetting();
+  void ShowJetSetting();
+  void ShowParticleSetting();
+  //--
+  virtual int ReadOptionParametersFromXML(){return 1;}
+  virtual void ShowParamsSetting(){}
+  virtual std::string GetParamsTag( int i ){ return ""; }
+  //=========================================
+  void SetJetPtCut();
+  void SetLargestRapidity();
   //=========================================
   double largestRapidity;
+  //=========================================
+  void GenerateHist(double ptHatMin, double ptHatMax);
+  void DeleteHist();
+  //=========================================
+  static const int nNeutrino = 4;
+  std::array<int, nNeutrino> pidNeutrino{12, 14, 16, 13};//abosolute values of neutrino/anti-neutrino pids.
   //=========================================
   std::string RapType(int rap){
     if(rap == 1){
@@ -155,15 +145,7 @@ private:
   }
   std::string JetRapType(){return RapType(jetRapidity);}
   std::string ParticleRapType(){return RapType(particleRapidity);}
-  
   //=========================================
-  static const int nNeutrino = 4;
-  std::array<int, nNeutrino> pidNeutrino{12, 14, 16, 13};//abosolute values of neutrino/anti-neutrino pids.
-  //=========================================
-  void LoadHist( double ptHatMin, double ptHatMax,
-                int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
-  //=========================================
-  
 };
 
 

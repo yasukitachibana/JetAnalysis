@@ -66,7 +66,6 @@ void JetAnalysis::ShowSettings(){
 
 void JetAnalysis::Exec() {
   
-  //auto mt = AnalysisModuleFactory::createInstance("ModuleTest");
 
   std::cout << "[JetAnalysis] Start JetAnalysis" << std::endl;
   std::cout <<  "=========================================================" << std::endl;

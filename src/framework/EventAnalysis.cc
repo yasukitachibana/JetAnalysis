@@ -22,7 +22,7 @@ void EventAnalysis::Init(){
   if( nSeq == 0){
     nSeq = 1;
   }
-
+  
 }
 
 void EventAnalysis::Clear(){
@@ -40,23 +40,20 @@ void EventAnalysis::Analyze(){
     std::cout << int(pt_hat) << ", ";
   }
   std::cout << "\b\b]" << std::endl;
-
+  
   for(int i_pthat_bin = 0; i_pthat_bin < nPtHatBins; i_pthat_bin++ ){
-
+    
     std::cout << "---------------------------------------------------------" << std::endl;
     std::cout << "[EventAnalysiss] Start Analysis for pt_hat: " << ptHat[i_pthat_bin] << "-" << ptHat[i_pthat_bin+1] << "GeV."  << std::endl;
     std::cout << "---------------------------------------------------------" << std::endl;
-
+    
     //++++++++++++++++++++++++++++++++++++++++++++++++
     //++++++++++++++++++++++++++++++++++++++++++++++++
     obs_ptr->Set(ptHat[i_pthat_bin],ptHat[i_pthat_bin+1]);
     //++++++++++++++++++++++++++++++++++++++++++++++++
     for(int i_seq = 0; i_seq < nSeq; i_seq++ ){
-      
       std::string input_file_name =  SetFile::Instance()->GetInputFileName(ptHat[i_pthat_bin], ptHat[i_pthat_bin+1], i_seq);
-
       obs_ptr->Analyze(input_file_name);
-
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++
     obs_ptr->Clear();
@@ -66,7 +63,7 @@ void EventAnalysis::Analyze(){
   }
   std::cout << "---------------------------------------------------------" << std::endl;
   std::cout << "[EventAnalysiss] Done EventAnalysiss"<<std::endl;
-
+  
   
 }
 
