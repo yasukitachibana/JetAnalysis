@@ -11,7 +11,8 @@ def GenerateMixedEvent(id, nev, input, ecm):
   #print(sigmas)
   sigmas = Normalization(sigmas)
   sigmas = Cumulation(sigmas)
-  #print(sigmas)
+  
+  print(sigmas)
   
   
   output_file = os.path.join(input, jf.MixedEventFileName(id) )
