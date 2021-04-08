@@ -60,6 +60,7 @@ def LoadSigmaFiles(input, ptHatBins):
 
 def DecidePtHatBin( sigmas, ptHatBins ):
   rand = random.random()
+  print(rand)
   diff = sigmas - rand
   i = np.where(diff > 0, diff, np.inf).argmin()
   return i
