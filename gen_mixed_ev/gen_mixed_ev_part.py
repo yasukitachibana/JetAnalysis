@@ -44,7 +44,8 @@ def LoadSigmaFiles(input, ptHatBins):
   
 
   for pthatbin in ptHatBins:
-    sigma_file = os.path.join( input, jf.SigmaFileName(pthatbin[0],pthatbin[1]) )
+    sigma_file = os.path.join( jf.PpDir(), jf.SigmaFileName( pthatbin[0],pthatbin[1]) )
+    #sigma_file = os.path.join( input, jf.SigmaFileName(pthatbin[0],pthatbin[1]) )
     if os.path.exists(sigma_file):
       sigma_data = np.loadtxt(sigma_file)
       sigmas = np.append(sigmas,sigma_data[0])

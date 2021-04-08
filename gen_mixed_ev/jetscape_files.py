@@ -7,6 +7,9 @@ def PartonFileName(ptHatMin, ptHatMax):
 
 def SigmaFileName(ptHatMin, ptHatMax):
   return 'SigmaHardBin{}_{}.out'.format(str(ptHatMin), str(ptHatMax))
+
+def PpDir():
+  return '/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP'
 ##############################################################################################
 def MixedEventFileName(index=''):
   return 'MixedEvent{}.txt'.format(str(index))
