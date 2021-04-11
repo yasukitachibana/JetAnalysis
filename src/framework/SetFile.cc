@@ -37,7 +37,10 @@ void SetFile::Init(std::string m_in_name, std::string m_out_name){
   sigma_join = SetXML::Instance()->GetElementText({"inputFiles","sigma","join"});
   sigma_tail = SetXML::Instance()->GetElementText({"inputFiles","sigma","tail"});
   
-  
+  sigma_dir = SetXML::Instance()->GetElementText({"inputFiles","sigma","path"});
+  if(sigma_dir == "na"){
+    sigma_dir = in_dir;
+  }
   
 }
 
@@ -53,7 +56,7 @@ SetFile::GetInputFileName( double ptHatMin, double ptHatMax, int i_seq ){
 
 std::string
 SetFile::GetSigmaFileName( double ptHatMin, double ptHatMax, int i_seq ){
-  return in_dir+'/'+sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + sigma_tail;
+  return sigma_dir+'/'+sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + sigma_tail;
 }
 
 std::string SetFile::GetDivTail(int i_seq){

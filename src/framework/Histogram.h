@@ -28,7 +28,7 @@ public:
   void Print();
   virtual void Print(std::string name, bool addHistname = true){}
   
-  virtual void LoadHistFromFile(std::string name = ""){}
+  virtual void LoadHistFromFile(std::string name = "", bool addHistname = true){}
   
   virtual void Scale(double factor, std::string width = ""){}
   virtual void Normalize(std::string width  = ""){}
@@ -43,6 +43,9 @@ public:
   virtual void Add(std::shared_ptr<Histogram> h){}
   virtual void Add(std::shared_ptr<Histogram> h, double factor){}
   virtual void Divide(std::shared_ptr<Histogram> h){}
+  virtual void Show(std::shared_ptr<Histogram> h){}
+  virtual void Show(){}
+
   
   virtual std::string HistName();
   

@@ -24,6 +24,7 @@ public:
   
   virtual void Load(std::string input_filename){}
   virtual void Clear(){}
+  virtual void Reset(){}
   
   virtual void GetParticleList(){}
   virtual int GetLine(){return 0;}

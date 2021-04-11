@@ -74,6 +74,7 @@ private:
   std::string input_head;
   std::string input_join;
   std::string input_tail;
+  std::string sigma_dir;
   std::string sigma_head;
   std::string sigma_join;
   std::string sigma_tail;

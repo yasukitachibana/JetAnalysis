@@ -13,7 +13,7 @@ public:
   void Fill( double x );
   void Fill( double x, double val);
   void Print(std::string name = "", bool addHistname = true);
-  void LoadHistFromFile(std::string name = "");
+  void LoadHistFromFile(std::string name = "", bool add_histname = true);
 
   
   void Scale(double factor, std::string width = "");
@@ -26,6 +26,11 @@ public:
   
   void Divide(std::shared_ptr<Histogram> h);
   void Divide(std::shared_ptr<Hist1D> h);
+  
+  void Show(std::shared_ptr<Histogram> h);
+  void Show(std::shared_ptr<Hist1D> h);
+  void Show();
+
 
   
   void SetErrors(Hist1D h_err2);
@@ -56,6 +61,7 @@ private:
   void Add(TH1D *h);
   void Add(TH1D *h, double factor);
   void Divide(TH1D *h);
+  void Show(TH1D *h);
 
 };
 

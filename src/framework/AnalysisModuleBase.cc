@@ -39,7 +39,51 @@ void AnalysisModuleBase::Init(std::shared_ptr<ReconstructionModuleBase> reco_ptr
   ReadParametersFromXML();
   SetJetPtCut();
   SetLargestRapidity();
+  
+  InitMixedEvent();
 }
+
+void AnalysisModuleBase::Analyze(std::string input_file_name){
+  
+  std::cout
+  << "[AnalysisModuleBase] Analyze " << Name()
+  <<" ("<<std::to_string(getMemoryUsage()) <<"MB) ..."
+  << std::endl;
+  
+  load_ptr->Load(input_file_name);
+  std::vector<std::shared_ptr<Particle>> particle_list;
+  
+  int event_num = 0;
+  while( load_ptr->GetLine() ){
+    
+    if( load_ptr->EventEnd() ){
+      //**************
+      EventEndMark( particle_list, event_num );
+      //**************
+    }else if( load_ptr->ValidLine() ){
+      //**************
+      auto p = load_ptr->GetParticle();
+      if( RapidityCut(p) && ChargeTrigger(p, chJet) && (!NeutrinoCheck(p)) ){
+        particle_list.push_back(p);
+      }
+      //**************
+    }
+    
+  }
+  if( load_ptr->Last() ){
+    //**************
+    EventEndMark( particle_list, event_num );
+    //**************
+  }
+  std::cout
+  << "\n[AnalysisModuleBase] Last Event" << event_num
+  <<" -- DONE! ("<<std::to_string(getMemoryUsage())<<"MB) ..."
+  << std::endl;
+  //*******************************************************************************************
+  load_ptr->Clear();
+  
+}
+
 
 void AnalysisModuleBase::Set(double ptHatMin, double ptHatMax){
   GenerateHist(ptHatMin, ptHatMax);

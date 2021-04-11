@@ -73,9 +73,16 @@ void Hist2D::Print(std::string name, bool addHistname /* = true */ ){
   
 }
 
-void Hist2D::LoadHistFromFile(std::string name){
+void Hist2D::LoadHistFromFile(std::string name, bool addHistname){
   
-  std::string outfile_path = SetFile::Instance()->GetOutPath(name+histname+".txt");
+  std::string filename = name;
+  if(addHistname){
+    filename += histname;
+  }
+  filename += ".txt";
+
+  
+  std::string outfile_path = SetFile::Instance()->GetOutPath(filename);
   std::cout << "[Hist2D] Loading File:"<< outfile_path <<std::endl;
   
   
@@ -167,13 +174,20 @@ void Hist2D::DivideWithError( double norm, double norm_error )
   for (int ix=1; ix<nbins_x+1; ix++){
     for (int iy=1; iy<nbins_y+1; iy++){
       
-      Hist->SetBinContent(ix, iy, norm);
-      Hist->SetBinError(ix, iy, norm_error);
+      Norm->SetBinContent(ix, iy, norm);
+      Norm->SetBinError(ix, iy, norm_error);
       
     }
   }
   
+  Show();
+  
   Hist->Divide(Norm);
+  
+  Show(Norm);
+  
+  Show();
+  
   delete Norm;
   
 }
@@ -222,6 +236,53 @@ void Hist2D::Divide(std::shared_ptr<Histogram> h){
 
 void Hist2D::Divide(std::shared_ptr<Hist2D> h){
   Divide(h->GetTH2D());
+}
+
+
+void Hist2D::Show(std::shared_ptr<Histogram> h){
+  Show(std::dynamic_pointer_cast<Hist2D>(h));
+}
+
+void Hist2D::Show(std::shared_ptr<Hist2D> h){
+  Show(h->GetTH2D());
+}
+
+void Hist2D::Show(){
+  Show(Hist);
+}
+
+void Hist2D::Show(TH2D *h){
+
+  std::cout
+  << "----------------------" << std::endl;
+  int nbins_x = h->GetNbinsX();
+  int nbins_y = h->GetNbinsY();
+  
+  for (int ix=1; ix<nbins_x+1; ix++){
+    
+    double x_c = h->GetXaxis()->GetBinCenter(ix);
+    double x_w = h->GetXaxis()->GetBinWidth(ix);
+    
+    for (int iy=1; iy<nbins_y+1; iy++){
+      
+      double y_c = h->GetYaxis()->GetBinCenter(iy);
+      double y_w = h->GetYaxis()->GetBinWidth(iy);
+      
+      std::cout
+      << x_c << " "
+      << (x_c - 0.5*x_w) << " "
+      << (x_c + 0.5*x_w) << " "
+      << y_c << " "
+      << (y_c - 0.5*y_w) << " "
+      << (y_c + 0.5*y_w) << " "
+      << h->GetBinContent(ix,iy) << " "
+      << h->GetBinError(ix,iy) << std::endl;
+    }
+  }
+  std::cout
+  << "----------------------" << std::endl;
+
+  
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

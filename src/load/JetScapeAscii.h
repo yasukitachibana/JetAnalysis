@@ -17,6 +17,7 @@ public:
   
   void Load(std::string input_filename);
   void Clear();
+  void Reset();
   
   int GetLine();
   void ShowLine();
