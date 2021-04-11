@@ -65,9 +65,16 @@ void Hist1D::Print(std::string name, bool addHistname /* = true */ ){
   
 }
 
-void Hist1D::LoadHistFromFile(std::string name){
+void Hist1D::LoadHistFromFile(std::string name, bool addHistname){
   
-  std::string outfile_path = SetFile::Instance()->GetOutPath(name+histname+".txt");
+  
+  std::string filename = name;
+  if(addHistname){
+    filename += histname;
+  }
+  filename += ".txt";
+  
+  std::string outfile_path = SetFile::Instance()->GetOutPath(filename);
   std::cout << "[Hist1D] Loading File:"<< outfile_path <<std::endl;
   
   
@@ -194,12 +201,44 @@ void Hist1D::Divide(std::shared_ptr<Hist1D> h){
 }
 
 
+void Hist1D::Show(std::shared_ptr<Histogram> h){
+  Show(std::dynamic_pointer_cast<Hist1D>(h));
+}
 
+void Hist1D::Show(std::shared_ptr<Hist1D> h){
+  Show(h->GetTH1D());
+}
 
+void Hist1D::Show(){
+  Show(Hist);
+}
 
-
-
-
+void Hist1D::Show(TH1D *h){
+  
+  std::cout
+  << "----------------------" << std::endl;
+  
+  int nbins = h->GetNbinsX();
+  
+  for (int i=1; i<nbins+1; i++){
+    
+    double x_c = h->GetBinCenter(i);
+    double width = h->GetBinWidth(i);
+    
+    std::cout
+    << x_c << " "
+    << (x_c - 0.5*width) << " "
+    << (x_c + 0.5*width) << " "
+    << h->GetBinContent(i) << " "
+    << h->GetBinError(i) << std::endl;
+    
+  }
+  
+  std::cout
+  << "----------------------" << std::endl;
+  
+  
+}
 
 
 void Hist1D::SetErrors(Hist1D h_err2){

@@ -7,11 +7,8 @@
 class AnalysisModuleStandard: public AnalysisModuleBase{
   
 public:
-  void Analyze(std::string input_file_name);
-
   
 protected:
-
   
 private:
   void EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num);

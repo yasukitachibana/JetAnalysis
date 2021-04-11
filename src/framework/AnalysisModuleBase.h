@@ -33,16 +33,17 @@ public:
             std::shared_ptr<SubtractionModuleBase> sub_ptr_in,
             std::shared_ptr<LoadFileModuleBase> load_ptr_in);
   void Set(double ptHatMin, double ptHatMax);
-  void Clear();
+  void Analyze(std::string input_file_name);
   void Combine(std::vector<double> ptHat);
   //=========================================
-  virtual void Analyze(std::string input_file_name){}
+  virtual void Clear();
   //=========================================
   static Pythia8::Pythia InternalHelperPythia;
   long getMemoryUsage();
   //=========================================
   
 protected:
+  virtual void InitMixedEvent(){};
   //=========================================
   virtual void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip){}
   virtual void CombineFinisher(){}
@@ -79,6 +80,7 @@ protected:
                           int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   std::string GetHistName( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   int GetHistIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+  void DeleteHist();
   //=========================================
   bool RapidityCut( std::shared_ptr<Particle> p );
   double GetRapidity( std::shared_ptr<Particle> p );
@@ -97,6 +99,7 @@ protected:
   //=========================================
   
 private:
+  virtual void EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num){}
   //=========================================
   void LoadHist( double ptHatMin, double ptHatMax,
                 int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
@@ -117,7 +120,6 @@ private:
   double largestRapidity;
   //=========================================
   void GenerateHist(double ptHatMin, double ptHatMax);
-  void DeleteHist();
   //=========================================
   static const int nNeutrino = 4;
   std::array<int, nNeutrino> pidNeutrino{12, 14, 16, 13};//abosolute values of neutrino/anti-neutrino pids.

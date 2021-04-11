@@ -18,7 +18,8 @@ public:
   void Fill( double x, double y );
   void Fill( double x, double y, double val);
   void Print(std::string name = "", bool addHistname = true);
-  void LoadHistFromFile(std::string name = "");
+
+  void LoadHistFromFile(std::string name = "", bool addHistname = true);
 
   void Scale(double factor, std::string width = "");
 //  void Normalize(std::string width  = "");
@@ -34,6 +35,12 @@ public:
   
   void Divide(std::shared_ptr<Histogram> h);
   void Divide(std::shared_ptr<Hist2D> h);
+  
+  void Show(std::shared_ptr<Histogram> h);
+  void Show(std::shared_ptr<Hist2D> h);
+  void Show();
+
+
 
   //
   TH2D* GetTH2D(){return Hist;}
@@ -75,6 +82,7 @@ private:
   
   void SetSidebandHist(TH2D *h, double min, double max);
   
+  void Show(TH2D *h);
   void Add(TH2D *h);
   void Add(TH2D *h, double factor);
   void Divide(TH2D *h);
