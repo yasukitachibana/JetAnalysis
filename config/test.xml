@@ -7,7 +7,7 @@
   
   <!-- Jet Reconstruction-->
   <jetReco>
-    <reconstructionMethod>StandardReco</reconstructionMethod>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR><Item>0.4</Item></jetR>
     <chJet>0</chJet><!-- 0: full jet, 1: charged jet -->
     <statJet>

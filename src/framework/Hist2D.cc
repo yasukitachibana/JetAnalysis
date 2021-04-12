@@ -179,15 +179,9 @@ void Hist2D::DivideWithError( double norm, double norm_error )
       
     }
   }
-  
-  Show();
-  
+
   Hist->Divide(Norm);
-  
-  Show(Norm);
-  
-  Show();
-  
+
   delete Norm;
   
 }
