@@ -1,10 +1,10 @@
 #ifndef FRAGF_H
 #define FRAGF_H
 
-#include "AnalysisModuleStandard.h"
+#include "AnalysisModuleBase.h"
 #include <iostream>
 
-class FragF : public AnalysisModuleStandard {
+class FragF : public AnalysisModuleBase {
 private:
   
   // Allows the registration of the module so that it is available to be used by the Analysis framework.
