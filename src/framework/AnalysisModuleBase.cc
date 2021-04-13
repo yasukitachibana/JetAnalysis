@@ -230,7 +230,11 @@ void AnalysisModuleBase::SetJetPtCut(){
       jetPtCut = pt;
     }
   }
-  jetPtCut = 0.6*jetPtCut;
+  double factor = 0.6;
+  if(reco_ptr->Name()=="NegativeReco"){
+    factor = 1.0;
+  }
+  jetPtCut = factor*jetPtCut;
   reco_ptr->SetJetPtCut(jetPtCut);
 }
 
@@ -319,7 +323,6 @@ std::string AnalysisModuleBase::GetHistName( double ptHatMin, double ptHatMax,
                                             int iv,int ir,int ijp, int ijr,int ipp,int ipr,int ip){
   
   std::string tag = GetParamsTag( ip );
-  
   std::string histname
   = SetFile::Instance()->GetHistName(ptHatMin, ptHatMax,
                                      Name(),

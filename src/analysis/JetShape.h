@@ -1,10 +1,10 @@
 #ifndef JETSHAPE_H
 #define JETSHAPE_H
 
-#include "AnalysisModuleBase.h"
+#include "AnalysisModuleStandard.h"
 #include <iostream>
 
-class JetShape : public AnalysisModuleBase {
+class JetShape : public AnalysisModuleStandard {
 private:
   
   // Allows the registration of the module so that it is available to be used by the Analysis framework.
