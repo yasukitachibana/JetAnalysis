@@ -75,6 +75,11 @@ protected:
   int nParams;
   std::vector<std::string> variables;
   std::vector< std::vector<double> > binSettings;
+  
+  
+  
+  
+  
   //=========================================
   std::string GetHistName( double ptHatMin, double ptHatMax,
                           int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);

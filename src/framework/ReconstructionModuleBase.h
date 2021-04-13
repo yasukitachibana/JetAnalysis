@@ -22,10 +22,12 @@ public:
 
   virtual std::vector<fastjet::PseudoJet>
   JetReco( double r_cone, std::vector<std::shared_ptr<Particle>> particle_list );
-
+  
+  
   void Init(std::shared_ptr<SubtractionModuleBase> sub_ptr_in);
 
   void SetJetPtCut(double pt_jet_cut);
+  double JetPtCut(){return jetPtCut;}
 
 
 protected:

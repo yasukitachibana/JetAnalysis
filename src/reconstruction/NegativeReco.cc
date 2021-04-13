@@ -19,9 +19,7 @@ NegativeReco::JetReco( double r_cone, std::vector<std::shared_ptr<Particle>> par
   // First pass only particles with stat >=0 to jet reconstruction algorithm
   std::vector <fastjet::PseudoJet> fj_inputs;
   for( auto p : particle_list ){
-    if( p->pstat() >= 0 ){
-      fj_inputs.push_back(p->GetPseudoJet());
-    }
+    fj_inputs.push_back(p->GetPseudoJet());
   }
   // Jet reconstruction
   fastjet::JetDefinition jetDef(fastjet::antikt_algorithm, r_cone);
@@ -31,6 +29,6 @@ NegativeReco::JetReco( double r_cone, std::vector<std::shared_ptr<Particle>> par
   jetDef.set_recombiner(&uir);
   fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
   std::vector <fastjet::PseudoJet> jets = sorted_by_pt( clustSeq.inclusive_jets( jetPtCut ) );
- 
+  
   return jets;
 }

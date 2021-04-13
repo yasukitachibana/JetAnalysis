@@ -20,7 +20,6 @@ void AnalysisModuleStandard::EventEndMark
   for( auto hist: hist_list){
     hist->EventCount();
   }
-  
   OneEventAnalysis(particle_list);
   particle_list.clear();
   particle_list.shrink_to_fit();
@@ -32,6 +31,7 @@ void AnalysisModuleStandard::EventEndMark
 void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list){
   
   for(int ir = 0; ir < jetR.size(); ir++ ){
+    
     double r_cone = jetR[ir];
     // Get Jets Reconstructed with Jet Cone Size = r_cone
     std::vector <fastjet::PseudoJet> jets = reco_ptr->JetReco( r_cone, particle_list);
@@ -41,7 +41,7 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
         for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
           
           if( JetTrigger(j, ir, ijp, ijr) ){
-            
+
             SetObservable(j, particle_list, ir, ijp, ijr );
             
           }//trigger
