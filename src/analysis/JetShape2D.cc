@@ -86,11 +86,11 @@ void JetShape2D::SetObservable(fastjet::PseudoJet jet,
         //-
         for( auto p : mixed_event_particle_list ){
           if( ParticleTrigger(p, ipp,ipr) ){
-            double pt = sub_ptr->ptSub(p);
+            double n = sub_ptr->nSub(p);
             double delta_eta = p->eta() - jet.eta() ;
             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
             
-            hist_list[index]->Fill(delta_phi, delta_eta, pt);
+            hist_list[index]->Fill(delta_phi, delta_eta, n);
           }
         }
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
