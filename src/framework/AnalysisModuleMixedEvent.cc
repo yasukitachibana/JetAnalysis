@@ -5,9 +5,20 @@ void AnalysisModuleMixedEvent::InitMixedEvent(){
   
   load_mixed_ptr = LoadFileModuleFactory::createInstance( load_ptr->Name() );
   load_mixed_ptr->Init();
-  std::string mixed_event_filename = SetXML::Instance()->GetElementText({"observable", Name().c_str(), "pathMixedEvent"});
-  load_mixed_ptr->Load(mixed_event_filename);
+  std::string mixed_event_path = SetXML::Instance()->GetElementText({"observable", Name().c_str(), "pathMixedEvent"});
+  std::string mixed_event_filename = SetXML::Instance()->GetElementText({"observable", Name().c_str(), "filenameMixedEvent"});
   
+  
+  std::string mixed_event_fullpath;
+  if(mixed_event_path == "na"){
+    mixed_event_fullpath =  SetFile::Instance()->GetInPath(mixed_event_filename);
+  }else{
+    mixed_event_fullpath = mixed_event_path+'/'+mixed_event_filename;
+  }
+
+  load_mixed_ptr->Load(mixed_event_fullpath);
+  std::cout << "[AnalysisModuleMixedEvent] Loaded Mixed Event File: " << mixed_event_fullpath << std::endl;
+
 }
 
 void AnalysisModuleMixedEvent::Clear(){

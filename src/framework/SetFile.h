@@ -54,8 +54,10 @@ public:
               std::string tag = "" );
   
   std::string GetOutPath(std::string name);
-  
-  
+  std::string GetInPath(std::string name);
+  std::string GetOutPath();
+  std::string GetInPath();
+
 private:
   SetFile(){
     std::cout << "-@-Creating SetFile"<<std::endl;
