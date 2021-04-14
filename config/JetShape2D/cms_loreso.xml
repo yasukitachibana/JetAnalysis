@@ -7,7 +7,7 @@
   
   <!-- Jet Reconstruction-->
   <jetReco>
-    <reconstructionMethod>StandardReco</reconstructionMethod>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR><Item>0.4</Item></jetR>
     <chJet>0</chJet><!-- 0: full jet, 1: charged jet -->
     <statJet>
@@ -17,72 +17,25 @@
     <jetRapMin><Item>0</Item></jetRapMin>
     <jetRapMax><Item>1.6</Item></jetRapMax>
     <jetPtMin><Item>120</Item></jetPtMin>
-    <jetPtMax><Item>5020</Item></jetPtMax>
+    <jetPtMax><Item>300</Item></jetPtMax>
   </jetReco>
   
   <observable>
-    
-    <MixedEvent>
-      <name>Mixed Event [2D]</name>
-      <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->
-      <statParticle>
-        <Item>0</Item><Item>1</Item><Item>-1</Item>
-      </statParticle>
-      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
-      <particleRapMin>
-        <Item>0.0</Item>
-      </particleRapMin>
-      <particleRapMax>
-        <Item>2.4</Item>
-      </particleRapMax>
-      <particlePtMin>
-        <Item>0.0</Item><Item>0.7</Item><Item>2.0</Item><Item>4.0</Item><Item>0.0</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item> <Item>8.0</Item><Item>12.0</Item><Item>16.0</Item>
-      </particlePtMin>
-      <particlePtMax>
-        <Item>300</Item><Item>300</Item><Item>300</Item><Item>300</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item><Item>8.0</Item><Item>12.0</Item><Item>16.0</Item><Item>20.0</Item>
-      </particlePtMax>
-      
-      <var>
-        <r>
-          <Item>0</Item>
-        </r>
-        <!-- dummy -->
-      </var>
-      
-      <nBinPhi>1256</nBinPhi>
-      <boundPhi>
-        <Item>-3.141592653589793238462643383279502884197</Item>
-        <Item>3.141592653589793238462643383279502884197</Item>
-      </boundPhi>
-      <nBinEta>1200</nBinEta>
-      <boundEta>
-        <Item>-2.4</Item>
-        <Item>2.4</Item>
-      </boundEta>
-      
-    </MixedEvent>
-    
-    
     <JetShape2D>
       <name>Jet Shape Function [2D]</name>
-      <chParticle>1</chParticle><!-- 0: full jet, 1: charged jet -->
+      <chParticle>1</chParticle>
       <statParticle>
         <Item>0</Item><Item>1</Item><Item>-1</Item>
       </statParticle>
-      <particleRapidity>1</particleRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta)-->
-      <particleRapMin>
-        <Item>0.0</Item>
-      </particleRapMin>
-      <particleRapMax>
-        <Item>2.4</Item>
-      </particleRapMax>
+      <particleRapidity>1</particleRapidity>
+      <particleRapMin><Item>0.0</Item></particleRapMin>
+      <particleRapMax><Item>2.4</Item></particleRapMax>
       <particlePtMin>
-        <Item>0.0</Item><Item>0.7</Item><Item>2.0</Item><Item>4.0</Item><Item>0.0</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item> <Item>8.0</Item><Item>12.0</Item><Item>16.0</Item>
-      </particlePtMin>
+        <Item>0.7</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item>
+        <Item>8.0</Item><Item>12.</Item><Item>16.</Item><Item>20.0</Item></particlePtMin>
       <particlePtMax>
-        <Item>300</Item><Item>300</Item><Item>300</Item><Item>300</Item><Item>0.7</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item><Item>8.0</Item><Item>12.0</Item><Item>16.0</Item><Item>20.0</Item>
-      </particlePtMax>
-      
+        <Item>300</Item><Item>1.0</Item><Item>2.0</Item><Item>3.0</Item><Item>4.0</Item><Item>8.0</Item>
+        <Item>12.</Item><Item>16.</Item><Item>20.</Item><Item>300.</Item></particlePtMax>
       
       <var>
         <r>
@@ -105,15 +58,13 @@
           <Item>1.5</Item>
         </r>
       </var>
-      
-      <mixedEvent>1</mixedEvent>
-      
-      <nBinPhi>628</nBinPhi>
+          
+      <nBinPhi>63</nBinPhi>
       <boundPhi>
         <Item>-3.141592653589793238462643383279502884197</Item>
         <Item>3.141592653589793238462643383279502884197</Item>
       </boundPhi>
-      <nBinEta>600</nBinEta>
+      <nBinEta>60</nBinEta>
       <boundEta>
         <Item>-3.0</Item>
         <Item>3.0</Item>
@@ -123,6 +74,9 @@
         <Item>1.5</Item>
         <Item>2.5</Item>
       </sidebandRap>
+      
+      <pathMixedEvent>na</pathMixedEvent>
+      <filenameMixedEvent>MixedEvent.txt</filenameMixedEvent>
       
     </JetShape2D>
     
@@ -136,6 +90,7 @@
       <tail>.out</tail>
     </events>
     <sigma>
+      <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP</path>
       <head>SigmaHardBin</head>
       <join>_</join>
       <tail>.out</tail>

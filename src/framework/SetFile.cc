@@ -134,3 +134,15 @@ SetFile::GetHistName(std::string observable,
 std::string SetFile::GetOutPath(std::string name){
   return out_dir+'/'+ name;
 }
+
+std::string SetFile::GetInPath(std::string name){
+  return in_dir+'/'+ name;
+}
+
+std::string SetFile::GetOutPath(){
+  return out_dir;
+}
+
+std::string SetFile::GetInPath(){
+  return in_dir;
+}
