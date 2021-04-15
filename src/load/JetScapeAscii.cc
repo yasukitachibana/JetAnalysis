@@ -4,9 +4,42 @@
 // Register the module with the base class
 RegisterLoadFileModule<JetScapeAscii> JetScapeAscii::reg("JetScapeAscii");
 
+void JetScapeAscii::TestStringStream(){
+  std::stringstream test_stream;
+  std::string test_line;
+  
+  test_stream
+  << "Test Line 1\n"
+  << "Test Line 2\n"
+  << "Test Line 3\n"
+  << "Test Line 4\n"
+  << "Test Line 5\n";
+  
+  std::cout << "teststream" << test_stream.str() << std::endl;
+  
+  while ( getline( test_stream, test_line ) ){
+    std::cout << "testline0: " << test_line <<endl;
+  }
+
+  while ( getline( test_stream, test_line ) ){
+    std::cout << "testline1: " << test_line <<endl;
+  }
+  
+  test_stream.clear();
+  test_stream.seekg(0, std::ios::beg);
+  
+  while ( getline( test_stream, test_line ) ){
+    std::cout << "testline2: " << test_line <<endl;
+  }
+  
+  std::cout << "==============: " << test_line <<endl;
+  exit(-1);
+}
+
 JetScapeAscii::JetScapeAscii(std::string name_in): name(name_in)
 {
   std::cout << "-@-Creating JetScapeAscii" << std::endl;
+  TestStringStream();
 }
 
 JetScapeAscii::~JetScapeAscii(){

@@ -29,6 +29,9 @@ public:
   std::shared_ptr<Particle> GetParticle();
 
 private:
+  
+  void TestStringStream();
+  
   const std::string name;
   
   std::stringstream input_str_stream;
