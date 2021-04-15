@@ -42,8 +42,8 @@ void JetScapeAscii::TestStringStream(){
   std::cout << "testline3: " << test_line <<endl;
   
   std::cout << "testline3-1: " << test_line <<endl;
-  input_line.clear();
-  input_line.shrink_to_fit();
+  test_line.clear();
+  test_line.shrink_to_fit();
   std::cout << "testline3-2: " << test_line <<endl;
 
   getline( test_stream, test_line );
