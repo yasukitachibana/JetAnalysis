@@ -59,10 +59,10 @@ void JetScapeAscii::Clear(){
 
 void JetScapeAscii::Reset(){
   std::cout << "[JetScapeAscii] Reset." <<std::endl;
-//  input_str_stream.clear();
-//  input_str_stream.seekg(0, std::ios::beg);
-//  input_line.clear();
-//  input_line.shrink_to_fit();
+  input_str_stream.clear();
+  input_str_stream.seekg(0, std::ios::beg);
+  input_line.clear();
+  input_line.shrink_to_fit();
 }
 
 
