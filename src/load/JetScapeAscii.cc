@@ -21,10 +21,6 @@ void JetScapeAscii::TestStringStream(){
     std::cout << "testline0: " << test_line <<endl;
   }
 
-  while ( getline( test_stream, test_line ) ){
-    std::cout << "testline1: " << test_line <<endl;
-  }
-  
   test_stream.clear();
   test_stream.seekg(0, std::ios::beg);
   
@@ -57,7 +53,7 @@ void JetScapeAscii::TestStringStream(){
 JetScapeAscii::JetScapeAscii(std::string name_in): name(name_in)
 {
   std::cout << "-@-Creating JetScapeAscii" << std::endl;
-  TestStringStream();
+  //TestStringStream();
 }
 
 JetScapeAscii::~JetScapeAscii(){
@@ -110,10 +106,20 @@ void JetScapeAscii::Clear(){
 
 void JetScapeAscii::Reset(){
   std::cout << "[JetScapeAscii] Reset." <<std::endl;
+  
+  std::cout << "[JetScapeAscii] Before Reset." <<std::endl;
+  std::cout << "input_str_stream: " <<input_str_stream.str() <<std::endl;
+  std::cout << "input_line: " << input_line <<std::endl;
+
   input_str_stream.clear();
   input_str_stream.seekg(0, std::ios::beg);
   input_line.clear();
   input_line.shrink_to_fit();
+  
+  std::cout << "[JetScapeAscii] After Reset." <<std::endl;
+  std::cout << "input_str_stream: " <<input_str_stream.str() <<std::endl;
+  std::cout << "input_line: " << input_line <<std::endl;
+
 }
 
 
