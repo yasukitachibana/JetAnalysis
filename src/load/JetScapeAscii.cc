@@ -28,11 +28,29 @@ void JetScapeAscii::TestStringStream(){
   test_stream.clear();
   test_stream.seekg(0, std::ios::beg);
   
-  while ( getline( test_stream, test_line ) ){
-    std::cout << "testline2: " << test_line <<endl;
-  }
+  getline( test_stream, test_line );
+  std::cout << "testline2: " << test_line <<endl;
+
+  getline( test_stream, test_line );
+  std::cout << "testline2: " << test_line <<endl;
   
-  std::cout << "==============: " << test_line <<endl;
+  test_stream.clear();
+  test_stream.seekg(0, std::ios::beg);
+
+
+  getline( test_stream, test_line );
+  std::cout << "testline3: " << test_line <<endl;
+  
+  std::cout << "testline3-1: " << test_line <<endl;
+  input_line.clear();
+  input_line.shrink_to_fit();
+  std::cout << "testline3-2: " << test_line <<endl;
+
+  getline( test_stream, test_line );
+  std::cout << "testline3: " << test_line <<endl;
+
+  
+  std::cout << "==============: "  <<endl;
   exit(-1);
 }
 
