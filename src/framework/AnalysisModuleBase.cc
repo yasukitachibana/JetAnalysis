@@ -55,7 +55,9 @@ void AnalysisModuleBase::Analyze(std::string input_file_name){
   
   int event_num = 0;
   while( load_ptr->GetLine() ){
-    
+//    std::cout << "main" << std::endl;
+//    load_ptr->ShowLine();
+
     if( load_ptr->EventEnd() ){
       //**************
       EventEndMark( particle_list, event_num );
