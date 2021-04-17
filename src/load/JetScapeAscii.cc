@@ -84,41 +84,39 @@ void JetScapeAscii::Load(std::string input_filename){
   }
   
   std::cout << "[JetScapeAscii]  File Loaded. " <<std::endl;
-  getLineStart = 0;
+
   
 }
 
 void JetScapeAscii::Clear(){
-  std::cout << "[JetScapeAscii] Clear." <<std::endl;
-  
-  //std::cout << "[JetScapeAscii] Before Clear." <<std::endl;
-  //std::cout << "input_str_stream: " <<input_str_stream.str() <<std::endl;
-  //std::cout << "input_line: " << input_line <<std::endl;
+//  std::cout << "[JetScapeAscii] Clear." <<std::endl;
+//
+//  std::cout << "[JetScapeAscii] Before Clear." <<std::endl;
+//  std::cout << "input_line: " << input_line <<std::endl;
   input_str_stream.str("");
   input_str_stream.clear(std::stringstream::goodbit);
   input_line.clear();
   input_line.shrink_to_fit();
-  //std::cout << "[JetScapeAscii] After Clear." <<std::endl;
-  //std::cout << "input_str_stream: " <<input_str_stream.str() <<std::endl;
-  //std::cout << "input_line: " << input_line <<std::endl;
+  getLineStart = 0;
+//  std::cout << "[JetScapeAscii] After Clear." <<std::endl;
+//  std::cout << "input_line: " << input_line <<std::endl;
   
 }
 
 void JetScapeAscii::Reset(){
-  std::cout << "[JetScapeAscii] Reset." <<std::endl;
-  
-  std::cout << "[JetScapeAscii] Before Reset." <<std::endl;
-  std::cout << "input_str_stream: " <<input_str_stream.str() <<std::endl;
-  std::cout << "input_line: " << input_line <<std::endl;
-
+//  std::cout << "[JetScapeAscii] Reset." <<std::endl;
+//
+//  std::cout << "[JetScapeAscii] Before Reset." <<std::endl;
+//  std::cout << "input_line: " << input_line <<std::endl;
+//
   input_str_stream.clear();
   input_str_stream.seekg(0, std::ios::beg);
   input_line.clear();
   input_line.shrink_to_fit();
-  
-  std::cout << "[JetScapeAscii] After Reset." <<std::endl;
-  std::cout << "input_str_stream: " <<input_str_stream.str() <<std::endl;
-  std::cout << "input_line: " << input_line <<std::endl;
+  getLineStart = 0;
+//
+//  std::cout << "[JetScapeAscii] After Reset." <<std::endl;
+//  std::cout << "input_line: " << input_line <<std::endl;
 
 }
 

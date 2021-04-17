@@ -64,7 +64,8 @@ std::vector<std::shared_ptr<Particle>> AnalysisModuleMixedEvent::GetMixedEventPa
   std::vector<std::shared_ptr<Particle>> mixed_event_particle_list;
   
   while( load_mixed_ptr->GetLine() ){
-    //load_mixed_ptr->ShowLine();
+//    std::cout << "mixed" << std::endl;
+//    load_mixed_ptr->ShowLine();
     if( load_mixed_ptr->EventEnd() ){
       //std::cout << "-------------------------" << std::endl;
       break;
