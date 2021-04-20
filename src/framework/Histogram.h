@@ -50,7 +50,8 @@ public:
   virtual std::string HistName();
   
   virtual void SetSidebandHist(std::shared_ptr<Histogram> h, double min, double max){}
-  
+  virtual void AverageInX(){}
+  virtual void AverageInX(std::shared_ptr<Histogram> h){}
   //------------------------------------------------------
   virtual int GetNbinsX(){return 0;}
   virtual int GetNbinsY(){return 0;}

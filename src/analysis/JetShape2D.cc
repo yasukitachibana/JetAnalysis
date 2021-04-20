@@ -168,6 +168,10 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   //----------------------------------------
   //Mixed Event Method
   //----------------------------------------
+  
+  //average in phi
+  me_hist->AverageInX();
+  
   double ix0 = me_hist->FindBinX(0.0);
   double iy0 = me_hist->FindBinY(0.0);
   //  std::cout
@@ -183,7 +187,7 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   me_hist->DivideWithError( me00, me00_err );
   
   me_hist->Print("scaled_");
-  hist->Divide(me_hist);
+  //hist->Divide(me_hist);
   me_hist->DeleteTH();
   hist->Print("corrected_acceptance_");
   //----------------------------------------

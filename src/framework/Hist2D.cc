@@ -80,7 +80,7 @@ void Hist2D::LoadHistFromFile(std::string name, bool addHistname){
     filename += histname;
   }
   filename += ".txt";
-
+  
   
   std::string outfile_path = SetFile::Instance()->GetOutPath(filename);
   std::cout << "[Hist2D] Loading File:"<< outfile_path <<std::endl;
@@ -179,9 +179,9 @@ void Hist2D::DivideWithError( double norm, double norm_error )
       
     }
   }
-
+  
   Hist->Divide(Norm);
-
+  
   delete Norm;
   
 }
@@ -246,7 +246,7 @@ void Hist2D::Show(){
 }
 
 void Hist2D::Show(TH2D *h){
-
+  
   std::cout
   << "----------------------" << std::endl;
   int nbins_x = h->GetNbinsX();
@@ -275,7 +275,7 @@ void Hist2D::Show(TH2D *h){
   }
   std::cout
   << "----------------------" << std::endl;
-
+  
   
 }
 
@@ -343,3 +343,63 @@ void Hist2D::SetSidebandHist(TH2D *h, double min, double max){
   delete SideVal;
   delete SideErr2;
 }
+
+
+void Hist2D::AverageInX(){
+  AverageInX(Hist);
+}
+
+void Hist2D::AverageInX(std::shared_ptr<Histogram> h){
+  AverageInX(std::dynamic_pointer_cast<Hist2D>(h));
+}
+void Hist2D::AverageInX(std::shared_ptr<Hist2D> h){
+  AverageInX( h->GetTH2D() );
+}
+void Hist2D::AverageInX(Hist2D h){
+  AverageInX( h.GetTH2D() );
+}
+
+
+void Hist2D::AverageInX(TH2D *h){
+  
+  TH1D *Val= new TH1D( "_sideband_val", "_sideband_val",
+  nBinY, boundY[0], boundY[1]);
+  TH1D *Err2= new TH1D( "_sideband_err", "_sideband_err",
+  nBinY, boundY[0], boundY[1]);
+  
+  int nbins_x = Hist->GetNbinsX();
+  int nbins_y = Hist->GetNbinsY();
+  
+  int nx_in = 0;
+  for (int iy=1; iy<nbins_y+1; iy++){
+    nx_in = 0;
+    double y_c = Hist->GetYaxis()->GetBinCenter(iy); // phi
+    
+    for (int ix=1; ix<nbins_x+1; ix++){
+      //double x_c = Hist->GetXaxis()->GetBinCenter(ix);
+      
+      double val = h->GetBinContent(ix,iy);
+      double err = h->GetBinError(ix,iy);
+      
+      Val->Fill(y_c, val);
+      Err2->Fill(y_c, err*err);
+      
+    }
+  }
+  
+  for (int ix=1; ix<nbins_x+1; ix++){
+    for (int iy=1; iy<nbins_y+1; iy++){
+      
+      double val = Val->GetBinContent(iy);
+      double err2 = Err2->GetBinError(iy);
+      
+      Hist->SetBinContent(ix,iy,val/nbins_x);
+      Hist->SetBinError(ix,iy,sqrt(err2)/nbins_x);
+      
+    }
+  }
+  
+  delete Val;
+  delete Err2;
+}
+
