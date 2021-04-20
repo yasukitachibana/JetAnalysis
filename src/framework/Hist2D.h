@@ -67,6 +67,12 @@ public:
   void SetSidebandHist(std::shared_ptr<Hist2D> h, double min, double max);
   void SetSidebandHist(Hist2D h, double min, double max);
   
+  void AverageInX();
+  void AverageInX(std::shared_ptr<Histogram> h);
+  void AverageInX(std::shared_ptr<Hist2D> h);
+  void AverageInX(Hist2D h);
+  void AverageInX(TH2D *h);
+  
   void DivideWithError( double norm, double norm_error );
   
 private:
