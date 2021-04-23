@@ -65,9 +65,11 @@ void AnalysisModuleBase::Analyze(std::string input_file_name){
     }else if( load_ptr->ValidLine() ){
       //**************
       auto p = load_ptr->GetParticle();
-      if( RapidityCut(p) && ChargeTrigger(p, chJet) && (!NeutrinoCheck(p)) ){
+      
+      //std::cout << p->pid() << " " << <<std::endl;
+      //if( RapidityCut(p) && ChargeTrigger(p, chJet) && (!NeutrinoCheck(p)) ){
         particle_list.push_back(p);
-      }
+      //}
       //**************
     }
     
