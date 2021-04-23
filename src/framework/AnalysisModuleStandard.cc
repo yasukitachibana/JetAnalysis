@@ -12,6 +12,12 @@ void AnalysisModuleStandard::EventEndMark
     << "Event" << event_num
     <<" ("<<std::to_string(getMemoryUsage())<<"MB) "
     << std::flush;
+    
+    std::cout
+    << "Event:" << event_num
+    << ", particle number: " << particle_list.size();
+
+    
     if( ((event_num/2500)+1)%5==0 ){
       std::cout<<std::endl;
     }
@@ -21,10 +27,6 @@ void AnalysisModuleStandard::EventEndMark
     hist->EventCount();
   }
   
-  std::cout
-  << "Event:" << event_num
-  << ", particle number: " << particle_list.size();
-  exit(-1);
   
   OneEventAnalysis(particle_list);
   particle_list.clear();
