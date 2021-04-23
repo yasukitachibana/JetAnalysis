@@ -30,8 +30,38 @@ void JetShape::SetObservable
         int index = GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,0);
         hist_list[index]->JetTriggered();
         
+        std::cout << "############\n"
+        << ", particle number: " << particle_list.size() <<std::endl;
+
+        
         for( auto p : particle_list ){
+          std::cout
+            << "\n[BT] stat:" << p->pstat()
+            << ", pid:"<< p->pid()
+            << ", plabel:" <<p->plabel()
+            << ", e:" <<p->e()
+            << ", px:" <<p->px()
+            << ", py:" <<p->py()
+            << ", eta:"<< p->eta()
+            << ", phi:" <<p->phi_std()
+            << std::endl;
+
           if( ParticleTrigger(p, ipp, ipr) ){
+
+            std::cout
+              << "[T] stat:" << p->pstat()
+              << ", pid:"<< p->pid()
+              << ", plabel:" <<p->plabel()
+              << ", e:" <<p->e()
+              << ", px:" <<p->px()
+              << ", py:" <<p->py()
+              << ", eta:"<< p->eta()
+              << ", phi:" <<p->phi_std()
+              << std::endl;
+
+            
+            
+            
             
             double pt = sub_ptr->ptSub(p);
             double delta_eta = p->eta() - jet.eta() ;
