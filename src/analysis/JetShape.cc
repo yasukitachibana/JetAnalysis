@@ -58,10 +58,6 @@ void JetShape::SetObservable
               << ", eta:"<< p->eta()
               << ", phi:" <<p->phi_std()
               << std::endl;
-
-            
-            
-            
             
             double pt = sub_ptr->ptSub(p);
             double delta_eta = p->eta() - jet.eta() ;

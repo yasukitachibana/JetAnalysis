@@ -162,15 +162,15 @@
 <!--    -->
             <JetShape>
               <name>Jet Shape Function</name>
-              <chParticle>1</chParticle>
+              <chParticle>0</chParticle>
               <statParticle>
                 <Item>0</Item><Item>1</Item><Item>-1</Item>
               </statParticle>
               <particleRapidity>1</particleRapidity>
               <particleRapMin><Item>0.0</Item></particleRapMin>
-              <particleRapMax><Item>2.4</Item></particleRapMax>
-              <particlePtMin><Item>0.7</Item></particlePtMin>
-              <particlePtMax><Item>300</Item></particlePtMax>
+              <particleRapMax><Item>100.0</Item></particleRapMax>
+              <particlePtMin><Item>0.0</Item></particlePtMin>
+              <particlePtMax><Item>3000</Item></particlePtMax>
               
               <var>
                 <r>
