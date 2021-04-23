@@ -20,10 +20,19 @@ void AnalysisModuleStandard::EventEndMark
     }
   }
 
+  auto pf =  particle_list[0];
   
   std::cout
   << "Event:" << event_num
   << ", particle number: " << particle_list.size()
+  << ", stat:" pf->pstat()
+  << ", pid:" pf->pid()
+  << ", plabel:" pf->plabel()
+  << ", e:" pf->e()
+  << ", px:" pf->px()
+  << ", py:" pf->py()
+  << ", eta:" pf->eta()
+  << ", phi:" pf->phid()
   << std::endl;
 
   
