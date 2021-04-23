@@ -20,6 +20,12 @@ void AnalysisModuleStandard::EventEndMark
   for( auto hist: hist_list){
     hist->EventCount();
   }
+  
+  std::cout
+  << "Event:" << event_num
+  << ", particle number: " << particle_list.size();
+  exit(-1);
+  
   OneEventAnalysis(particle_list);
   particle_list.clear();
   particle_list.shrink_to_fit();

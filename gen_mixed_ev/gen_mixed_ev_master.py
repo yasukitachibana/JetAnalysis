@@ -2,11 +2,12 @@ import os
 import numpy as np
 import time
 import datetime
+import random
 import slurm_sub as ss
 
 
 #############################################################################################################
-def JobSubmission(nev, input, nodes, ecm, tag, que, combine_only):
+def JobSubmission(i_set, nev, input, nodes, ecm, tag, que, combine_only):
 
   cwd = os.getcwd()
   
@@ -29,38 +30,62 @@ def JobSubmission(nev, input, nodes, ecm, tag, que, combine_only):
       cmd = cmd.format( str(index), str(int(n_per_node_list[index])), input, str(ecm) )
       slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, tag+str(index), './log' ,'16G')
       print(slurm_cmd,'\n---')
-      os.system(slurm_cmd)
+      #os.system(slurm_cmd)
     
     
   cmd = 'python combine_mixed_ev.py --id_start {} --id_end {} --input {} --tag {} --wait {}'
   cmd = cmd.format( str(0), str(int(nodes-1)), input, tag, 1 )
   slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, 'co_'+tag, './log', '16G')
   print(slurm_cmd,'\n---')
-  os.system(slurm_cmd)
+  #os.system(slurm_cmd)
 
 
   
+#############################################################################################################
+## Generate Serial Number
+#############################################################################################################
+def GetSerialNumber():
   
+  sn = datetime.datetime.now()
+  sn = str(sn)[9:22].replace(' ','').replace('-','').replace(':','').replace('.','')
+  sn = sn+str(random.random())[3:5]
+
+  return sn
 
 #############################################################################################################
 ## Main
 #############################################################################################################
 def main():
 
+  #========================================
   import argparse
   parser = argparse.ArgumentParser()
-    
+  parser.add_argument("--set", type=int, default=1)
   parser.add_argument("--nev", type=int, default=48000)
   parser.add_argument('--input', type=str, default='../test_data')
   parser.add_argument('--nodes', type=int, default=250)
   parser.add_argument('--ecm', type=int, default=5020)
   parser.add_argument('--q', type=str, default='primary')
-  parser.add_argument('--tag', type=str, default='j_ana_0')
+  parser.add_argument('--tag', type=str, default='SN')
   parser.add_argument('--combine_only', type=int, default=0)
-  
   args = parser.parse_args()
-  
-  JobSubmission(args.nev, args.input, args.nodes, args.ecm, args.tag, args.q, args.combine_only)
+  #========================================
+  if args.tag == 'SN':
+    args.tag = GetSerialNumber()
+  #========================================
+  nodes_per_set, rem = divmod(args.nodes,args.set)
+  nodes_per_set_list = nodes_per_set*np.ones(args.set)
+  nodes_per_set_list[:rem] =   nodes_per_set_list[:rem] + 1
+
+  for i in range(args.set):
+    print('####################################')
+    tag = args.tag + 's' + str(i)
+    print('job id: ', tag)
+    nodes = int(nodes_per_set_list[i])
+    print('nodes: ', nodes)
+    print('====================================')
+    
+    JobSubmission( i_set, args.nev, args.input, nodes, args.ecm, tag, args.q, args.combine_only)
 
 #############################################################################################################
 #############################################################################################################
