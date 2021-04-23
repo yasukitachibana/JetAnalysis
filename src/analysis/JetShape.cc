@@ -68,7 +68,7 @@ void JetShape::SetObservable
             std::cout
               << "[T] pt:" << pt
               << ", eta_j:"<< jet.eta()
-              << ", eta_j:"<< jet.phi()
+              << ", phi_j:"<< jet.phi()
               << ", delta_eta:"<< delta_eta
               << ", delta_phi:" << delta_phi
               << ", delta_r:" << delta_r
