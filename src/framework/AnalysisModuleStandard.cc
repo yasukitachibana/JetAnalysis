@@ -32,7 +32,7 @@ void AnalysisModuleStandard::EventEndMark
   << ", px:" <<pf->px()
   << ", py:" <<pf->py()
   << ", eta:"<< pf->eta()
-  << ", phi:" <<pf->phid()
+  << ", phi:" <<pf->phi_std()
   << std::endl;
 
   
