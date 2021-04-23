@@ -64,6 +64,15 @@ void JetShape::SetObservable
             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
             double delta_r = TMath::Sqrt( delta_eta*delta_eta + delta_phi*delta_phi);
             
+            
+            std::cout
+              << "[T] pt:" << pt
+              << ", eta_j:"<< jet.eta()
+              << ", eta_j:"<< jet.phi()
+              << ", delta_eta:"<< delta_eta
+              << ", delta_phi:" << delta_phi
+              << ", delta_r:" << delta_r
+              << std::endl;
             //--------------------------------------------------------------------------------------------------
             hist_list[index]->Fill(delta_r, pt);
             //--------------------------------------------------------------------------------------------------
