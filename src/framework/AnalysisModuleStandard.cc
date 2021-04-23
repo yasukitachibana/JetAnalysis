@@ -20,7 +20,7 @@ void AnalysisModuleStandard::EventEndMark
     }
   }
 
-  auto pf =  particle_list[0];
+  auto pf =  particle.back();
   
   std::cout
   << "Event:" << event_num
