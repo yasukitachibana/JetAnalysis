@@ -13,15 +13,20 @@ void AnalysisModuleStandard::EventEndMark
     <<" ("<<std::to_string(getMemoryUsage())<<"MB) "
     << std::flush;
     
-    std::cout
-    << "Event:" << event_num
-    << ", particle number: " << particle_list.size();
 
     
     if( ((event_num/2500)+1)%5==0 ){
       std::cout<<std::endl;
     }
   }
+
+  
+  std::cout
+  << "Event:" << event_num
+  << ", particle number: " << particle_list.size()
+  << std::endl;
+
+  
   
   for( auto hist: hist_list){
     hist->EventCount();
