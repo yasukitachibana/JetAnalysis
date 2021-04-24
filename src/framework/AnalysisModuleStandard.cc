@@ -21,7 +21,7 @@ void AnalysisModuleStandard::EventEndMark
   }
 
 //  auto pf =  particle_list.back();
-//  
+//
 //  std::cout
 //  << "Event:" << event_num
 //  << ", particle number: " << particle_list.size()
@@ -57,7 +57,10 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
     double r_cone = jetR[ir];
     // Get Jets Reconstructed with Jet Cone Size = r_cone
     std::vector <fastjet::PseudoJet> jets = reco_ptr->JetReco( r_cone, particle_list);
+    //int i_jet = 0;
     for(auto j:jets){
+      
+      //std::cout << "jet#" << i_jet << std::endl;
       
       for( int ijp = 0; ijp < jetPtMin.size(); ijp++ ){
         for( int ijr = 0; ijr < jetRapMin.size(); ijr++ ){
@@ -71,6 +74,10 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
         }
       }
     }//jet
+//    i_jet++;
+//    if(i_jet >= 2){
+//      break;
+//    }
   }//jetR
   
 }
