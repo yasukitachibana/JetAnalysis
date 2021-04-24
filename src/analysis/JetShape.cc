@@ -30,34 +30,34 @@ void JetShape::SetObservable
         int index = GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,0);
         hist_list[index]->JetTriggered();
         
-        std::cout << "############\n"
-        << ", particle number: " << particle_list.size() <<std::endl;
+//        std::cout << "############\n"
+//        << "particle number: " << particle_list.size() <<std::endl;
 
         
         for( auto p : particle_list ){
-          std::cout
-            << "\n[BT] stat:" << p->pstat()
-            << ", pid:"<< p->pid()
-            << ", plabel:" <<p->plabel()
-            << ", e:" <<p->e()
-            << ", px:" <<p->px()
-            << ", py:" <<p->py()
-            << ", eta:"<< p->eta()
-            << ", phi:" <<p->phi_std()
-            << std::endl;
+//          std::cout
+//            << "\n[BT] stat:" << p->pstat()
+//            << ", pid:"<< p->pid()
+//            << ", plabel:" <<p->plabel()
+//            << ", e:" <<p->e()
+//            << ", px:" <<p->px()
+//            << ", py:" <<p->py()
+//            << ", eta:"<< p->eta()
+//            << ", phi:" <<p->phi_std()
+//            << std::endl;
 
           if( ParticleTrigger(p, ipp, ipr) ){
 
-            std::cout
-              << "[T] stat:" << p->pstat()
-              << ", pid:"<< p->pid()
-              << ", plabel:" <<p->plabel()
-              << ", e:" <<p->e()
-              << ", px:" <<p->px()
-              << ", py:" <<p->py()
-              << ", eta:"<< p->eta()
-              << ", phi:" <<p->phi_std()
-              << std::endl;
+//            std::cout
+//              << "[T] stat:" << p->pstat()
+//              << ", pid:"<< p->pid()
+//              << ", plabel:" <<p->plabel()
+//              << ", e:" <<p->e()
+//              << ", px:" <<p->px()
+//              << ", py:" <<p->py()
+//              << ", eta:"<< p->eta()
+//              << ", phi:" <<p->phi_std()
+//              << std::endl;
             
             double pt = sub_ptr->ptSub(p);
             double delta_eta = p->eta() - jet.eta() ;
@@ -65,14 +65,14 @@ void JetShape::SetObservable
             double delta_r = TMath::Sqrt( delta_eta*delta_eta + delta_phi*delta_phi);
             
             
-            std::cout
-              << "[T] pt:" << pt
-              << ", eta_j:"<< jet.eta()
-              << ", phi_j:"<< jet.phi()
-              << ", delta_eta:"<< delta_eta
-              << ", delta_phi:" << delta_phi
-              << ", delta_r:" << delta_r
-              << std::endl;
+//            std::cout
+//              << "[T] pt:" << pt
+//              << ", eta_j:"<< jet.eta()
+//              << ", phi_j:"<< jet.phi()
+//              << ", delta_eta:"<< delta_eta
+//              << ", delta_phi:" << delta_phi
+//              << ", delta_r:" << delta_r
+//              << std::endl;
             //--------------------------------------------------------------------------------------------------
             hist_list[index]->Fill(delta_r, pt);
             //--------------------------------------------------------------------------------------------------
