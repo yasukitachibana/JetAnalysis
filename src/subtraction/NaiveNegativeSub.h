@@ -30,7 +30,9 @@ public:
   
   
   double ptSub( std::shared_ptr<Particle> particle );
+  double eSub( std::shared_ptr<Particle> particle );
   double nSub( std::shared_ptr<Particle> particle );
+  double pzSub( std::shared_ptr<Particle> particle );
 
   
 };
