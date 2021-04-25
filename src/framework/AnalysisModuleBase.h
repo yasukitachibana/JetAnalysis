@@ -55,6 +55,7 @@ protected:
   std::shared_ptr<SubtractionModuleBase> sub_ptr;
   std::shared_ptr<LoadFileModuleBase> load_ptr;
   //=========================================
+  int nJetEv;
   std::vector<double> jetR;
   int chJet;
   std::vector<int> statJet;

@@ -15,62 +15,54 @@
     </statJet>
     <jetRapidity>1</jetRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin><Item>0</Item></jetRapMin>
-    <jetRapMax><Item>1.6</Item></jetRapMax>
+    <jetRapMax><Item>10.0</Item></jetRapMax>
     <jetPtMin><Item>0</Item></jetPtMin>
-    <jetPtMax><Item>3000</Item></jetPtMax>
-    <nJetEv>0</nJetEv>
+    <jetPtMax><Item>10000</Item></jetPtMax>
+    <nJetEv>2</nJetEv>
   </jetReco>
   
   <observable>
     
-    
-    
-    <!-- Hadrons -->
-    
-    <RapDist>
-      <name>Rapidity Distribution</name>
+    <JetShape>
+      <name>Jet Shape Function</name>
       <chParticle>0</chParticle>
       <statParticle>
-        <Item>0</Item><Item>1</Item><Item>-1</Item>
+        <Item>0</Item><Item>1</Item>
       </statParticle>
       <particleRapidity>1</particleRapidity>
       <particleRapMin><Item>0.0</Item></particleRapMin>
-      <particleRapMax><Item>10000</Item></particleRapMax>
+      <particleRapMax><Item>10000.0</Item></particleRapMax>
       <particlePtMin><Item>0.0</Item></particlePtMin>
       <particlePtMax><Item>10000</Item></particlePtMax>
       
       <var>
-        <Eta>
-          <Item>-10000.0</Item><Item>-5000.0</Item><Item>-1000.0</Item>
-          <Item>-200.0</Item>
-          <Item>-150.0</Item><Item>-100.0</Item>
-          <Item>-50.0</Item><Item>-40.0</Item><Item>-30.0</Item><Item>-20.0</Item>
-          <Item>-15.0</Item><Item>-10.0</Item>
-          <Item>-9.0</Item><Item>-8.0</Item><Item>-7.0</Item><Item>-6.0</Item>
-          <Item>-5.5</Item><Item>-5.0</Item><Item>-4.5</Item><Item>-4.0</Item>
-          <Item>-3.6</Item><Item>-3.2</Item><Item>-2.8</Item><Item>-2.4</Item><Item>-2.0</Item><Item>-1.6</Item>
-          <Item>-1.2</Item><Item>-0.8</Item><Item>-0.4</Item>
-          <Item>0.0</Item>
-          <Item>0.4</Item><Item>0.8</Item><Item>1.2</Item>
-          <Item>1.6</Item><Item>2.0</Item><Item>2.4</Item><Item>2.8</Item><Item>3.2</Item><Item>3.6</Item>
-          <Item>4.0</Item><Item>4.5</Item><Item>5.0</Item><Item>5.5</Item>
-          <Item>6.0</Item><Item>7.0</Item><Item>8.0</Item><Item>9.0</Item>
-          <Item>10.0</Item><Item>15.0</Item>
-          <Item>20.0</Item><Item>30.0</Item><Item>40.0</Item><Item>50.0</Item>
-          <Item>100.0</Item><Item>150.0</Item>
-          <Item>200.0</Item>
-          <Item>1000.0</Item><Item>5000.0</Item><Item>10000.0</Item>
-        </Eta>
+        <r>
+          <Item>0</Item>
+          <Item>0.05</Item>
+          <Item>0.1</Item>
+          <Item>0.15</Item>
+          <Item>0.2</Item>
+          <Item>0.25</Item>
+          <Item>0.3</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+          <Item>0.45</Item>
+          <Item>0.5</Item>
+          <Item>0.6</Item>
+          <Item>0.7</Item>
+          <Item>0.8</Item>
+          <Item>1.0</Item>
+          <Item>1.2</Item>
+          <Item>1.5</Item>
+        </r>
       </var>
       
-    </RapDist>
-    
+    </JetShape>
   </observable>
   
   <inputFiles>
     <inputStyle>JetScapeAscii</inputStyle>
     <events>
-<!--      <head>SmallJet</head>-->
       <head>JetscapeHadronListBin</head>
       <join>_</join>
       <tail>.out</tail>
@@ -94,9 +86,8 @@
     <!--        <Item>17</Item><Item>20</Item><Item>25</Item><Item>30</Item><Item>35</Item><Item>40</Item>-->
     <!--        <Item>45</Item><Item>50</Item><Item>55</Item><Item>60</Item><Item>70</Item><Item>80</Item>-->
     <!--        <Item>90</Item>-->
-<!--    <Item>100</Item><Item>110</Item>-->
-<!--    <Item>120</Item>-->
-  <Item>130</Item><Item>140</Item>
+    <!--    <Item>100</Item><Item>110</Item><Item>120</Item>-->
+    <Item>130</Item><Item>140</Item>
     <!--        <Item>150</Item><Item>160</Item><Item>170</Item><Item>180</Item><Item>190</Item><Item>200</Item>-->
     <!--        <Item>210</Item><Item>220</Item><Item>230</Item><Item>240</Item><Item>250</Item><Item>260</Item>-->
     <!--        <Item>270</Item><Item>280</Item><Item>290</Item><Item>300</Item><Item>350</Item><Item>400</Item>-->

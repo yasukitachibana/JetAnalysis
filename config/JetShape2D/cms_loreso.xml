@@ -18,6 +18,7 @@
     <jetRapMax><Item>1.6</Item></jetRapMax>
     <jetPtMin><Item>120</Item></jetPtMin>
     <jetPtMax><Item>300</Item></jetPtMax>
+    <nJetEv>0</nJetEv>
   </jetReco>
   
   <observable>
