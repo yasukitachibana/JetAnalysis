@@ -196,6 +196,11 @@ void AnalysisModuleBase::ShowObservableSetting(){
 void AnalysisModuleBase::ShowJetSetting(){
   std::cout << "[AnalyzeBase] ***-------------------------------------------"<< std::endl;
   std::cout << "[AnalyzeBase] *** [Jet]"<< std::endl;
+  
+  if(nJetEv!=0){
+    std::cout << "[AnalyzeBase] *** "<< nJetEv << "-jets per events" << std::endl;
+  }
+  
   std::cout << "[AnalyzeBase] *** R_jet=";
   for( auto r_cone : jetR ){
     std::cout << r_cone << ", ";
