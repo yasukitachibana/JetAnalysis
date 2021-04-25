@@ -105,3 +105,23 @@ double NaiveNegativeSub::nSub( std::shared_ptr<Particle> particle ){
   }
   
 }
+
+double NaiveNegativeSub::eSub( std::shared_ptr<Particle> particle ){
+  
+  if( particle->pstat() != -1 ){
+    return particle->e();
+  }else{
+    return -1.0 * particle->e();
+  }
+  
+}
+
+double NaiveNegativeSub::pzSub( std::shared_ptr<Particle> particle ){
+  
+  if( particle->pstat() != -1 ){
+    return particle->pz();
+  }else{
+    return -1.0 * particle->e();
+  }
+  
+}
