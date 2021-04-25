@@ -85,6 +85,7 @@ void AnalysisModuleMixedEvent::OneEventAnalysis(std::vector<std::shared_ptr<Part
   
     for(int ir = 0; ir < jetR.size(); ir++ ){
       double r_cone = jetR[ir];
+      int n_jet = 0;
       // Get Jets Reconstructed with Jet Cone Size = r_cone
       std::vector <fastjet::PseudoJet> jets = reco_ptr->JetReco( r_cone, particle_list);
       for(auto j:jets){
@@ -100,6 +101,12 @@ void AnalysisModuleMixedEvent::OneEventAnalysis(std::vector<std::shared_ptr<Part
   
           }
         }
+        
+        n_jet++;
+        if(n_jet == nJetEv ){
+          break;
+        }
+        
       }//jet
     }//jetR
   

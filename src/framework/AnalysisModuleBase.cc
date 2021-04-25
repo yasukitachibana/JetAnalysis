@@ -135,6 +135,7 @@ void AnalysisModuleBase::Combine(std::vector<double> ptHat){
 
 void AnalysisModuleBase::ReadParametersFromXML(){
   //###############################################################################################################
+  nJetEv = SetXML::Instance()->GetElementInt({"jetReco","nJetEv"});
   jetR = SetXML::Instance()->GetElementVectorDouble({"jetReco","jetR","Item"});
   chJet = SetXML::Instance()->GetElementInt({"jetReco","chJet"});
   statJet = SetXML::Instance()->GetElementVectorInt({"jetReco", "statJet", "Item"});
