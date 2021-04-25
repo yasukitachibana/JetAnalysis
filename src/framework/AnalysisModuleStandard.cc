@@ -73,12 +73,13 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
           
         }
       }
-    }//jet
+            
+      n_jet++;
+      if(n_jet == nJetEv ){
+        break;
+      }
 
-    n_jet++;
-    if(n_jet == nJetEv ){
-      break;
-    }
+    }//jet
 
   }//jetR
   
