@@ -121,7 +121,7 @@ double NaiveNegativeSub::pzSub( std::shared_ptr<Particle> particle ){
   if( particle->pstat() != -1 ){
     return particle->pz();
   }else{
-    return -1.0 * particle->e();
+    return -1.0 * particle->pz();
   }
   
 }
