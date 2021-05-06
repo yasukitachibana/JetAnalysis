@@ -34,12 +34,13 @@ def main():
     
   parser.add_argument("--u", type=str, default='go5410')
   parser.add_argument("--tag", type=str, default='jet_analysis')
+  parser.add_argument("--trigg", type=int, default=1)  
   
   args = parser.parse_args()
   
 #  n_run = NumberOfRunningJobs(args.u, args.tag)
 #    print(n_run)
-  CheckJob(args.u, args.tag)
+  CheckJob(args.u, args.tag, args.trigg)
 
 
 
