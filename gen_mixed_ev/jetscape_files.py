@@ -11,8 +11,8 @@ def SigmaFileName(ptHatMin, ptHatMax):
 def PpDir():
   return '/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP'
 ##############################################################################################
-def MixedEventFileName(index=''):
-  return 'MixedEvent{}.txt'.format(str(index))
+def MixedEventFileName(hadpart, index=''):
+  return 'MixedEvent{}.txt'.format(str(hadpart)+str(index))
 ##############################################################################################
 
 

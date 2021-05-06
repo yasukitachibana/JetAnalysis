@@ -4,7 +4,7 @@ import numpy as np
 import jetscape_files as jf
 import time
 
-def GenerateMixedEvent(id, nev, input, ecm):
+def GenerateMixedEvent(id, nev, input, ecm, hadpart):
   
   ptHatBins = jf.PtHatBins(ecm)
   #  sigmas, sigma_errs = LoadSigmaFiles(input,  ptHatBins)
@@ -16,7 +16,7 @@ def GenerateMixedEvent(id, nev, input, ecm):
   print(sigmas)
   
   
-  output_file = os.path.join(input, jf.MixedEventFileName(id) )
+  output_file = os.path.join(input, jf.MixedEventFileName(hadpart, id) )
   f_mixed_event = open(output_file,'w')
   
   for iev in range(nev):
@@ -92,11 +92,11 @@ def main():
   parser.add_argument("--nev", type=int, default=5)
   parser.add_argument('--input', type=str, default='../test_data')
   parser.add_argument('--ecm', type=int, default=5020)
-
+  parser.add_argument('--p', type=str, default='Hadron')
   
   args = parser.parse_args()
   
-  GenerateMixedEvent(args.id, args.nev, args.input, args.ecm)
+  GenerateMixedEvent(args.id, args.nev, args.input, args.ecm, args.p)
   
   end = time.time()
   
