@@ -7,19 +7,19 @@ import slurm_sub as ss
 
 
 #############################################################################################################
-def JobSubmission(i_set, nev, input, nodes, ecm, tag, que, combine_only):
+def JobSubmission(i_set, nev, input, nodes, ecm, tag, hadpart, que, combine_only):
 
   cwd = os.getcwd()
   
   if not combine_only:
   
     n_per_nodes, n_last = divmod(nev, nodes-1)
-    node_full_ev = nodes-1
+    #node_full_ev = nodes-1
     n_per_node_list = n_per_nodes*np.ones(nodes-1)
   
     if not n_last == 0:
       n_per_nodes, n_last = divmod(nev, nodes-2)
-      node_full_ev = nodes-2
+      #node_full_ev = nodes-2
       n_per_node_list = n_per_nodes*np.ones(nodes-1)
       n_per_node_list[-1] = n_last
       print(n_last)
@@ -27,8 +27,8 @@ def JobSubmission(i_set, nev, input, nodes, ecm, tag, que, combine_only):
 
     for index in range(nodes-1):
 
-      cmd = 'python gen_mixed_ev_part.py --id {} --nev {} --input {} --ecm {}'
-      cmd = cmd.format( str(index), str(int(n_per_node_list[index])), input, str(ecm) )
+      cmd = 'python gen_mixed_ev_part.py --id {} --nev {} --input {} --ecm {} --p {}'
+      cmd = cmd.format( str(index), str(int(n_per_node_list[index])), input, str(ecm), hadpart)
 
       if que == 'test':
         print(cmd,'\n---')                
@@ -39,8 +39,8 @@ def JobSubmission(i_set, nev, input, nodes, ecm, tag, que, combine_only):
         os.system(slurm_cmd)
     
     
-  cmd = 'python combine_mixed_ev.py --id_start {} --id_end {} --input {} --tag {} --wait {}'
-  cmd = cmd.format( str(0), str(int(nodes-1)), input, tag, 1 )
+  cmd = 'python combine_mixed_ev.py --id_start {} --id_end {} --input {} --tag {}  --p {} --wait {}'
+  cmd = cmd.format( str(0), str(int(nodes-1)), input, tag, hadpart, 1 )
 
   if que == 'test':
     print(cmd,'\n---')                    
@@ -79,6 +79,7 @@ def main():
   parser.add_argument('--q', type=str, default='primary')
   parser.add_argument('--tag', type=str, default='SN')
   parser.add_argument('--combine_only', type=int, default=0)
+  parser.add_argument('--p', type=str, default='Hadron')
   args = parser.parse_args()
   #========================================
   if args.tag == 'SN':
@@ -96,7 +97,7 @@ def main():
     print('nodes: ', nodes)
     print('====================================')
     
-    JobSubmission( i, args.nev, args.input, nodes, args.ecm, tag, args.q, args.combine_only)
+    JobSubmission( i, args.nev, args.input, nodes, args.ecm, tag, args.p, args.q, args.combine_only)
 
 #############################################################################################################
 #############################################################################################################
