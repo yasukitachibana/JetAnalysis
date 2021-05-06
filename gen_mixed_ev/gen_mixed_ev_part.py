@@ -7,7 +7,8 @@ import time
 def GenerateMixedEvent(id, nev, input, ecm):
   
   ptHatBins = jf.PtHatBins(ecm)
-  sigmas, sigma_errs = LoadSigmaFiles(input,  ptHatBins)
+  #  sigmas, sigma_errs = LoadSigmaFiles(input,  ptHatBins)
+  sigmas = LoadSigmaFiles(input,  ptHatBins)
   #print(sigmas)
   sigmas = Normalization(sigmas)
   sigmas = Cumulation(sigmas)
@@ -55,7 +56,7 @@ def LoadSigmaFiles(input, ptHatBins):
       sigmas = np.append(sigmas,0.0)
       sigma_errs = np.append(sigma_errs,0.0)
     
-  return sigmas, sigma_errs
+  return sigmas#, sigma_errs
 
 
 def DecidePtHatBin( sigmas, ptHatBins ):
@@ -63,7 +64,7 @@ def DecidePtHatBin( sigmas, ptHatBins ):
   print(rand)
   diff = sigmas - rand
   i = np.where(diff > 0, diff, np.inf).argmin()
-  return i
+  return int(i)
 
 
 def DecideEvent( input_file ):

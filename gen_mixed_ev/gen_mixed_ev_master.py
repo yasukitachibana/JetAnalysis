@@ -26,18 +26,29 @@ def JobSubmission(i_set, nev, input, nodes, ecm, tag, que, combine_only):
     
 
     for index in range(nodes-1):
+
       cmd = 'python gen_mixed_ev_part.py --id {} --nev {} --input {} --ecm {}'
       cmd = cmd.format( str(index), str(int(n_per_node_list[index])), input, str(ecm) )
-      slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, tag+str(index), './log' ,'16G')
-      print(slurm_cmd,'\n---')
-      #os.system(slurm_cmd)
+
+      if que == 'test':
+        print(cmd,'\n---')                
+        os.system(cmd)
+      else:
+        slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, tag+'r'+str(index), './log' ,'16G')        
+        print(slurm_cmd,'\n---')        
+        os.system(slurm_cmd)
     
     
   cmd = 'python combine_mixed_ev.py --id_start {} --id_end {} --input {} --tag {} --wait {}'
   cmd = cmd.format( str(0), str(int(nodes-1)), input, tag, 1 )
-  slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, 'co_'+tag, './log', '16G')
-  print(slurm_cmd,'\n---')
-  #os.system(slurm_cmd)
+
+  if que == 'test':
+    print(cmd,'\n---')                    
+    os.system(cmd)
+  else:
+    slurm_cmd = ss.GetSbatchCmd(cmd, cwd, que, 'co_'+tag, './log', '16G')    
+    print(slurm_cmd,'\n---')
+    os.system(slurm_cmd)
 
 
   
@@ -85,7 +96,7 @@ def main():
     print('nodes: ', nodes)
     print('====================================')
     
-    JobSubmission( i_set, args.nev, args.input, nodes, args.ecm, tag, args.q, args.combine_only)
+    JobSubmission( i, args.nev, args.input, nodes, args.ecm, tag, args.q, args.combine_only)
 
 #############################################################################################################
 #############################################################################################################
