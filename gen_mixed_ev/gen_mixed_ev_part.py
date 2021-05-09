@@ -24,7 +24,7 @@ def GenerateMixedEvent(id, nev, input, ecm, hadpart):
     index = DecidePtHatBin(sigmas, ptHatBins)
     pthatbin = ptHatBins[index]
     print( ' --Bin:', pthatbin[0], '-', pthatbin[1] , 'GeV')
-    input_file = os.path.join( input, jf.HadronFileName(pthatbin[0],pthatbin[1]) )
+    input_file = os.path.join( input, jf.ParticleFileName(hadpart, pthatbin[0],pthatbin[1]) )
     f_mixed_event.write( '#' + str(iev) + DecideEvent( input_file ) )
     
   f_mixed_event.close()

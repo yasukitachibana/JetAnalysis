@@ -81,6 +81,11 @@ def main():
   parser.add_argument('--combine_only', type=int, default=0)
   parser.add_argument('--p', type=str, default='Hadron')
   args = parser.parse_args()
+
+  #========================================
+  if not args.p == 'Hadron' and not args.p == 'Parton':
+    print('Bad option for p. Please put Hadron or Parton')
+    exit()
   #========================================
   if args.tag == 'SN':
     args.tag = GetSerialNumber()

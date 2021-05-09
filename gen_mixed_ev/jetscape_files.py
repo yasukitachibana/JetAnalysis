@@ -1,9 +1,6 @@
 ##############################################################################################
-def HadronFileName(ptHatMin, ptHatMax):
-  return 'JetscapeHadronListBin{}_{}.out'.format(str(ptHatMin), str(ptHatMax))
-
-def PartonFileName(ptHatMin, ptHatMax):
-  return 'JetscapePartonListBin{}_{}.out'.format(str(ptHatMin), str(ptHatMax))
+def ParticleFileName(hadpart, ptHatMin, ptHatMax):
+  return 'Jetscape{}ListBin{}_{}.out'.format(str(hadpart),str(ptHatMin), str(ptHatMax))
 
 def SigmaFileName(ptHatMin, ptHatMax):
   return 'SigmaHardBin{}_{}.out'.format(str(ptHatMin), str(ptHatMax))
