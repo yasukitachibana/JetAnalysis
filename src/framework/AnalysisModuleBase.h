@@ -14,6 +14,9 @@
 #include "SubtractionModuleBase.h"
 #include "ReconstructionModuleBase.h"
 #include "LoadFileModuleBase.h"
+#include "Charged.h"
+#include "PStat.h"
+#include "Rapidity.h"
 
 #include "Histogram.h"
 #include "Hist1D.h"
@@ -54,18 +57,24 @@ protected:
   std::shared_ptr<ReconstructionModuleBase> reco_ptr;
   std::shared_ptr<SubtractionModuleBase> sub_ptr;
   std::shared_ptr<LoadFileModuleBase> load_ptr;
+  //=========================================  
+  std::unique_ptr<ChargedBase> jet_charged_ptr;
+  std::unique_ptr<ChargedBase> particle_charged_ptr;  
+  //=========================================  
+  std::unique_ptr<PStatBase> jet_pstat_ptr;
+  std::unique_ptr<PStatBase> particle_pstat_ptr;  
+  //=========================================  
+  std::unique_ptr<RapidityBase> jet_rap_ptr;
+  std::unique_ptr<RapidityBase> particle_rap_ptr;  
   //=========================================
   int nJetEv;
   std::vector<double> jetR;
-  int chJet;
-  std::vector<int> statJet;
   int jetRapidity;
   std::vector<double> jetRapMin;
   std::vector<double> jetRapMax;
   std::vector<double> jetPtMin;
   std::vector<double> jetPtMax;
   //--
-  int chParticle;
   std::vector<int> statParticle;
   int particleRapidity;
   std::vector<double> particleRapMin;
@@ -93,12 +102,7 @@ protected:
   double GetRapidity( fastjet::PseudoJet j );
   double GetRapidity( std::shared_ptr<fastjet::PseudoJet> j );
   //=========================================
-  bool ChargeTrigger(std::shared_ptr<Particle> p, int charged);
-  bool ChargedCheck(std::shared_ptr<Particle> p);
-  //=========================================
   bool NeutrinoCheck( std::shared_ptr<Particle> p );
-  //=========================================
-  bool StatCheck(std::shared_ptr<Particle> p);
   //=========================================
   bool JetTrigger(fastjet::PseudoJet jets, int ir, int ijp, int ijr );
   bool ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr);
@@ -135,20 +139,6 @@ private:
       return "Eta";
     }else{
       return "Y";
-    }
-  }
-  std::string JetType(){
-    if(chJet == 1){
-      return "Charged Jet";
-    }else{
-      return "Full Jet";
-    }
-  }
-  std::string ParticleType(){
-    if(chParticle == 1){
-      return "Charged Particles";
-    }else{
-      return "Charged+Neutral Particles";
     }
   }
   std::string JetRapType(){return RapType(jetRapidity);}
