@@ -25,8 +25,8 @@
       <Item>0.7</Item>
     </jetRapMax>
 
-    <jetConstPtMin>0.0</jetConstPtMin>
-    <jetConstPtMax>3000</jetConstPtMax>
+    <jetConstPtMin>0.15</jetConstPtMin>
+    <jetConstPtMax>100</jetConstPtMax>
 
     <jetPtMin>
       <Item>60</Item>
