@@ -1,5 +1,5 @@
-#ifndef PIDENTIFY_H_
-#define PIDENTIFY_H_
+#ifndef CONSTPT_H_
+#define CONSTPT_H_
 
 #include "Particle.h"
 
@@ -7,44 +7,44 @@
 // BASE
 //===========================================================================================================================
 
-class PIdentifyBase
+class ConstPtBase
 {
 
 public:
-  virtual ~PIdentifyBase() {}
-  virtual bool Trigger(std::shared_ptr<Particle> p) { return false; }
-  virtual std::vector<int> PIDList() { return {}; }
+  virtual ~ConstPtBase(){}
+  virtual bool Trigger(std::shared_ptr<Particle> p){return false;}
+  virtual bool Selected() {return false;}
+  virtual double Min() {return 0;}  
+  virtual double Max() {return 0;}    
 }; // END BASE CLASS
 
 //===========================================================================================================================
 
 //===========================================================================================================================
-// (Simple) PIdentify Class
+// (Simple) ConstPt Class
 //===========================================================================================================================
-class PIDSelected : public PIdentifyBase
+class ConstPtSelected : public ConstPtBase
 {
 
 public:
-  PIDSelected(std::vector<int> pid_in) : pid(pid_in) {}
-  ~PIDSelected() {}
-  std::vector<int> PIDList() { return pid; }
+  ConstPtSelected( double ptmin_in, double ptmax_in) : ptmin(ptmin_in), ptmax(ptmax_in) {}
+  ~ConstPtSelected(){}
   bool Trigger(std::shared_ptr<Particle> p);
+  bool Selected() {return true;}  
+  double Min() {return ptmin;}  
+  double Max() {return ptmax;}    
 
 private:
-  std::vector<int> pid;
-
+  const double ptmin, ptmax;  
 };
 
-class PIDInclusive : public PIdentifyBase
+class ConstPtInclusive : public ConstPtBase
 {
-
 public:
-  PIDInclusive() {}
-  ~PIDInclusive() {}
-  bool Trigger(std::shared_ptr<Particle> p);
-
-private:
-  const std::array<int, 3> pidNeutrino{12, 14, 16}; //abosolute values of neutrino/anti-neutrino pids.
+  ConstPtInclusive(){}
+  ~ConstPtInclusive(){}
+  bool Trigger(std::shared_ptr<Particle> p){return true;}
+    
 };
 //===========================================================================================================================
 

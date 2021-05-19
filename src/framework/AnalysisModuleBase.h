@@ -18,6 +18,7 @@
 #include "PStat.h"
 #include "Rapidity.h"
 #include "PIdentify.h"
+#include "ConstPt.h"
 
 #include "Histogram.h"
 #include "Hist1D.h"
@@ -70,6 +71,8 @@ protected:
   //=========================================  
   std::unique_ptr<PIdentifyBase> jet_pid_ptr;
   std::unique_ptr<PIdentifyBase> particle_pid_ptr;  
+  //=========================================
+  std::unique_ptr<ConstPtBase> jet_constpt_ptr;
   //=========================================
   int nJetEv;
   std::vector<double> jetR;
