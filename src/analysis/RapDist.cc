@@ -47,7 +47,7 @@ void RapDist::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_l
     double pt = sub_ptr->ptSub(p);
     double n = sub_ptr->nSub(p);
     double pz = sub_ptr->pzSub(p);
-    double rap = GetRapidity(p);
+    double rap = particle_rap_ptr->Val(p);
    
     for( int ipp = 0; ipp < particlePtMin.size(); ipp++ ){
       for( int ipr = 0; ipr < particleRapMin.size(); ipr++ ){

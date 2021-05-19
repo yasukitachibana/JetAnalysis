@@ -1,45 +1,58 @@
-#ifndef PSTAT_H_
-#define PSTAT_H_
+#ifndef PIDENTIFY_H_
+#define PIDENTIFY_H_
+
+// #include "fastjet/PseudoJet.hh"
+// #include "Pythia8/Pythia.h"
 
 #include "Particle.h"
+// #include <vector>
+// #include <memory>
+// #include <iostream>
+// #include <sstream>
+// #include <iomanip>
 
 //===========================================================================================================================
 // BASE
 //===========================================================================================================================
 
-class PStatBase
+class PIdentifyBase
 {
 
 public:
-  virtual ~PStatBase(){}
+  virtual ~PIdentifyBase() {}
   virtual bool Trigger(std::shared_ptr<Particle> p) { return false; }
-  virtual std::vector<int> StatList(){ return {}; }
+  virtual std::vector<int> PIDList() { return {}; }
 }; // END BASE CLASS
 
 //===========================================================================================================================
 
 //===========================================================================================================================
-// (Simple) PStat Class
+// (Simple) PIdentify Class
 //===========================================================================================================================
-class PStatSelected : public PStatBase
+class PIDSelected : public PIdentifyBase
 {
 
 public:
-  PStatSelected(std::vector<int> stat_in) : stat(stat_in){}
-  ~PStatSelected() {}
+  PIDSelected(std::vector<int> pid_in) : pid(pid_in) {}
+  ~PIDSelected() {}
+  std::vector<int> PIDList() { return pid; }
   bool Trigger(std::shared_ptr<Particle> p);
-  std::vector<int> StatList(){ return stat; }
+
 private:
-  std::vector<int> stat;
+  std::vector<int> pid;
 
 };
 
-class PStatInclusive : public PStatBase
+class PIDInclusive : public PIdentifyBase
 {
+
 public:
-  PStatInclusive(){}
-  ~PStatInclusive() {}
-  bool Trigger(std::shared_ptr<Particle> p) { return true; }
+  PIDInclusive() {}
+  ~PIDInclusive() {}
+  bool Trigger(std::shared_ptr<Particle> p);
+
+private:
+  const std::array<int, 3> pidNeutrino{12, 14, 16}; //abosolute values of neutrino/anti-neutrino pids.
 };
 //===========================================================================================================================
 
