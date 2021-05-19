@@ -15,6 +15,12 @@
     <!-- <statJet>
       <Item>0</Item><Item>1</Item><Item>-1</Item>
     </statJet> -->
+
+    <!-- <jetConstPtMin>0.0</jetConstPtMin>
+    <jetConstPtMax>3000</jetConstPtMax> -->
+
+
+
     <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
@@ -180,9 +186,9 @@
         <Item>-1</Item>
       </statParticle>
 
-      <pidParticle>
+      <!-- <pidParticle>
         <Item>1</Item>        <Item>22</Item>
-      </pidParticle>
+      </pidParticle> -->
 
 
       <particleRapidity>1</particleRapidity>

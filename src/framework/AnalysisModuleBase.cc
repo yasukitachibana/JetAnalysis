@@ -2,6 +2,8 @@
 #include "SetXML.h"
 #include "SetFile.h"
 
+#include <float.h>
+
 //###############################################################################################################
 // Initialize static MakeUniqueHelper.here
 Pythia8::Pythia AnalysisModuleBase::InternalHelperPythia("IntentionallyEmpty", false);
@@ -69,7 +71,11 @@ void AnalysisModuleBase::Analyze(std::string input_file_name)
       auto p = load_ptr->GetParticle();
 
       //std::cout << p->pid() << " " << <<std::endl;
-      if (RapidityCut(p) && jet_charged_ptr->Trigger(p) && jet_pstat_ptr->Trigger(p) && jet_pid_ptr->Trigger(p) )
+      if (RapidityCut(p) &&
+          jet_charged_ptr->Trigger(p) &&
+          jet_pstat_ptr->Trigger(p) &&
+          jet_pid_ptr->Trigger(p) &&
+          jet_constpt_ptr->Trigger(p))
       {
         particle_list.push_back(p);
       }
@@ -158,6 +164,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
   jetRapMax = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetRapMax", "Item"});
   jetPtMin = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetPtMin", "Item"});
   jetPtMax = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetPtMax", "Item"});
+  int jet_const_pt_min = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMin"}, false);
+  int jet_const_pt_max = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMax"}, false);
   //###############################################################################################################
   int ch_particle = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "chParticle"});
   std::vector<int> stat_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "statParticle", "Item"}, false);
@@ -244,21 +252,33 @@ void AnalysisModuleBase::ReadParametersFromXML()
   //###############################################################################################################
   if (jet_rapidity == 0)
   {
-    jet_rap_ptr = std::unique_ptr<RapidityBase>(new RapidityY());
+    jet_rap_ptr = std::unique_ptr<RapidityY>(new RapidityY());
   }
   else if (jet_rapidity == 1)
   {
-    jet_rap_ptr = std::unique_ptr<RapidityBase>(new PseudoRapidityEta());
+    jet_rap_ptr = std::unique_ptr<PseudoRapidityEta>(new PseudoRapidityEta());
   }
   //###############################################################################################################
   if (particle_rapidity == 0)
   {
-    particle_rap_ptr = std::unique_ptr<RapidityBase>(new RapidityY());
+    particle_rap_ptr = std::unique_ptr<RapidityY>(new RapidityY());
   }
   else if (particle_rapidity == 1)
   {
-    particle_rap_ptr = std::unique_ptr<RapidityBase>(new PseudoRapidityEta());
+    particle_rap_ptr = std::unique_ptr<PseudoRapidityEta>(new PseudoRapidityEta());
   }
+
+  if (jet_const_pt_max < DBL_EPSILON)
+  {
+    jet_constpt_ptr = std::unique_ptr<ConstPtInclusive>(new ConstPtInclusive());
+  }
+  else
+  {
+    jet_constpt_ptr 
+    = std::unique_ptr<ConstPtSelected>
+    (new ConstPtSelected(jet_const_pt_min, jet_const_pt_max));
+  }
+
   //###############################################################################################################
   std::cout << std::endl;
   std::cout << "[AnalyzeBase] **********************************************" << std::endl;
@@ -323,6 +343,16 @@ void AnalysisModuleBase::ShowJetSetting()
     std::cout << "\b\b  " << std::endl;
   }
 
+  if (jet_constpt_ptr->Selected())
+  {
+    std::cout << "[AnalyzeBase] *** pt_constituents = "
+              << jet_constpt_ptr->Min()
+              << "-"
+              << jet_constpt_ptr->Max()
+              << " GeV"
+              << std::endl;
+  }
+
   for (int i = 0; i < jetPtMin.size(); i++)
   {
     std::cout << "[AnalyzeBase] *** " << jetPtMin[i] << " < pt_jet < " << jetPtMax[i] << " GeV" << std::endl;
@@ -350,7 +380,7 @@ void AnalysisModuleBase::ShowParticleSetting()
   }
   std::cout << std::endl;
 
-    if (particle_pid_ptr->PIDList().size())
+  if (particle_pid_ptr->PIDList().size())
   {
     std::cout << "[AnalyzeBase] *** PID = ";
     for (auto pid : particle_pid_ptr->PIDList())
@@ -565,7 +595,7 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int
 bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr)
 {
 
-  if (particle_charged_ptr->Trigger(p) && particle_pstat_ptr->Trigger(p) && particle_pid_ptr->Trigger(p) )
+  if (particle_charged_ptr->Trigger(p) && particle_pstat_ptr->Trigger(p) && particle_pid_ptr->Trigger(p))
   {
 
     double pt = p->perp();
