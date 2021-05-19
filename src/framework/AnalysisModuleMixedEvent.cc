@@ -71,7 +71,7 @@ std::vector<std::shared_ptr<Particle>> AnalysisModuleMixedEvent::GetMixedEventPa
       break;
     }else if( load_mixed_ptr->ValidLine() ){
       auto p = load_mixed_ptr->GetParticle();
-      if( RapidityCut(p) && jet_charged_ptr->Trigger(p) && jet_pstat_ptr->Trigger(p) && (!NeutrinoCheck(p)) ){
+      if( RapidityCut(p) && jet_charged_ptr->Trigger(p) && jet_pstat_ptr->Trigger(p) && jet_pid_ptr->Trigger(p) ){
         mixed_event_particle_list.push_back(p);
       }
     }

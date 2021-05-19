@@ -69,7 +69,7 @@ void AnalysisModuleBase::Analyze(std::string input_file_name)
       auto p = load_ptr->GetParticle();
 
       //std::cout << p->pid() << " " << <<std::endl;
-      if (RapidityCut(p) && jet_charged_ptr->Trigger(p) && jet_pstat_ptr->Trigger(p) && (!NeutrinoCheck(p)))
+      if (RapidityCut(p) && jet_charged_ptr->Trigger(p) && jet_pstat_ptr->Trigger(p) && jet_pid_ptr->Trigger(p) )
       {
         particle_list.push_back(p);
       }
@@ -152,8 +152,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
   jetR = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetR", "Item"});
   int ch_jet = SetXML::Instance()->GetElementInt({"jetReco", "chJet"});
   std::vector<int> stat_jet = SetXML::Instance()->GetElementVectorInt({"jetReco", "statJet", "Item"}, false);
-
-  jetRapidity = SetXML::Instance()->GetElementInt({"jetReco", "jetRapidity"});
+  std::vector<int> pid_jet = SetXML::Instance()->GetElementVectorInt({"jetReco", "pidJet", "Item"}, false);
+  int jet_rapidity = SetXML::Instance()->GetElementInt({"jetReco", "jetRapidity"});
   jetRapMin = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetRapMin", "Item"});
   jetRapMax = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetRapMax", "Item"});
   jetPtMin = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetPtMin", "Item"});
@@ -161,7 +161,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
   //###############################################################################################################
   int ch_particle = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "chParticle"});
   std::vector<int> stat_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "statParticle", "Item"}, false);
-  particleRapidity = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "particleRapidity"});
+  std::vector<int> pid_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "pidParticle", "Item"}, false);
+  int particle_rapidity = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "particleRapidity"});
   particleRapMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particleRapMin", "Item"});
   particleRapMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particleRapMax", "Item"});
   particlePtMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMin", "Item"});
@@ -207,20 +208,56 @@ void AnalysisModuleBase::ReadParametersFromXML()
   //###############################################################################################################
   if (stat_jet.size())
   {
-    jet_pstat_ptr = std::unique_ptr<Selected>(new Selected(stat_jet));
+    jet_pstat_ptr = std::unique_ptr<PStatSelected>(new PStatSelected(stat_jet));
   }
   else
   {
-    jet_pstat_ptr = std::unique_ptr<Inclusive>(new Inclusive());
+    jet_pstat_ptr = std::unique_ptr<PStatInclusive>(new PStatInclusive());
   }
   //###############################################################################################################
   if (stat_particle.size())
   {
-    particle_pstat_ptr = std::unique_ptr<Selected>(new Selected(stat_particle));
+    particle_pstat_ptr = std::unique_ptr<PStatSelected>(new PStatSelected(stat_particle));
   }
   else
   {
-    particle_pstat_ptr = std::unique_ptr<Inclusive>(new Inclusive());
+    particle_pstat_ptr = std::unique_ptr<PStatInclusive>(new PStatInclusive());
+  }
+  //###############################################################################################################
+  if (pid_jet.size())
+  {
+    jet_pid_ptr = std::unique_ptr<PIDSelected>(new PIDSelected(pid_jet));
+  }
+  else
+  {
+    jet_pid_ptr = std::unique_ptr<PIDInclusive>(new PIDInclusive());
+  }
+  //###############################################################################################################
+  if (pid_particle.size())
+  {
+    particle_pid_ptr = std::unique_ptr<PIDSelected>(new PIDSelected(pid_particle));
+  }
+  else
+  {
+    particle_pid_ptr = std::unique_ptr<PIDInclusive>(new PIDInclusive());
+  }
+  //###############################################################################################################
+  if (jet_rapidity == 0)
+  {
+    jet_rap_ptr = std::unique_ptr<RapidityBase>(new RapidityY());
+  }
+  else if (jet_rapidity == 1)
+  {
+    jet_rap_ptr = std::unique_ptr<RapidityBase>(new PseudoRapidityEta());
+  }
+  //###############################################################################################################
+  if (particle_rapidity == 0)
+  {
+    particle_rap_ptr = std::unique_ptr<RapidityBase>(new RapidityY());
+  }
+  else if (particle_rapidity == 1)
+  {
+    particle_rap_ptr = std::unique_ptr<RapidityBase>(new PseudoRapidityEta());
   }
   //###############################################################################################################
   std::cout << std::endl;
@@ -233,7 +270,6 @@ void AnalysisModuleBase::ReadParametersFromXML()
   std::cout << "[AnalyzeBase] **********************************************" << std::endl;
   std::cout << std::endl;
   //###############################################################################################################
-
 }
 
 //###############################################################################################################
@@ -277,13 +313,23 @@ void AnalysisModuleBase::ShowJetSetting()
   }
   std::cout << std::endl;
 
+  if (jet_pid_ptr->PIDList().size())
+  {
+    std::cout << "[AnalyzeBase] *** PID = ";
+    for (auto pid : jet_pid_ptr->PIDList())
+    {
+      std::cout << pid << ", ";
+    }
+    std::cout << "\b\b  " << std::endl;
+  }
+
   for (int i = 0; i < jetPtMin.size(); i++)
   {
     std::cout << "[AnalyzeBase] *** " << jetPtMin[i] << " < pt_jet < " << jetPtMax[i] << " GeV" << std::endl;
   }
   for (int i = 0; i < jetRapMin.size(); i++)
   {
-    std::cout << "[AnalyzeBase] *** " << jetRapMin[i] << " < |" << JetRapType() << "_jet| < " << jetRapMax[i] << std::endl;
+    std::cout << "[AnalyzeBase] *** " << jetRapMin[i] << " < |" << jet_rap_ptr->Type() << "_jet| < " << jetRapMax[i] << std::endl;
   }
 }
 
@@ -304,13 +350,23 @@ void AnalysisModuleBase::ShowParticleSetting()
   }
   std::cout << std::endl;
 
+    if (particle_pid_ptr->PIDList().size())
+  {
+    std::cout << "[AnalyzeBase] *** PID = ";
+    for (auto pid : particle_pid_ptr->PIDList())
+    {
+      std::cout << pid << ", ";
+    }
+    std::cout << "\b\b  " << std::endl;
+  }
+
   for (int i = 0; i < particlePtMin.size(); i++)
   {
     std::cout << "[AnalyzeBase] *** " << particlePtMin[i] << " < pt < " << particlePtMax[i] << " GeV" << std::endl;
   }
   for (int i = 0; i < particleRapMin.size(); i++)
   {
-    std::cout << "[AnalyzeBase] *** " << particleRapMin[i] << " < |" << ParticleRapType() << "| < " << particleRapMax[i] << std::endl;
+    std::cout << "[AnalyzeBase] *** " << particleRapMin[i] << " < |" << particle_rap_ptr->Type() << "| < " << particleRapMax[i] << std::endl;
   }
 }
 //###############################################################################################################
@@ -477,7 +533,7 @@ std::shared_ptr<Histogram> AnalysisModuleBase::CreateHist(std::string hist_name,
 bool AnalysisModuleBase::RapidityCut(std::shared_ptr<Particle> p)
 {
 
-  double rapidity = GetRapidity(p);
+  double rapidity = particle_rap_ptr->Val(p);
 
   if (fabs(rapidity) <= largestRapidity)
   {
@@ -488,54 +544,12 @@ bool AnalysisModuleBase::RapidityCut(std::shared_ptr<Particle> p)
     return false;
   }
 }
-
-double AnalysisModuleBase::GetRapidity(fastjet::PseudoJet j)
-{
-  if (particleRapidity == 0)
-  {
-    return j.rapidity();
-  }
-  else
-  {
-    return j.eta();
-  }
-}
-
-double AnalysisModuleBase::GetRapidity(std::shared_ptr<fastjet::PseudoJet> j)
-{
-  if (particleRapidity == 0)
-  {
-    return j->rapidity();
-  }
-  else
-  {
-    return j->eta();
-  }
-}
-
-double AnalysisModuleBase::GetRapidity(std::shared_ptr<Particle> p)
-{
-  return GetRapidity(p->GetPseudoJet());
-}
-//###############################################################################################################
-bool AnalysisModuleBase::NeutrinoCheck(std::shared_ptr<Particle> p)
-{
-  int pid = p->pid();
-  for (int i = 0; i < nNeutrino; i++)
-  {
-    if (abs(pid) == pidNeutrino[i])
-    {
-      return true;
-    }
-  }
-  return false;
-}
 //###############################################################################################################
 bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr)
 {
 
   double pt_jet = jet.perp();
-  double rapidity_jet = GetRapidity(jet);
+  double rapidity_jet = jet_rap_ptr->Val(jet);
 
   if (pt_jet >= jetPtMin[ijp] &&
       pt_jet < jetPtMax[ijp] &&
@@ -551,11 +565,11 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int
 bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr)
 {
 
-  if (particle_charged_ptr->Trigger(p) && particle_pstat_ptr->Trigger(p))
+  if (particle_charged_ptr->Trigger(p) && particle_pstat_ptr->Trigger(p) && particle_pid_ptr->Trigger(p) )
   {
 
     double pt = p->perp();
-    double rapidity = GetRapidity(p);
+    double rapidity = particle_rap_ptr->Val(p);
 
     if (pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
         fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr])

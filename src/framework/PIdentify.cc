@@ -1,46 +1,40 @@
-#ifndef PSTAT_H_
-#define PSTAT_H_
-
-#include "Particle.h"
+#include "PIdentify.h"
 
 //===========================================================================================================================
 // BASE
 //===========================================================================================================================
 
-class PStatBase
+//===========================================================================================================================
+
+//===========================================================================================================================
+// (Simple) PIdentify Class
+//===========================================================================================================================
+bool PIDSelected::Trigger(std::shared_ptr<Particle> p)
 {
+  int pid_in = p->pid();
+  for (auto pid_trig : pid)
+  {
+    if (pid_in == pid_trig)
+    {
+      // Trigger the particle.
+      return true;
+    }
+  }
+  // Skip.
+  return false;
+}
 
-public:
-  virtual ~PStatBase(){}
-  virtual bool Trigger(std::shared_ptr<Particle> p) { return false; }
-  virtual std::vector<int> StatList(){ return {}; }
-}; // END BASE CLASS
-
-//===========================================================================================================================
-
-//===========================================================================================================================
-// (Simple) PStat Class
-//===========================================================================================================================
-class PStatSelected : public PStatBase
+bool PIDInclusive::Trigger(std::shared_ptr<Particle> p)
 {
-
-public:
-  PStatSelected(std::vector<int> stat_in) : stat(stat_in){}
-  ~PStatSelected() {}
-  bool Trigger(std::shared_ptr<Particle> p);
-  std::vector<int> StatList(){ return stat; }
-private:
-  std::vector<int> stat;
-
-};
-
-class PStatInclusive : public PStatBase
-{
-public:
-  PStatInclusive(){}
-  ~PStatInclusive() {}
-  bool Trigger(std::shared_ptr<Particle> p) { return true; }
-};
+  int pid_in = p->pid();
+  for (auto pn : pidNeutrino)
+  {
+    if (abs(pid_in) == pn)
+    {
+      // The particle is a neutrino. Skip
+      return false;
+    }
+  }
+  return true;
+}
 //===========================================================================================================================
-
-#endif

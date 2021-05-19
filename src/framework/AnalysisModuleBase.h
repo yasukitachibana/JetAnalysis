@@ -17,6 +17,7 @@
 #include "Charged.h"
 #include "PStat.h"
 #include "Rapidity.h"
+#include "PIdentify.h"
 
 #include "Histogram.h"
 #include "Hist1D.h"
@@ -66,6 +67,9 @@ protected:
   //=========================================  
   std::unique_ptr<RapidityBase> jet_rap_ptr;
   std::unique_ptr<RapidityBase> particle_rap_ptr;  
+  //=========================================  
+  std::unique_ptr<PIdentifyBase> jet_pid_ptr;
+  std::unique_ptr<PIdentifyBase> particle_pid_ptr;  
   //=========================================
   int nJetEv;
   std::vector<double> jetR;
@@ -98,11 +102,6 @@ protected:
   void DeleteHist();
   //=========================================
   bool RapidityCut( std::shared_ptr<Particle> p );
-  double GetRapidity( std::shared_ptr<Particle> p );
-  double GetRapidity( fastjet::PseudoJet j );
-  double GetRapidity( std::shared_ptr<fastjet::PseudoJet> j );
-  //=========================================
-  bool NeutrinoCheck( std::shared_ptr<Particle> p );
   //=========================================
   bool JetTrigger(fastjet::PseudoJet jets, int ir, int ijp, int ijr );
   bool ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr);
@@ -130,19 +129,6 @@ private:
   double largestRapidity;
   //=========================================
   void GenerateHist(double ptHatMin, double ptHatMax);
-  //=========================================
-  static const int nNeutrino = 4;
-  std::array<int, nNeutrino> pidNeutrino{12, 14, 16, 13};//abosolute values of neutrino/anti-neutrino pids.
-  //=========================================
-  std::string RapType(int rap){
-    if(rap == 1){
-      return "Eta";
-    }else{
-      return "Y";
-    }
-  }
-  std::string JetRapType(){return RapType(jetRapidity);}
-  std::string ParticleRapType(){return RapType(particleRapidity);}
   //=========================================
 };
 

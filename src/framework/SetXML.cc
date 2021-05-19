@@ -185,7 +185,7 @@ double SetXML::GetElementDouble(std::initializer_list<const char *> path,
 std::vector<int> SetXML::GetElementVectorInt(std::initializer_list<const char *> path,
                                              bool isRequired /* = true */)
 {
-  std::cout << "[SetXML] XML isRequired " << isRequired << std::endl;
+  //std::cout << "[SetXML] XML isRequired " << isRequired << std::endl;
   tinyxml2::XMLElement *element = GetElement(path, isRequired);
   auto pathEnd = path.end();
   --pathEnd;
