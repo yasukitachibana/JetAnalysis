@@ -10,9 +10,6 @@
     <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR><Item>0.4</Item></jetR>
     <chJet>0</chJet><!-- 0: full jet, 1: charged jet -->
-    <statJet>
-      <Item>0</Item><Item>1</Item><Item>-1</Item>
-    </statJet>
     <jetRapidity>1</jetRapidity><!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin><Item>0</Item></jetRapMin>
     <jetRapMax><Item>1.6</Item></jetRapMax>
@@ -30,9 +27,6 @@
     <RapDist>
       <name>Rapidity Distribution</name>
       <chParticle>0</chParticle>
-      <statParticle>
-        <Item>0</Item><Item>1</Item><Item>-1</Item>
-      </statParticle>
       <particleRapidity>1</particleRapidity>
       <particleRapMin><Item>0.0</Item></particleRapMin>
       <particleRapMax><Item>10000</Item></particleRapMax>
@@ -76,7 +70,8 @@
       <tail>.out</tail>
     </events>
     <sigma>
-      <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path>
+      <!-- <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path> -->
+      <path>na</path>
       <head>SigmaHardBin</head>
       <join>_</join>
       <tail>.out</tail>
