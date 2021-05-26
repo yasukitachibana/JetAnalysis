@@ -44,11 +44,7 @@
     <SoftDropGroom>
       <name>Soft Drop Grooming</name>
       <chParticle>0</chParticle>
-      <!-- <statParticle>
-        <Item>0</Item>
-        <Item>1</Item>
-        <Item>-1</Item>
-      </statParticle> -->
+ 
 
       <particleRapidity>1</particleRapidity>
       
@@ -108,7 +104,7 @@
   <inputFiles>
     <inputStyle>JetScapeAscii</inputStyle>
     <events>
-      <head>JetscapePartonListBin</head>
+      <head>JetscapeHadronListBin</head>
       <join>_</join>
       <tail>.out</tail>
     </events>
