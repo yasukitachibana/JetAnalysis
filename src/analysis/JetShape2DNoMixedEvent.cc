@@ -62,8 +62,8 @@ void JetShape2DNoMixedEvent::ShowParamsSetting()
   }
   else
   {
-    sidebandRap[0] = 5000.0;
-    sidebandRap[1] = 5000.0;
+    sidebandRap.push_back(5000.0);
+    sidebandRap.push_back(5000.0);
   }
 }
 
@@ -96,10 +96,6 @@ void JetShape2DNoMixedEvent::SetObservable(fastjet::PseudoJet jet,
         {
           if (ParticleTrigger(p, ipp, ipr))
           {
-            double e = sub_ptr->eSub(p);
-            double pt = sub_ptr->ptSub(p);
-            double n = sub_ptr->nSub(p);
-            double pz = sub_ptr->pzSub(p);
 
             std::array<double, 4> val = {
                 sub_ptr->eSub(p),
