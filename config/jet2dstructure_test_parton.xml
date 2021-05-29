@@ -35,9 +35,9 @@
       <chParticle>0</chParticle>
 
       <statParticle>
-        <!-- <Item>0</Item>
-        <Item>1</Item> -->
-        <Item>-1</Item>
+        <Item>0</Item>
+        <Item>1</Item>
+        <!-- <Item>-1</Item> -->
       </statParticle>
       <particleRapidity>1</particleRapidity>
 
