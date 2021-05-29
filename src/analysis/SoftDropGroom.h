@@ -80,6 +80,8 @@ private:
 
   std::unique_ptr<SDAdditionalCondition> additional_cond_ptr;
 
+  bool SDCondition(double z_g, double theta_g, double z_cut, double beta);
+
 public:
   SoftDropGroom(std::string name_in = "SoftDropGroom");
   ~SoftDropGroom();
