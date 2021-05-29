@@ -97,6 +97,17 @@
           <Item>1.0</Item>
         </thetaG>
 
+        <rG>
+          <Item>0</Item>
+          <Item>0.02</Item>
+          <Item>0.04</Item>
+          <Item>0.06</Item>
+          <Item>0.1</Item>
+          <Item>0.2</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+        </rG>
+        
       </var>
 
     </SoftDropGroom>
