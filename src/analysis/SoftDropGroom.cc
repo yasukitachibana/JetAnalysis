@@ -166,7 +166,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               //bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
               double thg = rg / jetR[ir];
 
-              if (additional_cond_ptr->Trigger(rg))
+              if (SDCondition(zg, thg, zcut_val, beta_val) && additional_cond_ptr->Trigger(rg))
               {
                 hist_list[index_zG]->Fill(zg, 1.0);
                 hist_list[index_thetaG]->Fill(thg, 1.0);
@@ -183,6 +183,18 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
   } //jetR
 }
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+bool SoftDropGroom::SDCondition(double z_g, double theta_g, double z_cut, double beta)
+{
+  if (theta_g > DBL_EPSILON)
+  {
+    if (z_g > z_cut * pow(theta_g, beta))
+    {
+      return true;
+    }
+  }
+  return false;
+}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
