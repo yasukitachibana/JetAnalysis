@@ -56,10 +56,15 @@ void JetShape2DNoMixedEvent::ShowParamsSetting()
 {
   if (sidebandRap.size() != 0)
   {
+    std::cout << "[JetShape2DNoMixedEvent ] ***-------------------------------------------" << std::endl;
+    std::cout << "[JetShape2DNoMixedEvent ] *** [SideBand]" << std::endl;
+    std::cout << "[JetShape2DNoMixedEvent ] *** " << sidebandRap[0] << " < |Eta| < " << sidebandRap[1] << std::endl;
   }
-  std::cout << "[JetShape2DNoMixedEvent ] ***-------------------------------------------" << std::endl;
-  std::cout << "[JetShape2DNoMixedEvent ] *** [SideBand]" << std::endl;
-  std::cout << "[JetShape2DNoMixedEvent ] *** " << sidebandRap[0] << " < |Eta| < " << sidebandRap[1] << std::endl;
+  else
+  {
+    sidebandRap[0] = 5000.0;
+    sidebandRap[1] = 5000.0;
+  }
 }
 
 std::shared_ptr<Histogram> JetShape2DNoMixedEvent::CreateHist(std::string hist_name, int iv)
