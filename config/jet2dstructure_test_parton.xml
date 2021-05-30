@@ -45,7 +45,7 @@
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>2.4</Item>
+        <Item>10</Item>
       </particleRapMax>
 
       <particlePtMin>
@@ -82,10 +82,10 @@
         <Item>-3.141592653589793238462643383279502884197</Item>
         <Item>3.141592653589793238462643383279502884197</Item>
       </boundPhi>
-      <nBinEta>300</nBinEta>
+      <nBinEta>160</nBinEta>
       <boundEta>
-        <Item>-15</Item>
-        <Item>15</Item>
+        <Item>-8</Item>
+        <Item>8</Item>
       </boundEta>
 
     </JetShape2DNoMixedEvent>
