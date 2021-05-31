@@ -112,13 +112,39 @@
 
         <muG>
           <Item>0</Item>
-          <Item>5000</Item>
+          <Item>20</Item>
+          <Item>40</Item>
+          <Item>60</Item>
+          <Item>80</Item>
+          <Item>100</Item>
+          <Item>120</Item>
+          <Item>140</Item>
+          <Item>160</Item>
+          <Item>180</Item>
+          <Item>200</Item>
+          <Item>225</Item>
+          <Item>250</Item>
+          <Item>300</Item>
+          <Item>350</Item>
+          <Item>400</Item>
+          <Item>450</Item>
+          <Item>500</Item>
         </muG>
 
         <muOverPtG>
           <Item>0.0</Item>
-          <Item>1.0</Item>
+          <Item>0.04</Item>
+          <Item>0.06</Item>
+          <Item>0.08</Item>
+          <Item>0.1</Item>
+          <Item>0.12</Item>
+          <Item>0.15</Item>
+          <Item>0.18</Item>
+          <Item>0.21</Item>
+          <Item>0.24</Item>
+          <Item>0.27</Item>
         </muOverPtG>
+
 
 
       </var>
