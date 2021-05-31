@@ -29,14 +29,16 @@ int SoftDropGroom::ReadOptionParametersFromXML()
   i_zG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "zG"));
   i_thetaG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "thetaG"));
   i_rG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "rG"));
+  i_muG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "muG"));
+  i_mu_over_ptG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "muOverPtG"));
 
   if (deltaRCut < DBL_EPSILON)
   {
-    additional_cond_ptr = std::unique_ptr<SDDeltaRCut>(new SDDeltaRCut(deltaRCut));
+    additional_cond_ptr = std::unique_ptr<SDNoCondition>(new SDNoCondition());
   }
   else
   {
-    additional_cond_ptr = std::unique_ptr<SDNoCondition>(new SDNoCondition());
+    additional_cond_ptr = std::unique_ptr<SDDeltaRCut>(new SDDeltaRCut(deltaRCut));
   }
 
   return beta.size() * zCut.size();
@@ -104,7 +106,7 @@ void SoftDropGroom::ShowParamsSetting()
   }
   std::cout << "\b\b  " << std::endl;
 
-  //additional_cond_ptr->ShowSettings();
+  additional_cond_ptr->ShowSettings();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -135,6 +137,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 
     for (auto j : jets)
     {
+      double pt_jet = j.perp();
       for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
       {
         for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
@@ -153,24 +156,35 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               int index_zG = GetHistIndex(i_zG, ir, ijp, ijr, 0, 0, ip);
               int index_thetaG = GetHistIndex(i_thetaG, ir, ijp, ijr, 0, 0, ip);
               int index_rG = GetHistIndex(i_rG, ir, ijp, ijr, 0, 0, ip);
+              int index_muG = GetHistIndex(i_muG, ir, ijp, ijr, 0, 0, ip);
+              int index_mu_over_ptG = GetHistIndex(i_mu_over_ptG, ir, ijp, ijr, 0, 0, ip);
 
               hist_list[index_zG]->JetTriggered();
               hist_list[index_thetaG]->JetTriggered();
               hist_list[index_rG]->JetTriggered();
+              hist_list[index_muG]->JetTriggered();
+              hist_list[index_mu_over_ptG]->JetTriggered();
 
               // Define SoftDrop condition
               fastjet::contrib::SoftDrop sd(beta_val, zcut_val);
               fastjet::PseudoJet sd_jet = sd(j);
+              bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
+              //--
               double zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
               double rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
-              bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
+              double mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
+              //--
               double thg = rg / jetR[ir];
+              double mu_over_pt = mu / pt_jet;
+              //--
 
               if (hasSub && additional_cond_ptr->Trigger(rg))
               {
                 hist_list[index_zG]->Fill(zg, 1.0);
                 hist_list[index_thetaG]->Fill(thg, 1.0);
                 hist_list[index_rG]->Fill(rg, 1.0);
+                hist_list[index_muG]->Fill(mu,1.0);
+                hist_list[index_mu_over_ptG]->Fill(mu_over_pt,1.0);
               }
             }
 
@@ -235,7 +249,7 @@ void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
   }
   total_hist->DeleteTH();
   //#############################################
-  normalized_hist->Scale(1.0, "width");  
+  normalized_hist->Scale(1.0, "width");
   normalized_hist->Normalize("width");
   normalized_hist->Print("SoftDropGroom_");
   normalized_hist->DeleteTH();
