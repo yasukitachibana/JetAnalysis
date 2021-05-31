@@ -13,6 +13,7 @@ public:
   virtual bool Trigger(double val) { return false; }
   virtual bool Trigger(double val1, double val2) { return false; }
   virtual bool Trigger(double val1, double val2, double val3) { return false; }
+  virtual void ShowSettings() {}
 };
 
 class SDNoCondition : public SDAdditionalCondition
@@ -23,6 +24,7 @@ public:
   bool Trigger(double val) { return true; }
   bool Trigger(double val1, double val2) { return true; }
   bool Trigger(double val1, double val2, double val3) { return true; }
+  void ShowSettings() {}
 };
 
 class SDDeltaRCut : public SDAdditionalCondition
@@ -40,6 +42,10 @@ public:
     {
       return false;
     }
+  }
+  void ShowSettings()
+  {
+    std::cout << "[AnalyzeBase] *** Delta_R_cut: " << deltaRMin << std::endl;
   }
 
 private:
@@ -75,6 +81,8 @@ private:
   int i_zG;
   int i_thetaG;
   int i_rG;
+  int i_muG;
+  int i_mu_over_ptG;
 
   int ui;
 

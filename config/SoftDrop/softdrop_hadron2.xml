@@ -51,7 +51,7 @@
       </statParticle> -->
 
       <particleRapidity>1</particleRapidity>
-      
+
       <particleRapMin>
         <Item>0.0</Item>
       </particleRapMin>
@@ -81,7 +81,7 @@
           <Item>0.25</Item>
           <Item>0.3</Item>
           <Item>0.35</Item>
-          <Item>0.4</Item>          
+          <Item>0.4</Item>
           <Item>0.5</Item>
         </zG>
 
@@ -107,7 +107,17 @@
           <Item>0.35</Item>
           <Item>0.4</Item>
         </rG>
-        
+
+        <muG>
+          <Item>0</Item>
+          <Item>5000</Item>
+        </muG>
+
+        <muOverPtG>
+          <Item>0.0</Item>
+          <Item>1.0</Item>
+        </muOverPtG>
+
       </var>
 
     </SoftDropGroom>
