@@ -235,6 +235,7 @@ void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
   }
   total_hist->DeleteTH();
   //#############################################
+  normalized_hist->Scale(1.0, "width");  
   normalized_hist->Normalize("width");
   normalized_hist->Print("SoftDropGroom_");
   normalized_hist->DeleteTH();

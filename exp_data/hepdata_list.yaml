@@ -11,3 +11,10 @@ hepdata_cms_jet_prop_5tev:
   data_table_first: 1
   data_table_last: 12
   data_inspire: 'https://inspirehep.net/literature/1658057'
+
+hepdata_cms_jet_splittingf_5tev:
+  data_save_dir: 'hepdata_cms_jet_splittingf_5tev'
+  data_url: 'https://www.hepdata.net/download/table/ins1620905/Table%20{}/1/yaml'
+  data_table_first: 2
+  data_table_last: 16
+  data_inspire: 'https://inspirehep.net/literature/1620905'
