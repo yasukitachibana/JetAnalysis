@@ -70,6 +70,15 @@ def get_y_values(yaml_y_data):
   ysysm = np.array([])
 
   for y in yaml_y_data['values']:
+
+    if y['value'] == '':
+      yval = np.append(yval,0.0)
+      ysysp = np.append(ysysp, 0.0)
+      ysysm = np.append(ysysm, 0.0)
+      ystatp = np.append(ystatp, 0.0)
+      ystatm = np.append(ystatm, 0.0)
+      continue
+
     yval = np.append(yval,y['value'])
     for err in (y['errors']):
       try:
