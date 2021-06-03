@@ -1,0 +1,17 @@
+pp_hadron:
+  HadronParton: 'Hadron'
+  DirNameBase: '/wsu/home/go/go54/go5410/maj-shen/AAPaperData'
+  DirName: '5020_PP_Colorless'
+  Centrality: ['NA']
+
+pp_parton:
+  HadronParton: 'Parton'
+  DirNameBase: '/wsu/home/go/go54/go5410/maj-shen/AAPaperData'
+  DirName: '5020_PP_Colorless_Incl_Parton'
+  Centrality: ['NA']
+
+MATTER_LBT_Type5:
+  HadronParton: 'Both'
+  DirNameBase: '/wsu/home/go/go54/go5410/maj-shen/AAPaperData'
+  DirName: 'MATTER_LBT_RunningAlphaS_Q2qhat/5020_PbPb_{}_0.30_2.0_1'
+  Centrality: ['0-5', '5-10', '10-20', '20-30', '30-40', '40-50', '50-60']
