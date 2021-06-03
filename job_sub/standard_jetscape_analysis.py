@@ -46,6 +46,7 @@ def main():
             full_output = os.path.join(output_dir,hp,input_dir)
             
             command = command_format.format(xml,full_input,full_output)
+            print(command)
             os.system(command)
 
 if __name__ == '__main__':
