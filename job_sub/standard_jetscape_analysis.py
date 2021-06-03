@@ -43,7 +43,7 @@ def main():
                 input_dir = input_dir.format(cent)
             
             full_input = os.path.join(input_dir_base,input_dir)
-            full_output = os.path.join(output_dir,input_dir)
+            full_output = os.path.join(output_dir,hp,input_dir)
             
             command = command_format.format(xml,full_input,full_output)
             os.system(command)
