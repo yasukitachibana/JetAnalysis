@@ -81,8 +81,8 @@ private:
   int i_zG;
   int i_thetaG;
   int i_rG;
-  int i_muG;
-  int i_mu_over_ptG;
+  int i_mG;
+  int i_mG_over_pt;
 
   int ui;
 
