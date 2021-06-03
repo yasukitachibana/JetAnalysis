@@ -162,8 +162,8 @@
       <tail>.out</tail>
     </events>
     <sigma>
-      <!-- <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path> -->
-      <path>na</path>
+      <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path>
+      <!-- <path>na</path> -->
       <head>SigmaHardBin</head>
       <join>_</join>
       <tail>.out</tail>
@@ -174,7 +174,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <!-- <Item>1</Item>
+    <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -196,11 +196,11 @@
     <Item>60</Item>
     <Item>70</Item>
     <Item>80</Item>
-    <Item>90</Item> -->
+    <Item>90</Item>
     <Item>100</Item>
     <Item>110</Item>
     <Item>120</Item>
-    <!-- <Item>130</Item>
+    <Item>130</Item>
     <Item>140</Item>
     <Item>150</Item>
     <Item>160</Item>
@@ -240,7 +240,7 @@
     <Item>2000</Item>
     <Item>2200</Item>
     <Item>2400</Item>
-    <Item>2510</Item> -->
+    <Item>2510</Item>
   </ptHat>
 
 </jetAnalysis>
