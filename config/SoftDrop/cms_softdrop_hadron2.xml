@@ -110,7 +110,7 @@
           <Item>0.4</Item>
         </rG>
 
-        <muG>
+        <mG>
           <Item>0</Item>
           <Item>20</Item>
           <Item>40</Item>
@@ -129,9 +129,9 @@
           <Item>400</Item>
           <Item>450</Item>
           <Item>500</Item>
-        </muG>
+        </mG>
 
-        <muOverPtG>
+        <mGOverPt>
           <Item>0.0</Item>
           <Item>0.04</Item>
           <Item>0.06</Item>
@@ -142,7 +142,7 @@
           <Item>0.18</Item>
           <Item>0.21</Item>
           <Item>0.26</Item>
-        </muOverPtG>
+        </mGOverPt>
 
 
       </var>

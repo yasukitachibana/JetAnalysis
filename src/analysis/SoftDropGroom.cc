@@ -29,8 +29,8 @@ int SoftDropGroom::ReadOptionParametersFromXML()
   i_zG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "zG"));
   i_thetaG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "thetaG"));
   i_rG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "rG"));
-  i_muG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "muG"));
-  i_mu_over_ptG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "muOverPtG"));
+  i_mG = distance(variables.begin(), std::find(variables.begin(), variables.end(), "mG"));
+  i_mG_over_pt = distance(variables.begin(), std::find(variables.begin(), variables.end(), "mGOverPt"));
 
   if (deltaRCut < DBL_EPSILON)
   {
@@ -156,14 +156,14 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               int index_zG = GetHistIndex(i_zG, ir, ijp, ijr, 0, 0, ip);
               int index_thetaG = GetHistIndex(i_thetaG, ir, ijp, ijr, 0, 0, ip);
               int index_rG = GetHistIndex(i_rG, ir, ijp, ijr, 0, 0, ip);
-              int index_muG = GetHistIndex(i_muG, ir, ijp, ijr, 0, 0, ip);
-              int index_mu_over_ptG = GetHistIndex(i_mu_over_ptG, ir, ijp, ijr, 0, 0, ip);
+              int index_mG = GetHistIndex(i_mG, ir, ijp, ijr, 0, 0, ip);
+              int index_mG_over_pt = GetHistIndex(i_mG_over_pt, ir, ijp, ijr, 0, 0, ip);
 
               hist_list[index_zG]->JetTriggered();
               hist_list[index_thetaG]->JetTriggered();
               hist_list[index_rG]->JetTriggered();
-              hist_list[index_muG]->JetTriggered();
-              hist_list[index_mu_over_ptG]->JetTriggered();
+              hist_list[index_mG]->JetTriggered();
+              hist_list[index_mG_over_pt]->JetTriggered();
 
               // Define SoftDrop condition
               fastjet::contrib::SoftDrop sd(beta_val, zcut_val);
@@ -172,10 +172,23 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               //--
               double zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
               double rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
-              double mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
+              // double mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
+              // double mass = j.m();
+              double mg = sd_jet.m();
+            
+              // std::cout << "pt=" << pt_jet << std::endl;
+              // std::cout << "mass=" << mass << std::endl;              
+              // std::cout << "mass/pt=" << mass/pt_jet << std::endl;              
+              // std::cout << "zg=" << zg << std::endl;
+              // std::cout << "rg=" << rg << std::endl;
+              // std::cout << "mu=" << mu << std::endl;
+              // std::cout << "sd pt=" << sd_jet.perp() << std::endl;
+              // std::cout << "sd mass=" << sd_jet.m() << std::endl;
+              // std::cout << "sd mass/pt" << sd_jet.m()/pt_jet << std::endl<< std::endl;
+
               //--
               double thg = rg / jetR[ir];
-              double mu_over_pt = mu / pt_jet;
+              double mg_over_pt = mg / pt_jet;
               //--
 
               if (hasSub && additional_cond_ptr->Trigger(rg))
@@ -183,8 +196,8 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 hist_list[index_zG]->Fill(zg, 1.0);
                 hist_list[index_thetaG]->Fill(thg, 1.0);
                 hist_list[index_rG]->Fill(rg, 1.0);
-                hist_list[index_muG]->Fill(mu,1.0);
-                hist_list[index_mu_over_ptG]->Fill(mu_over_pt,1.0);
+                hist_list[index_mG]->Fill(mg,1.0);
+                hist_list[index_mG_over_pt]->Fill(mg_over_pt,1.0);
               }
             }
 

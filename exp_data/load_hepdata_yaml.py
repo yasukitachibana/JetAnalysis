@@ -6,7 +6,7 @@ import argparse
 def name_format(s):
   k = ''
   u = '_'
-  return s.replace(' ',k).replace('(',k).replace(')',k).replace('%',k).replace('/','_over_')#.replace('.',u)
+  return s.replace(' ',k).replace('(',k).replace(')',k).replace('%',k).replace('/','_over_').replace('*',u).replace('^',u)
 
 def generate_output_filename(outputDir, name):
   return os.path.join(outputDir, name+'.txt')
