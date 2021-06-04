@@ -549,6 +549,15 @@ std::string AnalysisModuleBase::GetHistName(int iv, int ir, int ijp, int ijr, in
   return histname;
 }
 
+std::vector<int> AnalysisModuleBase::GetHistIndex(std::vector<int> iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
+{
+  std::vector<int> indices;
+  for(auto iiv: iv){
+    indices.push_back(GetHistIndex( iiv, ir, ijp, ijr, ipp, ipr, ip));
+  }
+  return indices;
+}
+
 int AnalysisModuleBase::GetHistIndex(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
   return nParams * (particleRapMin.size() * (particlePtMin.size() * (jetRapMin.size() * (jetPtMin.size() * (jetR.size() * (iv) + ir) + ijp) + ijr) + ipp) + ipr) + ip;

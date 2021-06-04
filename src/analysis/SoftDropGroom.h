@@ -78,16 +78,20 @@ private:
   std::vector<double> beta;
   std::vector<double> zCut;
 
-  int i_zG;
-  int i_thetaG;
-  int i_rG;
-  int i_mG;
-  int i_mG_over_pt;
+  int ReadVariablesFromXML(std::string tag);
+  std::string VariableSuffix(int i);
+
+  static const int n_val = 7;
+  //0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
+  std::array<std::vector<int>, n_val> i_val;
+  std::array<std::string, n_val> valNames = {"zG", "thetaG", "rG", "mG", "mGOverPt", "pseudoMG", "pseudoMGOverPt"};
 
   int ui;
 
   std::unique_ptr<SDAdditionalCondition> additional_cond_ptr;
 
+  double CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
+                         double pmod2, double px2, double py2, double pz2);
   // bool SDCondition(double z_g, double theta_g, double z_cut, double beta);
 
 public:

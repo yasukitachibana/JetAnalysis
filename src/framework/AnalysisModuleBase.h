@@ -101,6 +101,7 @@ protected:
   std::string GetHistName( double ptHatMin, double ptHatMax,
                           int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   std::string GetHistName( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+  std::vector<int> GetHistIndex(std::vector<int> iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   int GetHistIndex( int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   void DeleteHist();
   //=========================================
