@@ -65,9 +65,11 @@
 
       <beta>
         <Item>0.0</Item>
+        <Item>1.5</Item>
       </beta>
       <zCut>
         <Item>0.1</Item>
+        <Item>0.5</Item>
       </zCut>
 
       <deltaRCut>0.1</deltaRCut>
@@ -131,6 +133,7 @@
           <Item>500</Item>
         </mG>
 
+
         <mGOverPt>
           <Item>0.0</Item>
           <Item>0.04</Item>
@@ -141,8 +144,7 @@
           <Item>0.15</Item>
           <Item>0.18</Item>
           <Item>0.21</Item>
-          <Item>0.24</Item>
-          <Item>0.27</Item>
+          <Item>0.26</Item>
         </mGOverPt>
 
         <mGOverPt2>
@@ -159,6 +161,53 @@
           <Item>0.27</Item>
         </mGOverPt2>
 
+        <pseudoMG>
+          <Item>0</Item>
+          <Item>20</Item>
+          <Item>40</Item>
+          <Item>60</Item>
+          <Item>80</Item>
+          <Item>100</Item>
+          <Item>120</Item>
+          <Item>140</Item>
+          <Item>160</Item>
+          <Item>180</Item>
+          <Item>200</Item>
+          <Item>225</Item>
+          <Item>250</Item>
+          <Item>300</Item>
+          <Item>350</Item>
+          <Item>400</Item>
+          <Item>450</Item>
+          <Item>500</Item>
+        </pseudoMG>
+
+        <pseudoMGOverPt>
+          <Item>0.0</Item>
+          <Item>0.04</Item>
+          <Item>0.06</Item>
+          <Item>0.08</Item>
+          <Item>0.1</Item>
+          <Item>0.12</Item>
+          <Item>0.15</Item>
+          <Item>0.18</Item>
+          <Item>0.21</Item>
+          <Item>0.26</Item>
+        </pseudoMGOverPt>
+
+        <pseudoMGOverPt2>
+          <Item>0.0</Item>
+          <Item>0.04</Item>
+          <Item>0.06</Item>
+          <Item>0.08</Item>
+          <Item>0.1</Item>
+          <Item>0.12</Item>
+          <Item>0.15</Item>
+          <Item>0.18</Item>
+          <Item>0.21</Item>
+          <Item>0.24</Item>
+          <Item>0.27</Item>
+        </pseudoMGOverPt2>
 
       </var>
 
@@ -174,8 +223,8 @@
       <tail>.out</tail>
     </events>
     <sigma>
-      <!-- <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path> -->
-      <path>na</path>
+      <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path>
+      <!-- <path>na</path> -->
       <head>SigmaHardBin</head>
       <join>_</join>
       <tail>.out</tail>
@@ -186,7 +235,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <!-- <Item>1</Item>
+    <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -208,10 +257,10 @@
     <Item>60</Item>
     <Item>70</Item>
     <Item>80</Item>
-    <Item>90</Item>-->
+    <Item>90</Item>
     <Item>100</Item>
     <Item>110</Item>
-    <!-- <Item>120</Item> 
+    <Item>120</Item>
     <Item>130</Item>
     <Item>140</Item>
     <Item>150</Item>
@@ -252,7 +301,7 @@
     <Item>2000</Item>
     <Item>2200</Item>
     <Item>2400</Item>
-    <Item>2510</Item> -->
+    <Item>2510</Item>
   </ptHat>
 
 </jetAnalysis>

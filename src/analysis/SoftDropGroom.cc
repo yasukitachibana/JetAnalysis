@@ -253,7 +253,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 
                 double cos = CosOpeningAngle(pmod1, px1, py1, pz1, pmod2, px2, py2, pz2);
 
-                double pseudo_mg = sqrt(e1 * e2 * (1.0 - cos));
+                double pseudo_mg = sqrt( 2.0 * e1 * e2 * (1.0 - cos));
                 double pseudo_mg_over_pt = pseudo_mg / pt_jet;
 
                 // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
@@ -311,8 +311,8 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 //std::cout << " ->" << valNames[6] << ": ";
                 for (auto i : index[6])
                 {
-                  std::cout << i << " ";
-                  //hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
+                  //std::cout << i << " ";
+                  hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
                 }
                 //std::cout << std::endl;
               }
