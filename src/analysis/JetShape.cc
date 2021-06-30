@@ -48,6 +48,11 @@ void JetShape::SetObservable
 
           if( ParticleTrigger(p, ipp, ipr) ){
 
+              if(p->pstat() == 1){
+                std::cout << "1" << std::endl;
+              }else ifp->pstat() == -1){
+                std::cout << "-1" << std::endl;
+              }
 //            std::cout
 //              << "[T] stat:" << p->pstat()
 //              << ", pid:"<< p->pid()
