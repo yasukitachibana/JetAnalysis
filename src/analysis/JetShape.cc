@@ -48,21 +48,16 @@ void JetShape::SetObservable
 
           if( ParticleTrigger(p, ipp, ipr) ){
 
-              if(p->pstat() == 1){
-                std::cout << "1" << std::endl;
-              }else if(p->pstat() == -1){
-                std::cout << "-1" << std::endl;
-              }
-//            std::cout
-//              << "[T] stat:" << p->pstat()
-//              << ", pid:"<< p->pid()
-//              << ", plabel:" <<p->plabel()
-//              << ", e:" <<p->e()
-//              << ", px:" <<p->px()
-//              << ", py:" <<p->py()
-//              << ", eta:"<< p->eta()
-//              << ", phi:" <<p->phi_std()
-//              << std::endl;
+           std::cout
+             << "[T] stat:" << p->pstat()
+             << ", pid:"<< p->pid()
+             << ", plabel:" <<p->plabel()
+             << ", e:" <<p->e()
+             << ", px:" <<p->px()
+             << ", py:" <<p->py()
+             << ", eta:"<< p->eta()
+             << ", phi:" <<p->phi_std()
+             << std::endl;
             
             double pt = sub_ptr->ptSub(p);
             double delta_eta = p->eta() - jet.eta() ;
