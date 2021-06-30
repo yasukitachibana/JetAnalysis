@@ -48,26 +48,26 @@ void JetShape::SetObservable
 
           if( ParticleTrigger(p, ipp, ipr) ){
 
-           std::cout
-             << "[T] stat:" << p->pstat()
-             << ", pid:"<< p->pid()
-             << ", plabel:" <<p->plabel()
-             << ", e:" <<p->e()
-             << ", px:" <<p->px()
-             << ", py:" <<p->py()
-             << ", eta:"<< p->eta()
-             << ", phi:" <<p->phi_std()
-             << std::endl;
+          //  std::cout
+          //    << "[T] stat:" << p->pstat()
+          //    << ", pid:"<< p->pid()
+          //    << ", plabel:" <<p->plabel()
+          //    << ", e:" <<p->e()
+          //    << ", px:" <<p->px()
+          //    << ", py:" <<p->py()
+          //    << ", eta:"<< p->eta()
+          //    << ", phi:" <<p->phi_std()
+          //    << std::endl;
             
             double pt = sub_ptr->ptSub(p);
             double delta_eta = p->eta() - jet.eta() ;
             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
             double delta_r = TMath::Sqrt( delta_eta*delta_eta + delta_phi*delta_phi);
             
-            std::cout
-             << "[T] stat:" << p->pstat()
-             << ", pt_eff:"<< pt
-             << std::endl;
+            // std::cout
+            //  << "[T] stat:" << p->pstat()
+            //  << ", pt_eff:"<< pt
+            //  << std::endl;
 
 //            std::cout
 //              << "[T] pt:" << pt
