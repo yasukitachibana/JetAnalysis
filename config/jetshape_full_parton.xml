@@ -48,7 +48,7 @@
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>4.6</Item>
+        <Item>2.6</Item>
       </particleRapMax>
       <particlePtMin>
         <Item>0.0</Item>
@@ -101,7 +101,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <!-- <Item>1</Item>
+    <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -133,7 +133,7 @@
     <Item>160</Item>
     <Item>170</Item>
     <Item>180</Item>
-    <Item>190</Item> -->
+    <Item>190</Item>
     <Item>200</Item>
     <Item>210</Item>
     <Item>220</Item>
