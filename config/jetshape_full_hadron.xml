@@ -12,11 +12,11 @@
       <Item>0.4</Item>
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
-    <statJet>
+    <!-- <statJet>
       <Item>0</Item>
       <Item>1</Item>
       <Item>-1</Item>
-    </statJet>
+    </statJet> -->
     <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
@@ -30,29 +30,26 @@
     <jetPtMax>
       <Item>300</Item>
     </jetPtMax>
-    <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
+    <nJetEv>0</nJetEv>
   </jetReco>
 
   <observable>
-    <JetShape2D>
-      <name>Jet Shape Function [2D]</name>
 
+    <JetShape>
+      <name>Jet Shape Function</name>
       <chParticle>0</chParticle>
-
-      <statParticle>
+      <!-- <statParticle>
         <Item>0</Item>
         <Item>1</Item>
         <Item>-1</Item>
-      </statParticle>
+      </statParticle> -->
       <particleRapidity>1</particleRapidity>
-
       <particleRapMin>
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>2.4</Item>
+        <Item>2.6</Item>
       </particleRapMax>
-
       <particlePtMin>
         <Item>0.0</Item>
       </particlePtMin>
@@ -77,32 +74,12 @@
           <Item>0.7</Item>
           <Item>0.8</Item>
           <Item>1.0</Item>
-          <Item>1.2</Item>
-          <Item>1.5</Item>
+          <!-- <Item>1.2</Item>
+          <Item>1.5</Item> -->
         </r>
       </var>
 
-      <nBinPhi>628</nBinPhi>
-      <boundPhi>
-        <Item>-3.141592653589793238462643383279502884197</Item>
-        <Item>3.141592653589793238462643383279502884197</Item>
-      </boundPhi>
-      <nBinEta>500</nBinEta>
-      <boundEta>
-        <Item>-2.5</Item>
-        <Item>2.5</Item>
-      </boundEta>
-
-      <sidebandRap>
-        <Item>1.5</Item>
-        <Item>2.5</Item>
-      </sidebandRap>
-
-      <pathMixedEvent>na</pathMixedEvent>
-      <filenameMixedEvent>MixedEventHadron.txt</filenameMixedEvent>
-
-    </JetShape2D>
-
+    </JetShape>
   </observable>
 
   <inputFiles>
@@ -149,7 +126,7 @@
     <Item>90</Item>
     <Item>100</Item>
     <Item>110</Item>
-    <Item>120</Item>
+    <Item>120</Item>    
     <Item>130</Item>
     <Item>140</Item>
     <Item>150</Item>
@@ -192,5 +169,6 @@
     <Item>2400</Item>
     <Item>2510</Item>
   </ptHat>
+
 
 </jetAnalysis>
