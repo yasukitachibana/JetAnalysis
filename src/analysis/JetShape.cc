@@ -64,7 +64,11 @@ void JetShape::SetObservable
             double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
             double delta_r = TMath::Sqrt( delta_eta*delta_eta + delta_phi*delta_phi);
             
-            
+            std::cout
+             << "[T] stat:" << p->pstat()
+             << ", pt_eff:"<< pt
+             << std::endl;
+
 //            std::cout
 //              << "[T] pt:" << pt
 //              << ", eta_j:"<< jet.eta()
