@@ -38,11 +38,11 @@
     <JetShape>
       <name>Jet Shape Function</name>
       <chParticle>0</chParticle>
-      <!-- <statParticle>
+      <statParticle>
         <Item>0</Item>
-        <Item>1</Item>
-        <Item>-1</Item>
-      </statParticle> -->
+        <!-- <Item>1</Item>
+        <Item>-1</Item> -->
+      </statParticle>
       <particleRapidity>1</particleRapidity>
       <particleRapMin>
         <Item>0.0</Item>
