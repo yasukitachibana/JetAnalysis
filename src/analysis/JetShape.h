@@ -18,6 +18,11 @@ private:
 
   void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   
+  int ReadOptionParametersFromXML();
+  std::string GetParamsTag( int i );
+
+  static const int n_p = 4;
+
 public:
   JetShape(std::string name_in = "JetShape");
   ~JetShape();
