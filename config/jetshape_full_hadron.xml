@@ -101,7 +101,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>1</Item>
+    <!-- <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -117,7 +117,7 @@
     <Item>30</Item>
     <Item>35</Item>
     <Item>40</Item>
-    <Item>45</Item>
+    <Item>45</Item> -->
     <Item>50</Item>
     <Item>55</Item>
     <Item>60</Item>
@@ -146,7 +146,7 @@
     <Item>290</Item>
     <Item>300</Item>
     <Item>350</Item>
-    <Item>400</Item>
+    <!-- <Item>400</Item>
     <Item>450</Item>
     <Item>500</Item>
     <Item>550</Item>
@@ -167,7 +167,7 @@
     <Item>2000</Item>
     <Item>2200</Item>
     <Item>2400</Item>
-    <Item>2510</Item>
+    <Item>2510</Item> -->
   </ptHat>
 
 
