@@ -112,6 +112,7 @@ protected:
   //=========================================
   
 private:
+  int p_gun;
   virtual void EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num){}
   //=========================================
   void LoadHist( double ptHatMin, double ptHatMax,
