@@ -176,6 +176,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
   particlePtMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMin", "Item"});
   particlePtMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMax", "Item"});
   //###############################################################################################################
+  p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
+  //###############################################################################################################
   variables = SetXML::Instance()->GetElementNameVector({"observable", Name().c_str(), "var"});
   for (auto var : variables)
   {
@@ -274,9 +276,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   }
   else
   {
-    jet_constpt_ptr 
-    = std::unique_ptr<ConstPtSelected>
-    (new ConstPtSelected(jet_const_pt_min, jet_const_pt_max));
+    jet_constpt_ptr = std::unique_ptr<ConstPtSelected>(new ConstPtSelected(jet_const_pt_min, jet_const_pt_max));
   }
 
   //###############################################################################################################
@@ -499,9 +499,17 @@ void AnalysisModuleBase::LoadHist(double ptHatMin, double ptHatMax,
   hist_this_bin->LoadHistFromFile();
   //*******************************************************************************************
   double sigma, sigma_err;
-  std::string sigma_file_name = SetFile::Instance()->GetSigmaFileName(ptHatMin, ptHatMax);
-  std::cout << "[AnalysisModuleBase] Load Sigma File: " << sigma_file_name << std::endl;
-  load_ptr->LoadSigma(sigma_file_name, sigma, sigma_err);
+  if (p_gun == 1)
+  {
+    sigma = 1.0;
+    sigma_err = 0.0;
+  }
+  else
+  {
+    std::string sigma_file_name = SetFile::Instance()->GetSigmaFileName(ptHatMin, ptHatMax);
+    std::cout << "[AnalysisModuleBase] Load Sigma File: " << sigma_file_name << std::endl;
+    load_ptr->LoadSigma(sigma_file_name, sigma, sigma_err);
+  }
   std::cout << "[AnalysisModuleBase] Sigma = " << sigma << ", sigma error = " << sigma_err << std::endl;
   hist_this_bin->SetSigma(sigma, sigma_err);
   //*******************************************************************************************
@@ -552,8 +560,9 @@ std::string AnalysisModuleBase::GetHistName(int iv, int ir, int ijp, int ijr, in
 std::vector<int> AnalysisModuleBase::GetHistIndex(std::vector<int> iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
   std::vector<int> indices;
-  for(auto iiv: iv){
-    indices.push_back(GetHistIndex( iiv, ir, ijp, ijr, ipp, ipr, ip));
+  for (auto iiv : iv)
+  {
+    indices.push_back(GetHistIndex(iiv, ir, ijp, ijr, ipp, ipr, ip));
   }
   return indices;
 }
