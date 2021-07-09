@@ -25,12 +25,12 @@
       <Item>1.6</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>120</Item>
+      <Item>10</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>300</Item>
     </jetPtMax>
-    <nJetEv>0</nJetEv>
+    <nJetEv>1</nJetEv>
   </jetReco>
 
   <observable>
@@ -40,8 +40,8 @@
       <chParticle>0</chParticle>
       <statParticle>
         <Item>0</Item>
-        <!-- <Item>1</Item>
-        <Item>-1</Item> -->
+        <Item>1</Item>
+        <Item>-1</Item>
       </statParticle>
       <particleRapidity>1</particleRapidity>
       <particleRapMin>
