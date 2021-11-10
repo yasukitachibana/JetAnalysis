@@ -86,7 +86,6 @@
   <inputFiles>
     <inputStyle>JetScapeAscii</inputStyle>
     <events>
-      <!-- <head>JetscapeHadronListBin</head> -->
       <head>JetscapeHadronListBin</head>
       <join>_</join>
       <tail>.out</tail>
