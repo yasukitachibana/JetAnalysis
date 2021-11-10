@@ -8,7 +8,7 @@
   <!-- Jet Reconstruction-->
   <jetReco>
     <!-- <reconstructionMethod>NegativeReco</reconstructionMethod> -->
-    <reconstructionMethod>StandardReco</reconstructionMethod>    
+    <reconstructionMethod>StandardReco</reconstructionMethod>
     <jetR>
       <Item>0.4</Item>
     </jetR>
@@ -36,8 +36,8 @@
 
   <observable>
 
-    <JetShape>
-      <name>Jet Shape Function</name>
+    <FragF>
+      <name>Jet Fragmentation Function</name>
       <chParticle>0</chParticle>
       <!-- <statParticle>
         <Item>0</Item>
@@ -59,28 +59,63 @@
       </particlePtMax>
 
       <var>
-        <r>
-          <Item>0</Item>
-          <Item>0.05</Item>
-          <Item>0.1</Item>
-          <Item>0.15</Item>
-          <Item>0.2</Item>
+        <pt>
+          <Item>0.0</Item>
           <Item>0.25</Item>
-          <Item>0.3</Item>
-          <Item>0.35</Item>
-          <Item>0.4</Item>
-          <Item>0.45</Item>
           <Item>0.5</Item>
-          <Item>0.6</Item>
-          <Item>0.7</Item>
-          <Item>0.8</Item>
-          <Item>1.0</Item>
-          <!-- <Item>1.2</Item>
-          <Item>1.5</Item> -->
-        </r>
-      </var>
+          <Item>0.75</Item>
+          <Item>1</Item>
+          <Item>1.3318</Item>
+          <Item>1.7758</Item>
+          <Item>2.3677</Item>
+          <Item>3.1569</Item>
+          <Item>4.2092</Item>
+          <Item>5.6123</Item>
+          <Item>7.4831</Item>
+          <Item>9.9775</Item>
+          <Item>13.3033</Item>
+          <Item>17.7377</Item>
+          <Item>23.6503</Item>
+          <Item>31.5337</Item>
+          <Item>42.0449</Item>
+          <Item>56.0599</Item>
+          <Item>74.7466</Item>
+          <Item>99.6621</Item>
+          <Item>132.883</Item>
+          <Item>177.177</Item>
+          <Item>300.0</Item>
+        </pt>
 
-    </JetShape>
+        <z>
+          <Item>0.0</Item>
+          <Item>0.00630957</Item>
+          <Item>0.00794328</Item>
+          <Item>0.01</Item>
+          <Item>0.0125893</Item>
+          <Item>0.0158489</Item>
+          <Item>0.0199526</Item>
+          <Item>0.0251189</Item>
+          <Item>0.0316228</Item>
+          <Item>0.0398107</Item>
+          <Item>0.0501187</Item>
+          <Item>0.0630957</Item>
+          <Item>0.0794328</Item>
+          <Item>0.1</Item>
+          <Item>0.125893</Item>
+          <Item>0.158489</Item>
+          <Item>0.199526</Item>
+          <Item>0.251189</Item>
+          <Item>0.316228</Item>
+          <Item>0.398107</Item>
+          <Item>0.501187</Item>
+          <Item>0.630958</Item>
+          <Item>0.794329</Item>
+          <Item>1.0</Item>
+        </z>
+
+      </var>
+    </FragF>
+
   </observable>
 
   <inputFiles>
