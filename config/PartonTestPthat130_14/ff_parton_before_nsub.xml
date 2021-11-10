@@ -7,48 +7,49 @@
 
   <!-- Jet Reconstruction-->
   <jetReco>
-    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <!-- <reconstructionMethod>NegativeReco</reconstructionMethod> -->
+    <reconstructionMethod>StandardReco</reconstructionMethod>
     <jetR>
       <Item>0.4</Item>
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
-    <!-- <statJet>
+    <statJet>
       <Item>0</Item>
       <Item>1</Item>
-      <Item>-1</Item>
-    </statJet> -->
-    <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+      <!-- <Item>-1</Item> -->
+    </statJet>
+    <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
     </jetRapMin>
     <jetRapMax>
-      <Item>1.6</Item>
+      <Item>2.8</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>120</Item>
+      <Item>20</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>300</Item>
     </jetPtMax>
-    <nJetEv>0</nJetEv>
+    <nJetEv>2</nJetEv>
   </jetReco>
 
   <observable>
 
-    <JetShape>
-      <name>Jet Shape Function</name>
+    <FragF>
+      <name>Jet Fragmentation Function</name>
       <chParticle>0</chParticle>
-      <!-- <statParticle>
+      <statParticle>
         <Item>0</Item>
         <Item>1</Item>
-        <Item>-1</Item>
-      </statParticle> -->
+        <!-- <Item>-1</Item> -->
+      </statParticle>
       <particleRapidity>1</particleRapidity>
       <particleRapMin>
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>2.6</Item>
+        <Item>5.0</Item>
       </particleRapMax>
       <particlePtMin>
         <Item>0.0</Item>
@@ -58,34 +59,70 @@
       </particlePtMax>
 
       <var>
-        <r>
-          <Item>0</Item>
-          <Item>0.05</Item>
-          <Item>0.1</Item>
-          <Item>0.15</Item>
-          <Item>0.2</Item>
+        <pt>
+          <Item>0.0</Item>
           <Item>0.25</Item>
-          <Item>0.3</Item>
-          <Item>0.35</Item>
-          <Item>0.4</Item>
-          <Item>0.45</Item>
           <Item>0.5</Item>
-          <Item>0.6</Item>
-          <Item>0.7</Item>
-          <Item>0.8</Item>
-          <Item>1.0</Item>
-          <!-- <Item>1.2</Item>
-          <Item>1.5</Item> -->
-        </r>
-      </var>
+          <Item>0.75</Item>
+          <Item>1</Item>
+          <Item>1.3318</Item>
+          <Item>1.7758</Item>
+          <Item>2.3677</Item>
+          <Item>3.1569</Item>
+          <Item>4.2092</Item>
+          <Item>5.6123</Item>
+          <Item>7.4831</Item>
+          <Item>9.9775</Item>
+          <Item>13.3033</Item>
+          <Item>17.7377</Item>
+          <Item>23.6503</Item>
+          <Item>31.5337</Item>
+          <Item>42.0449</Item>
+          <Item>56.0599</Item>
+          <Item>74.7466</Item>
+          <Item>99.6621</Item>
+          <Item>132.883</Item>
+          <Item>177.177</Item>
+          <Item>300.0</Item>
+        </pt>
 
-    </JetShape>
+        <z>
+          <Item>0.0</Item>
+          <Item>0.00630957</Item>
+          <Item>0.00794328</Item>
+          <Item>0.01</Item>
+          <Item>0.0125893</Item>
+          <Item>0.0158489</Item>
+          <Item>0.0199526</Item>
+          <Item>0.0251189</Item>
+          <Item>0.0316228</Item>
+          <Item>0.0398107</Item>
+          <Item>0.0501187</Item>
+          <Item>0.0630957</Item>
+          <Item>0.0794328</Item>
+          <Item>0.1</Item>
+          <Item>0.125893</Item>
+          <Item>0.158489</Item>
+          <Item>0.199526</Item>
+          <Item>0.251189</Item>
+          <Item>0.316228</Item>
+          <Item>0.398107</Item>
+          <Item>0.501187</Item>
+          <Item>0.630958</Item>
+          <Item>0.794329</Item>
+          <Item>1.0</Item>
+        </z>
+
+      </var>
+    </FragF>
+
   </observable>
 
   <inputFiles>
     <inputStyle>JetScapeAscii</inputStyle>
     <events>
-      <head>JetscapeHadronListBin</head>
+      <!-- <head>JetscapeHadronListBin</head> -->
+      <head>JetscapePartonListBin</head>
       <join>_</join>
       <tail>.out</tail>
     </events>
@@ -118,7 +155,7 @@
     <Item>35</Item>
     <Item>40</Item>
     <Item>45</Item> -->
-    <Item>50</Item>
+    <!-- <Item>50</Item>
     <Item>55</Item>
     <Item>60</Item>
     <Item>70</Item>
@@ -126,10 +163,10 @@
     <Item>90</Item>
     <Item>100</Item>
     <Item>110</Item>
-    <Item>120</Item>    
+    <Item>120</Item>-->
     <Item>130</Item>
     <Item>140</Item>
-    <Item>150</Item>
+    <!-- <Item>150</Item>
     <Item>160</Item>
     <Item>170</Item>
     <Item>180</Item>
@@ -145,7 +182,7 @@
     <Item>280</Item>
     <Item>290</Item>
     <Item>300</Item>
-    <Item>350</Item>
+    <Item>350</Item> -->
     <!-- <Item>400</Item>
     <Item>450</Item>
     <Item>500</Item>
