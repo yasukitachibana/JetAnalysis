@@ -14,6 +14,7 @@
 #include "SubtractionModuleBase.h"
 #include "ReconstructionModuleBase.h"
 #include "LoadFileModuleBase.h"
+#include "LeadingParticle.h"
 #include "Charged.h"
 #include "PStat.h"
 #include "Rapidity.h"
@@ -59,6 +60,8 @@ protected:
   std::shared_ptr<ReconstructionModuleBase> reco_ptr;
   std::shared_ptr<SubtractionModuleBase> sub_ptr;
   std::shared_ptr<LoadFileModuleBase> load_ptr;
+  //=========================================  
+  //std::unique_ptr<ChargedBase> jet_charged_ptr;
   //=========================================  
   std::unique_ptr<ChargedBase> jet_charged_ptr;
   std::unique_ptr<ChargedBase> particle_charged_ptr;  

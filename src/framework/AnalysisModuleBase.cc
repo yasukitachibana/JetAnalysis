@@ -167,6 +167,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
   int jet_const_pt_min = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMin"}, false);
   int jet_const_pt_max = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMax"}, false);
   //###############################################################################################################
+  int leading_particle = 0;
+  //###############################################################################################################
   int ch_particle = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "chParticle"});
   std::vector<int> stat_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "statParticle", "Item"}, false);
   std::vector<int> pid_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "pidParticle", "Item"}, false);
