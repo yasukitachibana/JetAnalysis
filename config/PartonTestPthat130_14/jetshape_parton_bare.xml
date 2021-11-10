@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <!-- <reconstructionMethod>NegativeReco</reconstructionMethod> -->
+    <reconstructionMethod>StandardReco</reconstructionMethod>    
+    <jetR>
+      <Item>0.4</Item>
+    </jetR>
+    <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
+    <statJet>
+      <Item>0</Item>
+      <!-- <Item>1</Item>
+      <Item>-1</Item> -->
+    </statJet>
+    <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin>
+      <Item>0</Item>
+    </jetRapMin>
+    <jetRapMax>
+      <Item>2.8</Item>
+    </jetRapMax>
+    <jetPtMin>
+      <Item>20</Item>
+    </jetPtMin>
+    <jetPtMax>
+      <Item>300</Item>
+    </jetPtMax>
+    <nJetEv>2</nJetEv>
+  </jetReco>
+
+  <observable>
+
+    <JetShape>
+      <name>Jet Shape Function</name>
+      <chParticle>0</chParticle>
+      <statParticle>
+        <Item>0</Item>
+        <!-- <Item>1</Item>
+        <Item>-1</Item> -->
+      </statParticle>
+      <particleRapidity>1</particleRapidity>
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>5.0</Item>
+      </particleRapMax>
+      <particlePtMin>
+        <Item>0.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>10000</Item>
+      </particlePtMax>
+
+      <var>
+        <r>
+          <Item>0</Item>
+          <Item>0.05</Item>
+          <Item>0.1</Item>
+          <Item>0.15</Item>
+          <Item>0.2</Item>
+          <Item>0.25</Item>
+          <Item>0.3</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+          <Item>0.45</Item>
+          <Item>0.5</Item>
+          <Item>0.6</Item>
+          <Item>0.7</Item>
+          <Item>0.8</Item>
+          <Item>1.0</Item>
+          <!-- <Item>1.2</Item>
+          <Item>1.5</Item> -->
+        </r>
+      </var>
+
+    </JetShape>
+  </observable>
+
+  <inputFiles>
+    <inputStyle>JetScapeAscii</inputStyle>
+    <events>
+      <!-- <head>JetscapeHadronListBin</head> -->
+      <head>JetscapePartonListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>
+    <sigma>
+      <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path>
+      <head>SigmaHardBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </sigma>
+    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divUnit>_Run</divUnit>
+  </inputFiles>
+
+  <!-- ptHatBins -->
+  <ptHat>
+    <!-- <Item>1</Item>
+    <Item>2</Item>
+    <Item>3</Item>
+    <Item>4</Item>
+    <Item>5</Item>
+    <Item>7</Item>
+    <Item>9</Item>
+    <Item>11</Item>
+    <Item>13</Item>
+    <Item>15</Item>
+    <Item>17</Item>
+    <Item>20</Item>
+    <Item>25</Item>
+    <Item>30</Item>
+    <Item>35</Item>
+    <Item>40</Item>
+    <Item>45</Item> -->
+    <!-- <Item>50</Item>
+    <Item>55</Item>
+    <Item>60</Item>
+    <Item>70</Item>
+    <Item>80</Item>
+    <Item>90</Item>
+    <Item>100</Item>
+    <Item>110</Item>
+    <Item>120</Item>     -->
+    <Item>130</Item>
+    <Item>140</Item>
+    <!-- <Item>150</Item>
+    <Item>160</Item>
+    <Item>170</Item>
+    <Item>180</Item>
+    <Item>190</Item>
+    <Item>200</Item>
+    <Item>210</Item>
+    <Item>220</Item>
+    <Item>230</Item>
+    <Item>240</Item>
+    <Item>250</Item>
+    <Item>260</Item>
+    <Item>270</Item>
+    <Item>280</Item>
+    <Item>290</Item>
+    <Item>300</Item>
+    <Item>350</Item> -->
+    <!-- <Item>400</Item>
+    <Item>450</Item>
+    <Item>500</Item>
+    <Item>550</Item>
+    <Item>600</Item>
+    <Item>700</Item>
+    <Item>800</Item>
+    <Item>900</Item>
+    <Item>1000</Item>
+    <Item>1100</Item>
+    <Item>1200</Item>
+    <Item>1300</Item>
+    <Item>1400</Item>
+    <Item>1500</Item>
+    <Item>1600</Item>
+    <Item>1700</Item>
+    <Item>1800</Item>
+    <Item>1900</Item>
+    <Item>2000</Item>
+    <Item>2200</Item>
+    <Item>2400</Item>
+    <Item>2510</Item> -->
+  </ptHat>
+
+
+</jetAnalysis>
