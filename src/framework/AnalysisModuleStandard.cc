@@ -16,10 +16,10 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
     jet_infos
         << "# current_event" << " "
         << "n_jet" << " "
-        << "j.perp()" << " "
-        << "j.rapidity()" << " "
-        << "j.phi()" << " "
-        << "j.eta()" << "\n";
+        << "perp()" << " "
+        << "rapidity()" << " "
+        << "phi()" << " "
+        << "eta()" << "\n";
   }
   current_event = event_num;
   //================================================
