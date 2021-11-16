@@ -21,9 +21,6 @@ private:
   int ReadOptionParametersFromXML();
   std::string GetParamsTag( int i );
 
-  static const int n_p = 4;
-
-  static const 
 
 public:
   InconeQuant(std::string name_in = "InconeQuant");
