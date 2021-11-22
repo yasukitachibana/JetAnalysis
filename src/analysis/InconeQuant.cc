@@ -102,19 +102,19 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
       for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
       {
 
-        // // Create Histograms
-        // std::array<std::shared_ptr<Histogram>, n_quant> q_hist_list;   
-        // for (int ip = 0; ip < n_quant; ip++) 
-        // {
-        //   q_hist_list[ip] = CreateHist(c_quant[ip], iv);
-        //   q_hist_list[ip]->Init();     
-        // }
+        // Create Histograms
+        std::array<std::shared_ptr<Histogram>, n_quant> q_hist_list;   
+        for (int ip = 0; ip < n_quant; ip++) 
+        {
+          q_hist_list[ip] = CreateHist(c_quant[ip], iv);
+          q_hist_list[ip]->Init();     
+        }
 
-        // // Delete Histograms
-        // for (int ip = 0; ip < n_quant; ip++) 
-        // {
-        //   q_hist_list[ip]->DeleteTH();
-        // }
+        // Delete Histograms
+        for (int ip = 0; ip < n_quant; ip++) 
+        {
+          q_hist_list[ip]->DeleteTH();
+        }
 
 
 
