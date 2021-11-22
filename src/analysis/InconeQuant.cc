@@ -56,9 +56,9 @@ std::string InconeQuant::GetParamsTag(std::array<int, 2> i)
 {
   return GetParamsTag(i[0], i[1]);
 }
-std::string InconeQuant::GetParamsTag(int i_q, int j_q)
+std::string InconeQuant::GetParamsTag(int i_q, int i_q2)
 {
-  return GetParamsTag(c_quant[i_q], c_quant[i_q]);
+  return GetParamsTag(c_quant[i_q], c_quant[i_q2]);
 }
 
 std::string InconeQuant::GetParamsTag(std::string q1, std::string q2)
