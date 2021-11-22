@@ -91,6 +91,8 @@ int SoftDropGroom::ReadOptionParametersFromXML()
   return beta.size() * zCut.size();
 }
 
+//------------------------------------------------------------
+// Get Tags for Parameters
 std::string SoftDropGroom::GetParamsTag(int i)
 {
   return GetParamsTag(GetParamIndex(i));
@@ -116,7 +118,8 @@ std::string SoftDropGroom::GetParamsTag(double beta_sd, double z_cut_sd)
 
   return oss.str();
 }
-
+//------------------------------------------------------------
+// Get Index of Tags for Parameters 
 int SoftDropGroom::GetParamIndex(std::array<int, 2> i)
 {
   return GetParamIndex(i[0], i[1]);
@@ -133,6 +136,7 @@ std::array<int, 2> SoftDropGroom::GetParamIndex(int i)
   int i_zCut = i % zCut.size();
   return std::array<int, 2>{i_beta, i_zCut};
 }
+//------------------------------------------------------------
 
 void SoftDropGroom::ShowParamsSetting()
 {

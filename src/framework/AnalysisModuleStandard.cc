@@ -4,24 +4,25 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
 {
 
   //================================================
-  if (event_num == 0)
-  {
-    std::string jet_infos_filename = "jet_infos.txt";
-    std::cout
-        << "[AnalysisModuleStandard, EventEndMark] Creating Output File:"
-        << jet_infos_filename
-        << std::endl;
-    jet_infos.open(jet_infos_filename.c_str(),
-                   std::ios::out | std::ios::binary | std::ios::trunc);
-    jet_infos
-        << "# current_event" << " "
-        << "n_jet" << " "
-        << "perp()" << " "
-        << "rapidity()" << " "
-        << "phi()" << " "
-        << "eta()" << "\n";
-  }
-  current_event = event_num;
+  // Jet Info Output
+  // if (event_num == 0)
+  // {
+  //   std::string jet_infos_filename = "jet_infos.txt";
+  //   std::cout
+  //       << "[AnalysisModuleStandard, EventEndMark] Creating Output File:"
+  //       << jet_infos_filename
+  //       << std::endl;
+  //   jet_infos.open(jet_infos_filename.c_str(),
+  //                  std::ios::out | std::ios::binary | std::ios::trunc);
+  //   jet_infos
+  //       << "# current_event" << " "
+  //       << "n_jet" << " "
+  //       << "perp()" << " "
+  //       << "rapidity()" << " "
+  //       << "phi()" << " "
+  //       << "eta()" << "\n";
+  // }
+  // current_event = event_num;
   //================================================
 
   if (event_num % 2500 == 0)
@@ -37,6 +38,8 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
     }
   }
 
+  //================================================
+  // For Debug
   //  auto pf =  particle_list.back();
   //
   //  std::cout
@@ -51,6 +54,7 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
   //  << ", eta:"<< pf->eta()
   //  << ", phi:" <<pf->phi_std()
   //  << std::endl;
+  //================================================  
 
   for (auto hist : hist_list)
   {
@@ -88,13 +92,14 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
 
             SetObservable(j, particle_list, ir, ijp, ijr);
             //================================================
-            jet_infos
-                << current_event << " "
-                << n_jet << " "
-                << j.perp() << " "
-                << j.rapidity() << " "
-                << j.phi() << " "
-                << j.eta() << "\n";
+            // Jet Info Output
+            // jet_infos
+            //     << current_event << " "
+            //     << n_jet << " "
+            //     << j.perp() << " "
+            //     << j.rapidity() << " "
+            //     << j.phi() << " "
+            //     << j.eta() << "\n";
             //================================================
 
           } //trigger
