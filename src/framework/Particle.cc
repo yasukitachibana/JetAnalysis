@@ -119,7 +119,11 @@ void ParticleBase::set_baryonType(int id)
 }
 void ParticleBase::set_strangeType(int id)
 {
-  property_.strangeType = -net_quark_number(id, 3); // 3 is pid of strange quark
+  property_.strangeType = -net_quark_number(id, 3); // 3 is pid of strange quark (S=-1)
+}
+void ParticleBase::set_charmType(int id)
+{
+  property_.strangeType = net_quark_number(id, 4); // 4 is pid of charm quark (C=1)
 }
 //--
 int ParticleBase::net_quark_number(const int id, const int quark) const
@@ -232,7 +236,16 @@ const double ParticleBase::p(int i)
 }
 //---------------------------------------------------------------
 // Properties (getters)
-
+const double ParticleBase::charge() const{
+  return 0;
+} 
+  // const int chargeType() const;    
+  // const double baryon() const;  
+  // const int baryonType() const;    
+  // const int strange() const;
+  // const int strangeType() const;
+  // const int charm() const;
+  // const int charmType() const;
 //---------------------------------------------------------------
 
 ParticleBase &ParticleBase::operator=(ParticleBase &c)
