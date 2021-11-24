@@ -149,7 +149,7 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
     //           << ", quarks=" << quarks_in[0] << "_" << quarks_in[1] << std::endl;
 
     //exit(-1);
-    return antiparticle*((quarks_in[0] == quark) + (quarks_in[1] == quark))
+    return antiparticle*((quarks_in[0] == quark) + (quarks_in[1] == quark));
   }
 
   return 0;
