@@ -43,7 +43,7 @@ ParticleBase::ParticleBase(int label, int id, int stat, int fjui, const FourVect
 
   assert(InternalHelperPythia.particleData.isParticle(id));
   set_restmass(InternalHelperPythia.particleData.m0(id));
-  set_property(id);  
+  set_property(id);
 }
 
 ParticleBase::ParticleBase(int label, int id, int stat,
@@ -57,7 +57,7 @@ ParticleBase::ParticleBase(int label, int id, int stat,
 
   assert(InternalHelperPythia.particleData.isParticle(id));
   set_restmass(InternalHelperPythia.particleData.m0(id));
-  set_property(id);  
+  set_property(id);
 }
 
 ParticleBase::ParticleBase(int label, int id, int stat, int fjui,
@@ -72,7 +72,7 @@ ParticleBase::ParticleBase(int label, int id, int stat, int fjui,
 
   assert(InternalHelperPythia.particleData.isParticle(id));
   set_restmass(InternalHelperPythia.particleData.m0(id));
-  set_property(id);  
+  set_property(id);
 }
 //---------------------------------------------------------------
 void ParticleBase::clear()
@@ -104,68 +104,69 @@ void ParticleBase::set_n_particle(double n) { n_particle_ = n; }
 //---------------------------------------------------------------
 // Properties (setters)
 void ParticleBase::set_property(int id)
-{ 
+{
   set_chargeType(id);
-  set_baryonType(id);  
-  set_strangeType(id);    
+  set_baryonType(id);
+  set_strangeType(id);
 }
 void ParticleBase::set_chargeType(int id)
-{ 
+{
   property_.chargeType = InternalHelperPythia.particleData.chargeType(id);
 }
 void ParticleBase::set_baryonType(int id)
-{ 
+{
   property_.baryonType = InternalHelperPythia.particleData.baryonNumberType(id);
 }
 void ParticleBase::set_strangeType(int id)
-{ 
-  property_.strangeType = - net_quark_number(id, 3); // 3 is pid of strange quark 
-  if( property_.strangeType > 0 ){
-  std::cout << "[ParticleBase] id=" << id << ", strangeness=" << property_.strangeType << std::endl;
-  exit(-1);
+{
+  property_.strangeType = -net_quark_number(id, 3); // 3 is pid of strange quark
+  if (property_.strangeType > 0)
+  {
+    std::cout << "[ParticleBase] id=" << id << ", strangeness=" << property_.strangeType << std::endl;
+    exit(-1);
   }
 }
 //--
-int ParticleBase::net_quark_number(const int id, const int quark) const 
-{ 
+int ParticleBase::net_quark_number(const int id, const int quark) const
+{
   int antiparticle = (id < 0 ? -1 : +1); //+1 for particle, -1 for anti particle
   int absid = antiparticle * id;
 
-  absid = 5101;
+  absid = 3303;
 
   // Quarks
-  if( InternalHelperPythia.particleData.isQuark( absid ) ){
+  if (InternalHelperPythia.particleData.isQuark(absid))
+  {
     return (absid == quark) ? antiparticle : 0;
   }
 
   // Diquarks
-  if( InternalHelperPythia.particleData.isDiquark( absid ) ){
-    std::array<int, 2> quarks_in = quarks_in_diquark( absid );
+  if (InternalHelperPythia.particleData.isDiquark(absid))
+  {
+    std::array<int, 2> quarks_in = quarks_in_diquark(absid);
     //
-    std::cout << "[ParticleBase] diquark id=" << absid 
-    << ", quarks=" << quarks_in[0] 
-    << "_" << quarks_in[1] 
-    << std::endl;
-    exit(-1);
-    //return (absid == quark) ? antiparticle : 0;
-  }
+    // std::cout << "[ParticleBase] diquark absid=" << absid
+    //           << ", quarks=" << quarks_in[0] << "_" << quarks_in[1] << std::endl;
 
+    //exit(-1);
+    return antiparticle*((quarks_in[0] == quark) + (quarks_in[1] == quark))
+  }
 
   return 0;
 }
 std::array<int, 3> ParticleBase::quarks_in_baryon(const int id) const
 {
-  return {0,0,0};
+  return {0, 0, 0};
 }
 std::array<int, 2> ParticleBase::quarks_in_meson(const int id) const
 {
-  return {0,0};
+  return {0, 0};
 }
 std::array<int, 2> ParticleBase::quarks_in_diquark(const int id) const
-{    
-  int quark1 = (id/1000) % 10;
-  int quark2 = (id/100)  % 10;
-  return { quark1, quark2 };
+{
+  int quark1 = (id / 1000) % 10;
+  int quark2 = (id / 100) % 10;
+  return {quark1, quark2};
 }
 //---------------------------------------------------------------
 
