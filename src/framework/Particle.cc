@@ -134,7 +134,7 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
   absid = 3101;
 
   // Quarks
-  if( InternalHelperPythia.particleData.isQuark( id ) ){
+  if( InternalHelperPythia.particleData.isQuark( absid ) ){
     return (absid == quark) ? antiparticle : 0;
   }
 
@@ -163,8 +163,8 @@ std::array<int, 2> ParticleBase::quarks_in_meson(const int id) const
 }
 std::array<int, 2> ParticleBase::quarks_in_diquark(const int id) const
 {    
-  int quark1 = id/1000) % 10;
-  int quark2 = id/100)  % 10;
+  int quark1 = (id/1000) % 10;
+  int quark2 = (id/100)  % 10;
   return { quark1, quark2 };
 }
 //---------------------------------------------------------------
