@@ -47,7 +47,7 @@ int InconeQuant::ReadOptionParametersFromXML()
 }
 
 //-------------------------------------------
-// Get Tags for Parameters 
+// Get Tags for Parameters
 std::string InconeQuant::GetParamsTag(int i)
 {
   return GetParamsTag(GetParamIndex(i));
@@ -70,7 +70,7 @@ std::string InconeQuant::GetParamsTag(std::string q1, std::string q2)
   return tag;
 }
 //------------------------------------------------------------
-// Get Index of Tags for Parameters 
+// Get Index of Tags for Parameters
 int InconeQuant::GetParamIndex(std::array<int, 2> i)
 {
   return GetParamIndex(i[0], i[1]);
@@ -90,10 +90,12 @@ std::array<int, 2> InconeQuant::GetParamIndex(int i)
 //------------------------------------------------------------
 
 void InconeQuant::SetObservable(fastjet::PseudoJet jet,
-                             std::vector<std::shared_ptr<Particle>> particle_list,
-                             int ir, int ijp, int ijr)
+                                std::vector<std::shared_ptr<Particle>> particle_list,
+                                int ir, int ijp, int ijr)
 {
-
+  // --------------------------------------------
+  // Jet-pT -------------------------------------
+  double jpt = jet.perp();
   //--------------------------------------------------------------------------------------------------
   for (int iv = 0; iv < variables.size(); iv++)
   {
@@ -102,21 +104,47 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
       for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
       {
 
-        // Create Histograms
-        std::array<std::shared_ptr<Histogram>, n_quant> q_hist_list;   
-        for (int ip = 0; ip < n_quant; ip++) 
+        // --------------------------------------------
+        // Create Histograms---------------------------
+        std::array<std::shared_ptr<Histogram>, n_quant> q_hist_list;
+        for (int ip = 0; ip < n_quant; ip++)
         {
           q_hist_list[ip] = CreateHist(c_quant[ip], iv);
-          q_hist_list[ip]->Init();     
+          q_hist_list[ip]->Init();
         }
+        // --------------------------------------------
 
-        // Delete Histograms
-        for (int ip = 0; ip < n_quant; ip++) 
+        // --------------------------------------------
+        // Fill Histograms for each particle ----------
+        q_hist_list[0]->Fill(jpt, 1.0); // jet count
+        for (auto p : particle_list)
+        {
+          if (ParticleTrigger(p, ipp, ipr))
+          {
+            //-----------------------
+            // Get Radial Distance---
+            double delta_eta = p->eta() - jet.eta();
+            double delta_phi = jet.delta_phi_to(p->GetPseudoJet());
+            double delta_r = TMath::Sqrt(delta_eta * delta_eta + delta_phi * delta_phi);
+            //-----------------------
+            if (delta_r <= jetR[ir])
+            {
+              double charge = 0;
+
+
+            } //in-cone
+              //-----------------------
+          }   //particle trigger
+        }     // particle_list
+        // --------------------------------------------
+
+        // --------------------------------------------
+        // Delete Histograms---------------------------
+        for (int ip = 0; ip < n_quant; ip++)
         {
           q_hist_list[ip]->DeleteTH();
         }
-
-
+        // --------------------------------------------
 
         //         std::array<int, n_p> index;
         //         for (int ip = 0; ip < n_p; ip++)

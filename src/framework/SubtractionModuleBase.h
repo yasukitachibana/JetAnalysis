@@ -28,12 +28,20 @@ public:
          std::vector<std::shared_ptr<Particle>> particle_list )
   { return jets; }
   
-  
+  //-----------------------------------------------------------------------------------
   virtual double ptSub( std::shared_ptr<Particle> particle ){ return  particle->perp(); }
   virtual double nSub( std::shared_ptr<Particle> particle ){ return  1.0; }
   virtual double eSub( std::shared_ptr<Particle> particle ){ return  particle->e(); }
-
   virtual double pzSub( std::shared_ptr<Particle> particle ){ return  particle->pz(); }
+  //-----------------------------------------------------------------------------------
+  // conserved quantities
+  virtual double chargeSub( std::shared_ptr<Particle> particle )
+  { 
+    return  InternalHelperPythia.particleData.charge(particle->pid());
+  }  
+  //-----------------------------------------------------------------------------------
+protected:
+  static Pythia8::Pythia InternalHelperPythia;
 
 private:
   
