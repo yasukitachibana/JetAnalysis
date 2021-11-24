@@ -132,7 +132,7 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
   int antiparticle = (id < 0 ? -1 : +1); //+1 for particle, -1 for anti particle
   int absid = antiparticle * id;
 
-  absid = 3303;
+  absid = 3203;
 
   // Quarks
   if (InternalHelperPythia.particleData.isQuark(absid))
