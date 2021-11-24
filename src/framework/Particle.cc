@@ -120,19 +120,12 @@ void ParticleBase::set_baryonType(int id)
 void ParticleBase::set_strangeType(int id)
 {
   property_.strangeType = -net_quark_number(id, 3); // 3 is pid of strange quark
-  if (abs(property_.strangeType))
-  {
-    std::cout << "[ParticleBase] id=" << id << ", strangeness=" << property_.strangeType << std::endl;
-    exit(-1);
-  }
 }
 //--
 int ParticleBase::net_quark_number(const int id, const int quark) const
 {
   int antiparticle = (id < 0 ? -1 : +1); //+1 for particle, -1 for anti particle
   int absid = antiparticle * id;
-
-  absid = 130;
 
   // Quarks
   if (InternalHelperPythia.particleData.isQuark(absid))
@@ -157,7 +150,7 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
     return antiparticle * ((quarks_in[0] == quark) + (quarks_in[1] == quark) + (quarks_in[2] == quark));
   }
 
-  // Meson
+  // Mesons
   if (InternalHelperPythia.particleData.isMeson(absid))
   {
     std::array<int, 2> quarks_in = quarks_in_meson(absid);
@@ -169,6 +162,7 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
       return 0;
     }
 
+    // Mesons with single (our) quark
     /* this has covered all the easy stuff
      * get the "other" quark. (We know this must exist, since they are
      * not both the right one and one of them is the right one). */
