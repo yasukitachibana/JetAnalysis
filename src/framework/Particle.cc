@@ -237,15 +237,29 @@ const double ParticleBase::p(int i)
 //---------------------------------------------------------------
 // Properties (getters)
 const double ParticleBase::charge() const{
-  return 0;
+  return (double) property_.chargeType/3.0;
 } 
-  // const int chargeType() const;    
-  // const double baryon() const;  
-  // const int baryonType() const;    
-  // const int strange() const;
-  // const int strangeType() const;
-  // const int charm() const;
-  // const int charmType() const;
+const int ParticleBase::chargeType() const{
+  return property_.chargeType;
+}
+const double ParticleBase::baryon() const{
+  return (double) property_.baryonType/3.0;
+} 
+const int ParticleBase::baryonType() const{
+  return property_.baryonType;
+}
+const int ParticleBase::strange() const{
+  return property_.strangeType;
+} 
+const int ParticleBase::strangeType() const{
+  return property_.strangeType;
+}
+const int ParticleBase::charm() const{
+  return property_.charmType;
+} 
+const int ParticleBase::charmType() const{
+  return property_.charmType;
+}
 //---------------------------------------------------------------
 
 ParticleBase &ParticleBase::operator=(ParticleBase &c)
