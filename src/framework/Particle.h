@@ -146,7 +146,8 @@ protected:
   void set_property(int id);  
   void set_chargeType(int id);  
   void set_baryonType(int id); 
-  void set_strangeType(int id); 
+  void set_strangeType(int id);
+  void set_charmType(int id);   
   // 
   int net_quark_number(const int id, const int quark) const;
   std::array<int, 3> quarks_in_baryon(const int id) const;
