@@ -120,7 +120,7 @@ void ParticleBase::set_baryonType(int id)
 void ParticleBase::set_strangeType(int id)
 { 
   property_.strangeType = - net_quark_number(id, 3); // 3 is pid of strange quark 
-  if( abs(property_.strangeType) ){
+  if( property_.strangeType > 0 ){
   std::cout << "[ParticleBase] id=" << id << ", strangeness=" << property_.strangeType << std::endl;
   exit(-1);
   }
