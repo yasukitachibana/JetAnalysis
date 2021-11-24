@@ -132,7 +132,7 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
   int antiparticle = (id < 0 ? -1 : +1); //+1 for particle, -1 for anti particle
   int absid = antiparticle * id;
 
-  absid = 3203;
+  absid = 3334;
 
   // Quarks
   if (InternalHelperPythia.particleData.isQuark(absid))
@@ -140,26 +140,35 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
     return (absid == quark) ? antiparticle : 0;
   }
 
-  // Diquarks
+  // Diquarks (Just count quarks in diquark)
   if (InternalHelperPythia.particleData.isDiquark(absid))
   {
     std::array<int, 2> quarks_in = quarks_in_diquark(absid);
-    //
     // std::cout << "[ParticleBase] diquark absid=" << absid
     //           << ", quarks=" << quarks_in[0] << "_" << quarks_in[1] << std::endl;
-
     //exit(-1);
     return antiparticle*((quarks_in[0] == quark) + (quarks_in[1] == quark));
+  }
+
+  // Baryons (Just count quarks in baryon)
+  if (InternalHelperPythia.particleData.isBaryon(absid))
+  { 
+    std::array<int, 3> quarks_in = quarks_in_baryon(absid);
+    return antiparticle*((quarks_in[0] == quark) + (quarks_in[1] == quark) + (quarks_in[2] == quark));
   }
 
   return 0;
 }
 std::array<int, 3> ParticleBase::quarks_in_baryon(const int id) const
 {
-  return {0, 0, 0};
+  int quark1 = (id/1000) % 10;
+  int quark2 = (id/100)  % 10;
+  int quark3 = (id/10)   % 10;
+  return {quark1, quark2, quark3};
 }
 std::array<int, 2> ParticleBase::quarks_in_meson(const int id) const
 {
+
   return {0, 0};
 }
 std::array<int, 2> ParticleBase::quarks_in_diquark(const int id) const
