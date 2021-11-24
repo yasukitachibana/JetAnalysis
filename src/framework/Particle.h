@@ -151,7 +151,7 @@ protected:
   int net_quark_number(const int id, const int quark) const;
   std::array<int, 3> quarks_in_baryon(const int id) const;
   std::array<int, 2> quarks_in_meson(const int id) const;
-
+  std::array<int, 2> quarks_in_diquark(const int id) const;
 
   // protected variables
   int pid_;           ///< particle id
