@@ -108,6 +108,7 @@ void ParticleBase::set_property(int id)
   set_chargeType(id);
   set_baryonType(id);
   set_strangeType(id);
+  set_charmType(id);  
 }
 void ParticleBase::set_chargeType(int id)
 {
@@ -123,7 +124,7 @@ void ParticleBase::set_strangeType(int id)
 }
 void ParticleBase::set_charmType(int id)
 {
-  property_.strangeType = net_quark_number(id, 4); // 4 is pid of charm quark (C=1)
+  property_.charmType = net_quark_number(id, 4); // 4 is pid of charm quark (C=1)
 }
 //--
 int ParticleBase::net_quark_number(const int id, const int quark) const
@@ -157,6 +158,15 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
   // Mesons
   if (InternalHelperPythia.particleData.isMeson(absid))
   {
+
+    //K0S and K0L
+    if( absid == 130 || absid == 310 ){
+      return 0;
+      // rand() % 2
+      // std::cout << "id = " << absid << ", strangeness is set to " << 
+      // return ;
+    }
+
     std::array<int, 2> quarks_in = quarks_in_meson(absid);
 
     // quarkonium state? Not open net_quark_number.

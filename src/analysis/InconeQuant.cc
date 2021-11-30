@@ -21,23 +21,30 @@ int InconeQuant::ReadOptionParametersFromXML()
   int n_val_total = 0;
 
   //--------------------------------------------
-  // Products
-  for (int ip = 0; ip < n_quant; ip++)
+  // Products (commutative!)
+  for (int iq = 0; iq < n_quant; iq++)
   {
     std::cout
         << "[InconeQuant] "
         << "Added ";
-
-    for (int jp = 0; jp < n_quant; jp++)
+    // start from ip since the product is commutative
+    for (int jq = iq; jq < n_quant; jq++)
     {
       n_val_total++;
-
+      //-------------------------------
+      // To check the index conversion
+      int index = GetParamIndex(iq, jq);
       std::cout
+          << index
+          << "("
+          << GetParamIndex(index)[0]
+          << ","
+          << GetParamIndex(index)[1]
+          << "): "
           << "<"
-          << c_quant[ip]
-          << "*"
-          << c_quant[jp]
-          << "> ";
+          << GetParamsTag(index)
+          << ">\t";
+      //-------------------------------
     }
     std::cout << std::endl;
   }
@@ -78,13 +85,45 @@ int InconeQuant::GetParamIndex(std::array<int, 2> i)
 
 int InconeQuant::GetParamIndex(int i_q1, int i_q2)
 {
-  return n_quant * (i_q1) + i_q2;
+  if (i_q1 > i_q2)
+  {
+    std::cout << "[InconeQuant] Bad Index of Variable Product (GetParamIndex)\n";
+    exit(-1);
+  }
+  //
+  // int zeroth = n_quant;
+  // int i_q1th = n_quant - (i_q1 - 1);
+  // int sum = (zeroth+i_q1th)*(i_q1)/2;
+  // int j = i_q2-i_q1;
+  // int index = sum + j;
+  // std::cout<< "[InconeQuant] GetParamIndex Exit\n";exit(-1);
+  //
+  return (2 * n_quant - i_q1 + 1) * i_q1 / 2 + i_q2 - i_q1;
 }
 
 std::array<int, 2> InconeQuant::GetParamIndex(int i)
 {
-  int i_q1 = i / n_quant;
-  int i_q2 = i % n_quant;
+  int i_q1 = -1;
+  int i_q2 = -1;
+
+  for (int iq = 0; iq < n_quant; iq++)
+  {
+    for (int jq = iq; jq < n_quant; jq++)
+    {
+      if (i == GetParamIndex(iq, jq))
+      {
+        i_q1 = iq;
+        i_q2 = jq;
+        goto EXIT_RETURN_INDICES;
+      }
+    }
+  }
+  if (i_q1 < 0 || i_q2 < 0)
+  {
+    std::cout << "[InconeQuant] Error! Exit" << std::endl;
+    exit(-1);
+  }
+EXIT_RETURN_INDICES:
   return std::array<int, 2>{i_q1, i_q2};
 }
 //------------------------------------------------------------
@@ -105,18 +144,11 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
       {
 
         // --------------------------------------------
-        // Create Histograms---------------------------
-        std::array<std::shared_ptr<Histogram>, n_quant> q_hist_list;
-        for (int ip = 0; ip < n_quant; ip++)
-        {
-          q_hist_list[ip] = CreateHist(c_quant[ip], iv);
-          q_hist_list[ip]->Init();
-        }
-        // --------------------------------------------
-
-        // --------------------------------------------
-        // Fill Histograms for each particle ----------
-        q_hist_list[0]->Fill(jpt, 1.0); // jet count
+        // Initialize the quantities count(jet number), charge, baryon, strange, charm
+        std::array<double, n_quant> quantities{1.};
+        // for(int i =0; i<n_quant; i++){
+        //   std::cout<< quantities[i] << " ";
+        // }std::cout<<std::endl;               
         for (auto p : particle_list)
         {
           if (ParticleTrigger(p, ipp, ipr))
@@ -129,101 +161,48 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
             //-----------------------
             if (delta_r <= jetR[ir])
             {
-              double charge = 0;
+              quantities[1] += p->charge();
+              quantities[2] += p->baryon();
+              quantities[3] += double(p->strange());
+              quantities[4] += double(p->charm());
 
+              //For debug -----------------
+              // std::cout
+              //     << "PID: " << p->pid()
+              //     << " Q=" << p->charge()
+              //     << " B=" << p->baryon()
+              //     << " S=" << p->strange()
+              //     << " Charm=" << p->charm()
+              //     << std::endl;
+              //---------------------------
 
             } //in-cone
               //-----------------------
           }   //particle trigger
         }     // particle_list
-        // --------------------------------------------
+       // --------------------------------------------
 
         // --------------------------------------------
-        // Delete Histograms---------------------------
-        for (int ip = 0; ip < n_quant; ip++)
+        // Fill Histograms
+        for (int iq = 0; iq < n_quant; iq++)
         {
-          q_hist_list[ip]->DeleteTH();
+          for (int jq = iq; jq < n_quant; jq++)
+          {
+            int ii = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, GetParamIndex(iq, jq));
+            hist_list[ii]->JetTriggered();
+            hist_list[ii]->Fill(jpt, quantities[iq]*quantities[jq]);
+          }
         }
         // --------------------------------------------
-
-        //         std::array<int, n_p> index;
-        //         for (int ip = 0; ip < n_p; ip++)
-        //         {
-        //           int ii = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, ip);
-        //           index[ip] = ii;
-        //           hist_list[ii]->JetTriggered();
-        //         }
-
-        //         //        std::cout << "############\n"
-        //         //        << "particle number: " << particle_list.size() <<std::endl;
-
-        //         for (auto p : particle_list)
-        //         {
-        //           //          std::cout
-        //           //            << "\n[BT] stat:" << p->pstat()
-        //           //            << ", pid:"<< p->pid()
-        //           //            << ", plabel:" <<p->plabel()
-        //           //            << ", e:" <<p->e()
-        //           //            << ", px:" <<p->px()
-        //           //            << ", py:" <<p->py()
-        //           //            << ", eta:"<< p->eta()
-        //           //            << ", phi:" <<p->phi_std()
-        //           //            << std::endl;
-
-        //           if (ParticleTrigger(p, ipp, ipr))
-        //           {
-
-        //             //  std::cout
-        //             //    << "[T] stat:" << p->pstat()
-        //             //    << ", pid:"<< p->pid()
-        //             //    << ", plabel:" <<p->plabel()
-        //             //    << ", e:" <<p->e()
-        //             //    << ", px:" <<p->px()
-        //             //    << ", py:" <<p->py()
-        //             //    << ", eta:"<< p->eta()
-        //             //    << ", phi:" <<p->phi_std()
-        //             //    << std::endl;
-
-        //             std::array<double, n_p> val = {sub_ptr->ptSub(p),
-        //                                            sub_ptr->nSub(p),
-        //                                            sub_ptr->eSub(p),
-        //                                            sub_ptr->pzSub(p)};
-
-        //             double delta_eta = p->eta() - jet.eta();
-        //             double delta_phi = jet.delta_phi_to(p->GetPseudoJet());
-        //             double delta_r = TMath::Sqrt(delta_eta * delta_eta + delta_phi * delta_phi);
-
-        //             // std::cout
-        //             //  << "[T] stat:" << p->pstat()
-        //             //  << ", pt_eff:"<< pt
-        //             //  << std::endl;
-
-        //             //            std::cout
-        //             //              << "[T] pt:" << pt
-        //             //              << ", eta_j:"<< jet.eta()
-        //             //              << ", phi_j:"<< jet.phi()
-        //             //              << ", delta_eta:"<< delta_eta
-        //             //              << ", delta_phi:" << delta_phi
-        //             //              << ", delta_r:" << delta_r
-        //             //              << std::endl;
-        //             //--------------------------------------------------------------------------------------------------
-        //             for (int ip = 0; ip < n_p; ip++)
-        //             {
-        //               hist_list[index[ip]]->Fill(delta_r, val[ip]);
-        //             }
-        //             //--------------------------------------------------------------------------------------------------
-        //           }
-        //         }
-
       } //ipr
     }   //ipp
   }     //iv
   //--------------------------------------------------------------------------------------------------
 }
 
-// //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// void JetShape::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
-// {
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+void InconeQuant::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
+{
 
 //   std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
 //   std::cout << "[JetShape] hist_name = " << hist_name << std::endl;
@@ -260,4 +239,4 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
 //   }
 
 //   total_hist->DeleteTH();
-// }
+}

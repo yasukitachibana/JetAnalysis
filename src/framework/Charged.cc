@@ -8,14 +8,10 @@ Pythia8::Pythia ChargedBase::InternalHelperPythia("IntentionallyEmpty", false);
 
 bool ChargedBase::ChargedCheck(std::shared_ptr<Particle> p)
 {
-  double charge = InternalHelperPythia.particleData.charge(p->pid());
-  if (fabs(charge) > 0.0001 /* min. value of charge */)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
+  if (p->chargeType() == 0){
+    return false; //neutral
+  }else{
+    return true; //charged
   }
 }
 //===========================================================================================================================

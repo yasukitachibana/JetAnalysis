@@ -22,16 +22,17 @@ SoftDropGroom::~SoftDropGroom()
 int SoftDropGroom::ReadVariablesFromXML(std::string tag)
 {
   int exist = 0;
-
-  for (int i = 0; i < n_val; i++)
+   //n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
+  for (int i = 0; i < n_var; i++)
   {
-    std::string val = valNames[i] + tag;
-    auto ite = std::find(variables.begin(), variables.end(), val);
+    // tag specifies sets of parameters in the anlysis (e.g. beta and zcut)
+    std::string var = varNames[i] + tag;
+    auto ite = std::find(variables.begin(), variables.end(), var);
     if (ite != variables.end())
     {
       int index = distance(variables.begin(), ite);
       //std::cout << val << " " << index << std::endl;
-      i_val[i].push_back(index);
+      i_var[i].push_back(index);
       exist++;
     }
   }
@@ -68,11 +69,11 @@ int SoftDropGroom::ReadOptionParametersFromXML()
     }
   }
 
-  for (int i = 0; i < n_val; i++)
+  for (int i = 0; i < n_var; i++)
   {
     std::cout
-        << valNames[i] << ": ";
-    for (auto iv : i_val[i])
+        << varNames[i] << ": ";
+    for (auto iv : i_var[i])
     {
       std::cout << iv << " ";
     }
@@ -201,7 +202,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 
           if (JetTrigger(j, ir, ijp, ijr))
           {
-
+            // nParams for sets of parameters in the anlysis (e.g. beta and zcut) 
             for (int ip = 0; ip < nParams; ip++)
             {
 
@@ -209,11 +210,14 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               double beta_val = beta[ip_array[0]];
               double zcut_val = zCut[ip_array[1]];
 
-              std::array<std::vector<int>, n_val> index;
-              for (int i = 0; i < n_val; i++)
+              //n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
+              std::array<std::vector<int>, n_var> index;
+              for (int i = 0; i < n_var; i++)
               {
-                index[i] = GetHistIndex(i_val[i], ir, ijp, ijr, 0, 0, ip);
-                //std::cout << valNames[i] << ": ";
+                //i_var[i] is vector. Each element of the vector is for each of multiple bin settings. 
+                //index[i] stores the indices for all bin settings for this parameter set.
+                index[i] = GetHistIndex(i_var[i], ir, ijp, ijr, 0, 0, ip);
+                //std::cout << varNames[i] << ": ";
                 for (auto ii : index[i])
                 {
                   //std::cout << ii << " ";
@@ -264,7 +268,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
 
                 //0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
-                //std::cout << " ->" << valNames[0] << ": ";
+                //std::cout << " ->" << varNames[0] << ": ";
                 for (auto i : index[0])
                 {
                   //std::cout << i << " ";
@@ -272,7 +276,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 }
                 //std::cout << std::endl;
 
-                //std::cout << " ->" << valNames[1] << ": ";
+                //std::cout << " ->" << varNames[1] << ": ";
                 for (auto i : index[1])
                 {
                   //std::cout << i << " ";
@@ -280,7 +284,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 }
                 //std::cout << std::endl;
 
-                //std::cout << " ->" << valNames[2] << ": ";
+                //std::cout << " ->" << varNames[2] << ": ";
                 for (auto i : index[2])
                 {
                   //std::cout << i << " ";
@@ -288,7 +292,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 }
                 //std::cout << std::endl;
 
-                //std::cout << " ->" << valNames[3] << ": ";
+                //std::cout << " ->" << varNames[3] << ": ";
                 for (auto i : index[3])
                 {
                   //std::cout << i << " ";
@@ -296,7 +300,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 }
                 //std::cout << std::endl;
 
-                //std::cout << " ->" << valNames[4] << ": ";
+                //std::cout << " ->" << varNames[4] << ": ";
                 for (auto i : index[4])
                 {
                   //std::cout << i << " ";
@@ -304,7 +308,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 }
                 //std::cout << std::endl;
 
-                //std::cout << " ->" << valNames[5] << ": ";
+                //std::cout << " ->" << varNames[5] << ": ";
                 for (auto i : index[5])
                 {
                   //std::cout << i << " ";
@@ -312,7 +316,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 }
                 //std::cout << std::endl;
 
-                //std::cout << " ->" << valNames[6] << ": ";
+                //std::cout << " ->" << varNames[6] << ": ";
                 for (auto i : index[6])
                 {
                   //std::cout << i << " ";
