@@ -7,8 +7,8 @@
 
   <!-- Jet Reconstruction-->
   <jetReco>
-    <!-- <reconstructionMethod>NegativeReco</reconstructionMethod> -->
-    <reconstructionMethod>StandardReco</reconstructionMethod>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <!-- <reconstructionMethod>StandardReco</reconstructionMethod> -->
     <jetR>
       <Item>0.4</Item>
     </jetR>
