@@ -139,7 +139,19 @@ public:
 
   static Pythia8::Pythia InternalHelperPythia;
 
+  static void SetStrangeK0S( int strange_k0s_in ){
+    std::cout << "[ParticleBase] Strangeness of K0S: "<< strange_k0s_in << std::endl;    
+    ParticleBase::strange_k0s = strange_k0s_in;
+  }
+  static int StaticVal()
+  {
+    return ParticleBase::strange_k0s;
+  }
+
 protected:
+  // static variables and functions to set strangeness for K0S and K0L
+  static int strange_k0s;
+
   // protected functions
   void set_restmass(double mass_input); ///< shouldn't be called from the outside, needs to be consistent with PID
   // Setter Propety 

@@ -1,6 +1,7 @@
 #include "AnalysisModuleBase.h"
 #include "SetXML.h"
 #include "SetFile.h"
+#include "Particle.h"
 
 #include <float.h>
 
@@ -177,6 +178,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   particleRapMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particleRapMax", "Item"});
   particlePtMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMin", "Item"});
   particlePtMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMax", "Item"});
+  int k0sStrangeness = SetXML::Instance()->GetElementInt({"observable", Name().c_str(),"K0SStrange"}, false);
   //###############################################################################################################
   p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
   //###############################################################################################################
@@ -189,6 +191,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
   //###############################################################################################################
   nParams = ReadOptionParametersFromXML();
   //###############################################################################################################
+
+  ParticleBase::SetStrangeK0S( k0sStrangeness );
 
   if (ch_jet == 1)
   {
