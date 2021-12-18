@@ -139,7 +139,7 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
   for (int iv = 0; iv < variables.size(); iv++)
   {
     for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
-    {
+    { 
       for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
       {
 
@@ -167,6 +167,7 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
               quantities[4] += double(p->charm());
 
               //For debug -----------------
+              // if(p->pid()==130||p->pid()==310){
               // std::cout
               //     << "PID: " << p->pid()
               //     << " Q=" << p->charge()
@@ -174,6 +175,7 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
               //     << " S=" << p->strange()
               //     << " Charm=" << p->charm()
               //     << std::endl;
+              // }
               //---------------------------
 
             } //in-cone

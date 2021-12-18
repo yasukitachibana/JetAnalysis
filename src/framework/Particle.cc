@@ -2,6 +2,8 @@
 
 // Initialize static MakeUniqueHelper.here
 Pythia8::Pythia ParticleBase::InternalHelperPythia("IntentionallyEmpty", false);
+//
+int ParticleBase::strange_k0s = 0;
 
 //===========================================================================================================================
 // BASE
@@ -159,12 +161,24 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
   if (InternalHelperPythia.particleData.isMeson(absid))
   {
 
-    //K0S and K0L
-    if( absid == 130 || absid == 310 ){
-      return 0;
-      // rand() % 2
-      // std::cout << "id = " << absid << ", strangeness is set to " << 
-      // return ;
+    //K0L 
+    if( absid == 130 )
+    {
+      if( abs(ParticleBase::strange_k0s) <=1 ){
+        return ParticleBase::strange_k0s;
+      }else{
+        return (rand() % 2)*2 - 1;
+      }
+    }
+    
+    //K0S
+    if( absid == 310 )
+    {
+      if( abs(ParticleBase::strange_k0s) <=1 ){
+        return -ParticleBase::strange_k0s;
+      }else{
+        return (rand() % 2)*2 - 1;
+      }
     }
 
     std::array<int, 2> quarks_in = quarks_in_meson(absid);
