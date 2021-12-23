@@ -217,7 +217,14 @@ void Hist1D::Show(TH1D *h){
   
   std::cout
   << "----------------------" << std::endl;
-  
+  std::cout
+  << "- Histname:" << histname << std::endl;
+  std::cout
+  << "----------------------" << std::endl;
+
+  std::cout
+  << "xc xl xh y yerror" << std::endl;
+
   int nbins = h->GetNbinsX();
   
   for (int i=1; i<nbins+1; i++){

@@ -1,7 +1,7 @@
 #include "InconeQuant.h"
 #include "TMath.h"
 
-//using namespace Analysis;
+// using namespace Analysis;
 
 // Register the module with the base class
 RegisterAnalysisModule<InconeQuant> InconeQuant::reg("InconeQuant");
@@ -49,7 +49,7 @@ int InconeQuant::ReadOptionParametersFromXML()
     std::cout << std::endl;
   }
   //--------------------------------------------
-  //exit(-1);
+  // exit(-1);
   return n_val_total;
 }
 
@@ -139,7 +139,7 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
   for (int iv = 0; iv < variables.size(); iv++)
   {
     for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
-    { 
+    {
       for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
       {
 
@@ -148,7 +148,7 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
         std::array<double, n_quant> quantities{1.};
         // for(int i =0; i<n_quant; i++){
         //   std::cout<< quantities[i] << " ";
-        // }std::cout<<std::endl;               
+        // }std::cout<<std::endl;
         for (auto p : particle_list)
         {
           if (ParticleTrigger(p, ipp, ipr))
@@ -161,28 +161,29 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
             //-----------------------
             if (delta_r <= jetR[ir])
             {
-              quantities[1] += p->charge();
-              quantities[2] += p->baryon();
-              quantities[3] += double(p->strange());
-              quantities[4] += double(p->charm());
+              quantities[1] += sub_ptr->chargeSub(p);
+              quantities[2] += sub_ptr->baryonSub(p);
+              quantities[3] += sub_ptr->strangeSub(p);
+              quantities[4] += sub_ptr->charmSub(p);
 
-              //For debug -----------------
-              // if(p->pid()==130||p->pid()==310){
+              // For debug -----------------
+              //  if(p->pid()==130||p->pid()==310){
               // std::cout
               //     << "PID: " << p->pid()
-              //     << " Q=" << p->charge()
-              //     << " B=" << p->baryon()
-              //     << " S=" << p->strange()
-              //     << " Charm=" << p->charm()
+              //     << ": " << quantities[0]
+              //     << ": Q pile =" << quantities[1]
+              //     << " B pile =" << quantities[2]
+              //     << " S pile =" << quantities[3]
+              //     << " Charm pile =" << quantities[4]
               //     << std::endl;
               // }
               //---------------------------
 
-            } //in-cone
+            } // in-cone
               //-----------------------
-          }   //particle trigger
+          }   // particle trigger
         }     // particle_list
-       // --------------------------------------------
+              // --------------------------------------------
 
         // --------------------------------------------
         // Fill Histograms
@@ -191,54 +192,48 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
           for (int jq = iq; jq < n_quant; jq++)
           {
             int ii = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, GetParamIndex(iq, jq));
+            //hist_list[ii]->Show();
             hist_list[ii]->JetTriggered();
-            hist_list[ii]->Fill(jpt, quantities[iq]*quantities[jq]);
+            //hist_list[ii]->Fill(quantities[iq] * quantities[jq]);
+            hist_list[ii]->Fill(jpt, quantities[iq] * quantities[jq]);            
+            // std::cout
+            //     << "JetPt = " << jpt << " GeV, "
+            //     << GetParamsTag(iq, jq)
+            //     << " = " << quantities[iq] * quantities[jq]
+            //     << std::endl;
+            // hist_list[ii]->Show();
           }
         }
         // --------------------------------------------
-      } //ipr
-    }   //ipp
-  }     //iv
+      } // ipr
+    }   // ipp
+  }     // iv
   //--------------------------------------------------------------------------------------------------
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void InconeQuant::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
+ 
+  std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
+  std::cout << "[InconeQuant] hist_name = " << hist_name << std::endl;
 
-//   std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
-//   std::cout << "[JetShape] hist_name = " << hist_name << std::endl;
+  auto total_hist = CreateHist(hist_name, iv);
+  total_hist->Init();
 
-//   auto total_hist = CreateHist(hist_name, iv);
-//   total_hist->Init();
+  double nJetTotal = 0.0;
 
-//   double nJetTotal = 0.0;
+  for (auto hist : hist_list)
+  {
+    double n_ev = hist->Nev();
+    if (n_ev != 0)
+    {
+      nJetTotal += hist->GetNjetSigmaOverEev();
+      double sigma = hist->Sigma();
+      total_hist->Add(hist, sigma / n_ev);
+    }
+  }
+  total_hist->Print("count_");
+  total_hist->DeleteTH();
 
-//   for (auto hist : hist_list)
-//   {
-//     double n_ev = hist->Nev();
-//     if (n_ev != 0)
-//     {
-//       nJetTotal += hist->GetNjetSigmaOverEev();
-//       double sigma = hist->Sigma();
-//       total_hist->Add(hist, sigma / n_ev);
-//     }
-//   }
-
-//   total_hist->Print("count_");
-
-//   if (nJetTotal != 0)
-//   {
-//     total_hist->Scale(1.0 / nJetTotal, "width");
-//     total_hist->Print("jetshape_");
-//     total_hist->Normalize("width");
-//     total_hist->Print("normalized_jetshape_");
-//   }
-//   else
-//   {
-//     std::cout << "[JetShape] 0-total Jet" << std::endl;
-//     std::cout << "[JetShape] Skip. " << std::endl;
-//   }
-
-//   total_hist->DeleteTH();
 }

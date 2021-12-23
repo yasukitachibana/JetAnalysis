@@ -125,3 +125,39 @@ double NaiveNegativeSub::pzSub( std::shared_ptr<Particle> particle ){
   }
   
 }
+
+double NaiveNegativeSub::chargeSub( std::shared_ptr<Particle> particle )
+{
+  if( particle->pstat() != -1 ){
+    return particle->charge();
+  }else{
+    return -1.0 * particle->charge();
+  }
+}
+  
+double NaiveNegativeSub::baryonSub( std::shared_ptr<Particle> particle )
+{
+  if( particle->pstat() != -1 ){
+    return particle->baryon();
+  }else{
+    return -1.0 * particle->baryon();
+  }
+}
+
+double NaiveNegativeSub::strangeSub( std::shared_ptr<Particle> particle )
+{
+  if( particle->pstat() != -1 ){
+    return particle->strange();
+  }else{
+    return -1.0 * particle->strange();
+  }
+}
+
+double NaiveNegativeSub::charmSub( std::shared_ptr<Particle> particle )
+{
+  if( particle->pstat() != -1 ){
+    return particle->charm();
+  }else{
+    return -1.0 * particle->charm();
+  }
+}
