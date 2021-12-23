@@ -33,12 +33,11 @@ public:
   virtual double nSub( std::shared_ptr<Particle> particle ){ return  1.0; }
   virtual double eSub( std::shared_ptr<Particle> particle ){ return  particle->e(); }
   virtual double pzSub( std::shared_ptr<Particle> particle ){ return  particle->pz(); }
-  //-----------------------------------------------------------------------------------
-  // conserved quantities
-  virtual double chargeSub( std::shared_ptr<Particle> particle )
-  { 
-    return  InternalHelperPythia.particleData.charge(particle->pid());
-  }  
+
+  virtual double chargeSub( std::shared_ptr<Particle> particle ){ return  particle->charge(); }
+  virtual double baryonSub( std::shared_ptr<Particle> particle ){ return  particle->baryon(); }
+  virtual double strangeSub( std::shared_ptr<Particle> particle ){ return  double(particle->strange()); }
+  virtual double charmSub( std::shared_ptr<Particle> particle ){ return  double(particle->charm()); }
   //-----------------------------------------------------------------------------------
 protected:
   static Pythia8::Pythia InternalHelperPythia;

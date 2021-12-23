@@ -33,6 +33,10 @@ public:
   double eSub( std::shared_ptr<Particle> particle );
   double nSub( std::shared_ptr<Particle> particle );
   double pzSub( std::shared_ptr<Particle> particle );
+  double chargeSub( std::shared_ptr<Particle> particle );
+  double baryonSub( std::shared_ptr<Particle> particle );
+  double strangeSub( std::shared_ptr<Particle> particle );
+  double charmSub( std::shared_ptr<Particle> particle );
 
   
 };
