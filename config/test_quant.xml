@@ -24,7 +24,7 @@
       <Item>1.5</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>0</Item>
+      <Item>90</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>10000</Item>
@@ -62,9 +62,7 @@
       </particlePtMax>
 
       <var>
-        <quant>
-          <Item>0.0</Item>        
-          <Item>50</Item>
+        <pT>
           <Item>100</Item>
           <Item>150</Item>
           <Item>200</Item>
@@ -75,7 +73,7 @@
           <Item>600</Item>
           <Item>800</Item>
           <Item>1000</Item>
-        </quant>
+        </pT>
       </var>
     </InconeQuant>
 
@@ -101,7 +99,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>1</Item>
+    <!-- <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -111,7 +109,7 @@
     <Item>11</Item>
     <Item>13</Item>
     <Item>15</Item>
-    <Item>17</Item>
+    <Item>17</Item> -->
     <Item>20</Item>
     <Item>25</Item>
     <Item>30</Item>
