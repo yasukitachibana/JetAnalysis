@@ -2,7 +2,7 @@
 
 <jetAnalysis>
 
-  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <mode>1</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
   <subtractionMethod>NaiveNegativeSub</subtractionMethod>
 
   <!-- Jet Reconstruction-->
@@ -11,9 +11,10 @@
     <jetR>
       <Item>0.4</Item>      
       <Item>0.6</Item>
+      <Item>0.8</Item>      
       <Item>1.0</Item>
       <Item>1.2</Item>      
-      <Item>1.5</Item>      
+      <Item>1.4</Item>      
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
     <!-- <statJet>
@@ -25,10 +26,10 @@
       <Item>0</Item>
     </jetRapMin>
     <jetRapMax>
-      <Item>1.5</Item>
+      <Item>5.0</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>90</Item>
+      <Item>100</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>10000</Item>
@@ -56,7 +57,7 @@
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>2.4</Item>
+        <Item>10.0</Item>
       </particleRapMax>
       <particlePtMin>
         <Item>0.0</Item>
@@ -67,6 +68,7 @@
 
       <var>
         <pT>
+          <Item>0</Item>
           <Item>50</Item>
           <Item>100</Item>
           <Item>150</Item>
@@ -104,8 +106,8 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>140</Item>
-    <Item>140</Item>    
+    <Item>200</Item>
+    <Item>200</Item>    
   </ptHat>
 
 
