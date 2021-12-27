@@ -14,7 +14,8 @@
       <Item>0.8</Item>      
       <Item>1.0</Item>
       <Item>1.2</Item>      
-      <Item>1.4</Item>      
+      <Item>1.4</Item>
+      <Item>1.5</Item>            
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
     <!-- <statJet>
