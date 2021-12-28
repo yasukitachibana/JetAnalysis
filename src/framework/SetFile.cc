@@ -82,11 +82,17 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
   
   std::ostringstream oss;
   
+  int r_precision = 1;
+  if jetR < 0.1:
+    r_precision = 3;
+    if jetR < 0.01:
+      r_precision = 4;
+
   oss << std::fixed
   << "hist_" << "ptHat" << std::setprecision(0) << (ptHatMin) << "-" << (ptHatMax) << "_"
   << observable << "_"
   << variable << "_"
-  << "jetr" << std::setprecision(1) << (jetR) << "_"
+  << "jetr" << std::setprecision(r_precision) << (jetR) << "_"
   << "ptj" << std::setprecision(0) << (jetPtMin) << "-" << (jetPtMax) << "_"
   << "rapj" << std::setprecision(1) << (jetRapMin) << "-" << (jetRapMax) << "_"
   << "pt" << std::setprecision(1) << (particlePtMin) << "-" << (particlePtMax) << "_"
