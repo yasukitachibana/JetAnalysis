@@ -41,7 +41,7 @@
       <Item>5.0</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>15</Item>
+      <Item>10</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>10000</Item>
