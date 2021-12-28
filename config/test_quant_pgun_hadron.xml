@@ -8,14 +8,15 @@
   <!-- Jet Reconstruction-->
   <jetReco>
     <reconstructionMethod>NegativeReco</reconstructionMethod>
-    <jetR>
+   <jetR>
       <Item>0.001</Item>
-      <Item>0.0025</Item>
       <Item>0.005</Item>
-      <Item>0.0075</Item>
       <Item>0.01</Item>
-      <Item>0.025</Item>
+      <Item>0.02</Item>
+      <Item>0.03</Item>      
+      <Item>0.04</Item>            
       <Item>0.05</Item>
+      <Item>0.075</Item>      
       <Item>0.1</Item>
       <Item>0.2</Item>
       <Item>0.3</Item>
@@ -118,8 +119,8 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>200</Item>
-    <Item>200</Item>    
+    <Item>100</Item>
+    <Item>100</Item>    
   </ptHat>
 
 
