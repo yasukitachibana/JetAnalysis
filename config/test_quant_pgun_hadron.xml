@@ -9,13 +9,23 @@
   <jetReco>
     <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR>
-      <Item>0.4</Item>      
+      <Item>0.001</Item>
+      <Item>0.0025</Item>
+      <Item>0.005</Item>
+      <Item>0.0075</Item>
+      <Item>0.01</Item>
+      <Item>0.025</Item>
+      <Item>0.05</Item>
+      <Item>0.1</Item>
+      <Item>0.2</Item>
+      <Item>0.3</Item>
+      <Item>0.4</Item>
       <Item>0.6</Item>
-      <Item>0.8</Item>      
+      <Item>0.8</Item>
       <Item>1.0</Item>
-      <Item>1.2</Item>      
+      <Item>1.2</Item>
       <Item>1.4</Item>
-      <Item>1.5</Item>            
+      <Item>1.5</Item>
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
     <!-- <statJet>
