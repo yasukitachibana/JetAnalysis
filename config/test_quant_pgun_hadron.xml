@@ -40,12 +40,12 @@
       <Item>5.0</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>100</Item>
+      <Item>20</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>10000</Item>
     </jetPtMax>
-    <nJetEv>0</nJetEv>
+    <nJetEv>1</nJetEv>
   </jetReco>
 
   <observable>
@@ -80,6 +80,7 @@
       <var>
         <pT>
           <Item>0</Item>
+          <Item>20</Item>
           <Item>50</Item>
           <Item>100</Item>
           <Item>150</Item>
