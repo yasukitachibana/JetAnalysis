@@ -166,6 +166,11 @@ void InconeQuant::SetObservable(fastjet::PseudoJet jet,
               quantities[3] += sub_ptr->strangeSub(p);
               quantities[4] += sub_ptr->charmSub(p);
 
+              quantities[5] += 1.;
+              quantities[6] += (double) (p->chargeType() != 0);
+              quantities[7] += (double) (p->baryonType() != 0);
+              quantities[8] += (double) (p->strangeType() != 0);
+              quantities[8] += (double) (p->charmType() != 0);              
               // For debug -----------------
               //  if(p->pid()==130||p->pid()==310){
               // std::cout
