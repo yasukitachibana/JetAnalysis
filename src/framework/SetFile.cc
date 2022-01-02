@@ -63,7 +63,8 @@ SetFile::GetInputFileName(double ptHatMin, double ptHatMax, int i_seq)
 std::string
 SetFile::GetSigmaFileName(double ptHatMin, double ptHatMax, int i_seq)
 {
-  return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + sigma_tail;
+  //return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + sigma_tail;
+  return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(0) + sigma_tail;  
 }
 
 std::string SetFile::GetDivTail(int i_seq)
