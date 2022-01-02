@@ -81,8 +81,17 @@
       <var>
         <pT>
           <Item>0</Item>
+          <Item>5</Item>
+          <Item>10</Item>
+          <Item>15</Item>          
           <Item>20</Item>
+          <Item>30</Item>          
+          <Item>40</Item>                    
           <Item>50</Item>
+          <Item>60</Item>          
+          <Item>70</Item>                    
+          <Item>80</Item>                              
+          <Item>90</Item>                                        
           <Item>100</Item>
           <Item>150</Item>
           <Item>200</Item>
