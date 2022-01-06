@@ -32,7 +32,7 @@ $ conda create -c conda-forge --name [YOUR_CONDA_ENVIRONMENT_FOR_ROOT] root
 
     On Wayne State Grid
     ```
-    $ ./configure --prefix=$PWD/../fastjet-install CXXFLAGS=-fPIC -pipe -Wall -std=c++17 -Wno-reorder -Wno-unused-variable  -Wno-sign-compare -Wno-unused-but-set-variable -Wno-parentheses -fext-numeric-literals
+    $ ./configure --prefix=$PWD/../fastjet-install CXXFLAGS="-fPIC -pipe -Wall -std=c++17 -Wno-reorder -Wno-unused-variable  -Wno-sign-compare -Wno-unused-but-set-variable -Wno-parentheses -fext-numeric-literals"
     ```
 
 1. Make
@@ -66,7 +66,7 @@ $ conda create -c conda-forge --name [YOUR_CONDA_ENVIRONMENT_FOR_ROOT] root
 
     On Wayne State Grid
     ```
-    $ ./configure --fastjet-config=$PWD/../fastjet-3.4.0/fastjet-config --prefix=$PWD/../fastjet-install CXXFLAGS=-fPIC -pipe -Wall -std=c++17 -Wno-reorder -Wno-unused-variable  -Wno-sign-compare -Wno-unused-but-set-variable -Wno-parentheses -fext-numeric-literals
+    $ ./configure --fastjet-config=$PWD/../fastjet-3.4.0/fastjet-config --prefix=$PWD/../fastjet-install CXXFLAGS="-fPIC -pipe -Wall -std=c++17 -Wno-reorder -Wno-unused-variable  -Wno-sign-compare -Wno-unused-but-set-variable -Wno-parentheses -fext-numeric-literals"
     ```
 
 1. Make
