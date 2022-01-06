@@ -28,8 +28,8 @@ markers = ['s', 'o', '^', '*','p','d']
 def SetFiles(): #Edit Below!
 
   files = [
-           '../output_examples/pp_parton_full/jetshape_hist_total_JetShape_r_jetr0.4_ptj20-300_rapj0.0-2.8_pt0.0-10000.0_rap0.0-5.0_pt.txt',
-           '../output_examples/pp_hadron_full/jetshape_hist_total_JetShape_r_jetr0.4_ptj20-300_rapj0.0-2.8_pt0.0-10000.0_rap0.0-5.0_pt.txt'           
+           '../output_examples/pp_parton_full/hist_ptHat130-140_JetShape_r_jetr0.4_ptj20-300_rapj0.0-2.8_pt0.0-10000.0_rap0.0-5.0_pt.txt',
+           '../output_examples/pp_hadron_full/hist_ptHat130-140_JetShape_r_jetr0.4_ptj20-300_rapj0.0-2.8_pt0.0-10000.0_rap0.0-5.0_pt.txt'           
           ] # List of Input Files
   labels = [
             'Parton Jet [pp pthat:130-140 GeV]',
@@ -51,7 +51,13 @@ def JetPtR(files, labels, text, plot_name):
 
 
   for i in range(len(files)):
-    x, y, err, xstep, ystep = GetData1Integrate(files[i],bin=1)
+    x, y, err, xstep, ystep = GetData1Integrate(files[i],bin=0)
+    n_jet = GetTriggeredJetNumber(files[i])
+    #####    
+    y = y/n_jet
+    ystep = ystep/n_jet
+    err = err/n_jet
+    #####
     ax.step(xstep, ystep, where='post', color=colors[i],linestyle=curves[i], linewidth = 3)
     ax.errorbar(x, y, err, marker="", linestyle="none", color=colors[i])
     ax.plot([],[], label= labels[i]+' '+'{:.2f}'.format(y[7])+' GeV', linestyle=curves[i], color = colors[i], linewidth = 3)
@@ -72,6 +78,10 @@ def JetPtR(files, labels, text, plot_name):
 
 ############################################
 # Subroutines 
+
+def GetTriggeredJetNumber(filename):
+  data = np.loadtxt(filename, comments='#')
+  return data[-1,-2]
 
 def GetData1(filename):
   data = np.loadtxt(filename, comments='#')
@@ -119,12 +129,12 @@ def GetDataRatio(x1, y1, err1, xstep1, ystep1, x2, y2, err2, xstep2, ystep2):
 
 def GetData1Integrate(filename,bin=0):
   data = np.loadtxt(filename, comments='#')
+
   x = data[:,0]
 
   dx = 1.0
   if bin == 1:
     dx = data[:,2] - data[:,1]
-    
   y = data[:,3]*dx
   err = data[:,4]*dx
   err2 = err*err
