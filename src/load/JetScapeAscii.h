@@ -15,7 +15,7 @@ public:
   ~JetScapeAscii();
   std::string Name(){return name;}
   
-  void Load(std::string input_filename);
+  bool Load(std::string input_filename);
   void Clear();
   void Reset();
   
