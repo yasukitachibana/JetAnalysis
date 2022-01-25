@@ -18,7 +18,7 @@ void CombineEvents::Init(){
 }
 
 void CombineEvents::Clear(){
-  obs_ptr->Clear();
+  obs_ptr->Clear(1);
 }
 
 void CombineEvents::Combine(){
