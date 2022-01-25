@@ -43,7 +43,7 @@ void AnalysisModuleBase::Init(std::shared_ptr<ReconstructionModuleBase> reco_ptr
   InitMixedEvent();
 }
 
-void AnalysisModuleBase::Analyze(std::string input_file_name)
+int AnalysisModuleBase::Analyze(std::string input_file_name)
 {
 
   std::cout
@@ -51,7 +51,8 @@ void AnalysisModuleBase::Analyze(std::string input_file_name)
       << " (" << std::to_string(getMemoryUsage()) << "MB) ..."
       << std::endl;
 
-  if ( load_ptr->Load(input_file_name) )
+  bool loaded = load_ptr->Load(input_file_name);
+  if (loaded)
   {
     std::vector<std::shared_ptr<Particle>> particle_list;
     int event_num = 0;
@@ -96,6 +97,7 @@ void AnalysisModuleBase::Analyze(std::string input_file_name)
   }
   //*******************************************************************************************
   load_ptr->Clear();
+  return loaded;
 }
 
 void AnalysisModuleBase::Set(double ptHatMin, double ptHatMax)
@@ -103,11 +105,14 @@ void AnalysisModuleBase::Set(double ptHatMin, double ptHatMax)
   GenerateHist(ptHatMin, ptHatMax);
 }
 
-void AnalysisModuleBase::Clear()
+void AnalysisModuleBase::Clear(int seq_loaded)
 {
-  for (auto hist : hist_list)
+  if (seq_loaded)
   {
-    hist->Print();
+    for (auto hist : hist_list)
+    {
+      hist->Print();
+    }
   }
   DeleteHist();
 }
