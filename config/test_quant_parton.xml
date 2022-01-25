@@ -128,8 +128,12 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>100</Item>
-    <Item>110</Item>    
+    <Item>250</Item>
+    <Item>250</Item>    
+    <Item>300</Item>
+    <Item>300</Item>    
+    <Item>350</Item>
+    <Item>350</Item>    
   </ptHat>
 
 
