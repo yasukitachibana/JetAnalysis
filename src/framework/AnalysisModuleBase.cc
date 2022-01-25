@@ -107,12 +107,15 @@ void AnalysisModuleBase::Set(double ptHatMin, double ptHatMax)
 
 void AnalysisModuleBase::Clear(int seq_loaded)
 {
+  std::cout << "[AnalysisModuleBase] Start Printing Histograms " << std::endl;
   if (seq_loaded)
   {
     for (auto hist : hist_list)
     {
       hist->Print();
     }
+  }else{
+    std::cout << "[AnalysisModuleBase] Skip. " << std::endl;
   }
   DeleteHist();
 }
