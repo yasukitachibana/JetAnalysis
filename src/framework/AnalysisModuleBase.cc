@@ -51,48 +51,49 @@ void AnalysisModuleBase::Analyze(std::string input_file_name)
       << " (" << std::to_string(getMemoryUsage()) << "MB) ..."
       << std::endl;
 
-  load_ptr->Load(input_file_name);
-  std::vector<std::shared_ptr<Particle>> particle_list;
-
-  int event_num = 0;
-  while (load_ptr->GetLine())
+  if ( load_ptr->Load(input_file_name) )
   {
-    //    std::cout << "main" << std::endl;
-    //    load_ptr->ShowLine();
+    std::vector<std::shared_ptr<Particle>> particle_list;
+    int event_num = 0;
+    while (load_ptr->GetLine())
+    {
+      //    std::cout << "main" << std::endl;
+      //    load_ptr->ShowLine();
 
-    if (load_ptr->EventEnd())
+      if (load_ptr->EventEnd())
+      {
+        //**************
+        EventEndMark(particle_list, event_num);
+        //**************
+      }
+      else if (load_ptr->ValidLine())
+      {
+        //**************
+        auto p = load_ptr->GetParticle();
+
+        // std::cout << p->pid() << " " << <<std::endl;
+        if (RapidityCut(p) &&
+            jet_charged_ptr->Trigger(p) &&
+            jet_pstat_ptr->Trigger(p) &&
+            jet_pid_ptr->Trigger(p) &&
+            jet_constpt_ptr->Trigger(p))
+        {
+          particle_list.push_back(p);
+        }
+        //**************
+      }
+    }
+    if (load_ptr->Last())
     {
       //**************
       EventEndMark(particle_list, event_num);
       //**************
     }
-    else if (load_ptr->ValidLine())
-    {
-      //**************
-      auto p = load_ptr->GetParticle();
-
-      //std::cout << p->pid() << " " << <<std::endl;
-      if (RapidityCut(p) &&
-          jet_charged_ptr->Trigger(p) &&
-          jet_pstat_ptr->Trigger(p) &&
-          jet_pid_ptr->Trigger(p) &&
-          jet_constpt_ptr->Trigger(p))
-      {
-        particle_list.push_back(p);
-      }
-      //**************
-    }
+    std::cout
+        << "\n[AnalysisModuleBase] Last Event" << event_num
+        << " -- DONE! (" << std::to_string(getMemoryUsage()) << "MB) ..."
+        << std::endl;
   }
-  if (load_ptr->Last())
-  {
-    //**************
-    EventEndMark(particle_list, event_num);
-    //**************
-  }
-  std::cout
-      << "\n[AnalysisModuleBase] Last Event" << event_num
-      << " -- DONE! (" << std::to_string(getMemoryUsage()) << "MB) ..."
-      << std::endl;
   //*******************************************************************************************
   load_ptr->Clear();
 }
@@ -139,13 +140,13 @@ void AnalysisModuleBase::Combine(std::vector<double> ptHat)
                 CombineHist(iv, ir, ijp, ijr, ipp, ipr, ip);
                 DeleteHist();
 
-              } //option parameters
-            }   //had_rap
-          }     //had_pt
-        }       //jet_rap
-      }         //jet_pt
-    }           //jetR
-  }             //variable
+              } // option parameters
+            }   // had_rap
+          }     // had_pt
+        }       // jet_rap
+      }         // jet_pt
+    }           // jetR
+  }             // variable
 
   CombineFinisher();
 }
@@ -178,7 +179,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   particleRapMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particleRapMax", "Item"});
   particlePtMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMin", "Item"});
   particlePtMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMax", "Item"});
-  int k0sStrangeness = SetXML::Instance()->GetElementInt({"observable", Name().c_str(),"K0SStrange"}, false);
+  int k0sStrangeness = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "K0SStrange"}, false);
   //###############################################################################################################
   p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
   //###############################################################################################################
@@ -192,7 +193,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   nParams = ReadOptionParametersFromXML();
   //###############################################################################################################
 
-  ParticleBase::SetStrangeK0S( k0sStrangeness );
+  ParticleBase::SetStrangeK0S(k0sStrangeness);
 
   if (ch_jet == 1)
   {
@@ -476,21 +477,21 @@ void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax)
               {
 
                 std::string hist_name = GetHistName(ptHatMin, ptHatMax, iv, ir, ijp, ijr, ipp, ipr, ip);
-                //std::cout << "[AnalyzeBase] generate histogram #" << nHist << " " << hist_name << std::endl;
+                // std::cout << "[AnalyzeBase] generate histogram #" << nHist << " " << hist_name << std::endl;
                 auto hist_this_bin = CreateHist(hist_name, iv);
                 hist_this_bin->Init();
                 hist_list.push_back(hist_this_bin);
                 nHist++;
-                //std::string hist_name_test = hist_list[GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,ip)]->HistName();
+                // std::string hist_name_test = hist_list[GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,ip)]->HistName();
 
                 //
-              } //option parameters
-            }   //had_rap
-          }     //had_pt
-        }       //jet_rap
-      }         //jet_pt
-    }           //jetR
-  }             //variable
+              } // option parameters
+            }   // had_rap
+          }     // had_pt
+        }       // jet_rap
+      }         // jet_pt
+    }           // jetR
+  }             // variable
 
   std::cout << "[AnalyzeBase] number of generated histogram: " << nHist << std::endl;
 }
@@ -611,7 +612,7 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int
       fabs(rapidity_jet) < jetRapMax[ijr])
   {
     return true;
-  } //trigger
+  } // trigger
 
   return false;
 }

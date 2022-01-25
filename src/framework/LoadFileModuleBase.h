@@ -22,7 +22,7 @@ public:
   
   virtual std::string Name(){ return "N/A"; }
   
-  virtual void Load(std::string input_filename){}
+  virtual bool Load(std::string input_filename){ return false;}
   virtual void Clear(){}
   virtual void Reset(){}
   
