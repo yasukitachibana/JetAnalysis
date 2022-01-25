@@ -51,12 +51,13 @@ void EventAnalysis::Analyze(){
     //++++++++++++++++++++++++++++++++++++++++++++++++
     obs_ptr->Set(ptHat[i_pthat_bin],ptHat[i_pthat_bin+1]);
     //++++++++++++++++++++++++++++++++++++++++++++++++
+    int seq_loaded = 0;
     for(int i_seq = 0; i_seq < nSeq; i_seq++ ){
       std::string input_file_name =  SetFile::Instance()->GetInputFileName(ptHat[i_pthat_bin], ptHat[i_pthat_bin+1], i_seq);
-      obs_ptr->Analyze(input_file_name);
+      seq_loaded += obs_ptr->Analyze(input_file_name);
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++
-    obs_ptr->Clear();
+    obs_ptr->Clear(seq_loaded);
     //++++++++++++++++++++++++++++++++++++++++++++++++
     //++++++++++++++++++++++++++++++++++++++++++++++++
     

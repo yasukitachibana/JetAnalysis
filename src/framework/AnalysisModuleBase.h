@@ -39,10 +39,10 @@ public:
             std::shared_ptr<SubtractionModuleBase> sub_ptr_in,
             std::shared_ptr<LoadFileModuleBase> load_ptr_in);
   void Set(double ptHatMin, double ptHatMax);
-  void Analyze(std::string input_file_name);
+  int Analyze(std::string input_file_name);
   void Combine(std::vector<double> ptHat);
   //=========================================
-  virtual void Clear();
+  virtual void Clear( int seq_loaded );
   //=========================================
   static Pythia8::Pythia InternalHelperPythia;
   long getMemoryUsage();
