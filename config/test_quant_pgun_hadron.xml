@@ -127,14 +127,17 @@
   </inputFiles>
 
   <!-- ptHatBins -->
+
+
   <ptHat>
     <Item>250</Item>
-    <Item>260</Item>    
+    <Item>250</Item>    
     <Item>300</Item>
-    <Item>310</Item>    
+    <Item>300</Item>    
     <Item>350</Item>
-    <Item>360</Item>    
+    <Item>350</Item>    
   </ptHat>
+
 
 
 </jetAnalysis>
