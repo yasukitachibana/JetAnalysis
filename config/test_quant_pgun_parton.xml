@@ -46,7 +46,7 @@
     <jetPtMax>
       <Item>10000</Item>
     </jetPtMax>
-    <nJetEv>2</nJetEv>
+    <nJetEv>1</nJetEv>
   </jetReco>
 
   <observable>
