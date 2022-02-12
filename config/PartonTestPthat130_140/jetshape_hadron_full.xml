@@ -96,7 +96,7 @@
       <join>_</join>
       <tail>.out</tail>
     </sigma>
-    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divNum>100</divNum>    <!-- 0: default, 1-:  divided-->
     <divUnit>_Run</divUnit>
   </inputFiles>
 
