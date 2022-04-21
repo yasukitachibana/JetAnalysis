@@ -16,20 +16,23 @@ int main(int argc, char** argv)
   int StartTime = time(NULL);
   
   //#######################################################
-  Show();
-  CheckArg(argc, argv);
+  Show(); // Show the Code information
+  CheckArg(argc, argv); // Check Arguments (OK->run_code=true,NO->run_code=false)
   //#######################################################
   
   //#######################################################
-  // Execution
+  // Execution 
   //#######################################################
-  if(run_code){
+  if(run_code){ // Run Codes when Arguments are Good
+  //Jet Analysis
   JetAnalysis ja(xml_filename,input_dirname,output_dirname);
-  ja.Init();
-  ja.Exec();
+  ja.Init(); //Initialize Jet Analysis
+  ja.Exec(); //Start Jet Analysis  
   }
   //#######################################################
-  
+
+  //#######################################################
+  // Finish Code
   //#######################################################
   std::cout << std::endl;
   std::cout<<"#########################################################"<<std::endl;

@@ -21,14 +21,19 @@ void AnalysisModuleMixedEvent::InitMixedEvent(){
 
 }
 
-void AnalysisModuleMixedEvent::Clear(){
-  for( auto hist: hist_list){
-    hist->Print();
+void AnalysisModuleMixedEvent::Clear(int seq_loaded){
+  std::cout << "[AnalysisModuleMixedEvent] Start Printing Histograms " << std::endl;
+  if (seq_loaded)
+  {
+    for( auto hist: hist_list){
+      hist->Print();
+    }
+  }else{
+    std::cout << "[AnalysisModuleMixedEvent] Skip. " << std::endl;
   }
   DeleteHist();
   load_mixed_ptr->Reset();
 }
-
 
 void AnalysisModuleMixedEvent::EventEndMark
  (std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num)
