@@ -7,7 +7,7 @@
 class AnalysisModuleMixedEvent: public AnalysisModuleBase{
   
 public:
-  void Clear();
+  void Clear( int seq_loaded );
   
 protected:
   

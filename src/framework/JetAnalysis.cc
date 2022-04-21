@@ -32,12 +32,13 @@ JetAnalysis::~JetAnalysis() {
 }
 
 void JetAnalysis::Init() {
+  // Get settings in XML
   running_mode = SetXML::Instance()->GetElementInt({"mode"});
   observables = SetXML::Instance()->GetElementNameVector({"observable"});
   reconstruction_method = SetXML::Instance()->GetElementText({"jetReco","reconstructionMethod"});
   subtraction_method = SetXML::Instance()->GetElementText({"subtractionMethod"});
   input_file_style = SetXML::Instance()->GetElementText({"inputFiles","inputStyle"});
-  ShowSettings();
+  ShowSettings(); // Show Information obtained in Initialization Process
 }
 
 void JetAnalysis::ShowSettings(){
@@ -53,7 +54,7 @@ void JetAnalysis::ShowSettings(){
   std::cout << "[JetAnalysis] ***-------------------------------------------"<< std::endl;
   ShowRegisteredLoadFileModule();
   std::cout << "[JetAnalysis] **********************************************"<< std::endl<< std::endl;
-  
+
   std::cout << "[JetAnalysis] **********************************************"<< std::endl;
   std::cout << "[JetAnalysis] *** Settings"<< std::endl;
   std::cout << "[JetAnalysis] ***-------------------------------------------"<< std::endl;
