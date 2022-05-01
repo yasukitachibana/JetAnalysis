@@ -240,33 +240,39 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 
               if (hasSub && additional_cond_ptr->Trigger(rg))
               {
-                //--
-                double thg = rg / jetR[ir];
-                double mg = sd_jet.m();
-                double mg_over_pt = mg / pt_jet;
-                //--
-                std::vector<fastjet::PseudoJet> sd_pieces = sd_jet.pieces();
+                //-------------------------------
+                // Standard
+                double thg = rg / jetR[ir]; //theta_g = rg/R
+                double mg = sd_jet.m(); //groomed mass
+                double mg_over_pt = mg / pt_jet; //groomed mass/jetPt
 
-                double e1 = sd_pieces[0].e();
-                double pmod1 = sqrt(sd_pieces[0].modp2());
-                double px1 = sd_pieces[0].px();
-                double py1 = sd_pieces[0].py();
-                double pz1 = sd_pieces[0].pz();
+                //-------------------------------
+                // kt 
+                double ktg = sin(rg);
+                
+                // //---------------------------------------
+                // std::vector<fastjet::PseudoJet> sd_pieces = sd_jet.pieces();
 
-                double e2 = sd_pieces[1].e();
-                double pmod2 = sqrt(sd_pieces[1].modp2());
-                double px2 = sd_pieces[1].px();
-                double py2 = sd_pieces[1].py();
-                double pz2 = sd_pieces[1].pz();
+                // double e1 = sd_pieces[0].e();
+                // double pmod1 = sqrt(sd_pieces[0].modp2());
+                // double px1 = sd_pieces[0].px();
+                // double py1 = sd_pieces[0].py();
+                // double pz1 = sd_pieces[0].pz();
 
-                double cos = CosOpeningAngle(pmod1, px1, py1, pz1, pmod2, px2, py2, pz2);
+                // double e2 = sd_pieces[1].e();
+                // double pmod2 = sqrt(sd_pieces[1].modp2());
+                // double px2 = sd_pieces[1].px();
+                // double py2 = sd_pieces[1].py();
+                // double pz2 = sd_pieces[1].pz();
+                // double cos = CosOpeningAngle(pmod1, px1, py1, pz1, pmod2, px2, py2, pz2);
+                // double pseudo_mg = sqrt( 2.0 * e1 * e2 * (1.0 - cos));
+                // double pseudo_mg_over_pt = pseudo_mg / pt_jet;
 
-                double pseudo_mg = sqrt( 2.0 * e1 * e2 * (1.0 - cos));
-                double pseudo_mg_over_pt = pseudo_mg / pt_jet;
-                //double ktg = 
 
-                // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
-                // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
+                // // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
+                // // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
+                // //---------------------------------------
+
 
                 //0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
                 //std::cout << " ->" << varNames[0] << ": ";
@@ -312,27 +318,28 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 //std::cout << " ->" << varNames[5] << ": ";
                 for (auto i : index[5])
                 {
-                  //std::cout << i << " ";
-                  hist_list[i]->Fill(pseudo_mg, 1.0);
+                  std::cout << i << " ";
+                  hist_list[i]->Fill( ktg, 1.0);
                 }
                 //std::cout << std::endl;
 
-                //std::cout << " ->" << varNames[6] << ": ";
-                for (auto i : index[6])
-                {
-                  //std::cout << i << " ";
-                  hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
-                }
-                //std::cout << std::endl;
+                // //std::cout << " ->" << varNames[X] << ": ";
+                // for (auto i : index[X])
+                // {
+                //   //std::cout << i << " ";
+                //   hist_list[i]->Fill(pseudo_mg, 1.0);
+                // }
+                // //std::cout << std::endl;
 
-                //std::cout << " ->" << varNames[7] << ": ";
-                for (auto i : index[7])
-                {
-                  std::cout << varNames[7] << " is under construction.";
-                  //std::cout << i << " ";
-                  //hist_list[i]->Fill( ktg, 1.0);
-                }
-                //std::cout << std::endl;
+                // //std::cout << " ->" << varNames[X] << ": ";
+                // for (auto i : index[X])
+                // {
+                //   //std::cout << i << " ";
+                //   hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
+                // }
+                // //std::cout << std::endl;
+
+ 
 
               }
             }
