@@ -248,7 +248,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 
                 //-------------------------------
                 // kt 
-                double ktg = sin(rg);
+                double ktg = zg*sd_jet.pt()*sin(rg);//pt2
                 
                 // //---------------------------------------
                 // std::vector<fastjet::PseudoJet> sd_pieces = sd_jet.pieces();
