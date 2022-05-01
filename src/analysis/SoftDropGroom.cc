@@ -263,6 +263,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 
                 double pseudo_mg = sqrt( 2.0 * e1 * e2 * (1.0 - cos));
                 double pseudo_mg_over_pt = pseudo_mg / pt_jet;
+                //double ktg = 
 
                 // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
                 // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
@@ -323,6 +324,16 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                   hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
                 }
                 //std::cout << std::endl;
+
+                //std::cout << " ->" << varNames[7] << ": ";
+                for (auto i : index[7])
+                {
+                  std::cout << varNames[7] << " is under construction.";
+                  //std::cout << i << " ";
+                  //hist_list[i]->Fill( ktg, 1.0);
+                }
+                //std::cout << std::endl;
+
               }
             }
 
