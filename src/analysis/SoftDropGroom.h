@@ -81,10 +81,10 @@ private:
   int ReadVariablesFromXML(std::string tag);
   std::string VariableSuffix(int i);
 
-  static const int n_var = 7;
-  //0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
+  static const int n_var = 8;
+  //0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt", 7:"ktG"
   std::array<std::vector<int>, n_var> i_var;
-  std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG", "mG", "mGOverPt", "pseudoMG", "pseudoMGOverPt"};
+  std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG", "mG", "mGOverPt", "pseudoMG", "pseudoMGOverPt", "ktG"};
 
   int ui;
 
