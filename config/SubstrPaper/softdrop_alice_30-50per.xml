@@ -72,7 +72,7 @@
       </beta>
       <zCut>
         <Item>0.2</Item>
-        <Item>0.4</Item>                
+        <Item>0.4</Item>        
       </zCut>
 
       <var>
@@ -89,13 +89,12 @@
 
         <thetaG>
           <Item>0</Item>
+          <Item>0.05</Item>
           <Item>0.1</Item>
           <Item>0.15</Item>
-          <Item>0.22</Item>
-          <Item>0.3</Item>
-          <Item>0.4</Item>
+          <Item>0.25</Item>
           <Item>0.5</Item>
-          <Item>0.7</Item>
+          <Item>0.875</Item>
           <Item>1.0</Item>
         </thetaG>
 
