@@ -28,7 +28,7 @@ def data_output(output_filename,data):
   print('Output File -> ', output_filename)
   np.savetxt(output_filename,data)
 
-def convert_yaml(yamlFile, outputDir):
+def convert_yaml(yamlFile, outputDir, head = ''):
 
   with open(yamlFile, 'r') as yml:
     yaml_data = yaml.safe_load(yml)
@@ -36,7 +36,7 @@ def convert_yaml(yamlFile, outputDir):
   xce, xlo, xhi = get_x_values(yaml_data['independent_variables'][0])
 
   for yaml_y_data in yaml_data['dependent_variables']:
-    name = generate_name(yaml_y_data)
+    name = head+generate_name(yaml_y_data)
     output_filename = generate_output_filename(outputDir, name)
     yval, ystatp, ystatm, ysysp, ysysm = get_y_values(yaml_y_data)
     
