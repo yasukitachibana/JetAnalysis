@@ -318,7 +318,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 //std::cout << " ->" << varNames[5] << ": ";
                 for (auto i : index[5])
                 {
-                  std::cout << i << " ";
+                  //std::cout << i << " ";
                   hist_list[i]->Fill( ktg, 1.0);
                 }
                 //std::cout << std::endl;
