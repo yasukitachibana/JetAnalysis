@@ -35,7 +35,7 @@ def main():
       
       hepdata_filename = os.path.join(dir,'hepdata{}.yaml'.format(str(i)))
       urllib.request.urlretrieve(url,hepdata_filename)
-      load_hepdata_yaml.convert_yaml(hepdata_filename, dir)
+      load_hepdata_yaml.convert_yaml(hepdata_filename, dir, 't'+str(i)+'_')
       os.remove(hepdata_filename)
 
 def Mkdirs(path):
