@@ -29,6 +29,8 @@ private:
   std::string reconstruction_method;
   std::string subtraction_method;
   std::string input_file_style;
+  std::string extra_command;
+  int extra_command_arg;    
 
 
   void ShowSettings();
