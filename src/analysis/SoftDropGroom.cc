@@ -401,7 +401,7 @@ void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
     }
   }
   //#############################################
-  total_hist->Print("count_");
+  total_hist->Print("count_");//millibarn
   if (nJetTotal != 0)
   {
     total_hist->Scale(1.0 / nJetTotal, "width");
