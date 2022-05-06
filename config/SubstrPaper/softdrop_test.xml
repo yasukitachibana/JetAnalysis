@@ -2,6 +2,9 @@
 
 <jetAnalysis>
 
+  <!-- <extraCommand>echo</extraCommand>
+  <extraCommandArguments>1</extraCommandArguments>   -->
+
   <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
   <subtractionMethod>NaiveNegativeSub</subtractionMethod>
 

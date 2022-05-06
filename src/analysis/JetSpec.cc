@@ -62,7 +62,7 @@ void JetSpec::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, in
     }
   }
 
-  total_hist->Print("count_");
+  total_hist->Print("count_");//millibarn
 
   total_hist->Scale(1.0, "width");
   total_hist->Print("jetspec_dNdpt_");
