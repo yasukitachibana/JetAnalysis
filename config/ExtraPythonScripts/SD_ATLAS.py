@@ -60,20 +60,43 @@ def MakeOutDir(filedir):
 
 def Make2DTable(main_results_dir, target_file_name, rg_bin_finest, pt_bin_finest):
 
-  raw_number = (len(rg_bin_finest)-1)*(len(pt_bin_finest)-1)
+  n_rg_bin = len(rg_bin_finest)-1
+  n_pt_bin = len(pt_bin_finest)-1
+  raw_number = (n_rg_bin)*(n_pt_bin)
   data = np.zeros((raw_number,10))
 
-  for i in range(len(pt_bin_finest)-1):
+  for i in range(n_pt_bin):
     ###############################################
-    pt = 0.5*(pt_bin_finest[i] + pt_bin_finest[i+1])
-    delta_pt = pt_bin_finest[i+1] - pt_bin_finest[i]
-    ###############################################    
-    filename = target_file_name.format(str(pt_bin_finest[i]), str(pt_bin_finest[i+1]))
-    x, xl, xh, y, yerr = mdata.GetData(filename)
-    delta_rg = xh - xl
-    print(delta_rg)
+    # pt info
+    ptl = pt_bin_finest[i]
+    pth = pt_bin_finest[i+1]    
+    pt = 0.5*(ptl + pth)
+    delta_pt = pth - ptl
+    ###############################################
+    # rg info, spectra info
+    filename = target_file_name.format(str(ptl), str(pth))
+    filename = '/Users/yasukitachibana/GoogleDrive/Downloads/PP_TEST/count_hist_total_SoftDropGroom_rG_jetr0.2_ptj60-80_rapj0.0-0.5_pt0.1-100.0_rap0.0-0.9_beta0.00_zCut0.20.txt'
+    rg, rgl, rgh, val, err = mdata.GetData(filename)
+    delta_rg = rgh - rgl
+    # spectra info, milibarn to nanobarn
+    val = val/delta_pt/delta_rg
+    err = err/delta_pt/delta_rg    
+    ###############################################   
+    # set 2d array
+    r_slice = slice(i*n_rg_bin,(i+1)*n_rg_bin)
+    data[r_slice,0]=pt
+    data[r_slice,1]=pth
+    data[r_slice,2]=pth
+    data[r_slice,3]=rg
+    data[r_slice,4]=rgl
+    data[r_slice,5]=rgh
+    data[r_slice,6]=val
+    data[r_slice,7]=err
+    #break
 
-
+  print(data)
+  output_filename = os.path.join(main_results_dir,'test.txt')
+  np.savetxt(output_filename,data)
   return True
 
 
