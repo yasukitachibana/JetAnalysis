@@ -2,7 +2,7 @@
 
 <jetAnalysis>
 
-  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <mode>2</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
   <subtractionMethod>NaiveNegativeSub</subtractionMethod>
 
   <!-- Jet Reconstruction-->
@@ -193,7 +193,7 @@
     <Item>35</Item>
     <Item>40</Item>
     <Item>45</Item> -->
-    <!-- <Item>50</Item>
+    <Item>50</Item>
     <Item>55</Item>
     <Item>60</Item>
     <Item>70</Item>
@@ -240,7 +240,7 @@
     <Item>1800</Item>
     <Item>1900</Item>
     <Item>2000</Item>
-    <Item>2200</Item> -->
+    <Item>2200</Item>
     <Item>2400</Item>
     <Item>2510</Item>
   </ptHat>
