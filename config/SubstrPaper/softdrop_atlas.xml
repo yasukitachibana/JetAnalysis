@@ -2,24 +2,24 @@
 
 <jetAnalysis>
 
-  <mode>2</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <mode>1</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
   <subtractionMethod>NaiveNegativeSub</subtractionMethod>
 
   <!-- Jet Reconstruction-->
   <jetReco>
     <reconstructionMethod>NegativeReco</reconstructionMethod>
-    <jetR> 
-      <Item>0.4</Item>      
+    <jetR>
+      <Item>0.4</Item>
     </jetR>
 
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
 
     <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
-      <Item>0</Item>      
+      <Item>0</Item>
     </jetRapMin>
     <jetRapMax>
-      <Item>2.1</Item>    
+      <Item>2.1</Item>
     </jetRapMax>
 
     <jetConstPtMin>0</jetConstPtMin>
@@ -53,7 +53,7 @@
       <Item>501</Item>
       <Item>562</Item>
       <Item>631</Item>
-      <Item>1000</Item>                                                      
+      <Item>1000</Item>
     </jetPtMax>
     <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
@@ -70,7 +70,7 @@
         <Item>-1</Item>
       </statParticle> -->
 
-      <particleRapidity>0</particleRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+      <particleRapidity>0</particleRapidity>      <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
 
       <particleRapMin>
         <Item>0.0</Item>
@@ -112,18 +112,18 @@
 
         <rG>
           <Item>0</Item>
-          <Item>0.003</Item> 
-          <Item>0.0042</Item> 
-          <Item>0.0063</Item> 
-          <Item>0.0096</Item> 
-          <Item>0.0145</Item> 
-          <Item>0.0220</Item> 
-          <Item>0.0332</Item> 
-          <Item>0.0503</Item> 
-          <Item>0.0761</Item> 
-          <Item>0.1153</Item> 
-          <Item>0.1745</Item> 
-          <Item>0.2642</Item> 
+          <Item>0.003</Item>
+          <Item>0.0042</Item>
+          <Item>0.0063</Item>
+          <Item>0.0096</Item>
+          <Item>0.0145</Item>
+          <Item>0.0220</Item>
+          <Item>0.0332</Item>
+          <Item>0.0503</Item>
+          <Item>0.0761</Item>
+          <Item>0.1153</Item>
+          <Item>0.1745</Item>
+          <Item>0.2642</Item>
           <Item>0.4</Item>
         </rG>
 
@@ -192,7 +192,7 @@
     <Item>30</Item>
     <Item>35</Item>
     <Item>40</Item>
-    <Item>45</Item> -->
+    <Item>45</Item>
     <Item>50</Item>
     <Item>55</Item>
     <Item>60</Item>
@@ -212,17 +212,17 @@
     <Item>200</Item>
     <Item>210</Item>
     <Item>220</Item>
-    <Item>230</Item>
+    <Item>230</Item> -->
     <Item>240</Item>
     <Item>250</Item>
-    <Item>350</Item>
     <Item>260</Item>
     <Item>270</Item>
     <Item>280</Item>
     <Item>290</Item>
     <Item>300</Item>
+    <Item>350</Item>
     <Item>400</Item>
-    <Item>450</Item>
+    <!-- <Item>450</Item>
     <Item>500</Item>
     <Item>550</Item>
     <Item>600</Item>
@@ -242,7 +242,7 @@
     <Item>2000</Item>
     <Item>2200</Item>
     <Item>2400</Item>
-    <Item>2510</Item>
+    <Item>2510</Item> -->
   </ptHat>
 
 </jetAnalysis>
