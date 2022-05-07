@@ -1,11 +1,15 @@
 import os
 import sys
+import yaml
+import numpy as np
 import manage_dir as mdir
+import manage_data as mdata
 
 ###########################################
 main_results_dirname = 'MainResults'
 yaml_filename = 'SD_ATLAS.yaml'
 ###########################################
+
 
 def GetDirectory(argc, argvs):
   print('# your input: ', argvs)
@@ -24,7 +28,7 @@ def GetDirectory(argc, argvs):
 def MoveCodeDir():
   ################################## 
   # Move to the directory of this code
-  path_of_this_code = __file__
+  path_of_this_code = os.path.abspath(__file__)
   dir_of_this_code = os.path.dirname(path_of_this_code)
   print('#----------------------------------------') 
   print("# You are now ruuning") 
@@ -53,24 +57,58 @@ def MakeOutDir(filedir):
   return main_results_dir
   ##################################  
 
-def Main(filedir):
 
-  MoveCodeDir()
-  main_results_dir = MakeOutDir(filedir)
-  if not main_results_dir: 
-    return False
+def Make2DTable(main_results_dir, target_file_name, rg_bin_finest, pt_bin_finest):
 
+  raw_number = (len(rg_bin_finest)-1)*(len(pt_bin_finest)-1)
+  data = np.zeros((raw_number,10))
+
+  for i in range(len(pt_bin_finest)-1):
+    ###############################################
+    pt = 0.5*(pt_bin_finest[i] + pt_bin_finest[i+1])
+    delta_pt = pt_bin_finest[i+1] - pt_bin_finest[i]
+    ###############################################    
+    filename = target_file_name.format(str(pt_bin_finest[i]), str(pt_bin_finest[i+1]))
+    x, xl, xh, y, yerr = mdata.GetData(filename)
+    delta_rg = xh - xl
+    print(delta_rg)
+
+
+  return True
+
+
+
+def ReadYamlFile():
   ################################## 
   ## Set yaml File in the directory
   yamlFile = yaml_filename
-  print('#----------------------------------------') 
-  # main_sub.Init(params)
-  # base = Base('check and run')
-  # function = base.GetFunction()
-  # n_run_total = main_sub.Sequence(params, function)
-  # print( 'Submission Ends.')
-  # print( 'Total: ', str(n_run_total)+'-jobs were submitted.')  
-  # print( '##################')
+  print('#----------------------------------------')
+  print("# Read yaml file:")
+  print("#\t", yamlFile)
+  with open(yamlFile, 'r') as ymlf:
+    yaml_data_list = yaml.safe_load(ymlf)
+
+  target_file_name = yaml_data_list['target_file_name']
+  rg_bin_finest = yaml_data_list['rg_bin_finest']
+  rg_bin_combine = yaml_data_list['rg_bin_combine']
+  pt_bin_finest = yaml_data_list['pt_bin_finest']
+  pt_bin_combine = yaml_data_list['pt_bin_combine']
+  return target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine
+  ##################################  
+
+
+def Main(filedir):
+
+  MoveCodeDir()
+  ###########################  
+  main_results_dir = MakeOutDir(filedir)  
+  if not main_results_dir: 
+    return False
+  ###########################    
+  target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine = ReadYamlFile()
+  ###########################
+  if not Make2DTable(main_results_dir, os.path.join(filedir, target_file_name), rg_bin_finest, pt_bin_finest):
+    return False
 
   return True
 
