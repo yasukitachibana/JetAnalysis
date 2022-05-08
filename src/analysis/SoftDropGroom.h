@@ -13,7 +13,7 @@ public:
   virtual bool Trigger(double val) { return false; }
   virtual bool Trigger(double val1, double val2) { return false; }
   virtual bool Trigger(double val1, double val2, double val3) { return false; }
-  virtual void ShowSettings() {}
+  virtual void ShowSettings(){}
 };
 
 class SDNoCondition : public SDAdditionalCondition

@@ -111,6 +111,7 @@
         </thetaG>
 
         <rG>
+          <Item>-2</Item>
           <Item>0</Item>
           <Item>0.003</Item>
           <Item>0.0042</Item>
@@ -160,8 +161,7 @@
   <inputFiles>
     <inputStyle>JetScapeAscii</inputStyle>
     <events>
-      <!-- <head>JetscapeHadronListBin</head> -->
-      <head>PythiaHadronListBin</head>      
+      <head>JetscapeHadronListBin</head>
       <join>_</join>
       <tail>.out</tail>
     </events>

@@ -113,31 +113,31 @@ def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
   n_pt_bin = len(pt_bin_finest)-1
   raw_number = (n_rg_bin)*(n_pt_bin)
 
-  # i = 0 
-  # for k in pt_bin_combine:
-  #   ptl=pt_bin_finest[i]
-  #   data_list = []
-  #   bin_list = [] 
-  #   print('# Combine', end='')             
-  #   for l in range(k):
-      
-  #     r_slice = slice(i*n_rg_bin,(i+1)*n_rg_bin)
-  #     data_2D = pt_rg_2d_data[r_slice,:]
-  #     print(' [',int(data_2D[0,1]),'-',int(data_2D[0,2]),'] ', end='')
-  #     data_1D = mdata.Reduc2to1D(data_2D)
-  #     ptbin = data_2D[:,2] - data_2D[:,1]
-  #     data_list.append(data_1D)
-  #     bin_list.append(ptbin)
-  #     i = i+1
 
-  #   pth=pt_bin_finest[i]
-  #   print('')
-  #   data = mdata.Combine(data_list,bin_list,True)
-  #   output_filename = rg_1d_filename.format(str(ptl),str(pth))
-  #   output_filename = os.path.join(main_results_dir,output_filename)  
-  #   np.savetxt(output_filename,data)
-  #   print('# 1D data (function of rg) is saved in')  
-  #   print('#\t', output_filename)    
+
+  for k in pt_bin_combine:
+    ptl=pt_bin_finest[k[0]]
+    pth=pt_bin_finest[k[1]]
+    data_list = []
+    bin_list = []
+    print('# Combine ', end='')    
+    for l in range(k[0],k[1]):
+      r_slice = slice(l*n_rg_bin,(l+1)*n_rg_bin)
+      data_2D = pt_rg_2d_data[r_slice,:]
+      print(' [',int(data_2D[0,1]),'-',int(data_2D[0,2]),'] ', end='')
+      data_1D = mdata.Reduc2to1D(data_2D)
+      ptbin = data_2D[:,2] - data_2D[:,1]
+      print(ptbin)
+      data_list.append(data_1D)
+      bin_list.append(ptbin)
+
+    print('')
+    data = mdata.Combine(data_list,bin_list,True)
+    output_filename = rg_1d_filename.format(str(int(ptl)),str(int(pth)))
+    output_filename = os.path.join(main_results_dir,output_filename)  
+    np.savetxt(output_filename,data)
+    print('# 1D data (function of rg) is saved in')  
+    print('#\t', output_filename)    
 
       
 

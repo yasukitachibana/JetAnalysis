@@ -46,6 +46,7 @@ def Combine(data_list, bin_list=[], bin_width=False):
       i_data = i_data_m_1+1
       #bin width
       this_bin = bin_list[i_data]
+      print(this_bin)
       full_bin_width += this_bin
       combined_data[:,3] += data[:,3]*this_bin
       combined_data[:,4] += data[:,4]*data[:,4]*this_bin*this_bin # error: sum of squares
