@@ -8,6 +8,9 @@ import manage_data as mdata
 ###########################################
 main_results_dirname = 'MainResults'
 yaml_filename = 'SD_ATLAS.yaml'
+pt_rg_2d_filename = 'atlas_pt_rg.txt'
+rg_1d_filename = 'atlas_rg_pt{}-{}.txt'
+pt_1d_filename = 'atlas_pt_rg{}-{}.txt'
 ###########################################
 
 
@@ -59,7 +62,8 @@ def MakeOutDir(filedir):
 
 
 def Make2DTable(main_results_dir, target_file_name, rg_bin_finest, pt_bin_finest):
-
+  print('#----------------------------------------')
+  print('# Create 2D data (function of rg and pt)')
   n_rg_bin = len(rg_bin_finest)-1
   n_pt_bin = len(pt_bin_finest)-1
   raw_number = (n_rg_bin)*(n_pt_bin)
@@ -74,32 +78,73 @@ def Make2DTable(main_results_dir, target_file_name, rg_bin_finest, pt_bin_finest
     delta_pt = pth - ptl
     ###############################################
     # rg info, spectra info
-    filename = target_file_name.format(str(ptl), str(pth))
-    filename = '/Users/yasukitachibana/GoogleDrive/Downloads/PP_TEST/count_hist_total_SoftDropGroom_rG_jetr0.2_ptj60-80_rapj0.0-0.5_pt0.1-100.0_rap0.0-0.9_beta0.00_zCut0.20.txt'
+    filename = target_file_name.format(str(int(ptl)), str(int(pth)))
+    #filename = '/Users/yasukitachibana/GoogleDrive/Downloads/PP_TEST/count_hist_total_SoftDropGroom_rG_jetr0.2_ptj60-80_rapj0.0-0.5_pt0.1-100.0_rap0.0-0.9_beta0.00_zCut0.20.txt'
     rg, rgl, rgh, val, err = mdata.GetData(filename)
     delta_rg = rgh - rgl
-    # spectra info, milibarn to nanobarn
+    # milibarn(-3) to nanobarn(-9)
+    val = val*1000000
+    err = err*1000000    
+    # spectra info
     val = val/delta_pt/delta_rg
-    err = err/delta_pt/delta_rg    
+    err = err/delta_pt/delta_rg
     ###############################################   
     # set 2d array
     r_slice = slice(i*n_rg_bin,(i+1)*n_rg_bin)
     data[r_slice,0]=pt
-    data[r_slice,1]=pth
+    data[r_slice,1]=ptl
     data[r_slice,2]=pth
     data[r_slice,3]=rg
     data[r_slice,4]=rgl
     data[r_slice,5]=rgh
     data[r_slice,6]=val
     data[r_slice,7]=err
-    #break
-
-  print(data)
-  output_filename = os.path.join(main_results_dir,'test.txt')
+    ###############################################   
+  output_filename = os.path.join(main_results_dir,pt_rg_2d_filename)
   np.savetxt(output_filename,data)
-  return True
+  print('# 2D data (function of rg and pt) is saved in')  
+  print('#\t', output_filename)    
+  return data
+
+def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine):
+  print('#----------------------------------------')
+  print('# Create 1D data (function of rg)')
+  n_rg_bin = len(rg_bin_finest)-1
+  n_pt_bin = len(pt_bin_finest)-1
+  raw_number = (n_rg_bin)*(n_pt_bin)
+
+  i = 0 
+  for k in pt_bin_combine:
+    ptl=pt_bin_finest[i]
+    data_list = []
+    bin_list = [] 
+    print('# Combine', end='')             
+    for l in range(k):
+      
+      r_slice = slice(i*n_rg_bin,(i+1)*n_rg_bin)
+      data_2D = pt_rg_2d_data[r_slice,:]
+      print(' [',int(data_2D[0,1]),'-',int(data_2D[0,2]),'] ', end='')
+      data_1D = mdata.Reduc2to1D(data_2D)
+      ptbin = data_2D[:,2] - data_2D[:,1]
+      data_list.append(data_1D)
+      bin_list.append(ptbin)
+      i = i+1
+
+    pth=pt_bin_finest[i]
+    print('')
+    data = mdata.Combine(data_list,bin_list,True)
+    output_filename = rg_1d_filename.format(str(ptl),str(pth))
+    output_filename = os.path.join(main_results_dir,output_filename)  
+    np.savetxt(output_filename,data)
+    print('# 1D data (function of rg) is saved in')  
+    print('#\t', output_filename)    
+
+      
 
 
+
+def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, r_bin_combine):
+  pass
 
 def ReadYamlFile():
   ################################## 
@@ -130,8 +175,11 @@ def Main(filedir):
   ###########################    
   target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine = ReadYamlFile()
   ###########################
-  if not Make2DTable(main_results_dir, os.path.join(filedir, target_file_name), rg_bin_finest, pt_bin_finest):
-    return False
+  pt_rg_2d_data = Make2DTable(main_results_dir, os.path.join(filedir, target_file_name), rg_bin_finest, pt_bin_finest)
+  ###########################
+  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine)
+  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, rg_bin_combine)  
+  ###########################  
 
   return True
 
@@ -147,10 +195,12 @@ if __name__ == '__main__':
   filedir = GetDirectory(argc, argvs, )
   main_job = Main(filedir)
   if main_job:
-    print('# Job Success')
+    print('#----------------------------------------\n#')    
+    print('# 👍 Job Success 👍\n#')
   else:
-    print('# Job Failure')
-  print('#----------------------------------------')      
+    print('#----------------------------------------\n#')    
+    print('# ⚠️  Job Failure ⚠️\n#')
+  print('#----------------------------------------\n#')      
   os.chdir(initial_path)
   print('# You came back to')
   print('#\t', initial_path)
