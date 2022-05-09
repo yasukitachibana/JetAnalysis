@@ -1,7 +1,7 @@
 #include "SoftDropGroom.h"
 #include "TMath.h"
 
-//using namespace Analysis;
+// using namespace Analysis;
 
 // Register the module with the base class
 RegisterAnalysisModule<SoftDropGroom> SoftDropGroom::reg("SoftDropGroom");
@@ -22,7 +22,7 @@ SoftDropGroom::~SoftDropGroom()
 int SoftDropGroom::ReadVariablesFromXML(std::string tag)
 {
   int exist = 0;
-  //n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
+  // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
   for (int i = 0; i < n_var; i++)
   {
     // tag specifies sets of parameters in the anlysis (e.g. beta and zcut)
@@ -31,7 +31,7 @@ int SoftDropGroom::ReadVariablesFromXML(std::string tag)
     if (ite != variables.end())
     {
       int index = distance(variables.begin(), ite);
-      //std::cout << val << " " << index << std::endl;
+      // std::cout << val << " " << index << std::endl;
       i_var[i].push_back(index);
       exist++;
     }
@@ -62,7 +62,7 @@ int SoftDropGroom::ReadOptionParametersFromXML()
   for (int i = 1; i < 30; i++)
   {
     std::string i_str = VariableSuffix(i);
-    //std::cout << i_str << std::endl;
+    // std::cout << i_str << std::endl;
     if (ReadVariablesFromXML(i_str) == 0)
     {
       break;
@@ -211,123 +211,126 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               double beta_val = beta[ip_array[0]];
               double zcut_val = zCut[ip_array[1]];
 
-              //n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
+              // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
               std::array<std::vector<int>, n_var> index;
               for (int i = 0; i < n_var; i++)
               {
-                //i_var[i] is vector. Each element of the vector is for each of multiple bin settings.
-                //index[i] stores the indices for all bin settings for this parameter set.
+                // i_var[i] is vector. Each element of the vector is for each of multiple bin settings.
+                // index[i] stores the indices for all bin settings for this parameter set.
                 index[i] = GetHistIndex(i_var[i], ir, ijp, ijr, 0, 0, ip);
-                //std::cout << varNames[i] << ": ";
+                // std::cout << varNames[i] << ": ";
                 for (auto ii : index[i])
                 {
-                  //std::cout << ii << " ";
+                  // std::cout << ii << " ";
                   hist_list[ii]->JetTriggered();
                 }
-                //std::cout << endl;
+                // std::cout << endl;
               }
 
               // Define SoftDrop condition
               fastjet::contrib::SoftDrop sd(beta_val, zcut_val);
 
-              //std::cout << "SoftDrop groomer is: " << sd.description() << std::endl;
+              // std::cout << "SoftDrop groomer is: " << sd.description() << std::endl;
               fastjet::PseudoJet sd_jet = sd(j);
               bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
 
-              //Set
+              // Set
               double zg, rg, mu = -1.0;
               double thg, mg, mg_over_pt = -1.0;
-              double ktg = -1.0
-                           //--
+              double ktg = -1.0;
+              //--
 
-                           //if (hasSub && additional_cond_ptr->Trigger(rg))
-                           if (additional_cond_ptr->Trigger(rg))
+              // if (hasSub && additional_cond_ptr->Trigger(rg))
+              if (additional_cond_ptr->Trigger(rg))
               {
                 // Fundamentals
                 zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
                 rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
                 mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
                 //-------------------------------
-                // Standard
-                thg = rg / jetR[ir];      //theta_g = rg/R
-                mg = sd_jet.m();          //groomed mass
-                mg_over_pt = mg / pt_jet; //groomed mass/jetPt
+                if (hasSub)
+                {
+                  // Standard
+                  thg = rg / jetR[ir];      // theta_g = rg/R
+                  mg = sd_jet.m();          // groomed mass
+                  mg_over_pt = mg / pt_jet; // groomed mass/jetPt
 
-                //-------------------------------
-                // kt
-                ktg = zg * sd_jet.pt() * sin(rg); //
-                //---------------------------------------
-                // std::vector<fastjet::PseudoJet> sd_pieces = sd_jet.pieces();
+                  //-------------------------------
+                  // kt
+                  ktg = zg * sd_jet.pt() * sin(rg); //
+                  //---------------------------------------
+                  // std::vector<fastjet::PseudoJet> sd_pieces = sd_jet.pieces();
 
-                // double e1 = sd_pieces[0].e();
-                // double pmod1 = sqrt(sd_pieces[0].modp2());
-                // double px1 = sd_pieces[0].px();
-                // double py1 = sd_pieces[0].py();
-                // double pz1 = sd_pieces[0].pz();
+                  // double e1 = sd_pieces[0].e();
+                  // double pmod1 = sqrt(sd_pieces[0].modp2());
+                  // double px1 = sd_pieces[0].px();
+                  // double py1 = sd_pieces[0].py();
+                  // double pz1 = sd_pieces[0].pz();
 
-                // double e2 = sd_pieces[1].e();
-                // double pmod2 = sqrt(sd_pieces[1].modp2());
-                // double px2 = sd_pieces[1].px();
-                // double py2 = sd_pieces[1].py();
-                // double pz2 = sd_pieces[1].pz();
-                // double cos = CosOpeningAngle(pmod1, px1, py1, pz1, pmod2, px2, py2, pz2);
-                // double pseudo_mg = sqrt( 2.0 * e1 * e2 * (1.0 - cos));
-                // double pseudo_mg_over_pt = pseudo_mg / pt_jet;
+                  // double e2 = sd_pieces[1].e();
+                  // double pmod2 = sqrt(sd_pieces[1].modp2());
+                  // double px2 = sd_pieces[1].px();
+                  // double py2 = sd_pieces[1].py();
+                  // double pz2 = sd_pieces[1].pz();
+                  // double cos = CosOpeningAngle(pmod1, px1, py1, pz1, pmod2, px2, py2, pz2);
+                  // double pseudo_mg = sqrt( 2.0 * e1 * e2 * (1.0 - cos));
+                  // double pseudo_mg_over_pt = pseudo_mg / pt_jet;
 
-                // // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
-                // // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
-                // //---------------------------------------
+                  // // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
+                  // // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
+                  // //---------------------------------------
+                }
               }
 
               //================================================================
-              //0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
-              //std::cout << " ->" << varNames[0] << ": ";
+              // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
+              // std::cout << " ->" << varNames[0] << ": ";
               for (auto i : index[0])
               {
-                //std::cout << i << " ";
+                // std::cout << i << " ";
                 hist_list[i]->Fill(zg, 1.0);
               }
-              //std::cout << std::endl;
+              // std::cout << std::endl;
 
-              //std::cout << " ->" << varNames[1] << ": ";
+              // std::cout << " ->" << varNames[1] << ": ";
               for (auto i : index[1])
               {
-                //std::cout << i << " ";
+                // std::cout << i << " ";
                 hist_list[i]->Fill(thg, 1.0);
               }
-              //std::cout << std::endl;
+              // std::cout << std::endl;
 
-              //std::cout << " ->" << varNames[2] << ": ";
+              // std::cout << " ->" << varNames[2] << ": ";
               for (auto i : index[2])
               {
-                //std::cout << i << " ";
+                // std::cout << i << " ";
                 hist_list[i]->Fill(rg, 1.0);
               }
-              //std::cout << std::endl;
+              // std::cout << std::endl;
 
-              //std::cout << " ->" << varNames[3] << ": ";
+              // std::cout << " ->" << varNames[3] << ": ";
               for (auto i : index[3])
               {
-                //std::cout << i << " ";
+                // std::cout << i << " ";
                 hist_list[i]->Fill(mg, 1.0);
               }
-              //std::cout << std::endl;
+              // std::cout << std::endl;
 
-              //std::cout << " ->" << varNames[4] << ": ";
+              // std::cout << " ->" << varNames[4] << ": ";
               for (auto i : index[4])
               {
-                //std::cout << i << " ";
+                // std::cout << i << " ";
                 hist_list[i]->Fill(mg_over_pt, 1.0);
               }
-              //std::cout << std::endl;
+              // std::cout << std::endl;
 
-              //std::cout << " ->" << varNames[5] << ": ";
+              // std::cout << " ->" << varNames[5] << ": ";
               for (auto i : index[5])
               {
-                //std::cout << i << " ";
+                // std::cout << i << " ";
                 hist_list[i]->Fill(ktg, 1.0);
               }
-              //std::cout << std::endl;
+              // std::cout << std::endl;
 
               // //std::cout << " ->" << varNames[X] << ": ";
               // for (auto i : index[X])
@@ -347,10 +350,10 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               //================================================================
             }
 
-          } //trigger
+          } // trigger
 
-        } //ijr
-      }   //ijp
+        } // ijr
+      }   // ijp
 
       // number of triggered jet
       n_jet++;
@@ -359,9 +362,9 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
         break;
       }
 
-    } //jet
+    } // jet
 
-  } //jetR
+  } // jetR
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -403,7 +406,7 @@ void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
     }
   }
   //#############################################
-  total_hist->Print("count_"); //millibarn
+  total_hist->Print("count_"); // millibarn
   if (nJetTotal != 0)
   {
     total_hist->Scale(1.0 / nJetTotal, "width");
