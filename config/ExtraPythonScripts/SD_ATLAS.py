@@ -192,7 +192,7 @@ if __name__ == '__main__':
   print('#----------------------------------------')    
   argvs = sys.argv
   argc = len(argvs)
-  filedir = GetDirectory(argc, argvs, )
+  filedir = GetDirectory(argc, argvs )
   main_job = Main(filedir)
   if main_job:
     print('#----------------------------------------\n#')    
