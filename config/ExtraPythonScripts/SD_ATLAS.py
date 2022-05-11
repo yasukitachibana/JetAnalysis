@@ -155,7 +155,7 @@ def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
     print('# Combine r bins', end='')       
     for l in range(k[0],k[1]):
       print(l)
-    exit()
+    print('++')
       #r_slice = slice( l, raw_number, n_pt_bin )
       # data_2D = pt_rg_2d_data[r_slice,:]
       # print(' [{:.2f}-{:.2f}] '.format(data_2D[0,4],data_2D[0,5]), end='')      
