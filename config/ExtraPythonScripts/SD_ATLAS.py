@@ -162,7 +162,6 @@ def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
       data_list.append(data_1D)
       bin_list.append(rbin)      
 
-
     print('')
     data = mdata.Combine(data_list,bin_list,True)
     output_filename = pt_1d_filename.format(str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
@@ -207,8 +206,6 @@ def Main(filedir):
   Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine)
   Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, rg_bin_combine)  
   ###########################  
-
-
 
   return True
 
