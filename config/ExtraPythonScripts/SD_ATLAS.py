@@ -110,10 +110,6 @@ def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
   print('#----------------------------------------')
   print('# Create 1D data (function of rg)')
   n_rg_bin = len(rg_bin_finest)-1
-  n_pt_bin = len(pt_bin_finest)-1
-  raw_number = (n_rg_bin)*(n_pt_bin)
-
-
 
   for k in pt_bin_combine:
     ptl=pt_bin_finest[k[0]]
