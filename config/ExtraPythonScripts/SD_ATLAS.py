@@ -123,7 +123,7 @@ def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
       print(' [{}-{}] '.format(int(data_2D[0,1]),int(data_2D[0,2])), end='')            
       data_1D = mdata.Reduc2to1D(data_2D,1)
       ptbin = data_2D[:,2] - data_2D[:,1]
-      #print(ptbin)
+      print(ptbin)
       data_list.append(data_1D)
       bin_list.append(ptbin)
 
