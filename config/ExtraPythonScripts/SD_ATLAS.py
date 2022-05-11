@@ -155,12 +155,9 @@ def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
     bin_list = []
     print('# Combine r bins', end='')       
     for l in range(k[0],k[1]):
-      #r_slice = slice( l, raw_number, n_pt_bin )
       data_2D = pt_rg_2d_data[l::n_pt_bin+1,:]
-      print(data_2D[:,1],len(data_2D[:,1]))
 
-      print(data_2D[:,4],len(data_2D[:,4]))
-      # print(' [{:.2f}-{:.2f}] '.format(data_2D[0,4],data_2D[0,5]), end='')      
+      print(' [{:.2f}-{:.2f}] '.format(data_2D[0,4],data_2D[0,5]), end='')      
       # # data_1D = mdata.Reduc2to1D(data_2D,0)
       # rbin = data_2D[:,5] - data_2D[:,4]
       # print(data_2D[0,5], data_2D[0,4])
