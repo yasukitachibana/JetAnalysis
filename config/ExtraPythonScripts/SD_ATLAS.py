@@ -6,11 +6,11 @@ import manage_dir as mdir
 import manage_data as mdata
 
 ###########################################
-main_results_dirname = 'MainResults'
+main_results_tail = 'MainResults'
 yaml_filename = 'SD_ATLAS.yaml'
 pt_rg_2d_filename = 'atlas_pt_rg.txt'
 rg_1d_filename = 'atlas_rg_pt{}-{}.txt'
-pt_1d_filename = 'atlas_pt_rg{}-{}.txt'
+pt_1d_filename = 'atlas_pt_rg0p{}-0p{}.txt'
 ###########################################
 
 
@@ -53,7 +53,7 @@ def MakeOutDir(filedir):
     print('# No such directory: ')
     print("#\t", filedir)    
     return False
-  main_results_dir = os.path.join(filedir,main_results_dirname)    
+  main_results_dir = filedir+main_results_tail
   mdir.Mkdirs(main_results_dir)  
   print("# Main result files are going to be stored in")
   print("#\t", main_results_dir)  
@@ -116,14 +116,14 @@ def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
     pth=pt_bin_finest[k[1]]
     data_list = []
     bin_list = []
-    print('# Combine ', end='')    
+    print('# Combine pt bins', end='')    
     for l in range(k[0],k[1]):
-      r_slice = slice(l*n_rg_bin,(l+1)*n_rg_bin)
-      data_2D = pt_rg_2d_data[r_slice,:]
-      print(' [',int(data_2D[0,1]),'-',int(data_2D[0,2]),'] ', end='')
-      data_1D = mdata.Reduc2to1D(data_2D)
+      pt_slice = slice(l*n_rg_bin,(l+1)*n_rg_bin)
+      data_2D = pt_rg_2d_data[pt_slice,:]
+      print(' [{}-{}] '.format(int(data_2D[0,1]),int(data_2D[0,2])), end='')            
+      data_1D = mdata.Reduc2to1D(data_2D,1)
       ptbin = data_2D[:,2] - data_2D[:,1]
-      print(ptbin)
+      #print(ptbin)
       data_list.append(data_1D)
       bin_list.append(ptbin)
 
@@ -140,7 +140,39 @@ def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
 
 
 def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, r_bin_combine):
-  pass
+  print('#----------------------------------------')
+  print('# Create 1D data (function of rg)')
+
+  n_rg_bin = len(rg_bin_finest)-1
+  n_pt_bin = len(pt_bin_finest)-1
+  raw_number = (n_rg_bin)*(n_pt_bin)
+
+  for k in r_bin_combine:
+    rgl=rg_bin_finest[k[0]]
+    rgh=rg_bin_finest[k[1]]
+    data_list = []
+    bin_list = []
+    print('# Combine r bins', end='')       
+    for l in range(k[0],k[1]):
+      r_slice = slice( l, raw_number , n_pt_bin )
+      data_2D = pt_rg_2d_data[r_slice,:]
+      print(' [{:.2f}-{:.2f}] '.format(data_2D[0,4],data_2D[0,5]), end='')      
+      data_1D = mdata.Reduc2to1D(data_2D,0)
+      rbin = data_2D[:,5] - data_2D[:,4]
+      #print(ptbin)
+      data_list.append(data_1D)
+      bin_list.append(rbin)      
+
+
+    print('')
+    data = mdata.Combine(data_list,bin_list,True)
+    output_filename = pt_1d_filename.format(str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
+    
+    print(output_filename)
+    output_filename = os.path.join(main_results_dir,output_filename)  
+    np.savetxt(output_filename,data)
+    print('# 1D data (function of pt) is saved in')  
+    print('#\t', output_filename)    
 
 def ReadYamlFile():
   ################################## 
@@ -176,6 +208,8 @@ def Main(filedir):
   Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine)
   Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, rg_bin_combine)  
   ###########################  
+
+
 
   return True
 
