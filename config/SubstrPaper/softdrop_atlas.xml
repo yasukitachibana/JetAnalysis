@@ -96,6 +96,7 @@
       <var>
 
         <zG>
+          <Item>-1000</Item>        
           <Item>0.2</Item>
           <Item>0.25</Item>
           <Item>0.3</Item>
@@ -106,12 +107,13 @@
         </zG>
 
         <thetaG>
+          <Item>-1000</Item>        
           <Item>0</Item>
           <Item>1.0</Item>
         </thetaG>
 
         <rG>
-          <Item>-2</Item>
+          <Item>-1000</Item>
           <Item>0</Item>
           <Item>0.003</Item>
           <Item>0.0042</Item>
@@ -129,16 +131,19 @@
         </rG>
 
         <mG>
+          <Item>-1000</Item>
           <Item>0</Item>
           <Item>5000</Item>
         </mG>
 
         <mGOverPt>
+          <Item>-1000</Item>        
           <Item>0.0</Item>
           <Item>1.0</Item>
         </mGOverPt>
 
         <ktG>
+          <Item>-1000</Item>        
           <Item>0.0</Item>
           <Item>0.25</Item>
           <Item>0.5</Item>
@@ -178,7 +183,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <!-- <Item>1</Item>
+    <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -194,7 +199,7 @@
     <Item>30</Item>
     <Item>35</Item>
     <Item>40</Item>
-    <Item>45</Item> -->
+    <Item>45</Item>
     <Item>50</Item>
     <Item>55</Item>
     <Item>60</Item>
