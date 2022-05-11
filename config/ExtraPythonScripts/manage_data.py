@@ -46,7 +46,7 @@ def Combine(data_list, bin_list=[], bin_width=False):
       i_data = i_data_m_1+1
       #bin width
       this_bin = bin_list[i_data]
-      print(this_bin)
+      #print(this_bin)
       full_bin_width += this_bin
       combined_data[:,3] += data[:,3]*this_bin
       combined_data[:,4] += data[:,4]*data[:,4]*this_bin*this_bin # error: sum of squares
@@ -62,10 +62,15 @@ def Combine(data_list, bin_list=[], bin_width=False):
 
     return combined_data
 
-def Reduc2to1D(data):
-    x = data[:,3]
-    xl = data[:,4]
-    xh = data[:,5]
+def Reduc2to1D(data,ix):
+
+    if (not ix ==0 ) and (not ix == 1):
+        print( 'Bad second argument in Reduc2to1D in manage_data.py' )
+        exit()
+
+    x = data[:,0+3*ix]
+    xl = data[:,1+3*ix]
+    xh = data[:,2+3*ix]
     y = data[:,6]
     yerr = data[:,7]
     extra_val1 = data[:,8]
