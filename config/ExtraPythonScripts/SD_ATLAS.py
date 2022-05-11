@@ -156,26 +156,22 @@ def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
     print('# Combine r bins', end='')       
     for l in range(k[0],k[1]):
       data_2D = pt_rg_2d_data[l::n_pt_bin+1,:]
-
       print(' [{:.4f}-{:.4f}] '.format(data_2D[0,4],data_2D[0,5]), end='')      
-      # # data_1D = mdata.Reduc2to1D(data_2D,0)
-      # rbin = data_2D[:,5] - data_2D[:,4]
-      # print(data_2D[0,5], data_2D[0,4])
-      # print(data_2D[1,5], data_2D[1,4])      
-      # #print(ptbin)
-      # data_list.append(data_1D)
-      # bin_list.append(rbin)      
+      data_1D = mdata.Reduc2to1D(data_2D,0)
+      rbin = data_2D[:,5] - data_2D[:,4]
+      data_list.append(data_1D)
+      bin_list.append(rbin)      
 
 
-    # print('')
-    # data = mdata.Combine(data_list,bin_list,True)
-    # output_filename = pt_1d_filename.format(str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
+    print('')
+    data = mdata.Combine(data_list,bin_list,True)
+    output_filename = pt_1d_filename.format(str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
     
-    # print(output_filename)
-    # output_filename = os.path.join(main_results_dir,output_filename)  
-    # np.savetxt(output_filename,data)
-    # print('# 1D data (function of pt) is saved in')  
-    # print('#\t', output_filename)    
+    print(output_filename)
+    output_filename = os.path.join(main_results_dir,output_filename)  
+    np.savetxt(output_filename,data)
+    print('# 1D data (function of pt) is saved in')  
+    print('#\t', output_filename)    
 
 def ReadYamlFile():
   ################################## 
