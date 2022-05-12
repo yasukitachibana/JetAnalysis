@@ -61,7 +61,8 @@ def Combine(data_list, bin_list=[], bin_width=True, bin_divide=True):
         combined_data[:,4] /= full_bin_width
         combined_data[:,5] /= full_bin_width
         combined_data[:,6] /= full_bin_width
-
+    else:
+        print('no bin divide')
     return combined_data
 
 def Reduc2to1D(data,ix):
