@@ -201,7 +201,7 @@ def ReadYamlFile():
 
   main_results_tail = yaml_data_list['main_results_tail']
   pt_rg_2d_filename = yaml_data_list['pt_rg_2d_filename']
-  rg_1d_filename = yaml_data_list['g_1d_filename']
+  rg_1d_filename = yaml_data_list['rg_1d_filename']
   pt_1d_filename = yaml_data_list['pt_1d_filename']
 
   return target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine
