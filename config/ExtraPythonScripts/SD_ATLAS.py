@@ -29,7 +29,7 @@ def GetDirectory(argc, argvs):
     print('#########################################\n')            
     exit()
   else: 
-    return argvs[-1]
+    return argvs[-1].rstrip('/')
   ##################################
 
 def MoveCodeDir():
