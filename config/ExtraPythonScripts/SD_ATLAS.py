@@ -6,11 +6,15 @@ import manage_dir as mdir
 import manage_data as mdata
 
 ###########################################
-main_results_tail = 'MainResults'
 yaml_filename = 'SD_ATLAS.yaml'
-pt_rg_2d_filename = 'atlas_pt_rg.txt'
-rg_1d_filename = 'atlas_rg_pt{}-{}.txt'
-pt_1d_filename = 'atlas_pt_rg0p{}-0p{}.txt'
+main_results_tail = ''
+pt_rg_2d_filename = ''
+rg_1d_filename = ''
+pt_1d_filename = ''
+# main_results_tail = 'MainResults'
+# pt_rg_2d_filename = 'atlas_pt_rg.txt'
+# rg_1d_filename = 'atlas_rg_pt{}-{}.txt'
+# pt_1d_filename = 'atlas_pt_rg0p{}-0p{}.txt'
 ###########################################
 
 
@@ -129,7 +133,7 @@ def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
       bin_list.append(ptbin)
 
     print('')
-    data = mdata.Combine(data_list,bin_list,True)
+    data = mdata.Combine(data_list,bin_list,True, True)
     output_filename = rg_1d_filename.format(str(int(ptl)),str(int(pth)))
     output_filename = os.path.join(main_results_dir,output_filename)  
     np.savetxt(output_filename,data)
@@ -163,7 +167,8 @@ def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
       bin_list.append(rbin)      
 
     print('')
-    data = mdata.Combine(data_list,bin_list,True)
+
+    data = mdata.Combine(data_list,bin_list, True, (not (k[0] == 0)))
     output_filename = pt_1d_filename.format(str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
     
     print(output_filename)
@@ -187,6 +192,18 @@ def ReadYamlFile():
   rg_bin_combine = yaml_data_list['rg_bin_combine']
   pt_bin_finest = yaml_data_list['pt_bin_finest']
   pt_bin_combine = yaml_data_list['pt_bin_combine']
+
+  # Globals
+  global main_results_tail
+  global pt_rg_2d_filename
+  global rg_1d_filename
+  global pt_1d_filename
+
+  main_results_tail = yaml_data_list['main_results_tail']
+  pt_rg_2d_filename = yaml_data_list['pt_rg_2d_filename']
+  rg_1d_filename = yaml_data_list['g_1d_filename']
+  pt_1d_filename = yaml_data_list['pt_1d_filename']
+
   return target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine
   ##################################  
 

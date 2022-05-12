@@ -26,7 +26,7 @@ def SetVals(x, xl, xh, y, yerr, extra_val1 = 0, extra_val2 = 0 ):
     return data_1d
 
 
-def Combine(data_list, bin_list=[], bin_width=False):
+def Combine(data_list, bin_list=[], bin_width=True, bin_divide=True):
 
     if bin_list==[] or bin_width==False:
       print('# Combine data list with uniform binning')             
@@ -55,10 +55,12 @@ def Combine(data_list, bin_list=[], bin_width=False):
     
     combined_data[:,4] = np.sqrt(combined_data[:,4]) # error: square root of square sum
     #
-    combined_data[:,3] /= full_bin_width
-    combined_data[:,4] /= full_bin_width
-    combined_data[:,5] /= full_bin_width
-    combined_data[:,6] /= full_bin_width
+
+    if bin_divide:
+        combined_data[:,3] /= full_bin_width
+        combined_data[:,4] /= full_bin_width
+        combined_data[:,5] /= full_bin_width
+        combined_data[:,6] /= full_bin_width
 
     return combined_data
 
