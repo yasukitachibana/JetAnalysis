@@ -167,7 +167,14 @@ def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
       bin_list.append(rbin)      
 
     print('')
-    data = mdata.Combine(data_list,bin_list, True, (not (k[0] == 0)))
+
+    data = mdata.Combine(data_list, bin_list, True, (not (k[0] == 0)))
+    if k[0] == 0:      
+      data[:,3] /= 0.4
+      data[:,4] /= 0.4
+      data[:,5] /= 0.4
+      data[:,6] /= 0.4
+
     output_filename = pt_1d_filename.format(str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
     
     print(output_filename)
