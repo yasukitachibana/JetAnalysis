@@ -32,6 +32,8 @@ void FragF::SetObservable
          
          for( auto p : particle_list ){
            if( ParticleTrigger(p, ipp, ipr) ){
+
+
              
              double delta_eta = p->eta() - jet.eta() ;
              double delta_phi = jet.delta_phi_to( p->GetPseudoJet() );
@@ -42,6 +44,7 @@ void FragF::SetObservable
                
                double val = p->perp(); // particle pt
                double n = sub_ptr->nSub(p);
+
                
                if( variables[iv] == "z" ){
                  double jpt = jet.perp();
@@ -49,6 +52,7 @@ void FragF::SetObservable
                }
                
                hist_list[index]->Fill( val, n );
+
                
              }
               //--------------------------------------------------------------------------------------------------
