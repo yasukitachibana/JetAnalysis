@@ -235,8 +235,12 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
 
               // Set
-              double zg, rg, mu = -1.0;
-              double thg, mg, mg_over_pt = -1.0;
+              double zg = -1.0;
+              double rg = -1.0;
+              double mu = -1.0;
+              double thg = -1.0;
+              double mg = -1.0;
+              double mg_over_pt = -1.0;
               double ktg = -1.0;
               //--
 
