@@ -29,6 +29,7 @@ void FragF::SetObservable
          
          int index = GetHistIndex(iv,ir,ijp,ijr,ipp,ipr,0);
          hist_list[index]->JetTriggered();
+
          
          for( auto p : particle_list ){
            if( ParticleTrigger(p, ipp, ipr) ){
@@ -52,6 +53,12 @@ void FragF::SetObservable
                }
                
                hist_list[index]->Fill( val, n );
+
+              // std::cout << "p=" << p->perp()
+              // << " y=" << particle_rap_ptr->Val(p) << std::endl;
+              // std::cout << " eta=" << p->eta() << std::endl;
+              // std::cout << " dr=" << delta_r << std::endl;              
+              // std::cout << "pid=" << p->pid() << std::endl;
 
                
              }
