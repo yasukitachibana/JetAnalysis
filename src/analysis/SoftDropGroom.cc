@@ -282,10 +282,14 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                   // // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
                   // // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
                   // //---------------------------------------
-                }else{
+                }
+                else
+                {
                   rg = -1.0;
                 }
-              }else{
+              }
+              else
+              {
                 rg = -1.0;
               }
 
