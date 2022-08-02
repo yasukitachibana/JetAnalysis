@@ -87,7 +87,9 @@
       </particlePtMax>
 
       <beta>
-        <Item>0.0</Item>
+        <!-- <Item>0.0</Item> -->
+        <Item>1.0</Item>
+        <Item>-0.1</Item>
       </beta>
       <zCut>
         <Item>0.2</Item>
