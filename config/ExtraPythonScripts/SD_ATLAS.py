@@ -215,6 +215,8 @@ def ReadYamlFile():
   return beta_zcut_list, target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine
   ##################################  
 
+def PrintBetaZcut():
+  print ('# Soft Drop: '+beta_zcut)
 
 def Main(filedir):
 
@@ -227,18 +229,17 @@ def Main(filedir):
     return False
   
   for bz in beta_zcut_list:
+    global beta_zcut
     beta_zcut = bz
-    print ('# Soft Drop: '+beta_zcut)
-
+    PrintBetaZcut()
     target_file_name_beta_zcut = target_file_name.format('{}','{}',beta_zcut)
-
     ########################### 
     pt_rg_2d_data = Make2DTable(main_results_dir, os.path.join(filedir, target_file_name_beta_zcut), rg_bin_finest, pt_bin_finest)
     ###########################
     Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine)
     Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, rg_bin_combine)  
     ###########################  
-  beta_zcut = ''
+    beta_zcut = ''
   return True
 
 if __name__ == '__main__':
