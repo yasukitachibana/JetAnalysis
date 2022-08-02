@@ -11,6 +11,7 @@ main_results_tail = ''
 pt_rg_2d_filename = ''
 rg_1d_filename = ''
 pt_1d_filename = ''
+beta_zcut = ''
 # main_results_tail = 'MainResults'
 # pt_rg_2d_filename = 'atlas_pt_rg.txt'
 # rg_1d_filename = 'atlas_rg_pt{}-{}.txt'
@@ -104,7 +105,7 @@ def Make2DTable(main_results_dir, target_file_name, rg_bin_finest, pt_bin_finest
     data[r_slice,6]=val
     data[r_slice,7]=err
     ###############################################   
-  output_filename = os.path.join(main_results_dir,pt_rg_2d_filename)
+  output_filename = os.path.join(main_results_dir,pt_rg_2d_filename.format(beta_zcut))
   np.savetxt(output_filename,data)
   print('# 2D data (function of rg and pt) is saved in')  
   print('#\t', output_filename)    
@@ -134,7 +135,7 @@ def  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
 
     print('')
     data = mdata.Combine(data_list,bin_list,True, True)
-    output_filename = rg_1d_filename.format(str(int(ptl)),str(int(pth)))
+    output_filename = rg_1d_filename.format(beta_zcut,str(int(ptl)),str(int(pth)))
     output_filename = os.path.join(main_results_dir,output_filename)  
     np.savetxt(output_filename,data)
     print('# 1D data (function of rg) is saved in')  
@@ -175,7 +176,7 @@ def  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest
       data[:,5] /= 0.4
       data[:,6] /= 0.4
 
-    output_filename = pt_1d_filename.format(str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
+    output_filename = pt_1d_filename.format(beta_zcut,str(int(10000*rgl)).zfill(4),str(int(10000*rgh)).zfill(4))
     
     print(output_filename)
     output_filename = os.path.join(main_results_dir,output_filename)  
@@ -205,12 +206,13 @@ def ReadYamlFile():
   global rg_1d_filename
   global pt_1d_filename
 
+  beta_zcut_list = yaml_data_list['beta_zcut_list']
   main_results_tail = yaml_data_list['main_results_tail']
   pt_rg_2d_filename = yaml_data_list['pt_rg_2d_filename']
   rg_1d_filename = yaml_data_list['rg_1d_filename']
   pt_1d_filename = yaml_data_list['pt_1d_filename']
 
-  return target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine
+  return beta_zcut_list, target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine
   ##################################  
 
 
@@ -218,18 +220,25 @@ def Main(filedir):
 
   MoveCodeDir()
   ###########################   
-  target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine = ReadYamlFile()
+  beta_zcut_list, target_file_name, rg_bin_finest, rg_bin_combine, pt_bin_finest, pt_bin_combine = ReadYamlFile()
   ###########################
   main_results_dir = MakeOutDir(filedir)  
   if not main_results_dir: 
     return False
-  ########################### 
-  pt_rg_2d_data = Make2DTable(main_results_dir, os.path.join(filedir, target_file_name), rg_bin_finest, pt_bin_finest)
-  ###########################
-  Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine)
-  Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, rg_bin_combine)  
-  ###########################  
+  
+  for bz in beta_zcut_list:
+    beta_zcut = bz
+    print ('# Soft Drop: '+beta_zcut)
 
+    target_file_name_beta_zcut = target_file_name.format(beta_zcut,'{}','{}')
+
+    ########################### 
+    pt_rg_2d_data = Make2DTable(main_results_dir, os.path.join(filedir, target_file_name), rg_bin_finest, pt_bin_finest)
+    ###########################
+    Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine)
+    Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, rg_bin_combine)  
+    ###########################  
+  beta_zcut = ''
   return True
 
 if __name__ == '__main__':
