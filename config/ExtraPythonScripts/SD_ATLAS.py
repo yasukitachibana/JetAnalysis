@@ -233,7 +233,7 @@ def Main(filedir):
     target_file_name_beta_zcut = target_file_name.format(beta_zcut,'{}','{}')
 
     ########################### 
-    pt_rg_2d_data = Make2DTable(main_results_dir, os.path.join(filedir, target_file_name), rg_bin_finest, pt_bin_finest)
+    pt_rg_2d_data = Make2DTable(main_results_dir, os.path.join(filedir, target_file_name_beta_zcut), rg_bin_finest, pt_bin_finest)
     ###########################
     Make1DTableRg(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, pt_bin_combine)
     Make1DTablePt(main_results_dir, pt_rg_2d_data, rg_bin_finest, pt_bin_finest, rg_bin_combine)  
