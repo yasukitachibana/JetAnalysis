@@ -230,7 +230,7 @@ def Main(filedir):
     beta_zcut = bz
     print ('# Soft Drop: '+beta_zcut)
 
-    target_file_name_beta_zcut = target_file_name.format(beta_zcut,'{}','{}')
+    target_file_name_beta_zcut = target_file_name.format('{}','{}',beta_zcut)
 
     ########################### 
     pt_rg_2d_data = Make2DTable(main_results_dir, os.path.join(filedir, target_file_name_beta_zcut), rg_bin_finest, pt_bin_finest)
