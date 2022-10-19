@@ -113,7 +113,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>1</Item>
+    <!-- <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -125,7 +125,7 @@
     <Item>15</Item>
     <Item>17</Item>
     <Item>20</Item>
-    <Item>25</Item>
+    <Item>25</Item> -->
     <Item>30</Item>
     <Item>35</Item>
     <Item>40</Item>
