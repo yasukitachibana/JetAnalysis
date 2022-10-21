@@ -54,13 +54,13 @@ void FragF::SetObservable
                
                hist_list[index]->Fill( val, n );
 
-              std::cout << "## Jet Particle"<< std::endl;
-              std::cout << "status=" << p->pstat() << std::endl;
-              std::cout << "p=" << p->perp()
-              << " y=" << particle_rap_ptr->Val(p) << std::endl;
-              std::cout << " eta=" << p->eta() << std::endl;
-              std::cout << " dr=" << delta_r << std::endl;              
-              std::cout << "pid=" << p->pid() << std::endl;
+              // std::cout << "## Jet Particle"<< std::endl;
+              // std::cout << "status=" << p->pstat() << std::endl;
+              // std::cout << "p=" << p->perp()
+              // << " y=" << particle_rap_ptr->Val(p) << std::endl;
+              // std::cout << " eta=" << p->eta() << std::endl;
+              // std::cout << " dr=" << delta_r << std::endl;              
+              // std::cout << "pid=" << p->pid() << std::endl;
 
 
                

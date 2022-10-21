@@ -100,7 +100,6 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
             //     << j.phi() << " "
             //     << j.eta() << "\n";
             //================================================
-
           } //trigger
         }
       }
