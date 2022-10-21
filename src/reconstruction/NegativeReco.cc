@@ -32,13 +32,16 @@ NegativeReco::JetReco(double r_cone, std::vector<std::shared_ptr<Particle>> part
   fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
   std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(jetPtCut));
 
-  if (jets.perp() > 30.0)
+  for (auto jet : jets)
   {
-    std::cout << "## Jet pt=" << jets.perp() << std::endl;
-    for (auto jc : jets.constituents())
+    if (jet.perp() > 30.0)
     {
-      std::cout << "## -pt=" << jc.perp() << std::endl;
-      std::cout << "## -uid=" << jc.user_index() << std::endl;
+      std::cout << "## Jet pt=" << jet.perp() << std::endl;
+      for (auto jc : jet.constituents())
+      {
+        std::cout << "## -pt=" << jc.perp() << std::endl;
+        std::cout << "## -uid=" << jc.user_index() << std::endl;
+      }
     }
   }
 
