@@ -93,8 +93,8 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
             std::cout << "## Jet pt="<< j.perp() << std::endl;
             for (auto jc : j.constituents())
             {
-              "## -pt="<< jc.perp() << std::endl;
-              "## -uid="<< jc.user_index() << std::endl;              
+              std::cout <<"## -pt="<< jc.perp() << std::endl;
+              std::cout <<"## -uid="<< jc.user_index() << std::endl;              
             }
 
 
