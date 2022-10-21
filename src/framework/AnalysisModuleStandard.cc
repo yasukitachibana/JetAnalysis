@@ -89,15 +89,6 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
 
           if (JetTrigger(j, ir, ijp, ijr))
           {
-
-            std::cout << "## Jet pt="<< j.perp() << std::endl;
-            for (auto jc : j.constituents())
-            {
-              std::cout <<"## -pt="<< jc.perp() << std::endl;
-              std::cout <<"## -uid="<< jc.user_index() << std::endl;              
-            }
-
-
             SetObservable(j, particle_list, ir, ijp, ijr);
             //================================================
             // Jet Info Output

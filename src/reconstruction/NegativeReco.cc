@@ -1,24 +1,26 @@
 #include "NegativeReco.h"
 
-
 // Register the module with the base class
 RegisterReconstructionModule<NegativeReco> NegativeReco::reg("NegativeReco");
 
-NegativeReco::NegativeReco(std::string name_in): name(name_in), ui(-123456)
+NegativeReco::NegativeReco(std::string name_in) : name(name_in), ui(-123456)
 {
   std::cout << "-@-Creating NegativeReco" << std::endl;
 }
 
-NegativeReco::~NegativeReco(){
-  std::cout << "-$-Deleting NegativeReco"<<std::endl;
+NegativeReco::~NegativeReco()
+{
+  std::cout << "-$-Deleting NegativeReco" << std::endl;
 }
 
 std::vector<fastjet::PseudoJet>
-NegativeReco::JetReco( double r_cone, std::vector<std::shared_ptr<Particle>> particle_list ){
-  
+NegativeReco::JetReco(double r_cone, std::vector<std::shared_ptr<Particle>> particle_list)
+{
+
   // First pass only particles with stat >=0 to jet reconstruction algorithm
-  std::vector <fastjet::PseudoJet> fj_inputs;
-  for( auto p : particle_list ){
+  std::vector<fastjet::PseudoJet> fj_inputs;
+  for (auto p : particle_list)
+  {
     fj_inputs.push_back(p->GetPseudoJet());
   }
   // Jet reconstruction
@@ -28,7 +30,17 @@ NegativeReco::JetReco( double r_cone, std::vector<std::shared_ptr<Particle>> par
   // tell jet_def to use negative energy recombiner
   jetDef.set_recombiner(&uir);
   fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
-  std::vector <fastjet::PseudoJet> jets = sorted_by_pt( clustSeq.inclusive_jets( jetPtCut ) );
-  
+  std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(jetPtCut));
+
+  if (jets.perp() > 30.0)
+  {
+    std::cout << "## Jet pt=" << jets.perp() << std::endl;
+    for (auto jc : jets.constituents())
+    {
+      std::cout << "## -pt=" << jc.perp() << std::endl;
+      std::cout << "## -uid=" << jc.user_index() << std::endl;
+    }
+  }
+
   return jets;
 }
