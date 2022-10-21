@@ -34,7 +34,7 @@ NegativeReco::JetReco(double r_cone, std::vector<std::shared_ptr<Particle>> part
 
   for (auto jet : jets)
   {
-    if (jet.perp() > 30.0)
+    if (jet.perp() > 30.0 && fabs(jet.eta())<1.)
     {
       std::cout << "\n-------------------------------------"<< std::endl;      
       std::cout << "## Jet pt=" << jet.perp() << std::endl;
