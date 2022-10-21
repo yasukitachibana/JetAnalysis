@@ -41,7 +41,7 @@ NegativeReco::JetReco(double r_cone, std::vector<std::shared_ptr<Particle>> part
       for (auto jc : jet.constituents())
       {
         std::cout << " -uid=" << jc.user_index()
-                  << " -pt=" << jc.perpa()
+                  << " -pt=" << jc.perp()
                   << " -eta=" << jc.eta()                  
                   << " -phi=" << jc.phi()                                    
                   << std::endl;
