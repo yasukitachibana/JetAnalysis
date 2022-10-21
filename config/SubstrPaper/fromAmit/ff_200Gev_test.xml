@@ -26,11 +26,9 @@
     </jetRapMax>
 
     <jetPtMin>
-      <Item>10</Item>
       <Item>30</Item>
     </jetPtMin>
     <jetPtMax>
-      <Item>30</Item>
       <Item>50</Item>
     </jetPtMax>
     <nJetEv>0</nJetEv>
@@ -113,7 +111,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>1</Item>
+    <!-- <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -121,10 +119,10 @@
     <Item>7</Item>
     <Item>9</Item>
     <Item>11</Item>
-    <Item>13</Item>
+    <Item>13</Item> -->
     <Item>15</Item>
     <Item>17</Item>
-    <Item>20</Item> 
+    <!-- <Item>20</Item> 
     <Item>25</Item>
     <Item>30</Item>
     <Item>35</Item>
@@ -136,7 +134,7 @@
     <Item>70</Item>
     <Item>80</Item>
     <Item>90</Item>
-    <Item>100</Item>
+    <Item>100</Item> -->
    <!-- <Item>110</Item>
     <Item>120</Item>
     <Item>130</Item>
