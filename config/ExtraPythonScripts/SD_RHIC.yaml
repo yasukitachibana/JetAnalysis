@@ -1,5 +1,5 @@
 #target_file_name: count_hist_total_SoftDropGroom_rG_jetr0.4_ptj{}-{}_rapj0.0-2.1_pt0.0-5020.0_rap0.0-3.0_beta0.00_zCut0.20.txt
-target_file_name: count_hist_total_SoftDropGroom_rG_jetr0.4_ptj{}-{}_rapj0.0-2.1_pt0.0-5020.0_rap0.0-3.0_{}.txt
+target_file_name: count_hist_total_SoftDropGroom_rG_jetr0.4_ptj{}-{}_rapj0.0-0.5_pt0.0-100.0_rap0.0-1.0_{}.txt
 beta_zcut_list: ['beta0.00_zCut0.20']
 main_results_tail: 'MainResults'
 pt_rg_2d_filename: 'atlas_{}_pt_rg.txt'
