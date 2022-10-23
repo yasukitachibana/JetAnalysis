@@ -27,7 +27,7 @@
 
     <jetPtMin>
       <Item>10</Item>
-      <Item>50</Item>
+      <Item>30</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>30</Item>
