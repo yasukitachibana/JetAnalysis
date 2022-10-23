@@ -6,7 +6,8 @@ import manage_dir as mdir
 import manage_data as mdata
 
 ###########################################
-yaml_filename = 'SD_ATLAS.yaml'
+#yaml_filename = 'SD_ATLAS.yaml'
+yaml_filename = 'SD_RHIC.yaml'
 main_results_tail = ''
 pt_rg_2d_filename = ''
 rg_1d_filename = ''
