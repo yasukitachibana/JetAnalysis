@@ -33,7 +33,7 @@
       <Item>20</Item>
     </jetPtMin>
     <jetPtMax> 
-      <Item>2500</Item>
+      <Item>2500.0</Item>
     </jetPtMax>
     <nJetEv>1</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
@@ -64,7 +64,7 @@
         <Item>0.0</Item>
       </particlePtMin>
       <particlePtMax>
-        <Item>2510</Item>
+        <Item>2510.0</Item>
       </particlePtMax>
 
       <beta>

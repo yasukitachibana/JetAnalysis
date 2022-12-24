@@ -27,7 +27,7 @@
 
     <!-- For ALICE Unfolded resutls -->
     <jetConstPtMin>0.0</jetConstPtMin>
-    <jetConstPtMax>2510</jetConstPtMax>
+    <jetConstPtMax>2510.0</jetConstPtMax>
 
     <jetPtMin>
       <Item>60</Item>
@@ -66,7 +66,7 @@
         <Item>0.0</Item>
       </particlePtMin>
       <particlePtMax>
-        <Item>2510</Item>
+        <Item>2510.0</Item>
       </particlePtMax>
 
       <beta>
