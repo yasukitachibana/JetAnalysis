@@ -81,40 +81,29 @@
 
         <zG>
           <Item>0.2</Item>
-          <Item>0.25</Item>
-          <Item>0.3</Item>
-          <Item>0.35</Item>
-          <Item>0.4</Item>
-          <Item>0.45</Item>
+          <Item>0.26</Item>
+          <Item>0.32</Item>
+          <Item>0.38</Item>
+          <Item>0.44</Item>
           <Item>0.5</Item>
         </zG>
 
         <thetaG>
           <Item>0</Item>
-          <Item>0.1</Item>
-          <Item>0.15</Item>
-          <Item>0.22</Item>
-          <Item>0.3</Item>
+          <Item>0.2</Item>
           <Item>0.4</Item>
-          <Item>0.5</Item>
           <Item>0.7</Item>
           <Item>1.0</Item>
         </thetaG>
 
         <rG>
           <Item>0</Item>
-          <Item>0.02</Item>
-          <Item>0.04</Item>
-          <Item>0.06</Item>
-          <Item>0.1</Item>
-          <Item>0.2</Item>
-          <Item>0.35</Item>
-          <Item>0.4</Item>
+          <Item>1.0</Item>
         </rG>
 
         <mG>
           <Item>0</Item>
-          <Item>5000</Item>
+          <Item>5000.0</Item>
         </mG>
 
         <mGOverPt>
@@ -123,17 +112,8 @@
         </mGOverPt>
 
         <ktG>
-          <Item>0.0</Item>
-          <Item>0.25</Item>
-          <Item>0.5</Item>
-          <Item>1.0</Item>                    
-          <Item>1.5</Item>                              
-          <Item>2.0</Item>    
-          <Item>3.0</Item>              
-          <Item>4.0</Item>    
-          <Item>6.0</Item>    
-          <Item>8.0</Item>              
-          <Item>10.0</Item>
+          <Item>0.0</Item>            
+          <Item>50000.0</Item>
         </ktG>
 
 
