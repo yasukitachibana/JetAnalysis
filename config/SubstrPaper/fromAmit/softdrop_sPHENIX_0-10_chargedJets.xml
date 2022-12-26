@@ -161,23 +161,23 @@
       <join>_</join>
       <tail>.out</tail>
     </sigma>
-    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divNum>50</divNum>    <!-- 0: default, 1-:  divided-->
     <divUnit>_Run</divUnit>
   </inputFiles>
 
   <!-- ptHatBins -->
   <ptHat>
-    <!-- <Item>1</Item>
+    <Item>1</Item> 
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
-    <Item>5</Item> -->
-    <!-- <Item>7</Item> 
+    <Item>5</Item>
+    <Item>7</Item> 
     <Item>9</Item> 
     <Item>11</Item>
     <Item>13</Item>
     <Item>15</Item>
-    <Item>17</Item> -->
+    <Item>17</Item>
     <Item>20</Item>
     <Item>25</Item>
     <Item>30</Item>
