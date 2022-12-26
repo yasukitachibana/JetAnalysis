@@ -51,7 +51,7 @@
         <Item>1.5</Item>
       </particleRapMax>
       <particlePtMin>
-        <Item>1.0</Item>
+        <Item>0.1</Item>
       </particlePtMin>
       <particlePtMax>
         <Item>50.0</Item>
