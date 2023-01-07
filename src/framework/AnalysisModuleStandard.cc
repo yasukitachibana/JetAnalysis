@@ -54,14 +54,44 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
   //  << ", eta:"<< pf->eta()
   //  << ", phi:" <<pf->phi_std()
   //  << std::endl;
-  //================================================  
+  //================================================
 
   for (auto hist : hist_list)
   {
     hist->EventCount();
   }
 
-  OneEventAnalysis(particle_list);
+  //--------------------------------------------------------
+  int n_analysis = jet_tag_ptr->GetNAnalysis();
+  for (int i = 0; i < n_analysis; i++)
+  {
+    // std::cout << "##i_analysis" << i << std::endl;
+    // std::cout << "##->PhiTag = " << jet_tag_ptr->GetPhi(i);
+    jet_deltaphi_ptr->PhiBasis(jet_tag_ptr->GetPhi(i));
+    double pt_tag = jet_tag_ptr->GetPtTag(i);
+    jetPtMinForTrigger = jet_tag_ptr->JetPtForTrigger(jetPtMin, pt_tag);
+    jetPtMaxForTrigger = jet_tag_ptr->JetPtForTrigger(jetPtMax, pt_tag);
+
+    //==============================
+    // For debug
+    // std::cout << "[AnalysisModuleStandard] *** pt_tag = "
+    //           << pt_tag << " GeV" << std::endl;
+    // for (int i = 0; i < jetPtMinForTrigger.size(); i++)
+    // {
+    //   std::cout << "[AnalysisModuleStandard] *** "
+    //             << jetPtMinForTrigger[i]
+    //             << " < pt_jet < "
+    //             << jetPtMaxForTrigger[i]
+    //             << " GeV" << std::endl;
+    // }
+    //==============================
+
+    //==============================
+    OneEventAnalysis(particle_list);
+    //==============================
+  }
+  jet_tag_ptr->TagEventClear();
+  //--------------------------------------------------------
   particle_list.clear();
   particle_list.shrink_to_fit();
   event_num++;
@@ -80,7 +110,7 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
     for (auto j : jets)
     {
 
-      //std::cout << "jet#" << i_jet << std::endl;
+      // std::cout << "jet#" << i_jet << std::endl;
 
       for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
       {
@@ -92,15 +122,14 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
             SetObservable(j, particle_list, ir, ijp, ijr);
             //================================================
             // Jet Info Output
-            // jet_infos
-            //     << current_event << " "
-            //     << n_jet << " "
-            //     << j.perp() << " "
-            //     << j.rapidity() << " "
-            //     << j.phi() << " "
-            //     << j.eta() << "\n";
+            // std::cout << "#"
+            //           << n_jet << " pt="
+            //           << j.perp() << " rap="
+            //           << j.rapidity() << " phi="
+            //           << j.phi() << " eta="
+            //           << j.eta() << std::endl;
             //================================================
-          } //trigger
+          } // trigger
         }
       }
 
@@ -110,7 +139,7 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
         break;
       }
 
-    } //jet
+    } // jet
 
-  } //jetR
+  } // jetR
 }

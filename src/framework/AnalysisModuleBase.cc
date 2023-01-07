@@ -5,28 +5,28 @@
 
 #include <float.h>
 
-//###############################################################################################################
-// Initialize static MakeUniqueHelper.here
+// ###############################################################################################################
+//  Initialize static MakeUniqueHelper.here
 Pythia8::Pythia AnalysisModuleBase::InternalHelperPythia("IntentionallyEmpty", false);
-//###############################################################################################################
+// ###############################################################################################################
 
-//###############################################################################################################
-// AnalysisModuleFactory, RegisterAnalysisModule
-//###############################################################################################################
-// Create an instance of the static map to register modules
+// ###############################################################################################################
+//  AnalysisModuleFactory, RegisterAnalysisModule
+// ###############################################################################################################
+//  Create an instance of the static map to register modules
 AnalysisModuleFactory::map_type *AnalysisModuleFactory::moduleMap =
     new AnalysisModuleFactory::map_type;
-//###############################################################################################################
+// ###############################################################################################################
 
-//###############################################################################################################
-// AnalysisModuleBase
-//###############################################################################################################
+// ###############################################################################################################
+//  AnalysisModuleBase
+// ###############################################################################################################
 void AnalysisModuleBase::Init(std::shared_ptr<ReconstructionModuleBase> reco_ptr_in,
                               std::shared_ptr<SubtractionModuleBase> sub_ptr_in,
                               std::shared_ptr<LoadFileModuleBase> load_ptr_in)
 {
 
-  std::cout << "[AnalyzeBase] Intialize " << Name() << std::endl;
+  std::cout << "[AnalysisModuleBase] Intialize " << Name() << std::endl;
 
   reco_ptr = nullptr;
   sub_ptr = nullptr;
@@ -56,6 +56,7 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
   {
     std::vector<std::shared_ptr<Particle>> particle_list;
     int event_num = 0;
+    jet_tag_ptr->TagEventClear();
     while (load_ptr->GetLine())
     {
       //    std::cout << "main" << std::endl;
@@ -63,6 +64,12 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
 
       if (load_ptr->EventEnd())
       {
+        //**************
+        // Sort Test
+        // PrintParticleInfoList(particle_list);
+        // particle_list = sorted_by_pt(particle_list);
+        // PrintParticleInfoList(particle_list);
+        // exit(-1);
         //**************
         EventEndMark(particle_list, event_num);
         //**************
@@ -81,6 +88,8 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
         {
           particle_list.push_back(p);
         }
+        // For jet tag
+        jet_tag_ptr->Feed(p);
         //**************
       }
     }
@@ -114,7 +123,9 @@ void AnalysisModuleBase::Clear(int seq_loaded)
     {
       hist->Print();
     }
-  }else{
+  }
+  else
+  {
     std::cout << "[AnalysisModuleBase] Skip. " << std::endl;
   }
   DeleteHist();
@@ -159,11 +170,12 @@ void AnalysisModuleBase::Combine(std::vector<double> ptHat)
   CombineFinisher();
 }
 
-//###############################################################################################################
+// ###############################################################################################################
 
 void AnalysisModuleBase::ReadParametersFromXML()
 {
-  //###############################################################################################################
+  // ###############################################################################################################
+  //  <JetReco>
   nJetEv = SetXML::Instance()->GetElementInt({"jetReco", "nJetEv"});
   jetR = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetR", "Item"});
   int ch_jet = SetXML::Instance()->GetElementInt({"jetReco", "chJet"});
@@ -174,11 +186,14 @@ void AnalysisModuleBase::ReadParametersFromXML()
   jetRapMax = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetRapMax", "Item"});
   jetPtMin = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetPtMin", "Item"});
   jetPtMax = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetPtMax", "Item"});
+  jetPtMinForTrigger = jetPtMin;
+  jetPtMaxForTrigger = jetPtMax;
   int jet_const_pt_min = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMin"}, false);
   int jet_const_pt_max = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMax"}, false);
-  //###############################################################################################################
+  // ###############################################################################################################
   int leading_particle = 0;
-  //###############################################################################################################
+  // ###############################################################################################################
+  //  <observable>
   int ch_particle = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "chParticle"});
   std::vector<int> stat_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "statParticle", "Item"}, false);
   std::vector<int> pid_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "pidParticle", "Item"}, false);
@@ -188,18 +203,22 @@ void AnalysisModuleBase::ReadParametersFromXML()
   particlePtMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMin", "Item"});
   particlePtMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMax", "Item"});
   int k0sStrangeness = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "K0SStrange"}, false);
-  //###############################################################################################################
+  // ###############################################################################################################
+  //  <inputFiles>
   p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
-  //###############################################################################################################
+  // ###############################################################################################################
+  //  <jetTag>
+  jet_tag = SetXML::Instance()->GetElementInt({"jetTag", "tagged"}, false);
+  // ###############################################################################################################
   variables = SetXML::Instance()->GetElementNameVector({"observable", Name().c_str(), "var"});
   for (auto var : variables)
   {
     std::vector<double> bins = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "var", var.c_str(), "Item"});
     binSettings.push_back(bins);
   }
-  //###############################################################################################################
+  // ###############################################################################################################
   nParams = ReadOptionParametersFromXML();
-  //###############################################################################################################
+  // ###############################################################################################################
 
   ParticleBase::SetStrangeK0S(k0sStrangeness);
 
@@ -209,8 +228,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
     {
       std::cout << std::endl;
       std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
-      std::cout << "[AnalyzeBase] Bad Combination: Charged Jet and Charged+Neutral Particles" << std::endl;
-      std::cout << "[AnalyzeBase] Exit. " << std::endl;
+      std::cout << "[AnalysisModuleBase] Bad Combination: Charged Jet and Charged+Neutral Particles" << std::endl;
+      std::cout << "[AnalysisModuleBase] Exit. " << std::endl;
       std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
       std::cout << std::endl;
       exit(-1);
@@ -230,7 +249,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
       particle_charged_ptr = std::unique_ptr<IncludeNeutral>(new IncludeNeutral());
     }
   }
-  //###############################################################################################################
+  // ###############################################################################################################
   if (stat_jet.size())
   {
     jet_pstat_ptr = std::unique_ptr<PStatSelected>(new PStatSelected(stat_jet));
@@ -239,7 +258,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     jet_pstat_ptr = std::unique_ptr<PStatInclusive>(new PStatInclusive());
   }
-  //###############################################################################################################
+  // ###############################################################################################################
   if (stat_particle.size())
   {
     particle_pstat_ptr = std::unique_ptr<PStatSelected>(new PStatSelected(stat_particle));
@@ -248,7 +267,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     particle_pstat_ptr = std::unique_ptr<PStatInclusive>(new PStatInclusive());
   }
-  //###############################################################################################################
+  // ###############################################################################################################
   if (pid_jet.size())
   {
     jet_pid_ptr = std::unique_ptr<PIDSelected>(new PIDSelected(pid_jet));
@@ -257,7 +276,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     jet_pid_ptr = std::unique_ptr<PIDInclusive>(new PIDInclusive());
   }
-  //###############################################################################################################
+  // ###############################################################################################################
   if (pid_particle.size())
   {
     particle_pid_ptr = std::unique_ptr<PIDSelected>(new PIDSelected(pid_particle));
@@ -266,7 +285,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     particle_pid_ptr = std::unique_ptr<PIDInclusive>(new PIDInclusive());
   }
-  //###############################################################################################################
+  // ###############################################################################################################
   if (jet_rapidity == 0)
   {
     jet_rap_ptr = std::unique_ptr<RapidityY>(new RapidityY());
@@ -275,7 +294,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     jet_rap_ptr = std::unique_ptr<PseudoRapidityEta>(new PseudoRapidityEta());
   }
-  //###############################################################################################################
+  // ###############################################################################################################
   if (particle_rapidity == 0)
   {
     particle_rap_ptr = std::unique_ptr<RapidityY>(new RapidityY());
@@ -284,7 +303,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     particle_rap_ptr = std::unique_ptr<PseudoRapidityEta>(new PseudoRapidityEta());
   }
-
+  // ###############################################################################################################
   if (jet_const_pt_max < DBL_EPSILON)
   {
     jet_constpt_ptr = std::unique_ptr<ConstPtInclusive>(new ConstPtInclusive());
@@ -293,26 +312,55 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     jet_constpt_ptr = std::unique_ptr<ConstPtSelected>(new ConstPtSelected(jet_const_pt_min, jet_const_pt_max));
   }
-
-  //###############################################################################################################
+  // ###############################################################################################################
+  if (jet_tag)
+  {
+    jet_tag_ptr = std::unique_ptr<Tagged>(new Tagged(sub_ptr));
+  }
+  else
+  {
+    jet_tag_ptr = std::unique_ptr<NoTag>(new NoTag());
+  }
+  jet_tag_ptr->Init();
+  // ###############################################################################################################
+  if (jet_tag_ptr->Initialized())
+  {
+    if (jet_tag_ptr->DeltaPhiCut())
+    {
+      jet_deltaphi_ptr = std::unique_ptr<DeltaPhiCut>(new DeltaPhiCut(jet_tag_ptr->DeltaPhiMin()));
+    }
+    else
+    {
+      jet_deltaphi_ptr = std::unique_ptr<NoPhiCut>(new NoPhiCut());
+    }
+  }
+  else
+  {
+    jet_tag_ptr->ShowJetTagSetting();
+  }
+  // ###############################################################################################################
   std::cout << std::endl;
-  std::cout << "[AnalyzeBase] **********************************************" << std::endl;
-  std::cout << "[AnalyzeBase] *** Settings" << std::endl;
+  std::cout << "[AnalysisModuleBase] **********************************************" << std::endl;
+  std::cout << "[AnalysisModuleBase] *** Settings" << std::endl;
+  //-------------------------------------
+  jet_tag_ptr->ShowJetTagSetting();
+  jet_deltaphi_ptr->ShowDeltaPhiCutSetting();
+  //-------------------------------------
   ShowObservableSetting();
   ShowJetSetting();
   ShowParticleSetting();
   ShowParamsSetting();
-  std::cout << "[AnalyzeBase] **********************************************" << std::endl;
+  std::cout << "[AnalysisModuleBase] **********************************************" << std::endl;
   std::cout << std::endl;
-  //###############################################################################################################
+  // ###############################################################################################################
 }
 
-//###############################################################################################################
+// ###############################################################################################################
 void AnalysisModuleBase::ShowObservableSetting()
 {
-  std::cout << "[AnalyzeBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalyzeBase] *** [" << Name() << "]" << std::endl;
-  std::cout << "[AnalyzeBase] *** variables: ";
+  std::cout << "[AnalysisModuleBase] ***-------------------------------------------" << std::endl;
+  std::cout << "[AnalysisModuleBase] *** [" << Name() << "]" << std::endl;
+  std::cout << "[AnalysisModuleBase] *** variables: ";
   for (auto var : variables)
   {
     std::cout << var << ", ";
@@ -322,15 +370,15 @@ void AnalysisModuleBase::ShowObservableSetting()
 
 void AnalysisModuleBase::ShowJetSetting()
 {
-  std::cout << "[AnalyzeBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalyzeBase] *** [Jet]" << std::endl;
+  std::cout << "[AnalysisModuleBase] ***-------------------------------------------" << std::endl;
+  std::cout << "[AnalysisModuleBase] *** [Jet]" << std::endl;
 
   if (nJetEv != 0)
   {
-    std::cout << "[AnalyzeBase] *** " << nJetEv << "-jets per events" << std::endl;
+    std::cout << "[AnalysisModuleBase] *** " << nJetEv << "-jets per events" << std::endl;
   }
 
-  std::cout << "[AnalyzeBase] *** R_jet=";
+  std::cout << "[AnalysisModuleBase] *** R_jet=";
   for (auto r_cone : jetR)
   {
     std::cout << r_cone << ", ";
@@ -350,7 +398,7 @@ void AnalysisModuleBase::ShowJetSetting()
 
   if (jet_pid_ptr->PIDList().size())
   {
-    std::cout << "[AnalyzeBase] *** PID = ";
+    std::cout << "[AnalysisModuleBase] *** PID = ";
     for (auto pid : jet_pid_ptr->PIDList())
     {
       std::cout << pid << ", ";
@@ -360,7 +408,7 @@ void AnalysisModuleBase::ShowJetSetting()
 
   if (jet_constpt_ptr->Selected())
   {
-    std::cout << "[AnalyzeBase] *** pt_constituents = "
+    std::cout << "[AnalysisModuleBase] *** pt_constituents = "
               << jet_constpt_ptr->Min()
               << "-"
               << jet_constpt_ptr->Max()
@@ -368,21 +416,30 @@ void AnalysisModuleBase::ShowJetSetting()
               << std::endl;
   }
 
+  std::string val_jetcut = jet_tag_ptr->ValJetCut();
+  std::string unit_val_jetcut = jet_tag_ptr->UnitValJetCut();
   for (int i = 0; i < jetPtMin.size(); i++)
   {
-    std::cout << "[AnalyzeBase] *** " << jetPtMin[i] << " < pt_jet < " << jetPtMax[i] << " GeV" << std::endl;
+    std::cout << "[AnalysisModuleBase] *** "
+              << jetPtMin[i]
+              << " < "
+              << val_jetcut
+              << " < "
+              << jetPtMax[i]
+              << " "
+              << unit_val_jetcut << std::endl;
   }
   for (int i = 0; i < jetRapMin.size(); i++)
   {
-    std::cout << "[AnalyzeBase] *** " << jetRapMin[i] << " < |" << jet_rap_ptr->Type() << "_jet| < " << jetRapMax[i] << std::endl;
+    std::cout << "[AnalysisModuleBase] *** " << jetRapMin[i] << " < |" << jet_rap_ptr->Type() << "_jet| < " << jetRapMax[i] << std::endl;
   }
 }
 
 void AnalysisModuleBase::ShowParticleSetting()
 {
-  std::cout << "[AnalyzeBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalyzeBase] *** [Particles]" << std::endl;
-  std::cout << "[AnalyzeBase] *** " << particle_charged_ptr->Type() << " Particles";
+  std::cout << "[AnalysisModuleBase] ***-------------------------------------------" << std::endl;
+  std::cout << "[AnalysisModuleBase] *** [Particles]" << std::endl;
+  std::cout << "[AnalysisModuleBase] *** " << particle_charged_ptr->Type() << " Particles";
 
   if (particle_pstat_ptr->StatList().size())
   {
@@ -397,7 +454,7 @@ void AnalysisModuleBase::ShowParticleSetting()
 
   if (particle_pid_ptr->PIDList().size())
   {
-    std::cout << "[AnalyzeBase] *** PID = ";
+    std::cout << "[AnalysisModuleBase] *** PID = ";
     for (auto pid : particle_pid_ptr->PIDList())
     {
       std::cout << pid << ", ";
@@ -407,14 +464,14 @@ void AnalysisModuleBase::ShowParticleSetting()
 
   for (int i = 0; i < particlePtMin.size(); i++)
   {
-    std::cout << "[AnalyzeBase] *** " << particlePtMin[i] << " < pt < " << particlePtMax[i] << " GeV" << std::endl;
+    std::cout << "[AnalysisModuleBase] *** " << particlePtMin[i] << " < pt < " << particlePtMax[i] << " GeV" << std::endl;
   }
   for (int i = 0; i < particleRapMin.size(); i++)
   {
-    std::cout << "[AnalyzeBase] *** " << particleRapMin[i] << " < |" << particle_rap_ptr->Type() << "| < " << particleRapMax[i] << std::endl;
+    std::cout << "[AnalysisModuleBase] *** " << particleRapMin[i] << " < |" << particle_rap_ptr->Type() << "| < " << particleRapMax[i] << std::endl;
   }
 }
-//###############################################################################################################
+// ###############################################################################################################
 void AnalysisModuleBase::SetJetPtCut()
 {
   double jetPtCut = 10000.0;
@@ -460,9 +517,9 @@ void AnalysisModuleBase::SetLargestRapidity()
       largestRapidity = rap;
     }
   }
-  std::cout << "[AnalyzeBase] Largest Rapidity: " << largestRapidity << std::endl;
+  std::cout << "[AnalysisModuleBase] Largest Rapidity: " << largestRapidity << std::endl;
 }
-//###############################################################################################################
+// ###############################################################################################################
 
 void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax)
 {
@@ -485,7 +542,7 @@ void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax)
               {
 
                 std::string hist_name = GetHistName(ptHatMin, ptHatMax, iv, ir, ijp, ijr, ipp, ipr, ip);
-                // std::cout << "[AnalyzeBase] generate histogram #" << nHist << " " << hist_name << std::endl;
+                // std::cout << "[AnalysisModuleBase] generate histogram #" << nHist << " " << hist_name << std::endl;
                 auto hist_this_bin = CreateHist(hist_name, iv);
                 hist_this_bin->Init();
                 hist_list.push_back(hist_this_bin);
@@ -501,7 +558,7 @@ void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax)
     }           // jetR
   }             // variable
 
-  std::cout << "[AnalyzeBase] number of generated histogram: " << nHist << std::endl;
+  std::cout << "[AnalysisModuleBase] number of generated histogram: " << nHist << std::endl;
 }
 
 void AnalysisModuleBase::LoadHist(double ptHatMin, double ptHatMax,
@@ -592,7 +649,7 @@ std::shared_ptr<Histogram> AnalysisModuleBase::CreateHist(std::string hist_name,
   return std::make_shared<Hist1D>(hist_name, binSettings[iv]);
 }
 
-//###############################################################################################################
+// ###############################################################################################################
 bool AnalysisModuleBase::RapidityCut(std::shared_ptr<Particle> p)
 {
 
@@ -607,17 +664,18 @@ bool AnalysisModuleBase::RapidityCut(std::shared_ptr<Particle> p)
     return false;
   }
 }
-//###############################################################################################################
+// ###############################################################################################################
 bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr)
 {
 
   double pt_jet = jet.perp();
   double rapidity_jet = jet_rap_ptr->Val(jet);
 
-  if (pt_jet >= jetPtMin[ijp] &&
-      pt_jet < jetPtMax[ijp] &&
+  if (pt_jet >= jetPtMinForTrigger[ijp] &&
+      pt_jet < jetPtMaxForTrigger[ijp] &&
       fabs(rapidity_jet) >= jetRapMin[ijr] &&
-      fabs(rapidity_jet) < jetRapMax[ijr])
+      fabs(rapidity_jet) < jetRapMax[ijr] &&
+      jet_deltaphi_ptr->Trigger(jet))
   {
     return true;
   } // trigger
@@ -643,7 +701,7 @@ bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, int ipp, i
   return false;
 }
 
-//###############################################################################################################
+// ###############################################################################################################
 long AnalysisModuleBase::getMemoryUsage()
 {
   struct rusage usage;
