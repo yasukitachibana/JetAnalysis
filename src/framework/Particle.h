@@ -98,11 +98,11 @@ public:
   ParticleBase(const ParticleBase &srp);
 
   ParticleBase(int label, int id, int stat, const FourVector &p, double n = 1.0);
-  ParticleBase(int label, int id, int stat, int fjui, //fjui: fastjet user index
+  ParticleBase(int label, int id, int stat, int fjui, // fjui: fastjet user index
                const FourVector &p, double n = 1.0);
   ParticleBase(int label, int id, int stat,
                double pt, double eta, double phi, double e, double n = 1.0);
-  ParticleBase(int label, int id, int stat, int fjui, //fjui: fastjet user index
+  ParticleBase(int label, int id, int stat, int fjui, // fjui: fastjet user index
                double pt, double eta, double phi, double e, double n = 1.0);
 
   virtual ~ParticleBase(){};
@@ -114,7 +114,7 @@ public:
   void set_id(int id);
   void set_stat(int stat);
   void set_n_particle(double n);
-  
+
   //  Getters
   const int pid() const;
   const int pstat() const;
@@ -124,10 +124,10 @@ public:
   const double restmass();
   const double p(int i);
   //
-  const double charge() const;  
-  const int chargeType() const;    
-  const double baryon() const;  
-  const int baryonType() const;    
+  const double charge() const;
+  const int chargeType() const;
+  const double baryon() const;
+  const int baryonType() const;
   const int strange() const;
   const int strangeType() const;
   const int charm() const;
@@ -139,8 +139,9 @@ public:
 
   static Pythia8::Pythia InternalHelperPythia;
 
-  static void SetStrangeK0S( int strange_k0s_in ){
-    std::cout << "[ParticleBase] Strangeness of K0S: "<< strange_k0s_in << std::endl;    
+  static void SetStrangeK0S(int strange_k0s_in)
+  {
+    std::cout << "[ParticleBase] Strangeness of K0S: " << strange_k0s_in << std::endl;
     ParticleBase::strange_k0s = strange_k0s_in;
   }
   static int StaticVal()
@@ -148,19 +149,22 @@ public:
     return ParticleBase::strange_k0s;
   }
 
+  void PrintInfo() const;
+  void PrintInfo(int i) const;
+
 protected:
   // static variables and functions to set strangeness for K0S and K0L
   static int strange_k0s;
 
   // protected functions
   void set_restmass(double mass_input); ///< shouldn't be called from the outside, needs to be consistent with PID
-  // Setter Propety 
-  void set_property(int id);  
-  void set_chargeType(int id);  
-  void set_baryonType(int id); 
+  // Setter Propety
+  void set_property(int id);
+  void set_chargeType(int id);
+  void set_baryonType(int id);
   void set_strangeType(int id);
-  void set_charmType(int id);   
-  // 
+  void set_charmType(int id);
+  //
   int net_quark_number(const int id, const int quark) const;
   std::array<int, 3> quarks_in_baryon(const int id) const;
   std::array<int, 2> quarks_in_meson(const int id) const;
@@ -175,12 +179,13 @@ protected:
 
   //-----------------------------------------
   // Values below are set using PID
-  struct{
-    int chargeType; //3 times the charge
-    int baryonType; //3 times the baryon number
+  struct
+  {
+    int chargeType; // 3 times the charge
+    int baryonType; // 3 times the baryon number
     int strangeType;
     int charmType;
-  }property_;
+  } property_;
   void clear_property();
 
 }; // END BASE CLASS
@@ -194,6 +199,7 @@ class Particle : public ParticleBase
 {
 
 public:
+  Particle();
   Particle(const Particle &srp);
   Particle(int label, int id, int stat, const FourVector &p, double n = 1.0);
   Particle(int label, int id, int stat, int fjui, const FourVector &p, double n = 1.0);
@@ -204,5 +210,25 @@ public:
   Particle &operator=(const Particle &c);
 };
 //===========================================================================================================================
+
+void PrintParticleInfoList(const std::vector<std::shared_ptr<ParticleBase>>);
+void PrintParticleInfoList(const std::vector<std::shared_ptr<Particle>>);
+//----------------------------------------------------------------------
+// Routines to do with providing sorted arrays of vectors.
+
+/// return a vector of jets sorted into decreasing transverse momentum
+std::vector<Particle> sorted_by_pt(const std::vector<Particle> &particles);
+std::vector<ParticleBase> sorted_by_pt(const std::vector<ParticleBase> &particles);
+std::vector<std::shared_ptr<Particle>> sorted_by_pt(const std::vector<std::shared_ptr<Particle>> &particles);
+std::vector<std::shared_ptr<ParticleBase>> sorted_by_pt(const std::vector<std::shared_ptr<ParticleBase>> &particles);
+
+// /// return a vector of jets sorted into increasing rapidity
+// std::vector<PseudoJet> sorted_by_rapidity(const std::vector<PseudoJet> & jets);
+
+// /// return a vector of jets sorted into decreasing energy
+// std::vector<PseudoJet> sorted_by_E(const std::vector<PseudoJet> & jets);
+
+// /// return a vector of jets sorted into increasing pz
+// std::vector<PseudoJet> sorted_by_pz(const std::vector<PseudoJet> & jets);
 
 #endif

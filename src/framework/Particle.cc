@@ -110,7 +110,7 @@ void ParticleBase::set_property(int id)
   set_chargeType(id);
   set_baryonType(id);
   set_strangeType(id);
-  set_charmType(id);  
+  set_charmType(id);
 }
 void ParticleBase::set_chargeType(int id)
 {
@@ -146,7 +146,7 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
     std::array<int, 2> quarks_in = quarks_in_diquark(absid);
     // std::cout << "[ParticleBase] diquark absid=" << absid
     //           << ", quarks=" << quarks_in[0] << "_" << quarks_in[1] << std::endl;
-    //exit(-1);
+    // exit(-1);
     return antiparticle * ((quarks_in[0] == quark) + (quarks_in[1] == quark));
   }
 
@@ -161,23 +161,29 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
   if (InternalHelperPythia.particleData.isMeson(absid))
   {
 
-    //K0L 
-    if( absid == 130 )
+    // K0L
+    if (absid == 130)
     {
-      if( abs(ParticleBase::strange_k0s) <=1 ){
+      if (abs(ParticleBase::strange_k0s) <= 1)
+      {
         return ParticleBase::strange_k0s;
-      }else{
-        return (rand() % 2)*2 - 1;
+      }
+      else
+      {
+        return (rand() % 2) * 2 - 1;
       }
     }
-    
-    //K0S
-    if( absid == 310 )
+
+    // K0S
+    if (absid == 310)
     {
-      if( abs(ParticleBase::strange_k0s) <=1 ){
+      if (abs(ParticleBase::strange_k0s) <= 1)
+      {
         return -ParticleBase::strange_k0s;
-      }else{
-        return (rand() % 2)*2 - 1;
+      }
+      else
+      {
+        return (rand() % 2) * 2 - 1;
       }
     }
 
@@ -197,7 +203,8 @@ int ParticleBase::net_quark_number(const int id, const int quark) const
     int otherquark = (quarks_in[0] == quark) ? quarks_in[1] : quarks_in[0];
     /* "our" quark is the heavier one: 1 for u,c,t; -1 for d,s,b (and of
      * course the antiparticle sign) */
-    if (quark > otherquark) {
+    if (quark > otherquark)
+    {
       return antiparticle * ((quark % 2 == 0) ? 1 : -1);
     }
     /* ours is the lighter: If the heavier particle is u,c,t, the lighter
@@ -260,28 +267,36 @@ const double ParticleBase::p(int i)
 }
 //---------------------------------------------------------------
 // Properties (getters)
-const double ParticleBase::charge() const{
-  return (double) property_.chargeType/3.0;
-} 
-const int ParticleBase::chargeType() const{
+const double ParticleBase::charge() const
+{
+  return (double)property_.chargeType / 3.0;
+}
+const int ParticleBase::chargeType() const
+{
   return property_.chargeType;
 }
-const double ParticleBase::baryon() const{
-  return (double) property_.baryonType/3.0;
-} 
-const int ParticleBase::baryonType() const{
+const double ParticleBase::baryon() const
+{
+  return (double)property_.baryonType / 3.0;
+}
+const int ParticleBase::baryonType() const
+{
   return property_.baryonType;
 }
-const int ParticleBase::strange() const{
-  return property_.strangeType;
-} 
-const int ParticleBase::strangeType() const{
+const int ParticleBase::strange() const
+{
   return property_.strangeType;
 }
-const int ParticleBase::charm() const{
+const int ParticleBase::strangeType() const
+{
+  return property_.strangeType;
+}
+const int ParticleBase::charm() const
+{
   return property_.charmType;
-} 
-const int ParticleBase::charmType() const{
+}
+const int ParticleBase::charmType() const
+{
   return property_.charmType;
 }
 //---------------------------------------------------------------
@@ -313,11 +328,40 @@ ParticleBase &ParticleBase::operator=(const ParticleBase &c)
 
   return *this;
 }
+
+void ParticleBase::PrintInfo() const
+{
+  std::cout << "\n[ParticleBase]---------------------------------------------------"
+            << "\n[ParticleBase] id=" << pid_
+            << " stat=" << pstat_
+            << " plabel=" << plabel_
+            << "\n[ParticleBase] pt=" << perp()
+            << " eta=" << eta()
+            << " y=" << rap()
+            << " phi=" << phi()
+            << "\n[ParticleBase]---------------------------------------------------"
+            << std::endl;
+}
+
+void ParticleBase::PrintInfo(int i) const
+{
+  std::cout << "#" << i
+            << ": id=" << pid_
+            << " stat=" << pstat_
+            << " plabel=" << plabel_
+            << " pt=" << perp()
+            << " eta=" << eta()
+            << " y=" << rap()
+            << " phi=" << phi() << std::endl;
+}
+
 //===========================================================================================================================
 
 //===========================================================================================================================
 // (Simple) Particle Class
 //===========================================================================================================================
+Particle::Particle() : ParticleBase::ParticleBase() {}
+
 Particle::Particle(const Particle &srh) : ParticleBase::ParticleBase(srh) {}
 
 Particle::Particle(int label, int id, int stat, const FourVector &p, double n)
@@ -344,3 +388,66 @@ Particle &Particle::operator=(const Particle &c)
   return *this;
 }
 //===========================================================================================================================
+
+void PrintParticleInfoList(const std::vector<std::shared_ptr<ParticleBase>> particles)
+{
+  std::cout << "\n----------------------------------------------------------" << std::endl;
+  for (size_t i = 0; i < particles.size(); i++)
+  {
+    particles[i]->PrintInfo(i);
+  }
+  std::cout << "----------------------------------------------------------"
+            << std::endl;
+}
+
+void PrintParticleInfoList(const std::vector<std::shared_ptr<Particle>> particles)
+{
+  std::cout << "\n----------------------------------------------------------" << std::endl;
+  for (size_t i = 0; i < particles.size(); i++)
+  {
+    particles[i]->PrintInfo(i);
+  }
+  std::cout << "----------------------------------------------------------"
+            << std::endl;
+}
+
+//------------------------------------------------------------------------------------------
+
+std::vector<Particle> sorted_by_pt(const std::vector<Particle> &particles)
+{
+  std::vector<double> minus_kt2(particles.size());
+  for (size_t i = 0; i < particles.size(); i++)
+  {
+    minus_kt2[i] = -particles[i].kt2();
+  }
+  return objects_sorted_by_values(particles, minus_kt2);
+}
+std::vector<ParticleBase> sorted_by_pt(const std::vector<ParticleBase> &particles)
+{
+  std::vector<double> minus_kt2(particles.size());
+  for (size_t i = 0; i < particles.size(); i++)
+  {
+    minus_kt2[i] = -particles[i].kt2();
+  }
+  return objects_sorted_by_values(particles, minus_kt2);
+}
+std::vector<std::shared_ptr<Particle>>
+sorted_by_pt(const std::vector<std::shared_ptr<Particle>> &particles)
+{
+  std::vector<double> minus_kt2(particles.size());
+  for (size_t i = 0; i < particles.size(); i++)
+  {
+    minus_kt2[i] = -particles[i]->kt2();
+  }
+  return objects_sorted_by_values(particles, minus_kt2);
+}
+std::vector<std::shared_ptr<ParticleBase>>
+sorted_by_pt(const std::vector<std::shared_ptr<ParticleBase>> &particles)
+{
+  std::vector<double> minus_kt2(particles.size());
+  for (size_t i = 0; i < particles.size(); i++)
+  {
+    minus_kt2[i] = -particles[i]->kt2();
+  }
+  return objects_sorted_by_values(particles, minus_kt2);
+}

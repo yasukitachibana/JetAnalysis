@@ -20,6 +20,8 @@
 #include "Rapidity.h"
 #include "PIdentify.h"
 #include "ConstPt.h"
+#include "JetTag.h"
+#include "DeltaPhiCut.h"
 
 #include "Histogram.h"
 #include "Hist1D.h"
@@ -77,6 +79,11 @@ protected:
   //=========================================
   std::unique_ptr<ConstPtBase> jet_constpt_ptr;
   //=========================================
+  std::unique_ptr<JetTagBase> jet_tag_ptr;
+  //=========================================
+  std::unique_ptr<DeltaPhiCutBase> jet_deltaphi_ptr;
+  //=========================================  
+  int jet_tag;
   int nJetEv;
   std::vector<double> jetR;
   int jetRapidity;
@@ -84,6 +91,9 @@ protected:
   std::vector<double> jetRapMax;
   std::vector<double> jetPtMin;
   std::vector<double> jetPtMax;
+  std::vector<double> jetPtMinForTrigger;
+  std::vector<double> jetPtMaxForTrigger;
+
   //--
   std::vector<int> statParticle;
   int particleRapidity;
@@ -95,10 +105,6 @@ protected:
   int nParams;
   std::vector<std::string> variables;
   std::vector< std::vector<double> > binSettings;
-  
-  
-  
-  
   
   //=========================================
   std::string GetHistName( double ptHatMin, double ptHatMax,

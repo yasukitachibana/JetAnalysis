@@ -55,7 +55,24 @@ void AnalysisModuleMixedEvent::EventEndMark
   
   std::vector<std::shared_ptr<Particle>> mixed_event_particle_list = GetMixedEventParticles();
 
-  OneEventAnalysis(particle_list, mixed_event_particle_list);
+  //--------------------------------------------------------
+  int n_analysis = jet_tag_ptr->GetNAnalysis();
+  for (int i = 0; i < n_analysis; i++)
+  {
+    // std::cout << "##i_analysis" << i << std::endl;
+    // std::cout << "##->PhiTag = " << jet_tag_ptr->GetPhi(i);
+    jet_deltaphi_ptr->PhiBasis(jet_tag_ptr->GetPhi(i));
+    double pt_tag = jet_tag_ptr->GetPtTag(i);
+    jetPtMinForTrigger = jet_tag_ptr->JetPtForTrigger(jetPtMin, pt_tag);
+    jetPtMaxForTrigger = jet_tag_ptr->JetPtForTrigger(jetPtMax, pt_tag);
+
+    
+    //==============================  
+    OneEventAnalysis(particle_list, mixed_event_particle_list);
+    //==============================  
+  }
+  jet_tag_ptr->TagEventClear();
+  //--------------------------------------------------------
   particle_list.clear();
   particle_list.shrink_to_fit();
   mixed_event_particle_list.clear();
