@@ -44,7 +44,8 @@
   <!-- tagged jet -->
   <jetTag>
     <tagged>1</tagged>
-    <nTagEv>0</nTagEv> <!-- 0: inclusive, 1: Highest pt in each event -->  
+    <xJetTag>1</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
+    <nTagEv>1</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
     <!-- tag basic iinfo -->
     <tagParticle>
       <Item>22</Item>
@@ -52,6 +53,7 @@
     <tagStat>
       <Item>0</Item>
       <Item>1</Item>
+      <Item>900</Item>
     </tagStat>
     <!-- tag pt cut -->
     <tagPtMin>100</tagPtMin>
@@ -64,11 +66,16 @@
     <isolation>1</isolation>
     <RIsolation>0.3</RIsolation>
     <ptIsolation>5</ptIsolation>
+    <!-- <chIsolation>1</chIsolation>   -->
+    <statIsolation>
+      <Item>0</Item>
+      <Item>1</Item>
+      <Item>-1</Item>
+    </statIsolation>
     <!-- tag relative angle -->
     <deltaPhiCut>1</deltaPhiCut>
-    <deltaPhiMin>0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
   </jetTag>
-
 
   <!-- Observable -->
   <observable>
