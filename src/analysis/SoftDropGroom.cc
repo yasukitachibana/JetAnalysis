@@ -192,7 +192,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
     fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
     std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
 
-    int n_jet = 0; // count number of jets in a event
+    int n_jet = 0; // count number of jets in an event
     for (auto j : jets)
     {
       double pt_jet = j.pt();
