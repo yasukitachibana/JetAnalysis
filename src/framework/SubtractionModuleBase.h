@@ -29,6 +29,7 @@ public:
   { return jets; }
   
   //-----------------------------------------------------------------------------------
+  virtual double etSub( std::shared_ptr<Particle> particle ){ return  particle->Et(); }
   virtual double ptSub( std::shared_ptr<Particle> particle ){ return  particle->perp(); }
   virtual double nSub( std::shared_ptr<Particle> particle ){ return  1.0; }
   virtual double eSub( std::shared_ptr<Particle> particle ){ return  particle->e(); }

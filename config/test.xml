@@ -59,7 +59,8 @@
     <!-- tag isolation -->
     <isolation>1</isolation>
     <RIsolation>0.3</RIsolation>
-    <ptIsolation>5</ptIsolation>
+    <cutIsolation>5</cutIsolation>
+    <varIsolation>ET</varIsolation>  <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
     <!-- <chIsolation>1</chIsolation>   -->
     <statIsolation>
       <Item>0</Item>

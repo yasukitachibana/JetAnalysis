@@ -13,6 +13,46 @@
 // #include <iomanip>
 
 //===========================================================================================================================
+// IsolationVariableBase
+//===========================================================================================================================
+class IsolationVariableBase
+{
+public:
+  virtual ~IsolationVariableBase() {}
+  virtual std::string VarName() { return ""; }
+  virtual double GetValue(std::shared_ptr<Particle> p) { return 0.0; }
+
+protected:
+  std::shared_ptr<SubtractionModuleBase> sub_ptr;
+};
+
+class PtIsolation : public IsolationVariableBase
+{
+public:
+  ~PtIsolation() {}
+  PtIsolation(std::shared_ptr<SubtractionModuleBase> sub_ptr_in)
+  {
+    sub_ptr = nullptr;
+    sub_ptr = sub_ptr_in;
+  }
+  std::string VarName() { return "pt"; }
+  double GetValue(std::shared_ptr<Particle> p) { return sub_ptr->ptSub(p); }
+};
+
+class EtIsolation : public IsolationVariableBase
+{
+public:
+  ~EtIsolation() {}
+  EtIsolation(std::shared_ptr<SubtractionModuleBase> sub_ptr_in)
+  {
+    sub_ptr = nullptr;
+    sub_ptr = sub_ptr_in;
+  }
+  std::string VarName() { return "Et"; }
+  double GetValue(std::shared_ptr<Particle> p) { return sub_ptr->etSub(p); }
+};
+
+//===========================================================================================================================
 // BASE
 //===========================================================================================================================
 class IsolationBase
@@ -32,7 +72,7 @@ public:
   {
     return tag_list;
   }
-  //-----------------------------------------------------------------------  
+  //-----------------------------------------------------------------------
 
 protected:
   int initialized = 0;
@@ -60,7 +100,6 @@ public:
   std::vector<std::shared_ptr<Particle>>
   IsolationPassed(std::vector<std::shared_ptr<Particle>> tag_list, int n_max = -1);
 
-
 private:
   void PrintIsolationSetting();
   void ReadParametersFromXML(std::string xml_tag_name);
@@ -68,11 +107,12 @@ private:
   std::vector<std::shared_ptr<Particle>> iso_check_list;
   //----------------------------------------------------
   double rIsolation;
-  double ptIsolation;
+  double cutIsolation;
   //-----------------------------------------
   double iso_pt_min, iso_pt_max;
   double iso_rap_min, iso_rap_max;
   //-----------------------------------------
+  std::unique_ptr<IsolationVariableBase> iso_var_ptr;
   std::unique_ptr<ChargedBase> iso_charged_ptr;
   std::unique_ptr<PStatBase> iso_pstat_ptr;
   std::unique_ptr<RapidityBase> iso_rap_ptr;
@@ -95,8 +135,7 @@ public:
   //-----------------------------------------------------------------------
   std::vector<std::shared_ptr<Particle>>
   IsolationPassed(std::vector<std::shared_ptr<Particle>> tag_list, int n_max = -1);
-  //-----------------------------------------------------------------------  
-
+  //-----------------------------------------------------------------------
 
 private:
   void PrintIsolationSetting();
