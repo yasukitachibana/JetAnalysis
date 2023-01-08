@@ -15,7 +15,7 @@ JetSpec::~JetSpec()
   std::cout << "-$-Deleting " << name << std::endl;
 }
 
-void JetSpec::SetObservable(fastjet::PseudoJet jet,
+void JetSpec::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
                             std::vector<std::shared_ptr<Particle>> particle_list,
                             int ir, int ijp, int ijr)
 {

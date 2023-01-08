@@ -63,12 +63,12 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
 
   //--------------------------------------------------------
   int n_analysis = jet_tag_ptr->GetNAnalysis();
-  for (int i = 0; i < n_analysis; i++)
+  for (int i_tag_particle = 0; i_tag_particle < n_analysis; i_tag_particle++)
   {
     // std::cout << "##i_analysis" << i << std::endl;
     // std::cout << "##->PhiTag = " << jet_tag_ptr->GetPhi(i);
-    jet_deltaphi_ptr->PhiBasis(jet_tag_ptr->GetPhi(i));
-    double pt_tag = jet_tag_ptr->GetPtTag(i);
+    jet_deltaphi_ptr->PhiBasis(jet_tag_ptr->GetPhi(i_tag_particle));
+    double pt_tag = jet_tag_ptr->GetPtTag(i_tag_particle);
     jetPtMinForTrigger = jet_tag_ptr->JetPtForTrigger(jetPtMin, pt_tag);
     jetPtMaxForTrigger = jet_tag_ptr->JetPtForTrigger(jetPtMax, pt_tag);
 
@@ -87,7 +87,7 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
     //==============================
 
     //==============================
-    OneEventAnalysis(particle_list);
+    OneEventAnalysis(particle_list, i_tag_particle);
     //==============================
   }
   jet_tag_ptr->TagEventClear();
@@ -97,7 +97,7 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
   event_num++;
 }
 
-void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list)
+void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
 {
 
   for (int ir = 0; ir < jetR.size(); ir++)
@@ -119,7 +119,7 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
 
           if (JetTrigger(j, ir, ijp, ijr))
           {
-            SetObservable(j, particle_list, ir, ijp, ijr);
+            SetObservable(i_tag_particle, j, particle_list, ir, ijp, ijr);
             //================================================
             // Jet Info Output
             // std::cout << "#"

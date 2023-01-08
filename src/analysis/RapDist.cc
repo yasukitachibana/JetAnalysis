@@ -39,7 +39,7 @@ std::string RapDist::GetParamsTag( int i ){
 
 
 
-void RapDist::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list){
+void RapDist::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle){
   
   for( auto& p : particle_list ){
     

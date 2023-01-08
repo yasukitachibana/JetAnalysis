@@ -36,7 +36,7 @@ std::string TotalEnergy::GetParamsTag( int i ){
 
 
 
-void TotalEnergy::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list){
+void TotalEnergy::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle){
   
   for( auto& p : particle_list ){
     
