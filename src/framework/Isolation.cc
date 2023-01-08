@@ -132,7 +132,7 @@ void Isolated::ReadParametersFromXML(std::string xml_tag_name)
   {
     std::cout << std::endl;
     std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
-    std::cout << "[Isolated] Bad Input Variable for Isolation Cut." << std::endl;
+    std::cout << "[Isolated] Bad Input <varIsolation> for Isolation Cut." << std::endl;
     std::cout << "[Isolated] Exit. " << std::endl;
     std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
     std::cout << std::endl;
