@@ -86,6 +86,16 @@ std::vector <fastjet::PseudoJet> NaiveNegativeSub::JetSub(double jetR,
 //###############################################################################################################
 // Particles
 //###############################################################################################################
+double NaiveNegativeSub::etSub( std::shared_ptr<Particle> particle ){
+  
+  if( particle->pstat() != -1 ){
+    return particle->Et();
+  }else{
+    return -1.0 * particle->Et();
+  }
+  
+}
+
 double NaiveNegativeSub::ptSub( std::shared_ptr<Particle> particle ){
   
   if( particle->pstat() != -1 ){

@@ -28,7 +28,7 @@ public:
          std::vector<std::shared_ptr<Particle>> particle_list );
   
   
-  
+  double etSub( std::shared_ptr<Particle> particle );
   double ptSub( std::shared_ptr<Particle> particle );
   double eSub( std::shared_ptr<Particle> particle );
   double nSub( std::shared_ptr<Particle> particle );
