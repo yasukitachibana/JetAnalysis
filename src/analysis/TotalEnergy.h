@@ -11,7 +11,7 @@ private:
   static RegisterAnalysisModule<TotalEnergy> reg;
   const std::string name;
   
-  void OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list);
+  void OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle);
   void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
 
   int ReadOptionParametersFromXML();

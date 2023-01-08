@@ -55,7 +55,7 @@ std::shared_ptr<Histogram> JetShape2D::CreateHist(std::string hist_name, int iv)
   return std::make_shared<Hist2D>(hist_name, nBinPhi, boundPhi, nBinEta, boundEta);
 }
 
-void JetShape2D::SetObservable(fastjet::PseudoJet jet,
+void JetShape2D::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
                                std::vector<std::shared_ptr<Particle>> particle_list,
                                std::vector<std::shared_ptr<Particle>> mixed_event_particle_list,
                                int ir, int ijp, int ijr)

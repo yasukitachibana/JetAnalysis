@@ -11,7 +11,7 @@ private:
   static RegisterAnalysisModule<InconeQuant> reg;
   const std::string name;
 
-  void SetObservable(fastjet::PseudoJet jet,
+  void SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
                      std::vector<std::shared_ptr<Particle>> particle_list,
                      int ir, int ijp, int ijr);
 

@@ -29,7 +29,7 @@
       <Item>1.6</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>80</Item>
+      <Item>0</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>3000</Item>      
@@ -39,7 +39,7 @@
 
   <jetTag>
     <tagged>1</tagged>
-    <xJetTag>1</xJetTag> <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->  
+    <xJetTag>0</xJetTag> <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->  
     <nTagEv>1</nTagEv> <!-- 0: inclusive, 1: Highest pt in each event -->  
     <!-- tag basic iinfo -->    
     <tagParticle>

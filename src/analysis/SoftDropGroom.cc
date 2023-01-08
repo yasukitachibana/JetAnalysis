@@ -168,7 +168,7 @@ double SoftDropGroom::CosOpeningAngle(double pmod1, double px1, double py1, doub
   return (px1 * px2 + py1 * py2 + pz1 * pz2) / pmod1 / pmod2;
 }
 
-void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list)
+void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
 {
 
   std::vector<fastjet::PseudoJet> fj_inputs;
