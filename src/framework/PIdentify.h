@@ -32,7 +32,6 @@ public:
 
 private:
   std::vector<int> pid;
-
 };
 
 class PIDInclusive : public PIdentifyBase
@@ -44,7 +43,7 @@ public:
   bool Trigger(std::shared_ptr<Particle> p);
 
 private:
-  const std::array<int, 3> pidNeutrino{12, 14, 16}; //abosolute values of neutrino/anti-neutrino pids.
+  const std::array<int, 3> pidNeutrino{12, 14, 16}; // abosolute values of neutrino/anti-neutrino pids.
 };
 //===========================================================================================================================
 

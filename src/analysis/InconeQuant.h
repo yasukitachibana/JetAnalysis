@@ -36,7 +36,7 @@ private:
   // By default, the number of jets is also counted.
   static const int n_quant = 10;
   const std::array<std::string, n_quant> c_quant =
-      {"count",     "charge",  "baryon",  "strange",  "charm",
+      {"count", "charge", "baryon", "strange", "charm",
        "nparticle", "ncharge", "nbaryon", "nstrange", "ncharm"};
 
 public:
