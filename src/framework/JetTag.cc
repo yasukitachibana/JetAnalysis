@@ -134,9 +134,8 @@ void Tagged::ReadParametersFromXML()
   tag_pt_max = SetXML::Instance()->GetElementDouble({"jetTag", "tagPtMax"});
   tag_rap_min = SetXML::Instance()->GetElementDouble({"jetTag", "tagRapMin"});
   tag_rap_max = SetXML::Instance()->GetElementDouble({"jetTag", "tagRapMax"});
-
   //------------------------------------------------------------------------------
-  delta_phi_cut = SetXML::Instance()->GetElementInt({"jetTag", "deltaPhiCut"}, false);
+  delta_phi_cut = SetXML::Instance()->GetElementInt({"jetTag", "deltaPhiCut"});
   //------------------------------------------------------------------------------
   int iso = SetXML::Instance()->GetElementInt({"jetTag", "isolation"}, false);
   //------------------------------------------------------------------------------
@@ -197,6 +196,14 @@ void Tagged::ReadParametersFromXML()
   else
   {
     delta_phi_min = 0.0;
+    std::cout << std::endl;
+    std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
+    std::cout << "[  Tagged: JetTag  ] Bad Input (0) for deltaPhiCut" << std::endl;
+    std::cout << "[  Tagged: JetTag  ] [Tag will be Triggered as a Jet]" << std::endl;
+    std::cout << "[  Tagged: JetTag  ] Exit. " << std::endl;
+    std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
+    std::cout << std::endl;
+    exit(-1);    
   }
   //------------------------------------------------------------------------------
 }

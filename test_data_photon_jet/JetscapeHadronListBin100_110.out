@@ -1,0 +1,15 @@
+#	0	Event1ID	235	pstat-EPx	Py	Pz	Eta	Phi ->70GeV Jet
+0 211 0 50 50 0 0 0 0
+1 22 0 100 -100 0 0 0 3.1415
+2 211 0 20 20 0 0 0 0
+#	0	Event2ID	235	pstat-EPx	Py	Pz	Eta	Phi ->50GeV Jet, 90GeV Jet
+0 211 0 58.3 -50 0 30 0.569 3.1415
+0 22 0 100 100 0 0 0 0
+0 211 0 102.956 -90 0 -50 -0.530 3.1415
+#	0	Event3ID	235	pstat-EPx	Py	Pz	Eta	Phi 
+0 211 0 50 50 0 0 0 0
+0 211 0 100 100 0 0 0 0
+#	0	Event3ID	235	pstat-EPx	Py	Pz	Eta	Phi ->30GeV Jet
+0 211 0 50 50 0 0 0 0
+1 22 0 100 -100 0 0 0 3.1415
+2 211 -1 20 20 0 0 0 0
