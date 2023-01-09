@@ -1,6 +1,6 @@
 #include "JetSpec.h"
 
-//using namespace Analysis;
+// using namespace Analysis;
 
 // Register the module with the base class
 RegisterAnalysisModule<JetSpec> JetSpec::reg("JetSpec");
@@ -31,9 +31,9 @@ void JetSpec::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
         hist_list[index]->JetTriggered();
         hist_list[index]->Fill(jet.perp(), 1.0);
 
-      } //ipr
-    }   //ipp
-  }     //iv
+      } // ipr
+    }   // ipp
+  }     // iv
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -62,7 +62,7 @@ void JetSpec::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, in
     }
   }
 
-  total_hist->Print("count_");//millibarn
+  total_hist->Print("count_"); // millibarn
 
   total_hist->Scale(1.0, "width");
   total_hist->Print("jetspec_dNdpt_");

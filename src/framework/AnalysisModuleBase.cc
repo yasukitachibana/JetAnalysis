@@ -376,10 +376,10 @@ void AnalysisModuleBase::ShowJetSetting()
   if (nJetEv > 0)
   {
     std::cout << "[AnalysisModuleBase] *** " << nJetEv << "-jets per an event (a tag)" << std::endl;
-  } 
+  }
   else
   {
-    nJetEv = -1; 
+    nJetEv = -1;
   }
 
   std::cout << "[AnalysisModuleBase] *** R_jet=";

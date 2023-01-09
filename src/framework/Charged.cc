@@ -8,10 +8,13 @@ Pythia8::Pythia ChargedBase::InternalHelperPythia("IntentionallyEmpty", false);
 
 bool ChargedBase::ChargedCheck(std::shared_ptr<Particle> p)
 {
-  if (p->chargeType() == 0){
-    return false; //neutral
-  }else{
-    return true; //charged
+  if (p->chargeType() == 0)
+  {
+    return false; // neutral
+  }
+  else
+  {
+    return true; // charged
   }
 }
 //===========================================================================================================================

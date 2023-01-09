@@ -1,7 +1,7 @@
 #include "JetShape2D.h"
 #include "TMath.h"
 
-//using namespace Analysis;
+// using namespace Analysis;
 
 // Register the module with the base class
 RegisterAnalysisModule<JetShape2D> JetShape2D::reg("JetShape2D");
@@ -159,12 +159,12 @@ void JetShape2D::CombineFinisher()
 
               GetJetShape(iv, ir, ijp, ijr, ipp, ipr);
 
-            } //had_rap
-          }   //had_pt
-        }     //jet_rap
-      }       //jet_pt
-    }         //jetR
-  }           //variable
+            } // had_rap
+          }   // had_pt
+        }     // jet_rap
+      }       // jet_pt
+    }         // jetR
+  }           // variable
 }
 
 void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
@@ -183,10 +183,10 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   me_hist->LoadHistFromFile("raw_");
 
   //----------------------------------------
-  //Mixed Event Method
+  // Mixed Event Method
   //----------------------------------------
 
-  //average in phi
+  // average in phi
   me_hist->AverageInX();
 
   double ix0 = me_hist->FindBinX(0.0);
@@ -204,13 +204,13 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   me_hist->DivideWithError(me00, me00_err);
 
   me_hist->Print("scaled_");
-  //hist->Divide(me_hist);
+  // hist->Divide(me_hist);
   me_hist->DeleteTH();
   hist->Print("corrected_acceptance_");
   //----------------------------------------
 
   //----------------------------------------
-  //Sideband Subtraction
+  // Sideband Subtraction
   //----------------------------------------
   auto sideband_hist = CreateHist("sideband_2d_" + hist_name, iv);
   sideband_hist->Init();
@@ -223,7 +223,7 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   //----------------------------------------
 
   //----------------------------------------
-  //Jet Shape
+  // Jet Shape
   //----------------------------------------
   auto jetshape_hist = std::make_shared<Hist1D>(hist_name, binSettings[iv]);
   jetshape_hist->Init();
@@ -257,6 +257,6 @@ void JetShape2D::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr)
   jetshape_hist->Scale(1.0, "width");
   jetshape_hist->Print("jetshape_");
   jetshape_hist->Normalize("width");
-  //jetshape_hist->Print("normalized_jetshape_");
+  // jetshape_hist->Print("normalized_jetshape_");
   jetshape_hist->DeleteTH();
 }
