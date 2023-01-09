@@ -167,10 +167,10 @@ void InconeQuant::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
               quantities[4] += sub_ptr->charmSub(p);
 
               quantities[5] += 1.;
-              quantities[6] += (double) (p->chargeType() != 0);
-              quantities[7] += (double) (p->baryonType() != 0);
-              quantities[8] += (double) (p->strangeType() != 0);
-              quantities[8] += (double) (p->charmType() != 0);              
+              quantities[6] += (double)(p->chargeType() != 0);
+              quantities[7] += (double)(p->baryonType() != 0);
+              quantities[8] += (double)(p->strangeType() != 0);
+              quantities[8] += (double)(p->charmType() != 0);
               // For debug -----------------
               //  if(p->pid()==130||p->pid()==310){
               // std::cout
@@ -197,10 +197,10 @@ void InconeQuant::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
           for (int jq = iq; jq < n_quant; jq++)
           {
             int ii = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, GetParamIndex(iq, jq));
-            //hist_list[ii]->Show();
+            // hist_list[ii]->Show();
             hist_list[ii]->JetTriggered();
-            //hist_list[ii]->Fill(quantities[iq] * quantities[jq]);
-            hist_list[ii]->Fill(jpt, quantities[iq] * quantities[jq]);            
+            // hist_list[ii]->Fill(quantities[iq] * quantities[jq]);
+            hist_list[ii]->Fill(jpt, quantities[iq] * quantities[jq]);
             // std::cout
             //     << "JetPt = " << jpt << " GeV, "
             //     << GetParamsTag(iq, jq)
@@ -219,7 +219,7 @@ void InconeQuant::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void InconeQuant::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
- 
+
   std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
   std::cout << "[InconeQuant] hist_name = " << hist_name << std::endl;
 
@@ -240,5 +240,4 @@ void InconeQuant::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr
   }
   total_hist->Print("count_");
   total_hist->DeleteTH();
-
 }

@@ -1,7 +1,7 @@
 #include "JetShape.h"
 #include "TMath.h"
 
-//using namespace Analysis;
+// using namespace Analysis;
 
 // Register the module with the base class
 RegisterAnalysisModule<JetShape> JetShape::reg("JetShape");
@@ -127,9 +127,9 @@ void JetShape::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
           }
         }
 
-      } //ipr
-    }   //ipp
-  }     //iv
+      } // ipr
+    }   // ipp
+  }     // iv
   //--------------------------------------------------------------------------------------------------
 }
 
