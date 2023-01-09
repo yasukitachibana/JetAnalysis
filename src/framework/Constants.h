@@ -4,11 +4,11 @@
 #include <cmath>
 
 // define the usual constants
-//static double pi = 3.141592653589793;
+// static double pi = 3.141592653589793;
 static double pi = 3.141592653589793238462643383279502884197;
 static double twopi = 6.283185307179586476925286766559005768394;
 
-static double nf = 3.0;   
+static double nf = 3.0;
 
 static double Cf = 4.0 / 3.0;
 
@@ -74,6 +74,5 @@ static int Zid = 23;
 
 static int Wid = 24; // refers to W+, use -24 for W-
 /*******************************************************************/
-
 
 #endif // JETSCAPECONSTANTS_H

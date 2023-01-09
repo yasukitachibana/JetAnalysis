@@ -235,7 +235,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
 
               // Set
-              double rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();              
+              double rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
               double zg = -1.0;
               double mu = -1.0;
               double thg = -1.0;
@@ -247,7 +247,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               // if (hasSub && additional_cond_ptr->Trigger(rg))
               if (additional_cond_ptr->Trigger(rg))
               {
-                // Fundamentals                
+                // Fundamentals
                 zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
                 mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
                 //-------------------------------
@@ -416,7 +416,7 @@ void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
       normalized_hist->Add(hist, sigma / n_ev);
     }
   }
-  //#############################################
+  // #############################################
   total_hist->Print("count_"); // millibarn
   if (nJetTotal != 0)
   {
@@ -429,10 +429,10 @@ void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
     std::cout << "[SoftDropGroom] Skip. " << std::endl;
   }
   total_hist->DeleteTH();
-  //#############################################
+  // #############################################
   normalized_hist->Scale(1.0, "width");
   normalized_hist->Normalize("width");
   normalized_hist->Print("SoftDropGroom_");
   normalized_hist->DeleteTH();
-  //#############################################
+  // #############################################
 }

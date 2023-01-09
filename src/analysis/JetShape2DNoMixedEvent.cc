@@ -1,7 +1,7 @@
 #include "JetShape2DNoMixedEvent.h"
 #include "TMath.h"
 
-//using namespace Analysis;
+// using namespace Analysis;
 
 // Register the module with the base class
 RegisterAnalysisModule<JetShape2DNoMixedEvent> JetShape2DNoMixedEvent::reg("JetShape2DNoMixedEvent");
@@ -172,13 +172,13 @@ void JetShape2DNoMixedEvent::CombineFinisher()
               for (int ip = 0; ip < nParams; ip++)
               {
                 GetJetShape(iv, ir, ijp, ijr, ipp, ipr, ip);
-              } //option parameters
-            }   //had_rap
-          }     //had_pt
-        }       //jet_rap
-      }         //jet_pt
-    }           //jetR
-  }             //variable
+              } // option parameters
+            }   // had_rap
+          }     // had_pt
+        }       // jet_rap
+      }         // jet_pt
+    }           // jetR
+  }             // variable
 }
 
 void JetShape2DNoMixedEvent::GetJetShape(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
@@ -192,7 +192,7 @@ void JetShape2DNoMixedEvent::GetJetShape(int iv, int ir, int ijp, int ijr, int i
   hist->LoadHistFromFile();
 
   //----------------------------------------
-  //Sideband Subtraction
+  // Sideband Subtraction
   //----------------------------------------
   if (sidebandRap.size() != 0)
   {
@@ -207,7 +207,7 @@ void JetShape2DNoMixedEvent::GetJetShape(int iv, int ir, int ijp, int ijr, int i
     //----------------------------------------
   }
   //----------------------------------------
-  //Jet Shape
+  // Jet Shape
   //----------------------------------------
   auto jetshape_hist = std::make_shared<Hist1D>(hist_name, binSettings[iv]);
   jetshape_hist->Init();
@@ -243,5 +243,4 @@ void JetShape2DNoMixedEvent::GetJetShape(int iv, int ir, int ijp, int ijr, int i
   jetshape_hist->Normalize("width");
   jetshape_hist->Print("normalized_jetshape_");
   jetshape_hist->DeleteTH();
-
 }

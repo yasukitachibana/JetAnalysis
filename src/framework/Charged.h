@@ -19,10 +19,11 @@ class ChargedBase
 {
 
 public:
-  virtual ~ChargedBase(){}
-  virtual bool Trigger(std::shared_ptr<Particle> p){return false;}
+  virtual ~ChargedBase() {}
+  virtual bool Trigger(std::shared_ptr<Particle> p) { return false; }
   bool ChargedCheck(std::shared_ptr<Particle> p);
-  virtual std::string Type(){return "None";}
+  virtual std::string Type() { return "None"; }
+
 protected:
   static Pythia8::Pythia InternalHelperPythia;
 }; // END BASE CLASS
@@ -36,19 +37,19 @@ class ChargedOnly : public ChargedBase
 {
 
 public:
-  ChargedOnly(){}
-  ~ChargedOnly(){}
+  ChargedOnly() {}
+  ~ChargedOnly() {}
   bool Trigger(std::shared_ptr<Particle> p);
-  std::string Type(){return "Charged";}
+  std::string Type() { return "Charged"; }
 };
 
 class IncludeNeutral : public ChargedBase
 {
 public:
-  IncludeNeutral(){}
-  ~IncludeNeutral(){}
-  bool Trigger(std::shared_ptr<Particle> p){return true;}
-  std::string Type(){return "Full";}  
+  IncludeNeutral() {}
+  ~IncludeNeutral() {}
+  bool Trigger(std::shared_ptr<Particle> p) { return true; }
+  std::string Type() { return "Full"; }
 };
 //===========================================================================================================================
 

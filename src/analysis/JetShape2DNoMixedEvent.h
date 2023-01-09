@@ -23,7 +23,7 @@ private:
   std::shared_ptr<Histogram> CreateHist(std::string hist_name, int iv);
 
   int ReadOptionParametersFromXML();
-  std::string GetParamsTag( int i );
+  std::string GetParamsTag(int i);
   void ShowParamsSetting();
 
   //

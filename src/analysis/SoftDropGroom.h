@@ -13,7 +13,7 @@ public:
   virtual bool Trigger(double val) { return false; }
   virtual bool Trigger(double val1, double val2) { return false; }
   virtual bool Trigger(double val1, double val2, double val3) { return false; }
-  virtual void ShowSettings(){}
+  virtual void ShowSettings() {}
 };
 
 class SDNoCondition : public SDAdditionalCondition
@@ -82,7 +82,7 @@ private:
   std::string VariableSuffix(int i);
 
   static const int n_var = 6;
-  //0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"ktG", *:"pseudoMG", *:"pseudoMGOverPt", 
+  // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"ktG", *:"pseudoMG", *:"pseudoMGOverPt",
   std::array<std::vector<int>, n_var> i_var;
   std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG", "mG", "mGOverPt", "ktG"};
 
