@@ -213,6 +213,9 @@ public:
 
 void PrintParticleInfoList(const std::vector<std::shared_ptr<ParticleBase>>);
 void PrintParticleInfoList(const std::vector<std::shared_ptr<Particle>>);
+void PrintParticleInfoList(const std::vector<fastjet::PseudoJet> particles);
+void PrintPseudoJetInfo(const fastjet::PseudoJet pseudojet, int i = 0);
+
 //----------------------------------------------------------------------
 // Routines to do with providing sorted arrays of vectors.
 

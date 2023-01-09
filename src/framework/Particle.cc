@@ -411,6 +411,27 @@ void PrintParticleInfoList(const std::vector<std::shared_ptr<Particle>> particle
             << std::endl;
 }
 
+void PrintParticleInfoList(const std::vector<fastjet::PseudoJet> particles)
+{
+  std::cout << "\n----------------------------------------------------------" << std::endl;
+  for (size_t i = 0; i < particles.size(); i++)
+  {
+    PrintPseudoJetInfo(particles[i],i);
+  }
+  std::cout << "----------------------------------------------------------"
+            << std::endl;
+}
+
+void PrintPseudoJetInfo(const fastjet::PseudoJet pseudojet, int i)
+{
+    std::cout << "PseudoJet #" << i
+              << " user_index=" << pseudojet.user_index()
+              << " pt=" << pseudojet.perp()
+              << " eta=" << pseudojet.eta()
+              << " y=" << pseudojet.rap()
+              << " phi=" << pseudojet.phi() << std::endl;
+}
+
 //------------------------------------------------------------------------------------------
 
 std::vector<Particle> sorted_by_pt(const std::vector<Particle> &particles)
