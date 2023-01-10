@@ -21,10 +21,24 @@ $ conda create -c conda-forge --name [YOUR_CONDA_ENVIRONMENT_FOR_ROOT] root
     $ tar zxvf fastjet-3.4.0.tar.gz
     $ cd fastjet-3.4.0
     ```
+    Do not put `[PATH_OF_DIRECTORY_FOR_FASTJET]` in Google Drive. 
+    You will get stuck with the installation. 
+
+1. Preparation before Configure
+
+    To remedy the issue of `no template named 'auto_ptr' in namespace 'std'` (on Mac), comment out as below, in the file of `[PATH_OF_DIRECTORY_FOR_FASTJET]/fastjet-3.4.0/include/fastjet/config_auto.h`:
+
+    ```
+    /* compile the deprecated parts of the interface using auto-ptr */
+    #ifndef FASTJET_HAVE_AUTO_PTR_INTERFACE 
+    // #define FASTJET_HAVE_AUTO_PTR_INTERFACE  /*Comment Out This Line!*/ 
+    #endif
+    ```
+
 
 1. Configure 
 
-    On Mac (Intel or M1 with Rosetta 2)
+    On Mac
     ```
     $ ./configure --prefix=$PWD/../fastjet-install
     ```
@@ -59,7 +73,7 @@ $ conda create -c conda-forge --name [YOUR_CONDA_ENVIRONMENT_FOR_ROOT] root
 
 1. Configure
 
-    On Mac (Intel or M1 with Rosetta 2)
+    On Mac
     ```
     $ ./configure --fastjet-config=$PWD/../fastjet-3.4.0/fastjet-config
     ```
