@@ -105,7 +105,7 @@
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>2.0</Item>
+        <Item>3.0</Item>
       </particleRapMax>
 
       <!-- For ALICE Unfolded resutls -->
@@ -224,7 +224,6 @@
     <divUnit>_Run</divUnit>
   </inputFiles>
 
-  <!-- ptHatBins -->
   <!-- ptHatBins -->
   <ptHat>
     <Item>1</Item>
