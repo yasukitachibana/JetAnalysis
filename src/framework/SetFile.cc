@@ -1,7 +1,7 @@
 #include "SetFile.h"
 #include "SetXML.h"
-//#include "JetScapeLogger.h"
-//#include <stdlib.h>
+// #include "JetScapeLogger.h"
+// #include <stdlib.h>
 
 #include <sstream>
 #include <iomanip>
@@ -31,6 +31,18 @@ void SetFile::Init(std::string m_in_name, std::string m_out_name)
   else
   {
     division_unit = "";
+  }
+
+  xjtag = SetXML::Instance()->GetElementInt({"jetTag", "xJetTag"}, false);
+  if (xjtag)
+  {
+    jet_cut_name = "xjtag";
+    jet_cut_precision = 2;
+  }
+  else
+  {
+    jet_cut_name = "ptj";
+    jet_cut_precision = 0;
   }
 
   input_head = SetXML::Instance()->GetElementText({"inputFiles", "events", "head"});
@@ -63,8 +75,8 @@ SetFile::GetInputFileName(double ptHatMin, double ptHatMax, int i_seq)
 std::string
 SetFile::GetSigmaFileName(double ptHatMin, double ptHatMax, int i_seq)
 {
-  //return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + sigma_tail;
-  return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + sigma_tail;  
+  // return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + sigma_tail;
+  return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + sigma_tail;
 }
 
 std::string SetFile::GetDivTail(int i_seq)
@@ -108,7 +120,7 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
       << observable << "_"
       << variable << "_"
       << "jetr" << std::setprecision(r_precision) << (jetR) << "_"
-      << "ptj" << std::setprecision(0) << (jetPtMin) << "-" << (jetPtMax) << "_"
+      << jet_cut_name << std::setprecision(jet_cut_precision) << (jetPtMin) << "-" << (jetPtMax) << "_"
       << "rapj" << std::setprecision(1) << (jetRapMin) << "-" << (jetRapMax) << "_"
       << "pt" << std::setprecision(1) << (particlePtMin) << "-" << (particlePtMax) << "_"
       << "rap" << std::setprecision(1) << (particleRapMin) << "-" << (particleRapMax);
@@ -134,12 +146,22 @@ SetFile::GetHistName(std::string observable,
 
   std::ostringstream oss;
 
+  int r_precision = 1;
+  if (jetR < 0.1)
+  {
+    r_precision = 3;
+    if (jetR < 0.01)
+    {
+      r_precision = 4;
+    }
+  }
+
   oss << std::fixed
       << "hist_total_"
       << observable << "_"
       << variable << "_"
-      << "jetr" << std::setprecision(1) << (jetR) << "_"
-      << "ptj" << std::setprecision(0) << (jetPtMin) << "-" << (jetPtMax) << "_"
+      << "jetr" << std::setprecision(r_precision) << (jetR) << "_"
+      << jet_cut_name << std::setprecision(jet_cut_precision) << (jetPtMin) << "-" << (jetPtMax) << "_"
       << "rapj" << std::setprecision(1) << (jetRapMin) << "-" << (jetRapMax) << "_"
       << "pt" << std::setprecision(1) << (particlePtMin) << "-" << (particlePtMax) << "_"
       << "rap" << std::setprecision(1) << (particleRapMin) << "-" << (particleRapMax);
