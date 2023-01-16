@@ -69,6 +69,9 @@ private:
   static SetFile* m_pInstance;
   
   int division_number;
+  int xjtag;
+  std::string jet_cut_name;
+  int jet_cut_precision; 
   std::string division_unit;
   
   std::string in_dir;
