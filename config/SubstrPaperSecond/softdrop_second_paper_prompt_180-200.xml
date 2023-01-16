@@ -65,8 +65,8 @@
       <Item>1</Item>
     </tagStat>
     <!-- tag pt cut -->
-    <tagPtMin>100</tagPtMin>
-    <tagPtMax>120</tagPtMax>
+    <tagPtMin>180</tagPtMin>
+    <tagPtMax>200</tagPtMax>
     <!-- tag rapidity cut -->
     <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <tagRapMin>0</tagRapMin>
