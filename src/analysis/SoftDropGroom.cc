@@ -237,56 +237,25 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               // Set
               double rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
               double zg = -1.0;
-              double mu = -1.0;
+              // double mu = -1.0;
               double thg = -1.0;
               double mg = -1.0;
               double mg_over_pt = -1.0;
               double ktg = -1.0;
               //--
 
-              // if (hasSub && additional_cond_ptr->Trigger(rg))
-              if (additional_cond_ptr->Trigger(rg))
+              if (hasSub && additional_cond_ptr->Trigger(rg))
               {
                 // Fundamentals
                 zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
-                mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
+                // mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
+                //  Standard
+                thg = rg / jetR[ir];      // theta_g = rg/R
+                mg = sd_jet.m();          // groomed mass
+                mg_over_pt = mg / pt_jet; // groomed mass/jetPt
                 //-------------------------------
-                if (hasSub)
-                {
-                  // Standard
-                  thg = rg / jetR[ir];      // theta_g = rg/R
-                  mg = sd_jet.m();          // groomed mass
-                  mg_over_pt = mg / pt_jet; // groomed mass/jetPt
-
-                  //-------------------------------
-                  // kt
-                  ktg = zg * sd_jet.pt() * sin(rg); //
-                  //---------------------------------------
-                  // std::vector<fastjet::PseudoJet> sd_pieces = sd_jet.pieces();
-
-                  // double e1 = sd_pieces[0].e();
-                  // double pmod1 = sqrt(sd_pieces[0].modp2());
-                  // double px1 = sd_pieces[0].px();
-                  // double py1 = sd_pieces[0].py();
-                  // double pz1 = sd_pieces[0].pz();
-
-                  // double e2 = sd_pieces[1].e();
-                  // double pmod2 = sqrt(sd_pieces[1].modp2());
-                  // double px2 = sd_pieces[1].px();
-                  // double py2 = sd_pieces[1].py();
-                  // double pz2 = sd_pieces[1].pz();
-                  // double cos = CosOpeningAngle(pmod1, px1, py1, pz1, pmod2, px2, py2, pz2);
-                  // double pseudo_mg = sqrt( 2.0 * e1 * e2 * (1.0 - cos));
-                  // double pseudo_mg_over_pt = pseudo_mg / pt_jet;
-
-                  // // std::cout << "mg = " << mg << ", pseudo mg = " << pseudo_mg << std::endl;
-                  // // std::cout << "m1 = " << sd_pieces[0].m() << ", m2 = " << sd_pieces[1].m() << std::endl;
-                  // //---------------------------------------
-                }
-                else
-                {
-                  rg = -1.0;
-                }
+                // kt
+                ktg = zg * sd_jet.pt() * sin(rg); //
               }
               else
               {
