@@ -126,8 +126,6 @@
       <var>
 
         <zG>
-          <Item>-1000</Item>
-          <Item>0.</Item>
           <Item>0.2</Item>
           <Item>0.25</Item>
           <Item>0.3</Item>
@@ -138,13 +136,11 @@
         </zG>
 
         <thetaG>
-          <Item>-1000</Item>
           <Item>0</Item>
           <Item>1000</Item>
         </thetaG>
 
         <rG>
-          <Item>-1000</Item>
           <Item>0</Item>
           <Item>0.003</Item>
           <Item>0.0042</Item>
@@ -167,7 +163,6 @@
         </mG>
 
         <mGOverPt>
-          <Item>-1000</Item>
           <Item>0</Item>
           <Item>0.04</Item>
           <Item>0.06</Item>
@@ -184,7 +179,6 @@
         </mGOverPt>
 
         <ktG>
-          <Item>-1000</Item>
           <Item>0.0</Item>
           <Item>0.25</Item>
           <Item>0.5</Item>
