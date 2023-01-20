@@ -37,7 +37,7 @@
       <Item>200</Item>    
       <Item>300</Item>
       <Item>500</Item>
-      <Item>10000</Item>      
+      <Item>1000</Item>      
     </jetPtMax>
     <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
