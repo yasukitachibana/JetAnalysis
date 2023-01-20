@@ -1,9 +1,9 @@
-hepdata_atlas_photon_jet_mom_frac:
-  data_save_dir: './hepdata_atlas_photon_jet_mom_frac'
-  data_url: 'https://www.hepdata.net/download/table/ins1694678/Table%20{}/1/yaml'
-  data_table_first: 1
-  data_table_last: 6
-  data_inspire: 'https://inspirehep.net/literature/1694678'
+# hepdata_atlas_photon_jet_mom_frac:
+#   data_save_dir: './hepdata_atlas_photon_jet_mom_frac'
+#   data_url: 'https://www.hepdata.net/download/table/ins1694678/Table%20{}/1/yaml'
+#   data_table_first: 1
+#   data_table_last: 6
+#   data_inspire: 'https://inspirehep.net/literature/1694678'
 
 
 # Under construction
@@ -52,9 +52,9 @@ hepdata_atlas_photon_jet_mom_frac:
 #   data_table_last: 6
 #   data_inspire: 'https://inspirehep.net/literature/1672962'
 
-# hepdata_cms_jet_groomedmass_5tev_b:
-#   data_save_dir: 'hepdata_cms_jet_groomedmass_5tev'
-#   data_url: 'https://www.hepdata.net/download/table/ins1672962/Figure%20{}b/1/yaml'
-#   data_table_first: 2
-#   data_table_last: 6
-#   data_inspire: 'https://inspirehep.net/literature/1672962'
+hepdata_cms_jet_groomedmass_5tev_b:
+  data_save_dir: 'hepdata_cms_jet_groomedmass_5tev'
+  data_url: 'https://www.hepdata.net/download/table/ins1672962/Figure%20{}b/1/yaml'
+  data_table_first: 2
+  data_table_last: 6
+  data_inspire: 'https://inspirehep.net/literature/1672962'
