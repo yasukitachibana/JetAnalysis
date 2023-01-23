@@ -24,17 +24,6 @@ conda create -c conda-forge --name [YOUR_CONDA_ENVIRONMENT_FOR_ROOT] root
     Do not put `[PATH_OF_DIRECTORY_FOR_FASTJET]` in Google Drive. 
     You will get stuck with the installation. 
 
-1. Preparation before Configure
-
-    To remedy the issue of `no template named 'auto_ptr' in namespace 'std'` (on Mac), comment out as below, in the file of `[PATH_OF_DIRECTORY_FOR_FASTJET]/fastjet-3.4.0/include/fastjet/config_auto.h`:
-
-    ```
-    /* compile the deprecated parts of the interface using auto-ptr */
-    #ifndef FASTJET_HAVE_AUTO_PTR_INTERFACE 
-    // #define FASTJET_HAVE_AUTO_PTR_INTERFACE  /*Comment Out This Line!*/ 
-    #endif
-    ```
-
 
 1. Configure 
 
@@ -47,6 +36,17 @@ conda create -c conda-forge --name [YOUR_CONDA_ENVIRONMENT_FOR_ROOT] root
     On Wayne State Grid
     ```
     ./configure --prefix=$PWD/../fastjet-install CXXFLAGS="-fPIC -pipe -Wall -std=c++17 -Wno-reorder -Wno-unused-variable  -Wno-sign-compare -Wno-unused-but-set-variable -Wno-parentheses -fext-numeric-literals"
+    ```
+    
+1. Preparation before Compiling
+
+    To remedy the issue of `no template named 'auto_ptr' in namespace 'std'` (on Mac), comment out as below, in the file of `[PATH_OF_DIRECTORY_FOR_FASTJET]/fastjet-3.4.0/include/fastjet/config_auto.h`:
+
+    ```
+    /* compile the deprecated parts of the interface using auto-ptr */
+    #ifndef FASTJET_HAVE_AUTO_PTR_INTERFACE 
+    // #define FASTJET_HAVE_AUTO_PTR_INTERFACE  /*Comment Out This Line!*/ 
+    #endif
     ```
 
 1. Make
