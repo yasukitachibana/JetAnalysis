@@ -36,6 +36,8 @@ void AnalysisModuleBase::Init(std::shared_ptr<ReconstructionModuleBase> reco_ptr
   sub_ptr = sub_ptr_in;
   load_ptr = load_ptr_in;
 
+  particles_str = "Particles";
+
   ReadParametersFromXML();
   SetJetPtCut();
   SetLargestRapidity();
@@ -203,7 +205,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   particlePtMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMin", "Item"});
   particlePtMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMax", "Item"});
   int k0sStrangeness = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "K0SStrange"}, false);
-  // ###############################################################################################################
+  // ########################################################################### **********************************************####################################
   //  <inputFiles>
   p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
   // ###############################################################################################################
@@ -420,60 +422,67 @@ void AnalysisModuleBase::ShowJetSetting()
               << std::endl;
   }
 
-  std::string val_jetcut = jet_tag_ptr->ValJetCut();
-  std::string unit_val_jetcut = jet_tag_ptr->UnitValJetCut();
+  std::string val_jetcut = jet_tag_ptr->VarJetCut();
+  std::string unit_val_jetcut = jet_tag_ptr->UnitVarJetCut();
+
+  std::cout << "[AnalysisModuleBase] *** " << val_jetcut << ": ";
   for (int i = 0; i < jetPtMin.size(); i++)
   {
-    std::cout << "[AnalysisModuleBase] *** "
-              << jetPtMin[i]
-              << " < "
-              << val_jetcut
-              << " < "
-              << jetPtMax[i]
-              << " "
-              << unit_val_jetcut << std::endl;
+    std::cout << jetPtMin[i] << "-" << jetPtMax[i] << ", ";
   }
+  std::cout << "\b\b " << unit_val_jetcut << std::endl;
+
+  std::cout << "[AnalysisModuleBase] *** |" << jet_rap_ptr->Type() << "_jet|: ";
   for (int i = 0; i < jetRapMin.size(); i++)
   {
-    std::cout << "[AnalysisModuleBase] *** " << jetRapMin[i] << " < |" << jet_rap_ptr->Type() << "_jet| < " << jetRapMax[i] << std::endl;
+    std::cout << jetRapMin[i] << "-" << jetRapMax[i] << ", ";
   }
+  std::cout << "\b\b " << std::endl;
 }
 
 void AnalysisModuleBase::ShowParticleSetting()
 {
   std::cout << "[AnalysisModuleBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalysisModuleBase] *** [Particles]" << std::endl;
-  std::cout << "[AnalysisModuleBase] *** " << particle_charged_ptr->Type() << " Particles";
-
-  if (particle_pstat_ptr->StatList().size())
+  std::cout << "[AnalysisModuleBase] *** [" << particles_str << "]" << std::endl;
+  if (particles_str == "Particles")
   {
-    std::cout << ", Status = ";
-    for (auto st : particle_pstat_ptr->StatList())
+    std::cout << "[AnalysisModuleBase] *** " << particle_charged_ptr->Type() << " " << particles_str;
+    if (particle_pstat_ptr->StatList().size())
     {
-      std::cout << st << ", ";
+      std::cout << ", Status = ";
+      for (auto st : particle_pstat_ptr->StatList())
+      {
+        std::cout << st << ", ";
+      }
+      std::cout << "\b\b  ";
     }
-    std::cout << "\b\b  ";
-  }
-  std::cout << std::endl;
+    std::cout << std::endl;
 
-  if (particle_pid_ptr->PIDList().size())
-  {
-    std::cout << "[AnalysisModuleBase] *** PID = ";
-    for (auto pid : particle_pid_ptr->PIDList())
+    if (particle_pid_ptr->PIDList().size())
     {
-      std::cout << pid << ", ";
+      std::cout << "[AnalysisModuleBase] *** PID = ";
+      for (auto pid : particle_pid_ptr->PIDList())
+      {
+        std::cout << pid << ", ";
+      }
+      std::cout << "\b\b  " << std::endl;
     }
-    std::cout << "\b\b  " << std::endl;
   }
 
+  std::cout << "[AnalysisModuleBase] *** pt"
+            << ": ";
   for (int i = 0; i < particlePtMin.size(); i++)
   {
-    std::cout << "[AnalysisModuleBase] *** " << particlePtMin[i] << " < pt < " << particlePtMax[i] << " GeV" << std::endl;
+    std::cout << particlePtMin[i] << "-" << particlePtMax[i] << ", ";
   }
+  std::cout << "\b\b GeV" << std::endl;
+
+  std::cout << "[AnalysisModuleBase] *** |" << particle_rap_ptr->Type() << "|: ";
   for (int i = 0; i < particleRapMin.size(); i++)
   {
-    std::cout << "[AnalysisModuleBase] *** " << particleRapMin[i] << " < |" << particle_rap_ptr->Type() << "| < " << particleRapMax[i] << std::endl;
+    std::cout << particleRapMin[i] << "-" << particleRapMax[i] << ", ";
   }
+  std::cout << "\b\b  " << std::endl;
 }
 // ###############################################################################################################
 void AnalysisModuleBase::SetJetPtCut()
@@ -483,12 +492,14 @@ void AnalysisModuleBase::SetJetPtCut()
 
   for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
   {
-    pt = jetPtMin[ijp];
+    // Set minimum jet pt considering the case with tagged analysis
+    pt = jet_tag_ptr->GetJetPtCut(jetPtMin[ijp]);
     if (jetPtCut > pt)
     {
       jetPtCut = pt;
     }
   }
+
   double factor = 0.6;
   if (reco_ptr->Name() == "NegativeReco")
   {

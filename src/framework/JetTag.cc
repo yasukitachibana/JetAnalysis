@@ -22,13 +22,13 @@ void JetTagBase::ShowJetTagSetting()
   }
 }
 
-std::string JetTagBase::ValJetCut()
+std::string JetTagBase::VarJetCut()
 {
-  return x_tag_ptr->Val();
+  return x_tag_ptr->Var();
 }
-std::string JetTagBase::UnitValJetCut()
+std::string JetTagBase::UnitVarJetCut()
 {
-  return x_tag_ptr->UnitVal();
+  return x_tag_ptr->UnitVar();
 }
 
 std::vector<double>
@@ -114,9 +114,9 @@ void Tagged::PrintJetTagSetting()
   std::cout << "\b\b  ";
   std::cout << std::endl;
   //==============================================================================
-  std::cout << "[  Tagged: JetTag  ] *** " << tag_pt_min << " < pt_tag < " << tag_pt_max << " GeV" << std::endl;
+  std::cout << "[  Tagged: JetTag  ] *** pt_tag: " << tag_pt_min << "-" << tag_pt_max << " GeV" << std::endl;
   //==============================================================================
-  std::cout << "[  Tagged: JetTag  ] *** " << tag_rap_min << " < |" << tag_rap_ptr->Type() << "_tag| < " << tag_rap_max << std::endl;
+  std::cout << "[  Tagged: JetTag  ] *** |" << tag_rap_ptr->Type() << "_tag|: " << tag_rap_min << "-" << tag_rap_max << std::endl;
   //==============================================================================
   n_tag_ptr->ShowTagNumberSetting();
   tag_iso_ptr->ShowIsolationSetting();
@@ -235,6 +235,11 @@ double Tagged::GetPhi(int i)
 double Tagged::GetPtTag(int i)
 {
   return tag_list[i]->perp();
+}
+
+double Tagged::GetJetPtCut(double val_min)
+{
+  return x_tag_ptr->SetJetPtCut(val_min,tag_pt_min);
 }
 
 //===========================================================================================================================

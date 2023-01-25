@@ -19,21 +19,19 @@ private:
   void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
 
   //----------------------------------------------------------------------------
+  void ShowParamsSetting();
   int ReadOptionParametersFromXML();
-
+  std::string VariableSuffix(int i);
   int ReadVariablesFromXML(std::string tag);
 
-  std::vector<double> rMin;
-  std::vector<double> rMax;
-
-  std::vector<double> aMin;
-  std::vector<double> aMax;  
+  std::vector<double> rBinEdges;
+  std::vector<double> aBinEdges;
 
   static const int n_var = 3;
   // 0:"xJJTag", 1:"rJJ", 2:"aJJTag"
   std::array<std::vector<int>, n_var> i_var;
   std::array<std::string, n_var> varNames = {"xJJTag", "rJJ", "aJJTag"};
-  //----------------------------------------------------------------------------  
+  //----------------------------------------------------------------------------
 
 public:
   TaggedJetPair(std::string name_in = "TaggedJetPair");

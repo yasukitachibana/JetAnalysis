@@ -31,7 +31,7 @@ int SoftDropGroom::ReadVariablesFromXML(std::string tag)
     if (ite != variables.end())
     {
       int index = distance(variables.begin(), ite);
-      // std::cout << val << " " << index << std::endl;
+      // std::cout << var << " " << index << std::endl;
       i_var[i].push_back(index);
       exist++;
     }

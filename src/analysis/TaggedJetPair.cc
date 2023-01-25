@@ -16,10 +16,76 @@ TaggedJetPair::~TaggedJetPair()
 }
 
 //--------------------------------------------------------------------------------------------------
+void TaggedJetPair::ShowParamsSetting()
+{
+
+  // std::cout
+  //     << "[   TaggedJetPair  ] ***-------------------------------------------" << std::endl;
+
+  // std::cout << "[   TaggedJetPair  ] *** subjet pt: "
+  //           << subjetPtMin
+  //           << "-"
+  //           << subjetPtMax
+  //           << " GeV" << std::endl;
+
+  // std::cout << "[   TaggedJetPair  ] *** subjet pt: "
+  // for (auto b : beta)
+  // {
+  //   std::cout << b << ", ";
+  // }
+  // std::cout << "\b\b  " << std::endl;
+
+  // std::cout << "[AnalyzeBase] *** z_cut: ";
+  // for (auto z : zCut)
+  // {
+  //   std::cout << z << ", ";
+  // }
+  // std::cout << "\b\b  " << std::endl;
+
+  // additional_cond_ptr->ShowSettings();
+}
+
+std::string TaggedJetPair::VariableSuffix(int i)
+{
+  if (i == 1)
+  {
+    return "";
+  }
+  else
+  {
+    return std::to_string(i);
+  }
+}
+
 int TaggedJetPair::ReadOptionParametersFromXML()
 {
 
-  return rMin.size()*aMin.size();
+  particles_str = "Jet Pairs";
+  rBinEdges = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "rBinEdges", "Item"});
+  aBinEdges = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "aBinEdges", "Item"});
+
+  for (int i = 1; i < 30; i++)
+  {
+    std::string i_str = VariableSuffix(i);
+    // std::cout << i_str << std::endl;
+    if (ReadVariablesFromXML(i_str) == 0)
+    {
+      break;
+    }
+  }
+
+  for (int i = 0; i < n_var; i++)
+  {
+    std::cout
+        << varNames[i] << ": ";
+    for (auto iv : i_var[i])
+    {
+      std::cout << iv << " ";
+    }
+    std::cout << std::endl;
+  }
+
+  return (rBinEdges.size() - 1) * (aBinEdges.size() - 1);
 }
 
 int TaggedJetPair::ReadVariablesFromXML(std::string tag)
@@ -28,16 +94,16 @@ int TaggedJetPair::ReadVariablesFromXML(std::string tag)
 
   for (int i = 0; i < n_var; i++)
   {
-  //   // tag specifies sets of parameters in the anlysis (e.g. beta and zcut)
-  //   std::string var = varNames[i] + tag;
-  //   auto ite = std::find(variables.begin(), variables.end(), var);
-  //   if (ite != variables.end())
-  //   {
-  //     int index = distance(variables.begin(), ite);
-  //     // std::cout << val << " " << index << std::endl;
-  //     i_var[i].push_back(index);
-  //     exist++;
-  //   }
+    // tag specifies sets of parameters in the anlysis (e.g. beta and zcut)
+    std::string var = varNames[i] + tag;
+    auto ite = std::find(variables.begin(), variables.end(), var);
+    if (ite != variables.end())
+    {
+      int index = distance(variables.begin(), ite);
+      // std::cout << var << " " << index << " in "<< varNames[i] << std::endl;
+      i_var[i].push_back(index);
+      exist++;
+    }
   }
 
   return exist;
@@ -76,6 +142,11 @@ void TaggedJetPair::
     std::vector<fastjet::PseudoJet> jets = reco_ptr->JetReco(r_cone, particle_list);
     // PrintParticleInfoList(jets);
     //==============================================================================
+
+    // For Loop for Jets
+    for (auto j1 : jets)
+    {
+    }
 
     // // For Loop for pTjet and Rapidity Cuts
     // for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
@@ -136,7 +207,7 @@ void TaggedJetPair::
     //     // End Dummy Loop--------------------------
     //   } // ijr
     // }   // ijp
-  }     // ir
+  } // ir
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

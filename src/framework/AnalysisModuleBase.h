@@ -82,6 +82,8 @@ protected:
   //=========================================
   std::unique_ptr<DeltaPhiCutBase> jet_deltaphi_ptr;
   //=========================================
+  std::string particles_str;
+
   int jet_tag;
   int nJetEv;
   std::vector<double> jetR;

@@ -21,7 +21,7 @@
 
 
 
-    <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
     </jetRapMin>
@@ -30,16 +30,24 @@
     </jetRapMax>
     <jetPtMin>
       <Item>0</Item>
+      <Item>0.5</Item>
+      <Item>0.75</Item>
+      <Item>1.0</Item>            
+      <Item>1.25</Item>                  
     </jetPtMin>
     <jetPtMax>
-      <Item>3000</Item>
+      <Item>0.5</Item>
+      <Item>0.75</Item>
+      <Item>1.0</Item>            
+      <Item>1.25</Item>                  
+      <Item>1.5</Item>                  
     </jetPtMax>
     <nJetEv>0</nJetEv>
   </jetReco>
 
   <jetTag>
     <tagged>1</tagged>
-    <xJetTag>0</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
+    <xJetTag>1</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
     <nTagEv>0</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
     <!-- tag basic iinfo -->
     <tagParticle>
@@ -80,28 +88,61 @@
     <TaggedJetPair>
       <name>Tagged Jet Pair</name>
 
-
-      <var>
-        <r>
-          <Item>0</Item>
-          <Item>1.0</Item>
-        </r>
-      </var>
-
+    <!-- subjet infos -->
       <chParticle>0</chParticle>
       <particleRapidity>1</particleRapidity>
       <particleRapMin>
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>100.0</Item>
+        <Item>2.8</Item>
       </particleRapMax>
       <particlePtMin>
-        <Item>0.0</Item>
+        <Item>30.0</Item>
       </particlePtMin>
       <particlePtMax>
-        <Item>3000</Item>
+        <Item>5020</Item>
       </particlePtMax>
+
+
+      <rBinEdges>
+        <Item>0.0</Item>
+        <Item>0.4</Item>
+      </rBinEdges>
+
+      <aBinEdges>
+        <Item>0.0</Item>
+        <Item>100.0</Item>
+      </aBinEdges>
+
+
+      <var>
+        <xJJTag>
+          <Item>0</Item>
+          <Item>1.0</Item>
+        </xJJTag>
+
+        <xJJTag2>
+          <Item>0</Item>
+          <Item>1.0</Item>
+        </xJJTag2>
+
+        <xJJTag3>
+          <Item>0</Item>
+          <Item>1.0</Item>
+        </xJJTag3>
+
+
+        <aJJTag>
+          <Item>0</Item>
+          <Item>1.0</Item>
+        </aJJTag>
+
+        <rJJ>
+          <Item>0</Item>
+          <Item>1.0</Item>
+        </rJJ>
+      </var>
 
     </TaggedJetPair>
 

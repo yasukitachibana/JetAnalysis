@@ -35,7 +35,7 @@ ReconstructionModuleBase::JetReco( double r_cone, std::vector<std::shared_ptr<Pa
 
 void ReconstructionModuleBase::SetJetPtCut(double pt_jet_cut){
   jetPtCut=pt_jet_cut;
-  std::cout << "[SubtractionModuleBase] pt_jet cut: " << jetPtCut << " GeV" << std::endl;
+  std::cout << "[ReconstructionModuleBase] pt_jet cut: " << jetPtCut << " GeV" << std::endl;
 }
 
 
