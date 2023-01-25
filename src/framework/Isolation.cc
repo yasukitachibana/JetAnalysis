@@ -88,7 +88,7 @@ void Isolated::PrintIsolationSetting()
   }
   std::cout << std::endl;
   //==============================================================================
-  std::cout << "[Isolated:Isolation] *** " << iso_rap_min << " < |" << iso_rap_ptr->Type() << "| < " << iso_rap_max << std::endl;
+  std::cout << "[Isolated:Isolation] *** |" << iso_rap_ptr->Type() << "|: "<< iso_rap_min  << "-" << iso_rap_max << std::endl;
   //==============================================================================
 }
 

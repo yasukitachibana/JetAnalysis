@@ -24,8 +24,8 @@ class TagXCutBase
 {
 public:
   virtual ~TagXCutBase() {}
-  virtual std::string Val() { return ""; }
-  virtual std::string UnitVal() { return ""; }
+  virtual std::string Var() { return ""; }
+  virtual std::string UnitVar() { return ""; }
 
   virtual std::vector<double>
   SetJetPtCut(const std::vector<double> &jet_pt, const double pt_tag = 0.0)
@@ -44,8 +44,8 @@ class TagXCut : public TagXCutBase
 public:
   TagXCut() {}
   ~TagXCut() {}
-  std::string Val() { return "X_jet-tag"; }
-  std::string UnitVal() { return ""; }
+  std::string Var() { return "X_jet-tag"; }
+  std::string UnitVar() { return ""; }
 
   std::vector<double>
   SetJetPtCut(const std::vector<double> &x_jet_tag, const double pt_tag);
@@ -57,8 +57,8 @@ class TagPtJetCut : public TagXCutBase
 public:
   TagPtJetCut() {}
   ~TagPtJetCut() {}
-  std::string Val() { return "pt_jet"; }
-  std::string UnitVal() { return "GeV"; }
+  std::string Var() { return "pt_jet"; }
+  std::string UnitVar() { return "GeV"; }
 
   std::vector<double>
   SetJetPtCut(const std::vector<double> &jet_pt, const double pt_tag = 0.0)
@@ -125,11 +125,13 @@ public:
   virtual int GetNAnalysis() { return 0; }
   virtual double GetPhi(int i) { return 0.0; }
   virtual double GetPtTag(int i) { return 0.0; }
-  std::string ValJetCut();
-  std::string UnitValJetCut();
+  std::string VarJetCut();
+  std::string UnitVarJetCut();
 
   std::vector<double> 
   JetPtForTrigger(const std::vector<double> &jet_pt, const double pt_tag = 0.0);
+
+  virtual double GetJetPtCut(double val_min){ return 0.0; }
 
 protected:
   int initialized = 0;
@@ -161,6 +163,7 @@ public:
   int GetNAnalysis();
   double GetPhi(int i);
   double GetPtTag(int i);
+  double GetJetPtCut(double val_min);
 
 private:
   //-----------------------------------------
@@ -202,6 +205,7 @@ public:
   int GetNAnalysis() { return 1; }
   double GetPhi(int i) { return 0.0; }
   double GetPtTag(int i) { return 0.0; }
+  double GetJetPtCut(double val_min){ return val_min; }  
 
 private:
   void PrintJetTagSetting();
