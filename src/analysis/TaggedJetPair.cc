@@ -1,4 +1,5 @@
 #include "TaggedJetPair.h"
+#include "TMath.h"
 
 // using namespace Analysis;
 
@@ -19,30 +20,26 @@ TaggedJetPair::~TaggedJetPair()
 void TaggedJetPair::ShowParamsSetting()
 {
 
-  // std::cout
-  //     << "[   TaggedJetPair  ] ***-------------------------------------------" << std::endl;
+  std::cout << "[   TaggedJetPair  ] ***-------------------------------------------" << std::endl;
+  std::cout << "[   TaggedJetPair  ] *** [TaggedJetPair]" << std::endl;
 
-  // std::cout << "[   TaggedJetPair  ] *** subjet pt: "
-  //           << subjetPtMin
-  //           << "-"
-  //           << subjetPtMax
-  //           << " GeV" << std::endl;
+  std::cout << "[   TaggedJetPair  ] *** Delta RJJ: ";
+  for (int i = 0; i < rBinEdges.size() - 1; i++)
+  {
+    std::cout << rBinEdges[i]
+              << "-"
+              << rBinEdges[i + 1] << ", ";
+  }
+  std::cout << "\b\b  " << std::endl;
 
-  // std::cout << "[   TaggedJetPair  ] *** subjet pt: "
-  // for (auto b : beta)
-  // {
-  //   std::cout << b << ", ";
-  // }
-  // std::cout << "\b\b  " << std::endl;
-
-  // std::cout << "[AnalyzeBase] *** z_cut: ";
-  // for (auto z : zCut)
-  // {
-  //   std::cout << z << ", ";
-  // }
-  // std::cout << "\b\b  " << std::endl;
-
-  // additional_cond_ptr->ShowSettings();
+  std::cout << "[   TaggedJetPair  ] *** Delta AJJTag: ";
+  for (int i = 0; i < aBinEdges.size() - 1; i++)
+  {
+    std::cout << aBinEdges[i]
+              << "-"
+              << aBinEdges[i + 1] << ", ";
+  }
+  std::cout << "\b\b  " << std::endl;
 }
 
 std::string TaggedJetPair::VariableSuffix(int i)
@@ -109,6 +106,22 @@ int TaggedJetPair::ReadVariablesFromXML(std::string tag)
   return exist;
 }
 
+bool TaggedJetPair::SubJetTrigger(fastjet::PseudoJet subjet, int ipp, int ipr)
+{
+  double pt = subjet.perp();
+  double rapidity = particle_rap_ptr->Val(subjet);
+
+  if (pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
+      fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr])
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
 void TaggedJetPair::
     OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list,
                      int i_tag_particle)
@@ -142,74 +155,148 @@ void TaggedJetPair::
     std::vector<fastjet::PseudoJet> jets = reco_ptr->JetReco(r_cone, particle_list);
     // PrintParticleInfoList(jets);
     //==============================================================================
-
-    // For Loop for Jets
-    for (auto j1 : jets)
+    // For Loop for pTjet and Rapidity Cuts
+    for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
     {
-    }
+      for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
+      {
+        for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
+        {
+          for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
+          {
+            //==========================================================
+            // For Loop for Jets
+            for (int i_j1 = 0; i_j1 < jets.size(); i_j1++)
+            {
+              fastjet::PseudoJet jet1 = jets[i_j1];
+              if (SubJetTrigger(jet1, ipp, ipr))
+              {
+                for (int i_j2 = i_j1 + 1; i_j2 < jets.size(); i_j2++)
+                {
+                  fastjet::PseudoJet jet2 = jets[i_j2];
+                  if (SubJetTrigger(jet2, ipp, ipr))
+                  {
+                    fastjet::PseudoJet paired_jet = jet1 + jet2;
+                    if (JetTrigger(paired_jet, ir, ijp, ijr))
+                    {
 
-    // // For Loop for pTjet and Rapidity Cuts
-    // for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
-    // {
-    //   for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
-    //   {
-    //     // Dummy Loop for Particle Cuts------------
-    //     for (int iv = 0; iv < variables.size(); iv++)
-    //     {
-    //       for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
-    //       {
-    //         for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
-    //         {
+                      double xJJTag = paired_jet.perp() / pt_tag;
+                      double delta_eta12 = jet1.eta() - jet2.eta();
+                      double delta_phi12 = jet1.delta_phi_to(jet2);
+                      double rJJ = TMath::Sqrt(delta_eta12 * delta_eta12 + delta_phi12 * delta_phi12);
+                      double aJJTag = fabs(jet1.perp() - jet2.perp()) / pt_tag;
 
-    //           // Get Index for Histogram
-    //           int index = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, 0);
+                      // nParams for sets of parameters in the anlysis (e.g. rJJ, aJJTag)
+                      for (int ip = 0; ip < nParams; ip++)
+                      {
 
-    //           // Trigger Tag (Not Jet!)
-    //           hist_list[index]->JetTriggered();
+                        auto ip_array = GetParamIndex(ip);
+                        double r_l = rBinEdges[ip_array[0]];
+                        double r_u = rBinEdges[ip_array[0] + 1];
+                        double a_l = aBinEdges[ip_array[1]];
+                        double a_u = aBinEdges[ip_array[1] + 1];
 
-    //           // Counter for Number of Triggered Jets per Tag
-    //           int n_jet = 0;
+                        if (rJJ >= r_l && rJJ < r_u &&
+                            aJJTag >= a_l && aJJTag < a_u)
+                        {
 
-    //           // For Loop for Jets
-    //           for (auto j : jets)
-    //           {
+                          // n_var is for 0:"xJJTag", 1:"rJJ", 2:"aJJTag"
+                          std::array<std::vector<int>, n_var> index;
+                          for (int i = 0; i < n_var; i++)
+                          {
+                            // i_var[i] is vector. Each element of the vector is for each of multiple bin settings.
+                            // index[i] stores the indices for all bin settings for this parameter set.
+                            index[i] = GetHistIndex(i_var[i], ir, ijp, ijr, ipp, ipr, ip);
+                            // std::cout << varNames[i] << ": ";
+                            for (auto ii : index[i])
+                            {
+                              // std::cout << ii << " ";
+                              hist_list[ii]->JetTriggered();
+                            }
+                            // std::cout << endl;
+                          }
 
-    //             //====================================
-    //             // Trigger Jets
-    //             if (JetTrigger(j, ir, ijp, ijr))
-    //             {
-    //               // PrintPseudoJetInfo(j);
+                          // 0:"xJJTag"
+                          for (auto i : index[0])
+                          {
+                            // std::cout << i << " ";
+                            hist_list[i]->Fill(xJJTag, 1.0);
+                          }
+                          // 1:"rJJ"
+                          for (auto i : index[1])
+                          {
+                            // std::cout << i << " ";
+                            hist_list[i]->Fill(rJJ, 1.0);
+                          }
+                          // 2:"aJJTag"
+                          for (auto i : index[2])
+                          {
+                            // std::cout << i << " ";
+                            hist_list[i]->Fill(aJJTag, 1.0);
+                          }
 
-    //               // X_j-tag
-    //               double xJTag = j.perp() / pt_tag;
-
-    //               // Fill Histogram
-    //               hist_list[index]->Fill(xJTag, 1.0);
-
-    //               // Count Triggered Jet
-    //               n_jet++;
-    //             }
-    //             //====================================
-
-    //             //====================================
-    //             // Reach Maximum Triggered Jet Number per Tag
-    //             if (n_jet == nJetEv)
-    //             {
-    //               break;
-    //             }
-    //             //====================================
-
-    //           } // jet
-
-    //         } // ipr
-    //       }   // ipp
-    //     }     // iv
-    //     // End Dummy Loop--------------------------
-    //   } // ijr
-    // }   // ijp
-  } // ir
+                        } // params trigger
+                      }   // params
+                    }     // paired jet trigger
+                  }       // jet 2 trigger
+                }         // jet 2
+              }           // jet 1 trigger
+            }             // jet 1
+            //==========================================================
+          } // ipr
+        }   // ipp
+      }     // ijr
+    }       // ijp
+  }         // ir
 }
 
+//------------------------------------------------------------
+// Get Tags for Parameters
+std::string TaggedJetPair::GetParamsTag(int i)
+{
+  return GetParamsTag(GetParamIndex(i));
+}
+
+std::string TaggedJetPair::GetParamsTag(std::array<int, 2> i)
+{
+  return GetParamsTag(i[0], i[1]);
+}
+
+std::string TaggedJetPair::GetParamsTag(int i_r, int i_a)
+{
+  return GetParamsTag(rBinEdges[i_r], rBinEdges[i_r + 1], aBinEdges[i_a], aBinEdges[i_a + 1]);
+}
+
+std::string TaggedJetPair::GetParamsTag(double r_l, double r_u, double a_l, double a_u)
+{
+  std::ostringstream oss;
+
+  oss << std::fixed
+      << "rJJ" << std::setprecision(3) << (r_l) << "-"
+      << std::setprecision(3) << (r_u) << "_"
+      << "aJJTag" << std::setprecision(3) << (a_l) << "-"
+      << std::setprecision(3) << (a_u);
+
+  return oss.str();
+}
+//------------------------------------------------------------
+// Get Index of Tags for Parameters
+int TaggedJetPair::GetParamIndex(std::array<int, 2> i)
+{
+  return GetParamIndex(i[0], i[1]);
+}
+
+int TaggedJetPair::GetParamIndex(int i_r, int i_a)
+{
+  return (aBinEdges.size() - 1) * (i_r) + i_a;
+}
+
+std::array<int, 2> TaggedJetPair::GetParamIndex(int i)
+{
+  int i_r = i / (aBinEdges.size() - 1);
+  int i_a = i % (aBinEdges.size() - 1);
+  return std::array<int, 2>{i_r, i_a};
+}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void TaggedJetPair::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {

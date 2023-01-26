@@ -33,6 +33,18 @@ private:
   std::array<std::string, n_var> varNames = {"xJJTag", "rJJ", "aJJTag"};
   //----------------------------------------------------------------------------
 
+  bool SubJetTrigger(fastjet::PseudoJet subjet, int ipp, int ipr);
+
+  //----------------------------------------------------------------------------
+  std::string GetParamsTag(int i);
+  std::string GetParamsTag(std::array<int, 2> i);
+  std::string GetParamsTag(int i_r, int i_a);
+  std::string GetParamsTag(double r_l, double r_u, double a_l, double a_u);
+
+  int GetParamIndex(int i_r, int i_a);
+  int GetParamIndex(std::array<int, 2> i);
+  std::array<int, 2> GetParamIndex(int i);
+
 public:
   TaggedJetPair(std::string name_in = "TaggedJetPair");
   ~TaggedJetPair();
