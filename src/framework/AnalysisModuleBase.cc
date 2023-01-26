@@ -517,7 +517,7 @@ void AnalysisModuleBase::SetLargestRapidity()
 
   for (int i_jet_rap = 0; i_jet_rap < jetRapMax.size(); i_jet_rap++)
   {
-    rap = jetRapMax[i_jet_rap] + 1.2 * jetRmax;
+    rap = jetRapMax[i_jet_rap] + 1.5 * jetRmax;
     if (largestRapidity < rap)
     {
       largestRapidity = rap;

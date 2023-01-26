@@ -107,12 +107,15 @@
 
       <rBinEdges>
         <Item>0.0</Item>
+        <Item>0.2</Item>        
         <Item>0.4</Item>
       </rBinEdges>
 
       <aBinEdges>
         <Item>0.0</Item>
-        <Item>100.0</Item>
+        <Item>0.5</Item>        
+        <Item>1.0</Item>        
+        <Item>2.5</Item>
       </aBinEdges>
 
 
