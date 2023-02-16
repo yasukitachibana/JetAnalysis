@@ -9,7 +9,7 @@
   <jetReco>
     <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR>
-      <Item>0.4</Item>
+      <Item>0.2</Item>
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
     <!-- <statJet>
@@ -30,17 +30,9 @@
     </jetRapMax>
     <jetPtMin>
       <Item>0</Item>
-      <Item>0.5</Item>
-      <Item>0.75</Item>
-      <Item>1.0</Item>            
-      <Item>1.25</Item>                  
     </jetPtMin>
     <jetPtMax>
-      <Item>0.5</Item>
-      <Item>0.75</Item>
-      <Item>1.0</Item>            
-      <Item>1.25</Item>                  
-      <Item>1.5</Item>                  
+      <Item>1.5</Item>
     </jetPtMax>
     <nJetEv>0</nJetEv>
   </jetReco>
@@ -58,8 +50,8 @@
       <Item>1</Item>
     </tagStat>
     <!-- tag pt cut -->
-    <tagPtMin>50</tagPtMin>
-    <tagPtMax>10000</tagPtMax>
+    <tagPtMin>0</tagPtMin>
+    <tagPtMax>500</tagPtMax>
     <!-- tag rapidity cut -->
     <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <tagRapMin>0</tagRapMin>
@@ -88,62 +80,67 @@
     <TaggedJetPair>
       <name>Tagged Jet Pair</name>
 
-    <!-- subjet infos -->
+      <!-- subjet infos -->
       <chParticle>0</chParticle>
       <particleRapidity>1</particleRapidity>
-      <particleRapMin>
+      <particleRapMin>        <!-- subjet! -->
         <Item>0.0</Item>
       </particleRapMin>
-      <particleRapMax>
+      <particleRapMax>        <!-- subjet! -->
         <Item>2.8</Item>
       </particleRapMax>
-      <particlePtMin>
+      <particlePtMin>        <!-- subjet! -->
         <Item>30.0</Item>
       </particlePtMin>
-      <particlePtMax>
+      <particlePtMax>        <!-- subjet! -->
         <Item>5020</Item>
       </particlePtMax>
 
-
       <rBinEdges>
         <Item>0.0</Item>
-        <Item>0.2</Item>        
-        <Item>0.4</Item>
+        <Item>3.0</Item>
       </rBinEdges>
 
       <aBinEdges>
         <Item>0.0</Item>
-        <Item>0.5</Item>        
-        <Item>1.0</Item>        
-        <Item>2.5</Item>
+        <Item>0.8</Item>
       </aBinEdges>
-
 
       <var>
         <xJJTag>
           <Item>0</Item>
-          <Item>1.0</Item>
+          <Item>0.3</Item>
+          <Item>0.45</Item>
+          <Item>0.6</Item>
+          <Item>0.75</Item>
+          <Item>0.9</Item>
+          <Item>1.05</Item>
+          <Item>1.2</Item>
+          <Item>1.5</Item>
         </xJJTag>
 
-        <xJJTag2>
-          <Item>0</Item>
-          <Item>1.0</Item>
-        </xJJTag2>
-
-        <xJJTag3>
-          <Item>0</Item>
-          <Item>1.0</Item>
-        </xJJTag3>
-
-
         <aJJTag>
-          <Item>0</Item>
-          <Item>1.0</Item>
+          <Item>0.0</Item>
+          <Item>0.05</Item>
+          <Item>0.1</Item>
+          <Item>0.2</Item>
+          <Item>0.3</Item>
+          <Item>0.4</Item>
+          <Item>0.6</Item>
+          <Item>0.8</Item>
         </aJJTag>
 
         <rJJ>
-          <Item>0</Item>
-          <Item>1.0</Item>
+          <Item>0.0</Item>
+          <Item>0.2</Item>
+          <Item>0.4</Item>
+          <Item>0.5</Item>
+          <Item>0.6</Item>
+          <Item>0.8</Item>
+          <Item>1.2</Item>
+          <Item>1.6</Item>
+          <Item>2.0</Item>
+          <Item>3.0</Item>
         </rJJ>
       </var>
 
