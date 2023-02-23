@@ -173,7 +173,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>1</Item>
+    <!-- <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -207,7 +207,7 @@
     <Item>180</Item>
     <Item>190</Item>
     <Item>200</Item>
-    <Item>210</Item>
+    <Item>210</Item> -->
     <Item>220</Item>
     <Item>230</Item>
     <Item>240</Item>
