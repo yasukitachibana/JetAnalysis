@@ -119,7 +119,7 @@
       <join>_</join>
       <tail>.out</tail>
     </sigma>
-    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divNum>50</divNum>    <!-- 0: default, 1-:  divided-->
     <divUnit>_Run</divUnit>
   </inputFiles>
 
