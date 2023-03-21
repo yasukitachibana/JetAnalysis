@@ -64,9 +64,9 @@
         <Item>2510.0</Item>
       </particlePtMax>
 
-      <beta>
+      <aDyn>
         <Item>0.0</Item>
-      </beta>
+      </aDyn>
       <zCut>
         <Item>0.2</Item>
         <Item>0.4</Item>                

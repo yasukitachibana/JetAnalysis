@@ -228,7 +228,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               }
 
               // Define SoftDrop condition
-              fastjet::contrib::SoftDrop sd(beta_val, zcut_val);
+              fastjet::contrib::SoftDrop sd(beta_val, zcut_val, r_cone);
 
               // std::cout << "SoftDrop groomer is: " << sd.description() << std::endl;
               fastjet::PseudoJet sd_jet = sd(j);
@@ -250,7 +250,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
                 // mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
                 //  Standard
-                thg = rg / jetR[ir];      // theta_g = rg/R
+                thg = rg / r_cone;      // theta_g = rg/R
                 mg = sd_jet.m();          // groomed mass
                 mg_over_pt = mg / pt_jet; // groomed mass/jetPt
                 //-------------------------------
