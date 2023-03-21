@@ -1,25 +1,25 @@
-#include "SoftDropGroom.h"
+#include "DynamicalGroom.h"
 #include "TMath.h"
 
 // using namespace Analysis;
 
 // Register the module with the base class
-RegisterAnalysisModule<SoftDropGroom> SoftDropGroom::reg("SoftDropGroom");
+RegisterAnalysisModule<DynamicalGroom> DynamicalGroom::reg("DynamicalGroom");
 
-SoftDropGroom::SoftDropGroom(std::string name_in) : name(name_in), ui(-123456)
+DynamicalGroom::DynamicalGroom(std::string name_in) : name(name_in), ui(-123456)
 {
   std::cout << "-@-Creating " << name << std::endl;
   std::cout << "Reconstruction Method is Fixed in " << name << "[Negative Recombiner]" << std::endl;
   std::cout << "Setting of Reconstruction in XML is to be ignored" << std::endl;
 }
 
-SoftDropGroom::~SoftDropGroom()
+DynamicalGroom::~DynamicalGroom()
 {
   std::cout << "-$-Deleting " << name << std::endl;
 }
 
 //--------------------------------------------------------------------------------------------------
-int SoftDropGroom::ReadVariablesFromXML(std::string tag)
+int DynamicalGroom::ReadVariablesFromXML(std::string tag)
 {
   int exist = 0;
   // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
@@ -40,7 +40,7 @@ int SoftDropGroom::ReadVariablesFromXML(std::string tag)
   return exist;
 }
 
-std::string SoftDropGroom::VariableSuffix(int i)
+std::string DynamicalGroom::VariableSuffix(int i)
 {
   if (i == 1)
   {
@@ -52,10 +52,11 @@ std::string SoftDropGroom::VariableSuffix(int i)
   }
 }
 
-int SoftDropGroom::ReadOptionParametersFromXML()
+int DynamicalGroom::ReadOptionParametersFromXML()
 {
 
-  beta = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "beta", "Item"});
+  beta = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "aDyn", "Item"});
+  // Parameter name, beta, is used instead of a in dynamical grooming for structual reason
   zCut = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zCut", "Item"});
   double deltaRCut = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "deltaRCut"}, false);
 
@@ -94,22 +95,22 @@ int SoftDropGroom::ReadOptionParametersFromXML()
 
 //------------------------------------------------------------
 // Get Tags for Parameters
-std::string SoftDropGroom::GetParamsTag(int i)
+std::string DynamicalGroom::GetParamsTag(int i)
 {
   return GetParamsTag(GetParamIndex(i));
 }
 
-std::string SoftDropGroom::GetParamsTag(std::array<int, 2> i)
+std::string DynamicalGroom::GetParamsTag(std::array<int, 2> i)
 {
   return GetParamsTag(i[0], i[1]);
 }
 
-std::string SoftDropGroom::GetParamsTag(int i_beta, int i_zCut)
+std::string DynamicalGroom::GetParamsTag(int i_beta, int i_zCut)
 {
   return GetParamsTag(beta[i_beta], zCut[i_zCut]);
 }
 
-std::string SoftDropGroom::GetParamsTag(double beta_sd, double z_cut_sd)
+std::string DynamicalGroom::GetParamsTag(double beta_sd, double z_cut_sd)
 {
   std::ostringstream oss;
 
@@ -121,17 +122,17 @@ std::string SoftDropGroom::GetParamsTag(double beta_sd, double z_cut_sd)
 }
 //------------------------------------------------------------
 // Get Index of Tags for Parameters
-int SoftDropGroom::GetParamIndex(std::array<int, 2> i)
+int DynamicalGroom::GetParamIndex(std::array<int, 2> i)
 {
   return GetParamIndex(i[0], i[1]);
 }
 
-int SoftDropGroom::GetParamIndex(int i_beta, int i_zCut)
+int DynamicalGroom::GetParamIndex(int i_beta, int i_zCut)
 {
   return zCut.size() * (i_beta) + i_zCut;
 }
 
-std::array<int, 2> SoftDropGroom::GetParamIndex(int i)
+std::array<int, 2> DynamicalGroom::GetParamIndex(int i)
 {
   int i_beta = i / zCut.size();
   int i_zCut = i % zCut.size();
@@ -139,19 +140,19 @@ std::array<int, 2> SoftDropGroom::GetParamIndex(int i)
 }
 //------------------------------------------------------------
 
-void SoftDropGroom::ShowParamsSetting()
+void DynamicalGroom::ShowParamsSetting()
 {
-  std::cout << "[AnalyzeBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalyzeBase] *** [SoftDropGroom]" << std::endl;
+  std::cout << "[AnalyzeModuleBase] ***-------------------------------------------" << std::endl;
+  std::cout << "[AnalyzeModuleBase] *** [DynamicalGroom]" << std::endl;
 
-  std::cout << "[AnalyzeBase] *** beta: ";
+  std::cout << "[AnalyzeModuleBase] *** beta: ";
   for (auto b : beta)
   {
     std::cout << b << ", ";
   }
   std::cout << "\b\b  " << std::endl;
 
-  std::cout << "[AnalyzeBase] *** z_cut: ";
+  std::cout << "[AnalyzeModuleBase] *** z_cut: ";
   for (auto z : zCut)
   {
     std::cout << z << ", ";
@@ -162,13 +163,13 @@ void SoftDropGroom::ShowParamsSetting()
 }
 
 //--------------------------------------------------------------------------------------------------
-double SoftDropGroom::CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
+double DynamicalGroom::CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
                                       double pmod2, double px2, double py2, double pz2)
 {
   return (px1 * px2 + py1 * py2 + pz1 * pz2) / pmod1 / pmod2;
 }
 
-void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
+void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
 {
 
   std::vector<fastjet::PseudoJet> fj_inputs;
@@ -227,8 +228,23 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 // std::cout << endl;
               }
 
+
+              //==========================================================================
+              //==========================================================================
+              //==========================================================================              
+              //
+              // Grooming
+              //
+              //==========================================================================
+              //==========================================================================
+              //==========================================================================
+              
+
+
+
+
               // Define SoftDrop condition
-              fastjet::contrib::SoftDrop sd(beta_val, zcut_val, r_cone);
+              fastjet::contrib::SoftDrop sd(beta_val, zcut_val);
 
               // std::cout << "SoftDrop groomer is: " << sd.description() << std::endl;
               fastjet::PseudoJet sd_jet = sd(j);
@@ -250,7 +266,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
                 // mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
                 //  Standard
-                thg = rg / r_cone;      // theta_g = rg/R
+                thg = rg / jetR[ir];      // theta_g = rg/R
                 mg = sd_jet.m();          // groomed mass
                 mg_over_pt = mg / pt_jet; // groomed mass/jetPt
                 //-------------------------------
@@ -261,6 +277,12 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               {
                 rg = -1.0;
               }
+
+              //==========================================================================
+              //==========================================================================
+              //==========================================================================              
+
+
 
               //================================================================
               // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
@@ -348,7 +370,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// bool SoftDropGroom::SDCondition(double z_g, double theta_g, double z_cut, double beta)
+// bool DynamicalGroom::SDCondition(double z_g, double theta_g, double z_cut, double beta)
 // {
 //   if (theta_g > DBL_EPSILON)
 //   {
@@ -360,11 +382,11 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 //   return false;
 // }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
+void DynamicalGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
   //
   std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
-  std::cout << "[SoftDropGroom] hist_name = " << hist_name << std::endl;
+  std::cout << "[DynamicalGroom] hist_name = " << hist_name << std::endl;
 
   auto total_hist = CreateHist(hist_name, iv);
   auto normalized_hist = CreateHist("normalized_" + hist_name, iv);
@@ -386,23 +408,22 @@ void SoftDropGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
     }
   }
   // #############################################
-  total_hist->JetTriggered(nJetTotal);
   total_hist->Print("count_"); // millibarn
   if (nJetTotal != 0)
   {
     total_hist->Scale(1.0 / nJetTotal, "width");
-    total_hist->Print("SoftDropGroom_");
+    total_hist->Print("DynamicalGroom_");
   }
   else
   {
-    std::cout << "[SoftDropGroom] 0-total Jet" << std::endl;
-    std::cout << "[SoftDropGroom] Skip. " << std::endl;
+    std::cout << "[DynamicalGroom] 0-total Jet" << std::endl;
+    std::cout << "[DynamicalGroom] Skip. " << std::endl;
   }
   total_hist->DeleteTH();
   // #############################################
   normalized_hist->Scale(1.0, "width");
   normalized_hist->Normalize("width");
-  normalized_hist->Print("SoftDropGroom_");
+  normalized_hist->Print("DynamicalGroom_");
   normalized_hist->DeleteTH();
   // #############################################
 }

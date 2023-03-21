@@ -156,6 +156,7 @@ void JetShape::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, i
     }
   }
 
+  total_hist->JetTriggered(nJetTotal);
   total_hist->Print("count_");
 
   if (nJetTotal != 0)
