@@ -242,11 +242,12 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
                 // Fundamentals
                 rg = daughter1.delta_R(daughter2);
                 double ptsum = daughter1.pt() + daughter2.pt();
-                zg = min(daughter1.pt(), daughter2.pt()) / ptsum;
+                double min_pt = min(daughter1.pt(), daughter2.pt());
+                zg =  min_pt / ptsum;
                 thg = rg / r_cone;      // theta_g = rg/R
                 mg = dyg_jet.m();          // groomed mass
                 mg_over_pt = mg / pt_jet; // groomed mass/jetPt
-                ktg = zg * dyg_jet.pt() * sin(rg); //
+                ktg = min_pt * sin(rg); //
               }
               //==========================================================================
 
