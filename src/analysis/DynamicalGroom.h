@@ -9,51 +9,6 @@
 
 #include <iostream>
 
-class SDAdditionalCondition
-{
-public:
-  virtual ~SDAdditionalCondition() {}
-  virtual bool Trigger(double val) { return false; }
-  virtual bool Trigger(double val1, double val2) { return false; }
-  virtual bool Trigger(double val1, double val2, double val3) { return false; }
-  virtual void ShowSettings() {}
-};
-
-class SDNoCondition : public SDAdditionalCondition
-{
-public:
-  SDNoCondition() {}
-  ~SDNoCondition() {}
-  bool Trigger(double val) { return true; }
-  bool Trigger(double val1, double val2) { return true; }
-  bool Trigger(double val1, double val2, double val3) { return true; }
-  void ShowSettings() {}
-};
-
-class SDDeltaRCut : public SDAdditionalCondition
-{
-public:
-  SDDeltaRCut(double delta_r_min) : deltaRMin(delta_r_min) {}
-  ~SDDeltaRCut() {}
-  bool Trigger(double val)
-  {
-    if (val > deltaRMin)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-  void ShowSettings()
-  {
-    std::cout << "[AnalyzeBase] *** Delta_R_cut: " << deltaRMin << std::endl;
-  }
-
-private:
-  const double deltaRMin;
-};
 
 class DynamicalGroom : public AnalysisModuleStandard
 {
@@ -90,8 +45,6 @@ private:
   std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG", "mG", "mGOverPt", "ktG"};
 
   int ui;
-
-  std::unique_ptr<SDAdditionalCondition> additional_cond_ptr;
 
   double CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
                          double pmod2, double px2, double py2, double pz2);

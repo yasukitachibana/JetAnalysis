@@ -57,8 +57,7 @@ int DynamicalGroom::ReadOptionParametersFromXML()
 
   beta = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "aDyn", "Item"});
   // Parameter name, beta, is used instead of a in dynamical grooming for structual reason
-  zCut = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zCut", "Item"});
-  double deltaRCut = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "deltaRCut"}, false);
+  zCut = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zCut", "Item"}, false);
 
   for (int i = 1; i < 30; i++)
   {
@@ -79,15 +78,6 @@ int DynamicalGroom::ReadOptionParametersFromXML()
       std::cout << iv << " ";
     }
     std::cout << std::endl;
-  }
-
-  if (deltaRCut < DBL_EPSILON)
-  {
-    additional_cond_ptr = std::unique_ptr<SDNoCondition>(new SDNoCondition());
-  }
-  else
-  {
-    additional_cond_ptr = std::unique_ptr<SDDeltaRCut>(new SDDeltaRCut(deltaRCut));
   }
 
   return beta.size() * zCut.size();
@@ -145,7 +135,7 @@ void DynamicalGroom::ShowParamsSetting()
   std::cout << "[AnalyzeModuleBase] ***-------------------------------------------" << std::endl;
   std::cout << "[AnalyzeModuleBase] *** [DynamicalGroom]" << std::endl;
 
-  std::cout << "[AnalyzeModuleBase] *** beta: ";
+  std::cout << "[AnalyzeModuleBase] *** aDyn: ";
   for (auto b : beta)
   {
     std::cout << b << ", ";
@@ -158,13 +148,11 @@ void DynamicalGroom::ShowParamsSetting()
     std::cout << z << ", ";
   }
   std::cout << "\b\b  " << std::endl;
-
-  additional_cond_ptr->ShowSettings();
 }
 
 //--------------------------------------------------------------------------------------------------
 double DynamicalGroom::CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
-                                      double pmod2, double px2, double py2, double pz2)
+                                       double pmod2, double px2, double py2, double pz2)
 {
   return (px1 * px2 + py1 * py2 + pz1 * pz2) / pmod1 / pmod2;
 }
@@ -228,61 +216,39 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
                 // std::cout << endl;
               }
 
-
               //==========================================================================
-              //==========================================================================
-              //==========================================================================              
-              //
               // Grooming
-              //
               //==========================================================================
+              // Define Dynamical Grooming condition
+              dyGroomer dyg(beta_val, zcut_val);
+              bool hasSub = false;
+              fastjet::PseudoJet daughter1, daughter2;
+              fastjet::PseudoJet dyg_jet = dyg.doGrooming(j, daughter1, daughter2, hasSub);
+              // std::cout << "[DynamicalGroom] groom-test: " << has_substructure << endl;
               //==========================================================================
+
               //==========================================================================
-              
-
-
-
-
-              // Define SoftDrop condition
-              fastjet::contrib::SoftDrop sd(beta_val, zcut_val);
-
-              // std::cout << "SoftDrop groomer is: " << sd.description() << std::endl;
-              fastjet::PseudoJet sd_jet = sd(j);
-              bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
-
-              // Set
-              double rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
+              // Set Groomed Jet Observables
+              //==========================================================================
+              double rg = -1.0;
               double zg = -1.0;
-              // double mu = -1.0;
               double thg = -1.0;
               double mg = -1.0;
               double mg_over_pt = -1.0;
               double ktg = -1.0;
               //--
-
-              if (hasSub && additional_cond_ptr->Trigger(rg))
+              if (hasSub)
               {
                 // Fundamentals
-                zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
-                // mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
-                //  Standard
-                thg = rg / jetR[ir];      // theta_g = rg/R
-                mg = sd_jet.m();          // groomed mass
+                rg = daughter1.delta_R(daughter2);
+                double ptsum = daughter1.pt() + daughter2.pt();
+                zg = min(daughter1.pt(), daughter2.pt()) / ptsum;
+                thg = rg / r_cone;      // theta_g = rg/R
+                mg = dyg_jet.m();          // groomed mass
                 mg_over_pt = mg / pt_jet; // groomed mass/jetPt
-                //-------------------------------
-                // kt
-                ktg = zg * sd_jet.pt() * sin(rg); //
+                ktg = zg * dyg_jet.pt() * sin(rg); //
               }
-              else
-              {
-                rg = -1.0;
-              }
-
               //==========================================================================
-              //==========================================================================
-              //==========================================================================              
-
-
 
               //================================================================
               // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"

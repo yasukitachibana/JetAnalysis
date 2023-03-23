@@ -13,7 +13,7 @@
 #include "fastjet/contrib/RecursiveSymmetryCutBase.hh"
 #include "fastjet/contrib/Nsubjettiness.hh"
 
-//#include "jetCollection.hh"
+// #include "jetCollection.hh"
 
 //---------------------------------------------------------------
 // Description
@@ -26,6 +26,7 @@ class dyGroomer
 
 private:
    double a_;
+   double zCut_;
 
    std::vector<fastjet::PseudoJet> fjInputs_;  // ungroomed jets
    std::vector<fastjet::PseudoJet> fjOutputs_; // groomed jets
@@ -36,7 +37,7 @@ private:
    std::vector<double> tau32_;                 // n-subjettiness ratio 32
 
 public:
-   dyGroomer(double a = 1);
+   dyGroomer(double a = 1, double zCut = -1);
    void setInputJets(std::vector<fastjet::PseudoJet> v);
    std::vector<fastjet::PseudoJet> getGroomedJets() const;
    std::vector<double> getZgs() const;
@@ -45,13 +46,17 @@ public:
    std::vector<double> getTau21() const;
    std::vector<double> getTau32() const;
    double getKappa(double pt, double theta, double z);
-   //std::vector<fastjet::PseudoJet> doGrooming(jetCollection &c);
+   // std::vector<fastjet::PseudoJet> doGrooming(jetCollection &c);
    std::vector<fastjet::PseudoJet> doGrooming(std::vector<fastjet::PseudoJet> v);
    std::vector<fastjet::PseudoJet> doGrooming();
+   fastjet::PseudoJet doGrooming(fastjet::PseudoJet jet,
+                                 fastjet::PseudoJet &daughter1,
+                                 fastjet::PseudoJet &daughter2,
+                                 bool &has_substructure);
 };
 
-dyGroomer::dyGroomer(double a)
-    : a_(a)
+dyGroomer::dyGroomer(double a, double zCut)
+    : a_(a), zCut_(zCut)
 {
 }
 
@@ -105,6 +110,100 @@ double dyGroomer::getKappa(double pt, double theta, double z)
 {
    double kappa = 1 / (z * (1 - z) * pt * pow(theta, a_));
    return kappa;
+}
+
+fastjet::PseudoJet dyGroomer::doGrooming(fastjet::PseudoJet jet,
+                                         fastjet::PseudoJet &daughter1,
+                                         fastjet::PseudoJet &daughter2,
+                                         bool &has_substructure)
+{
+   //----------------------------------------------
+   // Reclustering by C/A
+   //----------------------------------------------
+   std::vector<fastjet::PseudoJet> particles, ghosts;
+   fastjet::SelectorIsPureGhost().sift(jet.constituents(), ghosts, particles);
+
+   fastjet::JetDefinition jet_def(fastjet::cambridge_algorithm, 1.);
+   fastjet::ClusterSequence cs(particles, jet_def);
+   vector<fastjet::ClusterSequence::history_element> cs_history = cs.history();
+   std::vector<fastjet::PseudoJet> tempJets = fastjet::sorted_by_pt(cs.inclusive_jets());
+
+   // To make the jetp_index work we need to define our jets like this
+   std::vector<fastjet::PseudoJet> tempJets_two = cs.jets();
+   //----------------------------------------------
+
+   //----------------------------------------------
+   // If C/A failed
+   //----------------------------------------------
+   if (tempJets.size() < 1)
+   {
+      return fastjet::PseudoJet(0., 0., 0., 0.);
+   }
+   //----------------------------------------------
+
+   //----------------------------------------------
+   // Find min kappa
+   //----------------------------------------------
+   fastjet::PseudoJet CurrentJet = tempJets[0];
+   fastjet::PseudoJet piece1, piece2;
+   double min_kappa = 1e8;
+   double zg = -1.;
+   double deltaR = -1;
+   double kappa = -1;
+   double pt = -1;
+   int ndrop = 0;
+
+   int current_in_ca_tree = -1; // (history) index of the current particle in the C/A tree
+
+   // now recurse into the jet's structure to find the maximum hardness/ minimum inverse hardness
+   while (CurrentJet.has_parents(piece1, piece2))
+   {
+
+      if (CurrentJet.pt2() <= 0)
+         break;
+
+      if (piece1.pt() + piece2.pt() > 0 && piece1.E() > 0. && piece2.E() > 0. && piece1.m() > 0. && piece2.m() > 0.)
+      {
+         pt = piece1.pt() + piece2.pt();
+         zg = min(piece1.pt(), piece2.pt()) / pt;
+         deltaR = piece1.delta_R(piece2);
+         kappa = getKappa(pt, deltaR, zg);
+
+         if (kappa < min_kappa && zg >= zCut_)
+         {
+            // std::cout << "zg= " << zg << " > " << zCut_ << endl;
+            min_kappa = kappa;
+            current_in_ca_tree = CurrentJet.cluster_hist_index();
+         }
+         else
+         {
+            // std::cout << "zg= " << zg << " < " << zCut_ << endl;
+            ndrop++;
+         }
+      }
+
+      if (piece1.pt() > piece2.pt())
+         CurrentJet = piece1;
+      else
+         CurrentJet = piece2;
+   }
+   //----------------------------------------------
+
+   //----------------------------------------------
+   // If jet passed Dynamical Grooming
+   //----------------------------------------------
+   if (current_in_ca_tree >= 0)
+   {
+      has_substructure = true;
+      fastjet::PseudoJet groomed_jet = tempJets_two[cs_history[current_in_ca_tree].jetp_index];
+      groomed_jet.has_parents(daughter1, daughter2); // set prongs
+      return groomed_jet; // put CA reclusterd jet after grooming
+   }
+   else
+   {
+      return CurrentJet;
+   }
+   //----------------------------------------------
 }
 
 std::vector<fastjet::PseudoJet> dyGroomer::doGrooming()
