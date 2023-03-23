@@ -105,7 +105,7 @@ std::string DynamicalGroom::GetParamsTag(double beta_sd, double z_cut_sd)
   std::ostringstream oss;
 
   oss << std::fixed
-      << "beta" << std::setprecision(2) << (beta_sd) << "_"
+      << "aDyn" << std::setprecision(2) << (beta_sd) << "_"
       << "zCut" << std::setprecision(2) << (z_cut_sd);
 
   return oss.str();
