@@ -157,7 +157,8 @@
       <tail>.out</tail>
     </events>
     <sigma>
-      <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path>
+      <!-- <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path> -->
+      <path>na</path>        
       <head>SigmaHardBin</head>
       <join>_</join>
       <tail>.out</tail>
