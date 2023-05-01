@@ -11,6 +11,8 @@
     <jetR>
       <Item>0.2</Item>
       <Item>0.4</Item>
+      <Item>0.6</Item>
+      <Item>1.0</Item>      
     </jetR>
 
     <chJet>1</chJet>    <!-- 0: full jet, 1: charged jet -->
@@ -32,13 +34,22 @@
       <Item>60</Item>
       <Item>80</Item>
       <Item>100</Item>
+      <Item>120</Item>
+      <Item>150</Item>
+      <Item>200</Item>
+      <Item>300</Item>
     </jetPtMin>
     <jetPtMax>
       <Item>60</Item>
       <Item>80</Item>
       <Item>100</Item>
       <Item>120</Item>
+      <Item>150</Item>
+      <Item>200</Item>
+      <Item>300</Item>
+      <Item>500</Item>
     </jetPtMax>
+
     <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
 
@@ -131,6 +142,70 @@
           <Item>9.50</Item>
           <Item>9.75</Item>
           <Item>10.00</Item>
+          <Item>10.50</Item>
+          <Item>11.00</Item>
+          <Item>11.50</Item>
+          <Item>12.00</Item>
+          <Item>12.50</Item>
+          <Item>13.00</Item>
+          <Item>13.50</Item>
+          <Item>14.00</Item>
+          <Item>14.50</Item>
+          <Item>15.00</Item>
+          <Item>15.50</Item>
+          <Item>16.00</Item>
+          <Item>16.50</Item>
+          <Item>17.00</Item>
+          <Item>17.50</Item>
+          <Item>18.00</Item>
+          <Item>18.50</Item>
+          <Item>19.00</Item>
+          <Item>19.50</Item>
+          <Item>20.00</Item>
+          <Item>20.50</Item>
+          <Item>21.00</Item>
+          <Item>21.50</Item>
+          <Item>22.00</Item>
+          <Item>22.50</Item>
+          <Item>23.00</Item>
+          <Item>23.50</Item>
+          <Item>24.00</Item>
+          <Item>24.50</Item>
+          <Item>25.00</Item>
+          <Item>25.50</Item>
+          <Item>26.00</Item>
+          <Item>26.50</Item>
+          <Item>27.00</Item>
+          <Item>27.50</Item>
+          <Item>28.00</Item>
+          <Item>28.50</Item>
+          <Item>29.00</Item>
+          <Item>29.50</Item>
+          <Item>30.00</Item>
+          <Item>34.00</Item>
+          <Item>35.00</Item>
+          <Item>36.00</Item>
+          <Item>37.00</Item>
+          <Item>38.00</Item>
+          <Item>39.00</Item>
+          <Item>40.00</Item>
+          <Item>41.00</Item>
+          <Item>42.00</Item>
+          <Item>43.00</Item>
+          <Item>44.00</Item>
+          <Item>45.00</Item>
+          <Item>46.00</Item>
+          <Item>47.00</Item>
+          <Item>48.00</Item>
+          <Item>49.00</Item>
+          <Item>50.00</Item>
+          <Item>70.00</Item>
+          <Item>75.00</Item>
+          <Item>80.00</Item>
+          <Item>85.00</Item>
+          <Item>90.00</Item>
+          <Item>95.00</Item>
+          <Item>100.00</Item>
         </mG>
 
         <mGOverPt>
@@ -158,7 +233,7 @@
     </events>
     <sigma>
       <!-- <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path> -->
-      <path>na</path>        
+      <path>na</path>
       <head>SigmaHardBin</head>
       <join>_</join>
       <tail>.out</tail>
@@ -216,7 +291,7 @@
     <Item>300</Item>
     <Item>350</Item>
     <Item>400</Item>
-    <!-- <Item>450</Item>
+    <Item>450</Item>
     <Item>500</Item>
     <Item>550</Item>
     <Item>600</Item>
@@ -236,7 +311,7 @@
     <Item>2000</Item>
     <Item>2200</Item>
     <Item>2400</Item>
-    <Item>2510</Item> -->
+    <Item>2510</Item>
   </ptHat>
 
 </jetAnalysis>
