@@ -2,6 +2,7 @@
 #define MOMFRACTAGJET_H
 
 #include "AnalysisModuleStandard.h"
+#include "SmearingModuleBase.h"
 #include <iostream>
 
 class MomFracTagJet : public AnalysisModuleStandard
@@ -17,6 +18,14 @@ private:
   //                     int ir, int ijp, int ijr );
 
   void CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
+
+  //----------------------------------------------------------------------------
+  void ShowParamsSetting();
+  int ReadOptionParametersFromXML();
+  std::string GetParamsTag(int i);
+  //----------------------------------------------------------------------------
+  int smearing;
+  std::shared_ptr<SmearingModuleBase> smear_ptr;  
 
 public:
   MomFracTagJet(std::string name_in = "MomFracTagJet");

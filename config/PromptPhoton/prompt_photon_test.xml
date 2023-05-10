@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <jetR>
+      <Item>0.4</Item>
+    </jetR>
+    <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
+    <!-- <statJet>
+      <Item>0</Item><Item>1</Item><Item>-1</Item>
+    </statJet> -->
+
+    <!-- <jetConstPtMin>0.0</jetConstPtMin>
+    <jetConstPtMax>3000</jetConstPtMax> -->
+
+
+
+    <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin>
+      <Item>0</Item>
+    </jetRapMin>
+    <jetRapMax>
+      <Item>1.6</Item>
+    </jetRapMax>
+    <jetPtMin>
+      <Item>0</Item>
+    </jetPtMin>
+    <jetPtMax>
+      <Item>3000</Item>
+    </jetPtMax>
+    <nJetEv>0</nJetEv>
+  </jetReco>
+
+  <jetTag>
+    <tagged>1</tagged>
+    <xJetTag>0</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
+    <nTagEv>1</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
+    <!-- tag basic iinfo -->
+    <tagParticle>
+      <Item>22</Item>
+    </tagParticle>
+    <tagStat>
+      <Item>0</Item>
+      <Item>1</Item>
+    </tagStat>
+    <!-- tag pt cut -->
+    <tagPtMin>10</tagPtMin>
+    <tagPtMax>10000</tagPtMax>
+    <!-- tag rapidity cut -->
+    <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <tagRapMin>0</tagRapMin>
+    <tagRapMax>0.7</tagRapMax>
+    <!-- tag isolation -->
+    <isolation>1</isolation>
+    <RIsolation>0.3</RIsolation>
+    <cutIsolation>5</cutIsolation>
+    <varIsolation>ET</varIsolation>    <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
+    <!-- <chIsolation>1</chIsolation>   -->
+    <statIsolation>
+      <Item>0</Item>
+      <Item>1</Item>
+      <Item>-1</Item>
+    </statIsolation>
+    <!-- tag relative angle -->
+    <deltaPhiCut>1</deltaPhiCut>
+    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+  </jetTag>
+
+  <smearing>
+    <method>CMSxJGamma</method>
+    <nOverSampling>1</nOverSampling>
+    <tail>5</tail>    <!-- the maximum tail distance is this number * sigma -->
+    <C>0.06</C>
+    <S>1.24</S>
+    <N>8.42</N>
+  </smearing>
+
+
+  <observable>
+    <MomFracTagJet>
+      <name>Transverse Momentum Fraction between Tag and Jet</name>
+      <chParticle>0</chParticle>
+      <particleRapidity>1</particleRapidity>
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>4.9</Item>
+      </particleRapMax>
+      <particlePtMin>
+        <Item>0.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>10000</Item>
+      </particlePtMax>
+
+      <smearing>1</smearing>
+      <var>
+        <xJetTag>
+          <Item>0.0</Item>
+          <Item>0.31623</Item>
+          <Item>0.35481</Item>
+          <Item>0.39811</Item>
+          <Item>0.44668</Item>
+          <Item>0.50119</Item>
+          <Item>0.56234</Item>
+          <Item>0.63096</Item>
+          <Item>0.70795</Item>
+          <Item>0.79433</Item>
+          <Item>0.89125</Item>
+          <Item>1.0</Item>
+          <Item>1.12202</Item>
+          <Item>1.25893</Item>
+          <Item>1.41254</Item>
+          <Item>1.58489</Item>
+          <Item>1.77828</Item>
+          <Item>1.99526</Item>
+          <Item>2.0</Item>
+        </xJetTag>
+      </var>
+
+    </MomFracTagJet>
+
+
+  </observable>
+
+  <inputFiles>
+    <inputStyle>JetScapeAscii</inputStyle>
+    <events>
+      <head>JetscapeHadronListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>
+    <sigma>
+      <path>na</path>
+      <head>SigmaHardBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </sigma>
+    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divUnit>_Run</divUnit>
+  </inputFiles>
+
+  <!-- ptHatBins -->
+  <ptHat>
+    <Item>100</Item>
+    <Item>110</Item>
+    <Item>120</Item>
+  </ptHat>
+
+</jetAnalysis>

@@ -26,6 +26,10 @@ set (SOURCES  ${SOURCES}  ${reconstructionsources} )
 FILE(GLOB loadsources load/*.cc)
 set (SOURCES  ${SOURCES}  ${loadsources} )
 
+# load
+FILE(GLOB smearsources smear/*.cc)
+set (SOURCES  ${SOURCES}  ${smearsources} )
+
 
 #######################################
 add_library(JetAnalysis SHARED ${SOURCES})

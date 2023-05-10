@@ -5,6 +5,7 @@
 #include "SubtractionModuleBase.h"
 #include "ReconstructionModuleBase.h"
 #include "LoadFileModuleBase.h"
+#include "SmearingModuleBase.h"
 
 #include <iostream>
 #include <vector>

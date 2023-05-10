@@ -15,6 +15,43 @@ MomFracTagJet::~MomFracTagJet()
   std::cout << "-$-Deleting " << name << std::endl;
 }
 
+//--------------------------------------------------------------------------------------------------
+void MomFracTagJet::ShowParamsSetting()
+{
+
+  if(smearing)
+  {
+    std::cout << "[   MomFracTagJet  ] ***-------------------------------------------" << std::endl;
+    std::cout << "[   MomFracTagJet  ] *** [MomFracTagJet]" << std::endl;
+    smear_ptr->ShowSmearingSetting();
+  }
+
+}
+
+
+int MomFracTagJet::ReadOptionParametersFromXML()
+{
+
+  // Smearing ---------------------------------
+  smearing = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "smearing"}, false);
+  if(smearing){
+      std::string smearing_method = SetXML::Instance()->GetElementText({"smearing","method"});
+      smear_ptr = SmearingModuleFactory::createInstance(smearing_method);
+  }else{
+      smear_ptr = SmearingModuleFactory::createInstance("NoSmearing");
+  }
+  smear_ptr->Init();
+  //---------------------------------
+
+  return 1;
+}
+
+std::string MomFracTagJet::GetParamsTag(int i){
+  return "";
+}
+
+
+
 void MomFracTagJet::
     OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list,
                      int i_tag_particle)
