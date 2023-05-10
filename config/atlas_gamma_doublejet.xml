@@ -12,13 +12,6 @@
       <Item>0.2</Item>
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
-    <!-- <statJet>
-      <Item>0</Item><Item>1</Item><Item>-1</Item>
-    </statJet> -->
-
-    <!-- <jetConstPtMin>0.0</jetConstPtMin>
-    <jetConstPtMax>3000</jetConstPtMax> -->
-
 
 
     <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
@@ -30,23 +23,9 @@
     </jetRapMax>
     <jetPtMin>
       <Item>0</Item>
-      <Item>0.3</Item>
-      <Item>0.45</Item>
-      <Item>0.6</Item>
-      <Item>0.75</Item>
-      <Item>0.9</Item>
-      <Item>1.05</Item>
-      <Item>1.2</Item>
     </jetPtMin>
     <jetPtMax>
-      <Item>0.3</Item>
-      <Item>0.45</Item>
-      <Item>0.6</Item>
-      <Item>0.75</Item>
-      <Item>0.9</Item>
-      <Item>1.05</Item>
-      <Item>1.2</Item>
-      <Item>1.5</Item>
+      <Item>1000.0</Item>
     </jetPtMax>
     <nJetEv>0</nJetEv>
   </jetReco>
@@ -69,7 +48,7 @@
     <!-- tag rapidity cut -->
     <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <tagRapMin>0</tagRapMin>
-    <tagRapMax>2.8</tagRapMax>
+    <tagRapMax>2.37</tagRapMax>
     <!-- tag isolation -->
     <isolation>1</isolation>
     <RIsolation>0.3</RIsolation>
@@ -83,7 +62,7 @@
     </statIsolation>
     <!-- tag relative angle -->
     <deltaPhiCut>1</deltaPhiCut>
-    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+    <deltaPhiMin>-0.5</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
   </jetTag>
 
   <observable>
@@ -107,7 +86,7 @@
         <Item>30.0</Item>
       </particlePtMin>
       <particlePtMax>        <!-- subjet! -->
-        <Item>5020</Item>
+        <Item>501</Item>
       </particlePtMax>
 
       <rBinEdges>
@@ -116,24 +95,30 @@
       </rBinEdges>
 
       <aBinEdges>
-        <Item>0.0</Item>
-        <Item>0.05</Item>
-        <Item>0.1</Item>
-        <Item>0.2</Item>
-        <Item>0.3</Item>
-        <Item>0.4</Item>
-        <Item>0.6</Item>
-        <Item>0.8</Item>
+        <Item>0.0</Item>      
+        <Item>1000.0</Item>              
       </aBinEdges>
 
       <var>
         <xJJTag>
-          <Item>0</Item>
-          <Item>1.5</Item>
+          <Item>0.3</Item>
+          <Item>0.45</Item>
+          <Item>0.6</Item>
+          <Item>0.75</Item>
+          <Item>0.9</Item>
+          <Item>1.05</Item>
+          <Item>1.2</Item>
+          <Item>1.5</Item>                                        
         </xJJTag>
 
         <aJJTag>
           <Item>0.0</Item>
+          <Item>0.05</Item>
+          <Item>0.1</Item>
+          <Item>0.2</Item>
+          <Item>0.3</Item>
+          <Item>0.4</Item>
+          <Item>0.6</Item>
           <Item>0.8</Item>
         </aJJTag>
 
@@ -172,7 +157,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <!-- <Item>1</Item>
+    <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -184,7 +169,7 @@
     <Item>15</Item>
     <Item>17</Item>
     <Item>20</Item>
-    <Item>25</Item> -->
+    <Item>25</Item>
     <Item>30</Item>
     <Item>35</Item>
     <Item>40</Item>
@@ -216,7 +201,7 @@
     <Item>280</Item>
     <Item>290</Item>
     <Item>300</Item>
-    <!-- <Item>350</Item>
+    <Item>350</Item>
     <Item>400</Item>
     <Item>450</Item>
     <Item>500</Item>
@@ -238,7 +223,7 @@
     <Item>2000</Item>
     <Item>2200</Item>
     <Item>2400</Item>
-    <Item>2510</Item> -->
+    <Item>2510</Item>
   </ptHat>
 
 

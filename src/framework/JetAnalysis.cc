@@ -59,6 +59,8 @@ void JetAnalysis::ShowSettings()
   ShowRegisteredSubtractionModule();
   std::cout << "[JetAnalysis] ***-------------------------------------------" << std::endl;
   ShowRegisteredLoadFileModule();
+  std::cout << "[JetAnalysis] ***-------------------------------------------" << std::endl;
+  ShowRegisteredSmearingModule();
   std::cout << "[JetAnalysis] **********************************************" << std::endl
             << std::endl;
 

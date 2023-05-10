@@ -27,7 +27,7 @@ int InconeQuant::ReadOptionParametersFromXML()
     std::cout
         << "[InconeQuant] "
         << "Added ";
-    // start from ip since the product is commutative
+    // start from iq since the product is commutative
     for (int jq = iq; jq < n_quant; jq++)
     {
       n_val_total++;
