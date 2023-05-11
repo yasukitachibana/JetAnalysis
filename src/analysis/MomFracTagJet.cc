@@ -50,7 +50,8 @@ int MomFracTagJet::ReadOptionParametersFromXML()
 
 std::string MomFracTagJet::GetParamsTag(int i)
 {
-  return "";
+  std::string tag = smear_ptr->SettingTag();  
+  return tag;
 }
 
 void MomFracTagJet::
