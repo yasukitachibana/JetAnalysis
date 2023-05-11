@@ -17,7 +17,7 @@ public:
   ~NoSmearing();
   std::string Name() { return name; }
   void Init() { initialized = 1; }
-
+  int NSampling() { return 1; }
 
   // Just pT------------------------------
   double Smear(double pt) { return pt; }
@@ -58,7 +58,6 @@ public:
   void ShowSmearingSetting();
   void PrintSmearingSetting();
 
-
   // Just pT------------------------------
   double Smear(double pt);
 
@@ -84,7 +83,8 @@ public:
 
 private:
   void ReadParametersFromXML();
-  double SampleSmearingFactor(double pt);  
+  double GetSigma(double pt);
+  double SampleSmearingFactor(double pt);
   double C, S, N;
 };
 

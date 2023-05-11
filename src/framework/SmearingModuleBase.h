@@ -21,6 +21,7 @@ public:
   virtual void PrintSmearingSetting() {}
 
 
+
   // Just pT------------------------------
   virtual double Smear(double pt) { return pt; }
 
