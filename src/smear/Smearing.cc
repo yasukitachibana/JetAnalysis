@@ -189,3 +189,15 @@ double CMSxJGammaSmearing::GetSigma(double pt)
 {
   return sqrt(C * C + S * S / pt + N * N / pt / pt);
 }
+
+
+std::string CMSxJGammaSmearing::SettingTag()
+{
+  std::ostringstream oss;
+
+  oss << std::fixed
+      << "smear_CMS_g-j_C" << std::setprecision(2) << (C) 
+      << "_S" << std::setprecision(2) << (S)
+      << "_N" << std::setprecision(2) << (N);
+  return oss.str();
+}

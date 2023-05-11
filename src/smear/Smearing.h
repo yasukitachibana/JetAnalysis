@@ -18,6 +18,7 @@ public:
   std::string Name() { return name; }
   void Init() { initialized = 1; }
   int NSampling() { return 1; }
+  std::string SettingTag() {return "";};  
 
   // Just pT------------------------------
   double Smear(double pt) { return pt; }
@@ -80,7 +81,7 @@ public:
 
   std::vector<std::shared_ptr<fastjet::PseudoJet>>
   Smear(std::vector<std::shared_ptr<fastjet::PseudoJet>> jets);
-
+  std::string SettingTag();
 private:
   void ReadParametersFromXML();
   double GetSigma(double pt);

@@ -19,7 +19,7 @@ public:
 
   virtual void ShowSmearingSetting() {}
   virtual void PrintSmearingSetting() {}
-
+  virtual std::string SettingTag() {return "";};  
 
 
   // Just pT------------------------------
