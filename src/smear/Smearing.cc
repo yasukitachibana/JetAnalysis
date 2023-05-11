@@ -1,5 +1,6 @@
 #include "Smearing.h"
 #include "SetXML.h"
+#include <random>
 
 //-----------------------------------------------------------------
 // Register the module with the base class
@@ -73,6 +74,8 @@ void CMSxJGammaSmearing::PrintSmearingSetting()
 double CMSxJGammaSmearing::Smear(double pt)
 {
   double factor = SampleSmearingFactor(pt);
+  // std::cout << "smearing factor " << factor << std::endl;
+  // exit(-1);
   return factor * pt;
 }
 
@@ -80,21 +83,47 @@ double CMSxJGammaSmearing::Smear(double pt)
 std::shared_ptr<Particle>
 CMSxJGammaSmearing::Smear(std::shared_ptr<Particle> particle)
 {
-  exit(-1);
+  double pt = particle->perp();
+  double factor = SampleSmearingFactor(pt);
+
+  double e = factor * particle->e();
+  double px = factor * particle->px();
+  double py = factor * particle->py();
+  double pz = factor * particle->pz();
+
+  particle->reset_momentum(px, py, pz, e);
   return particle;
 }
 
 fastjet::PseudoJet
 CMSxJGammaSmearing::Smear(fastjet::PseudoJet jet)
 {
-  exit(-1);  
+  double pt = jet.perp();
+  double factor = SampleSmearingFactor(pt);
+
+  double e = factor * jet.e();
+  double px = factor * jet.px();
+  double py = factor * jet.py();
+  double pz = factor * jet.pz();
+
+  jet.reset_momentum(px, py, pz, e);
+
   return jet;
 }
 
 std::shared_ptr<fastjet::PseudoJet>
 CMSxJGammaSmearing::Smear(std::shared_ptr<fastjet::PseudoJet> jet)
 {
-  exit(-1);  
+  double pt = jet->perp();
+  double factor = SampleSmearingFactor(pt);
+
+  double e = factor * jet->e();
+  double px = factor * jet->px();
+  double py = factor * jet->py();
+  double pz = factor * jet->pz();
+
+  jet->reset_momentum(px, py, pz, e);
+
   return jet;
 }
 
@@ -102,25 +131,61 @@ CMSxJGammaSmearing::Smear(std::shared_ptr<fastjet::PseudoJet> jet)
 std::vector<std::shared_ptr<Particle>>
 CMSxJGammaSmearing::Smear(std::vector<std::shared_ptr<Particle>> particles)
 {
-  exit(-1);  
-  return particles;
+  std::vector<std::shared_ptr<Particle>> particles_scaled;
+  for (auto &p : particles)
+  {
+    particles_scaled.push_back(Smear(p));
+  }
+  return particles_scaled;
 }
 
 std::vector<fastjet::PseudoJet>
 CMSxJGammaSmearing::Smear(std::vector<fastjet::PseudoJet> jets)
 {
-  exit(-1);  
-  return jets;
+  std::vector<fastjet::PseudoJet> jets_scaled;
+  for (auto &j : jets)
+  {
+    jets_scaled.push_back(Smear(j));
+  }
+  return jets_scaled;
 }
 
 std::vector<std::shared_ptr<fastjet::PseudoJet>>
 CMSxJGammaSmearing::Smear(std::vector<std::shared_ptr<fastjet::PseudoJet>> jets)
 {
-  exit(-1);   
-  return jets;
+  std::vector<std::shared_ptr<fastjet::PseudoJet>> jets_scaled;
+  for (auto &j : jets)
+  {
+    jets_scaled.push_back(Smear(j));
+  }
+  return jets_scaled;
 }
 
-double CMSxJGammaSmearing::SampleSmearingFactor(double pt){
-  exit(-1);   
-  return 1.0;
+double CMSxJGammaSmearing::SampleSmearingFactor(double pt)
+{
+  double sigma = GetSigma(pt);
+  //----------------------------------------------------------------
+  std::random_device rd;                                // Generate a random seed
+  std::mt19937 gen(rd());                               // Mersenne Twister random number generator
+  std::uniform_real_distribution<double> dis(0.0, 1.0); // Uniform distribution of real numbers between 0.0 and 1.0
+
+  bool sampled = false;
+  double x_sampled = -1.0;
+
+  while (sampled == false)
+  {
+    x_sampled = 2.0 * dis(gen) - 1.0; // Generate a random number
+    double y_sampled = dis(gen);      // Generate a random number
+    double fx_sampled = exp(-0.5 * x_sampled * x_sampled / sigma / sigma);
+    if (y_sampled < fx_sampled)
+    {
+      sampled = true;
+    }
+  }
+  return x_sampled + 1.0;
+}
+
+double CMSxJGammaSmearing::GetSigma(double pt)
+{
+  return sqrt(C * C + S * S / pt + N * N / pt / pt);
 }

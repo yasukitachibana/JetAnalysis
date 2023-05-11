@@ -19,26 +19,28 @@ MomFracTagJet::~MomFracTagJet()
 void MomFracTagJet::ShowParamsSetting()
 {
 
-  if(smearing)
+  if (smearing)
   {
     std::cout << "[   MomFracTagJet  ] ***-------------------------------------------" << std::endl;
     std::cout << "[   MomFracTagJet  ] *** [MomFracTagJet]" << std::endl;
     smear_ptr->ShowSmearingSetting();
+    smear_ptr->Smear(150);
   }
-
 }
-
 
 int MomFracTagJet::ReadOptionParametersFromXML()
 {
 
   // Smearing ---------------------------------
   smearing = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "smearing"}, false);
-  if(smearing){
-      std::string smearing_method = SetXML::Instance()->GetElementText({"smearing","method"});
-      smear_ptr = SmearingModuleFactory::createInstance(smearing_method);
-  }else{
-      smear_ptr = SmearingModuleFactory::createInstance("NoSmearing");
+  if (smearing)
+  {
+    std::string smearing_method = SetXML::Instance()->GetElementText({"smearing", "method"});
+    smear_ptr = SmearingModuleFactory::createInstance(smearing_method);
+  }
+  else
+  {
+    smear_ptr = SmearingModuleFactory::createInstance("NoSmearing");
   }
   smear_ptr->Init();
   //---------------------------------
@@ -46,11 +48,10 @@ int MomFracTagJet::ReadOptionParametersFromXML()
   return 1;
 }
 
-std::string MomFracTagJet::GetParamsTag(int i){
+std::string MomFracTagJet::GetParamsTag(int i)
+{
   return "";
 }
-
-
 
 void MomFracTagJet::
     OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list,
@@ -109,17 +110,24 @@ void MomFracTagJet::
               int n_jet = 0;
 
               // For Loop for Jets
-              for (auto j : jets)
+              for (auto &j : jets)
               {
+                auto j_smeard = smear_ptr->Smear(j);
+
+                // std::cout<< "-" << std::endl;
+                // PrintPseudoJetInfo(j);
+                // PrintPseudoJetInfo(j_smeard);
 
                 //====================================
                 // Trigger Jets
-                if (JetTrigger(j, ir, ijp, ijr))
+                if (JetTrigger(j_smeard, ir, ijp, ijr))
                 {
+                  // std::cout << "-" << std::endl;
                   // PrintPseudoJetInfo(j);
+                  // PrintPseudoJetInfo(j_smeard);
 
                   // X_j-tag
-                  double xJTag = j.perp() / pt_tag;
+                  double xJTag = j_smeard.perp() / pt_tag;
 
                   // Fill Histogram
                   hist_list[index]->Fill(xJTag, 1.0);

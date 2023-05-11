@@ -74,8 +74,6 @@
 
   <smearing>
     <method>CMSxJGamma</method>
-    <nOverSampling>1</nOverSampling>
-    <tail>5</tail>    <!-- the maximum tail distance is this number * sigma -->
     <C>0.06</C>
     <S>1.24</S>
     <N>8.42</N>
