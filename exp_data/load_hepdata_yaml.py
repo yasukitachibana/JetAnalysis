@@ -2,6 +2,7 @@ import os
 import yaml
 import numpy as np
 import argparse
+import re
 
 def name_format(s):
   k = ''
@@ -28,7 +29,7 @@ def data_output(output_filename,data):
   print('Output File -> ', output_filename)
   np.savetxt(output_filename,data)
 
-def convert_yaml(yamlFile, outputDir, head = ''):
+def convert_yaml(yamlFile, outputDir, head = '', ex_tag = ''):
 
   with open(yamlFile, 'r') as yml:
     yaml_data = yaml.safe_load(yml)
@@ -36,7 +37,9 @@ def convert_yaml(yamlFile, outputDir, head = ''):
   xce, xlo, xhi = get_x_values(yaml_data['independent_variables'][0])
 
   for yaml_y_data in yaml_data['dependent_variables']:
-    name = head+generate_name(yaml_y_data)
+    name = head+generate_name(yaml_y_data)   
+    name = re.sub(ex_tag,'',name)
+
     output_filename = generate_output_filename(outputDir, name)
     yval, ystatp, ystatm, ysysp, ysysm = get_y_values(yaml_y_data)
     
@@ -71,7 +74,7 @@ def get_y_values(yaml_y_data):
 
   for y in yaml_y_data['values']:
 
-    if y['value'] == '':
+    if y['value'] == '' or y['value'] == 'empty':
       yval = np.append(yval,0.0)
       ysysp = np.append(ysysp, 0.0)
       ysysm = np.append(ysysm, 0.0)
@@ -80,15 +83,16 @@ def get_y_values(yaml_y_data):
       continue
 
     yval = np.append(yval,y['value'])
+    print(y)    
     for err in (y['errors']):
       try:
-        e = str(err['symerror'])
+        e = str(err['symerror'])      
         #Convert if percentage
         if (e[-1]=='%'):
           e = str(float(e[:-1])*y['value']*0.01)
         e = float(e)
 
-        if err['label'] == 'sys':
+        if err['label'] == 'sys' or err['label'] == 'syst':
           ysysp = np.append(ysysp, e)
           ysysm = np.append(ysysm, -e)
         else:

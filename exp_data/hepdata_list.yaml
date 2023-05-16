@@ -1,8 +1,18 @@
+hepdata_cms_photon_jet_mom_frac:
+  data_save_dir: './hepdata_cms_photon_jet_mom_frac'
+  data_url: 'https://www.hepdata.net/download/table/ins1638996/Table%{}/1/yaml'
+  data_table_first: 203
+  data_table_last: 203
+  out_file_exclude: '\$(.*)\$'
+  data_inspire: 'https://inspirehep.net/literature/1638996'
+
+
 # hepdata_atlas_photon_jet_mom_frac:
 #   data_save_dir: './hepdata_atlas_photon_jet_mom_frac'
 #   data_url: 'https://www.hepdata.net/download/table/ins1694678/Table%20{}/1/yaml'
 #   data_table_first: 1
 #   data_table_last: 6
+#   out_file_exclude: 0
 #   data_inspire: 'https://inspirehep.net/literature/1694678'
 
 
@@ -15,6 +25,7 @@
 # https://www.hepdata.net/download/table/ins1840683/Figure%205-2/1/yaml  
 #   data_table_first: 1
 #   data_table_last: 18
+#   out_file_exclude: 0
 #   data_inspire: 'https://inspirehep.net/literature/1893479'
   
 # hepdata_alice_groom_sf_5tev:
@@ -22,6 +33,7 @@
 #   data_url: 'https://www.hepdata.net/download/table/ins1893479/Table%20{}/1/yaml'
 #   data_table_first: 1
 #   data_table_last: 18
+#   out_file_exclude: 0
 #   data_inspire: 'https://inspirehep.net/literature/1893479'
 
 # hepdata_atlas_jet_ff_5tev:
@@ -29,6 +41,7 @@
 #   data_url: 'https://www.hepdata.net/download/table/ins1673177/Table{}/2/yaml'
 #   data_table_first: 0
 #   data_table_last: 88
+#   out_file_exclude: 0
 #   data_inspire: 'https://inspirehep.net/literature/1673177'
 
 # hepdata_cms_jet_prop_5tev:
@@ -36,6 +49,7 @@
 #   data_url: 'https://www.hepdata.net/download/table/ins1658057/Table{}/1/yaml'
 #   data_table_first: 1
 #   data_table_last: 12
+#   out_file_exclude: 0
 #   data_inspire: 'https://inspirehep.net/literature/1658057'
 
 # hepdata_cms_jet_splittingf_5tev:
@@ -43,6 +57,7 @@
 #   data_url: 'https://www.hepdata.net/download/table/ins1620905/Table%20{}/1/yaml'
 #   data_table_first: 2
 #   data_table_last: 16
+#   out_file_exclude: 0
 #   data_inspire: 'https://inspirehep.net/literature/1620905'
 
 # hepdata_cms_jet_groomedmass_5tev_a:
@@ -50,11 +65,13 @@
 #   data_url: 'https://www.hepdata.net/download/table/ins1672962/Figure%20{}a/1/yaml'
 #   data_table_first: 2
 #   data_table_last: 6
+#   out_file_exclude: 0
 #   data_inspire: 'https://inspirehep.net/literature/1672962'
 
-hepdata_cms_jet_groomedmass_5tev_b:
-  data_save_dir: 'hepdata_cms_jet_groomedmass_5tev'
-  data_url: 'https://www.hepdata.net/download/table/ins1672962/Figure%20{}b/1/yaml'
-  data_table_first: 2
-  data_table_last: 6
-  data_inspire: 'https://inspirehep.net/literature/1672962'
+# hepdata_cms_jet_groomedmass_5tev_b:
+#   data_save_dir: 'hepdata_cms_jet_groomedmass_5tev'
+#   data_url: 'https://www.hepdata.net/download/table/ins1672962/Figure%20{}b/1/yaml'
+#   data_table_first: 2
+#   data_table_last: 6
+#   out_file_exclude: 0  
+#   data_inspire: 'https://inspirehep.net/literature/1672962'
