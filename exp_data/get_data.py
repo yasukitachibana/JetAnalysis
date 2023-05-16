@@ -26,6 +26,7 @@ def main():
     url_temp = data['data_url']
     n_first = data['data_table_first']
     n_last = data['data_table_last']
+    ex_tag = data['out_file_exclude']
     
     Mkdirs(dir)
     
@@ -35,7 +36,7 @@ def main():
       
       hepdata_filename = os.path.join(dir,'hepdata{}.yaml'.format(str(i)))
       urllib.request.urlretrieve(url,hepdata_filename)
-      load_hepdata_yaml.convert_yaml(hepdata_filename, dir, 't'+str(i)+'_')
+      load_hepdata_yaml.convert_yaml(hepdata_filename, dir, 't'+str(i)+'_', ex_tag)
       os.remove(hepdata_filename)
 
 def Mkdirs(path):
