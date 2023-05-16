@@ -165,6 +165,25 @@ void TaggedJetPair::
           for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
           {
             //==========================================================
+            // Trigger Taged particle
+            // nParams for sets of parameters in the anlysis (e.g. rJJ, aJJTag)
+            for (int ip = 0; ip < nParams; ip++)
+            {
+              // n_var is for 0:"xJJTag", 1:"rJJ", 2:"aJJTag"
+              std::array<std::vector<int>, n_var> index;
+              for (int i = 0; i < n_var; i++)
+              {
+                // i_var[i] is vector. Each element of the vector is for each of multiple bin settings.
+                // index[i] stores the indices for all bin settings for this parameter set.
+                index[i] = GetHistIndex(i_var[i], ir, ijp, ijr, ipp, ipr, ip);
+                for (auto ii : index[i])
+                {
+                  // std::cout << ii << " ";
+                  hist_list[ii]->JetTriggered();
+                }
+              }
+            }
+            //==========================================================
             // For Loop for Jets
             for (int i_j1 = 0; i_j1 < jets.size(); i_j1++)
             {
@@ -208,11 +227,11 @@ void TaggedJetPair::
                             // index[i] stores the indices for all bin settings for this parameter set.
                             index[i] = GetHistIndex(i_var[i], ir, ijp, ijr, ipp, ipr, ip);
                             // std::cout << varNames[i] << ": ";
-                            for (auto ii : index[i])
-                            {
-                              // std::cout << ii << " ";
-                              hist_list[ii]->JetTriggered();
-                            }
+                            // for (auto ii : index[i])
+                            // {
+                            //   // std::cout << ii << " ";
+                            //   hist_list[ii]->JetTriggered();
+                            // }
                             // std::cout << endl;
                           }
 
