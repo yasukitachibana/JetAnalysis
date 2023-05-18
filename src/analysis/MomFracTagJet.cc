@@ -177,12 +177,12 @@ void MomFracTagJet::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
       nTagTotal += hist->GetNjetSigmaOverEev();
       double sigma = hist->Sigma();
 
-      std::cout<< "----------" << std::endl;
-      total_hist->Show();
-      hist->Show();
-      std::cout<< "sigma / n_ev: " << sigma / n_ev << std::endl;      
+      // std::cout<< "----------" << std::endl;
+      // total_hist->Show();
+      // hist->Show();
+      // std::cout<< "sigma / n_ev: " << sigma / n_ev << std::endl;      
       total_hist->Add(hist, sigma / n_ev);
-      total_hist->Show();      
+      //total_hist->Show();      
     }
   }
 
