@@ -62,7 +62,7 @@
     </statIsolation>
     <!-- tag relative angle -->
     <deltaPhiCut>1</deltaPhiCut>
-    <deltaPhiMin>-0.5</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
   </jetTag>
 
   <observable>
@@ -89,14 +89,16 @@
         <Item>501</Item>
       </particlePtMax>
 
+      <subjetDeltaPhiMin>-0.5</subjetDeltaPhiMin> <!--minimum relative angle between subjet and tag particle, negative value: to be multiplied by pi, 7/8 = 0.875-->
+
       <rBinEdges>
         <Item>0.4</Item>
-        <Item>3.0</Item>
+        <Item>1000.0</Item>
       </rBinEdges>
 
       <aBinEdges>
-        <Item>0.0</Item>      
-        <Item>1000.0</Item>              
+        <Item>0.0</Item>
+        <Item>1000.0</Item>
       </aBinEdges>
 
       <var>
@@ -108,7 +110,7 @@
           <Item>0.9</Item>
           <Item>1.05</Item>
           <Item>1.2</Item>
-          <Item>1.5</Item>                                        
+          <Item>1.5</Item>
         </xJJTag>
 
         <aJJTag>
