@@ -40,6 +40,8 @@ void TaggedJetPair::ShowParamsSetting()
               << aBinEdges[i + 1] << ", ";
   }
   std::cout << "\b\b  " << std::endl;
+
+  subjet_deltaphi_ptr->ShowDeltaPhiCutSetting();
 }
 
 std::string TaggedJetPair::VariableSuffix(int i)
@@ -60,6 +62,17 @@ int TaggedJetPair::ReadOptionParametersFromXML()
   particles_str = "Jet Pairs";
   rBinEdges = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "rBinEdges", "Item"});
   aBinEdges = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "aBinEdges", "Item"});
+  int subjetDeltaPhiCut = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "subjetDeltaPhiCut"}, false);
+
+  if (subjetDeltaPhiCut)
+  {
+    double subjetDeltaPhiMin = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "subjetDeltaPhiMin"});
+    subjet_deltaphi_ptr = std::unique_ptr<DeltaPhiCut>(new DeltaPhiCut(subjetDeltaPhiMin));
+  }
+  else
+  {
+    subjet_deltaphi_ptr = std::unique_ptr<NoPhiCut>(new NoPhiCut());
+  }
 
   for (int i = 1; i < 30; i++)
   {
@@ -112,7 +125,8 @@ bool TaggedJetPair::SubJetTrigger(fastjet::PseudoJet subjet, int ipp, int ipr)
   double rapidity = particle_rap_ptr->Val(subjet);
 
   if (pt >= particlePtMin[ipp] && pt < particlePtMax[ipp] &&
-      fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr])
+      fabs(rapidity) >= particleRapMin[ipr] && fabs(rapidity) < particleRapMax[ipr] &&
+      subjet_deltaphi_ptr->Trigger(subjet))
   {
     return true;
   }
@@ -130,6 +144,8 @@ void TaggedJetPair::
   //==============================================================================
   // Set pT of the Tag Particle
   double pt_tag = jet_tag_ptr->GetPtTag(i_tag_particle);
+  subjet_deltaphi_ptr->PhiBasis(jet_tag_ptr->GetPhi(i_tag_particle));
+
   // std::cout << "i=" << i_tag_particle << ", pt = " << pt_tag << " GeV" << std::endl;
   //==============================================================================
 
