@@ -32,7 +32,8 @@ private:
   std::array<std::vector<int>, n_var> i_var;
   std::array<std::string, n_var> varNames = {"xJJTag", "rJJ", "aJJTag"};
   //----------------------------------------------------------------------------
-
+  //=========================================
+  std::unique_ptr<DeltaPhiCutBase> subjet_deltaphi_ptr;
   bool SubJetTrigger(fastjet::PseudoJet subjet, int ipp, int ipr);
 
   //----------------------------------------------------------------------------
