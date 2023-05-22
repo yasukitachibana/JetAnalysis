@@ -89,7 +89,7 @@
         <Item>501</Item>
       </particlePtMax>
 
-      <subjetDeltaPhiCut>0</subjetDeltaPhiCut>
+      <subjetDeltaPhiCut>1</subjetDeltaPhiCut>
       <subjetDeltaPhiMin>-0.5</subjetDeltaPhiMin>      <!--minimum relative angle between subjet and tag particle, negative value: to be multiplied by pi, 7/8 = 0.875-->
 
       <rBinEdges>
@@ -104,6 +104,8 @@
 
       <var>
         <xJJTag>
+          <Item>0.0</Item>        
+          <Item>0.15</Item>
           <Item>0.3</Item>
           <Item>0.45</Item>
           <Item>0.6</Item>
@@ -137,6 +139,10 @@
         </aJJTag>
 
         <rJJ>
+          <Item>0.0</Item>
+          <Item>0.1</Item>
+          <Item>0.2</Item>
+          <Item>0.3</Item>                              
           <Item>0.4</Item>
           <Item>0.5</Item>
           <Item>0.6</Item>
@@ -145,6 +151,10 @@
           <Item>1.6</Item>
           <Item>2.0</Item>
           <Item>3.0</Item>
+          <Item>3.0</Item>
+          <Item>5.0</Item>
+          <Item>10.0</Item>
+          <Item>20.0</Item>                                        
         </rJJ>
       </var>
 
