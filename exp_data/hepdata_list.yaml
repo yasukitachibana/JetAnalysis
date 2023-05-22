@@ -1,8 +1,16 @@
-hepdata_cms_photon_jet_mom_frac:
+hepdata_cms_photon_jet_mom_frac_1:
   data_save_dir: './hepdata_cms_photon_jet_mom_frac'
   data_url: 'https://www.hepdata.net/download/table/ins1638996/Table%{}/1/yaml'
   data_table_first: 203
   data_table_last: 203
+  out_file_exclude: '\$(.*)\$'
+  data_inspire: 'https://inspirehep.net/literature/1638996'
+
+hepdata_cms_photon_jet_mom_frac_2:
+  data_save_dir: './hepdata_cms_photon_jet_mom_frac'
+  data_url: 'https://www.hepdata.net/download/table/ins1638996/Table%{}/1/yaml'
+  data_table_first: 206
+  data_table_last: 206
   out_file_exclude: '\$(.*)\$'
   data_inspire: 'https://inspirehep.net/literature/1638996'
 

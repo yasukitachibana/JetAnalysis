@@ -82,8 +82,7 @@ def get_y_values(yaml_y_data):
       ystatm = np.append(ystatm, 0.0)
       continue
 
-    yval = np.append(yval,y['value'])
-    print(y)    
+    yval = np.append(yval,y['value'])   
     for err in (y['errors']):
       try:
         e = str(err['symerror'])      
