@@ -214,12 +214,22 @@ void TaggedJetPair::
                     fastjet::PseudoJet paired_jet = jet1 + jet2;
                     if (JetTrigger(paired_jet, ir, ijp, ijr))
                     {
+                 
 
                       double xJJTag = paired_jet.perp() / pt_tag;
                       double delta_eta12 = jet1.eta() - jet2.eta();
                       double delta_phi12 = jet1.delta_phi_to(jet2);
                       double rJJ = TMath::Sqrt(delta_eta12 * delta_eta12 + delta_phi12 * delta_phi12);
                       double aJJTag = fabs(jet1.perp() - jet2.perp()) / pt_tag;
+
+                      // std::cout << "----------" << std::endl;
+                      // std::cout << "  e: 1-" << jet1.e() << ", 2-" << jet2.e() << ", p-" <<paired_jet.e() << std::endl;
+                      // std::cout << " px: 1-" << jet1.px() << ", 2-" << jet2.px() << ", p-" <<paired_jet.px() << std::endl;
+                      // std::cout << " py: 1-" << jet1.py() << ", 2-" << jet2.py() << ", p-" <<paired_jet.py() << std::endl;                                            
+                      // std::cout << " pT: 1-" << jet1.perp() << ", 2-" << jet2.perp() << ", p-" <<paired_jet.perp() << std::endl;
+                      // std::cout << "eta: 1-" << jet1.eta() << ", 2-" << jet2.eta() << ", p-" <<paired_jet.eta() << std::endl;                      
+                      // std::cout << "phi: 1-" << jet1.phi() << ", 2-" << jet2.phi() << ", p-" <<paired_jet.phi() << std::endl;  
+                      // std::cout << "xJJTag: " << xJJTag << ", rJJ: " << rJJ << ", aJJTag:" << aJJTag << std::endl;                                                 
 
                       // nParams for sets of parameters in the anlysis (e.g. rJJ, aJJTag)
                       for (int ip = 0; ip < nParams; ip++)
