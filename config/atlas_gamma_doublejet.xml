@@ -22,10 +22,10 @@
       <Item>2.8</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>0</Item>
+      <Item>30</Item>
     </jetPtMin>
     <jetPtMax>
-      <Item>1000.0</Item>
+      <Item>10000.0</Item>
     </jetPtMax>
     <nJetEv>0</nJetEv>
   </jetReco>
@@ -94,12 +94,12 @@
 
       <rBinEdges>
         <Item>0.4</Item>
-        <Item>1000.0</Item>
+        <Item>10000.0</Item>
       </rBinEdges>
 
       <aBinEdges>
         <Item>0.0</Item>
-        <Item>1000.0</Item>
+        <Item>10000.0</Item>
       </aBinEdges>
 
       <var>
