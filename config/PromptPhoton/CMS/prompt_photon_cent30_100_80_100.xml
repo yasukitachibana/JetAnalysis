@@ -9,31 +9,30 @@
   <jetReco>
     <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR>
-      <Item>0.2</Item>
+      <Item>0.3</Item>
     </jetR>
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
-
 
     <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
     </jetRapMin>
     <jetRapMax>
-      <Item>2.8</Item>
+      <Item>1.6</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>10</Item>
+      <Item>30.0</Item>
     </jetPtMin>
     <jetPtMax>
-      <Item>10000.0</Item>
+      <Item>10000</Item>
     </jetPtMax>
-    <nJetEv>0</nJetEv>
+    <nJetEv>0</nJetEv>    <!-- <= 0: inclusive -->
   </jetReco>
 
   <jetTag>
     <tagged>1</tagged>
     <xJetTag>0</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
-    <nTagEv>0</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
+    <nTagEv>1</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event (leading: CMS) -->
     <!-- tag basic iinfo -->
     <tagParticle>
       <Item>22</Item>
@@ -43,17 +42,17 @@
       <Item>1</Item>
     </tagStat>
     <!-- tag pt cut -->
-    <tagPtMin>90</tagPtMin>
-    <tagPtMax>180</tagPtMax>
+    <tagPtMin>80.0</tagPtMin>
+    <tagPtMax>100.0</tagPtMax>
     <!-- tag rapidity cut -->
     <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <tagRapMin>0</tagRapMin>
-    <tagRapMax>2.37</tagRapMax>
+    <tagRapMax>1.44</tagRapMax>
     <!-- tag isolation -->
     <isolation>1</isolation>
-    <RIsolation>0.3</RIsolation>
-    <cutIsolation>3</cutIsolation>
-    <varIsolation>ET</varIsolation>    <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
+    <RIsolation>0.4</RIsolation>
+    <cutIsolation>5</cutIsolation>
+    <varIsolation>pT</varIsolation>    <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
     <!-- <chIsolation>1</chIsolation>   -->
     <statIsolation>
       <Item>0</Item>
@@ -65,99 +64,57 @@
     <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
   </jetTag>
 
+  <smearing>
+    <method>CMSxJGamma</method>
+    <C>0.06</C>
+    <S>1.24</S>
+    <N>0.0</N>
+  </smearing>
+
   <observable>
-
-
-
-    <!-- Hadrons -->
-    <TaggedJetPair>
-      <name>Tagged Jet Pair</name>
-
-      <!-- subjet infos -->
+    <MomFracTagJet>
+      <smearing>1</smearing>
+      <name>Transverse Momentum Fraction between Tag and Jet</name>
       <chParticle>0</chParticle>
+
       <particleRapidity>1</particleRapidity>
-      <particleRapMin>        <!-- subjet! -->
+      <particleRapMin>
         <Item>0.0</Item>
       </particleRapMin>
-      <particleRapMax>        <!-- subjet! -->
-        <Item>2.8</Item>
+      <particleRapMax>
+        <Item>2.0</Item>
       </particleRapMax>
-      <particlePtMin>        <!-- subjet! -->
-        <Item>30.0</Item>
+      <particlePtMin>
+        <Item>0.0</Item>
       </particlePtMin>
-      <particlePtMax>        <!-- subjet! -->
-        <Item>501</Item>
+      <particlePtMax>
+        <Item>10000</Item>
       </particlePtMax>
 
-      <subjetDeltaPhiCut>1</subjetDeltaPhiCut>
-      <subjetDeltaPhiMin>-0.5</subjetDeltaPhiMin>      <!--minimum relative angle between subjet and tag particle, negative value: to be multiplied by pi, 7/8 = 0.875-->
-
-      <rBinEdges>
-        <Item>0.4</Item>
-        <Item>10000.0</Item>
-      </rBinEdges>
-
-      <aBinEdges>
-        <Item>0.0</Item>
-        <Item>10000.0</Item>
-      </aBinEdges>
-
       <var>
-        <xJJTag>
-          <Item>0.0</Item>        
-          <Item>0.15</Item>
-          <Item>0.3</Item>
-          <Item>0.45</Item>
-          <Item>0.6</Item>
-          <Item>0.75</Item>
-          <Item>0.9</Item>
-          <Item>1.05</Item>
-          <Item>1.2</Item>
-          <Item>1.5</Item>
-          <Item>2.0</Item>
-          <Item>5.0</Item>
-          <Item>10.0</Item>                    
-          <Item>15.0</Item>
-          <Item>20.0</Item>                                                  
-        </xJJTag>
-
-        <aJJTag>
+        <xJetTag>
           <Item>0.0</Item>
-          <Item>0.05</Item>
-          <Item>0.1</Item>
-          <Item>0.2</Item>
-          <Item>0.3</Item>
-          <Item>0.4</Item>
-          <Item>0.6</Item>
-          <Item>0.8</Item>
-          <Item>1.0</Item>
-          <Item>2.0</Item>
-          <Item>5.0</Item>
-          <Item>10.0</Item>
-          <Item>15.0</Item>
-          <Item>20.0</Item>                                                  
-        </aJJTag>
-
-        <rJJ>
-          <Item>0.0</Item>
-          <Item>0.1</Item>
-          <Item>0.2</Item>
-          <Item>0.3</Item>                              
-          <Item>0.4</Item>
+          <Item>0.125</Item>
+          <Item>0.25</Item>
+          <Item>0.375</Item>
           <Item>0.5</Item>
-          <Item>0.6</Item>
-          <Item>0.8</Item>
-          <Item>1.2</Item>
-          <Item>1.6</Item>
+          <Item>0.625</Item>
+          <Item>0.75</Item>
+          <Item>0.875</Item>
+          <Item>1.0</Item>
+          <Item>1.125</Item>
+          <Item>1.25</Item>
+          <Item>1.375</Item>
+          <Item>1.5</Item>
+          <Item>1.625</Item>
+          <Item>1.75</Item>
+          <Item>1.875</Item>
           <Item>2.0</Item>
-          <Item>3.0</Item>
-          <Item>5.0</Item>
-          <Item>10.0</Item>
-          <Item>20.0</Item>                                        
-        </rJJ>
+        </xJetTag>
       </var>
 
-    </TaggedJetPair>
+    </MomFracTagJet>
+
 
   </observable>
 
@@ -248,6 +205,5 @@
     <Item>2400</Item>
     <Item>2510</Item>
   </ptHat>
-
 
 </jetAnalysis>
