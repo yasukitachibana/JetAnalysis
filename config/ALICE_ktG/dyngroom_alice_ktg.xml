@@ -9,7 +9,8 @@
   <jetReco>
     <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR>
-      <Item>0.2</Item>      
+      <!-- <Item>0.2</Item> -->
+      <Item>0.4</Item>            
     </jetR>
 
     <chJet>1</chJet>    <!-- 0: full jet, 1: charged jet -->
@@ -17,9 +18,11 @@
     <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
+      <Item>0</Item>      
     </jetRapMin>
     <jetRapMax>
-      <Item>0.7</Item>      
+      <Item>0.5</Item>     
+      <Item>0.7</Item>                 
     </jetRapMax>
 
     <!-- For ALICE Unfolded resutls -->
@@ -28,9 +31,11 @@
 
     <jetPtMin>
       <Item>60</Item>
+      <Item>80</Item>      
     </jetPtMin>
     <jetPtMax>
-      <Item>80</Item>    
+      <Item>80</Item>
+      <Item>100</Item>          
     </jetPtMax>
     <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
