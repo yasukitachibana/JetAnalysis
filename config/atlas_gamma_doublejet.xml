@@ -169,7 +169,7 @@
       <tail>.out</tail>
     </events>
     <sigma>
-      <path>na</path>
+      <path>/wsu/tmp/Chathu_PhotonJet_5020GeV_v2_combined2/CSFiles</path>
       <head>SigmaHardBin</head>
       <join>_</join>
       <tail>.out</tail>
