@@ -180,39 +180,40 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <item>1500</item>
-    <item>800</item>
-    <item>450</item>
-    <item>350</item>
-    <item>300</item>
-    <item>280</item>
-    <item>260</item>
-    <item>240</item>
-    <item>220</item>
-    <item>210</item>
-    <item>200</item>
-    <item>190</item>
-    <item>180</item>
-    <item>170</item>
-    <item>160</item>
-    <item>150</item>
-    <item>140</item>
-    <item>130</item>
-    <item>120</item>
-    <item>110</item>
-    <item>100</item>
-    <item>90</item>
-    <item>80</item>
-    <item>70</item>
-    <item>60</item>
-    <item>55</item>
-    <item>50</item>
-    <item>45</item>
-    <item>40</item>
-    <item>35</item>
-    <item>30</item>
-    <item>25</item>
-    <item>20</item>
+    <!-- <Item>2510</Item>
+  <Item>1500</Item> -->
+    <Item>800</Item>
+    <Item>450</Item>
+    <Item>350</Item>
+    <Item>300</Item>
+    <Item>280</Item>
+    <Item>260</Item>
+    <Item>240</Item>
+    <Item>220</Item>
+    <Item>210</Item>
+    <Item>200</Item>
+    <Item>190</Item>
+    <Item>180</Item>
+    <Item>170</Item>
+    <Item>160</Item>
+    <Item>150</Item>
+    <Item>140</Item>
+    <Item>130</Item>
+    <Item>120</Item>
+    <Item>110</Item>
+    <Item>100</Item>
+    <Item>90</Item>
+    <Item>80</Item>
+    <Item>70</Item>
+    <Item>60</Item>
+    <Item>55</Item>
+    <Item>50</Item>
+    <Item>45</Item>
+    <Item>40</Item>
+    <Item>35</Item>
+    <Item>30</Item>
+    <Item>25</Item>
+    <Item>20</Item>
   </ptHat>
   <!-- <ptHat>
     <Item>1</Item>
