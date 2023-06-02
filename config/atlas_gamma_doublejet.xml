@@ -104,7 +104,7 @@
 
       <var>
         <xJJTag>
-          <Item>0.0</Item>        
+          <Item>0.0</Item>
           <Item>0.15</Item>
           <Item>0.3</Item>
           <Item>0.45</Item>
@@ -116,9 +116,9 @@
           <Item>1.5</Item>
           <Item>2.0</Item>
           <Item>5.0</Item>
-          <Item>10.0</Item>                    
+          <Item>10.0</Item>
           <Item>15.0</Item>
-          <Item>20.0</Item>                                                  
+          <Item>20.0</Item>
         </xJJTag>
 
         <aJJTag>
@@ -135,14 +135,14 @@
           <Item>5.0</Item>
           <Item>10.0</Item>
           <Item>15.0</Item>
-          <Item>20.0</Item>                                                  
+          <Item>20.0</Item>
         </aJJTag>
 
         <rJJ>
           <Item>0.0</Item>
           <Item>0.1</Item>
           <Item>0.2</Item>
-          <Item>0.3</Item>                              
+          <Item>0.3</Item>
           <Item>0.4</Item>
           <Item>0.5</Item>
           <Item>0.6</Item>
@@ -153,7 +153,7 @@
           <Item>3.0</Item>
           <Item>5.0</Item>
           <Item>10.0</Item>
-          <Item>20.0</Item>                                        
+          <Item>20.0</Item>
         </rJJ>
       </var>
 
@@ -180,6 +180,41 @@
 
   <!-- ptHatBins -->
   <ptHat>
+    <item>1500</item>
+    <item>800</item>
+    <item>450</item>
+    <item>350</item>
+    <item>300</item>
+    <item>280</item>
+    <item>260</item>
+    <item>240</item>
+    <item>220</item>
+    <item>210</item>
+    <item>200</item>
+    <item>190</item>
+    <item>180</item>
+    <item>170</item>
+    <item>160</item>
+    <item>150</item>
+    <item>140</item>
+    <item>130</item>
+    <item>120</item>
+    <item>110</item>
+    <item>100</item>
+    <item>90</item>
+    <item>80</item>
+    <item>70</item>
+    <item>60</item>
+    <item>55</item>
+    <item>50</item>
+    <item>45</item>
+    <item>40</item>
+    <item>35</item>
+    <item>30</item>
+    <item>25</item>
+    <item>20</item>
+  </ptHat>
+  <!-- <ptHat>
     <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
@@ -247,7 +282,7 @@
     <Item>2200</Item>
     <Item>2400</Item>
     <Item>2510</Item>
-  </ptHat>
+  </ptHat> -->
 
 
 </jetAnalysis>
