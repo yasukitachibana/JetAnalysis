@@ -23,8 +23,8 @@ public:
   virtual std::string Name(){ return "N/A"; }
   
   virtual bool Load(std::string input_filename){ return false;}
-  virtual void Clear(){}
-  virtual void Reset(){}
+  virtual void Clear(){}//Clear the buffer
+  virtual void Reset(){}//Go back to the first line
   
   virtual void GetParticleList(){}
   virtual int GetLine(){return 0;}

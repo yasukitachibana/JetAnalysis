@@ -62,14 +62,22 @@ JetScapeAscii::~JetScapeAscii()
 
 bool JetScapeAscii::Load(std::string input_filename)
 {
-
+  //------------------------------------------
+  // First, Clear the loaded event data
   Clear();
+
+  //------------------------------------------
+  // Then, load event data of in input_filename
   std::cout << "[JetScapeAscii] Load: " << input_filename << std::endl;
 
   std::ifstream ifs;
   ifs.open(input_filename.c_str()); // open the input file
   input_str_stream << ifs.rdbuf();  // read the file
 
+  //------------------------------------------
+  // Check if the file, input_filename, is open
+  // If not, display error message and return false
+  // After the file, input_filename, is safely closed return true
   if (ifs.is_open())
   {
     ifs.close();
@@ -85,41 +93,57 @@ bool JetScapeAscii::Load(std::string input_filename)
     std::cout << std::endl;
     return false;
   }
-
-  std::cout << "[JetScapeAscii]  File Loaded. " << std::endl;
+  std::cout << "[JetScapeAscii] File Loaded. " << std::endl;
   return true;
 }
 
 void JetScapeAscii::Clear()
 {
-  //  std::cout << "[JetScapeAscii] Clear." <<std::endl;
-  //
+
+  std::cout << "[JetScapeAscii] Clear." <<std::endl;
+  //----------------------------------------
   //  std::cout << "[JetScapeAscii] Before Clear." <<std::endl;
   //  std::cout << "input_line: " << input_line <<std::endl;
+  //----------------------------------------
+
+  // Clear the loaded event data
+  // Clear buffer
   input_str_stream.str("");
+  // Clear status
   input_str_stream.clear(std::stringstream::goodbit);
+
+  // Clear input_line
   input_line.clear();
   input_line.shrink_to_fit();
   getLineStart = 0;
+
+  //----------------------------------------
   //  std::cout << "[JetScapeAscii] After Clear." <<std::endl;
   //  std::cout << "input_line: " << input_line <<std::endl;
+  //----------------------------------------
 }
 
 void JetScapeAscii::Reset()
 {
-  //  std::cout << "[JetScapeAscii] Reset." <<std::endl;
-  //
+  std::cout << "[JetScapeAscii] Reset." <<std::endl;
+  //----------------------------------------
   //  std::cout << "[JetScapeAscii] Before Reset." <<std::endl;
   //  std::cout << "input_line: " << input_line <<std::endl;
-  //
+  
+  //----------------------------------------
+  // Go back to the first line
   input_str_stream.clear();
   input_str_stream.seekg(0, std::ios::beg);
+
+  // Clear input_line
   input_line.clear();
   input_line.shrink_to_fit();
   getLineStart = 0;
-  //
+
+  //----------------------------------------
   //  std::cout << "[JetScapeAscii] After Reset." <<std::endl;
   //  std::cout << "input_line: " << input_line <<std::endl;
+  //----------------------------------------
 }
 
 int JetScapeAscii::GetLine()

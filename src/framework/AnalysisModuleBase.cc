@@ -53,7 +53,19 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
       << " (" << std::to_string(getMemoryUsage()) << "MB) ..."
       << std::endl;
 
+  // Load input file
   bool loaded = load_ptr->Load(input_file_name);
+
+  // For debug
+  // load_ptr->ShowLine();
+  // load_ptr->GetLine();
+  // load_ptr->GetLine();
+  // load_ptr->Reset();
+  // load_ptr->Clear();
+  // load_ptr->ShowLine();
+  // load_ptr->GetLine();
+  // load_ptr->ShowLine();
+
   if (loaded)
   {
     std::vector<std::shared_ptr<Particle>> particle_list;

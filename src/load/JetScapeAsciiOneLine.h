@@ -1,23 +1,23 @@
-#ifndef JETSCAPEASCII_H
-#define JETSCAPEASCII_H
+#ifndef JETSCAPEASCIIONELINE_H
+#define JETSCAPEASCIIONELINE_H
 
 #include "LoadFileModuleBase.h"
 
 
 
-class JetScapeAscii : public LoadFileModuleBase {
+class JetScapeAsciiOneLine : public LoadFileModuleBase {
 private:
   // Allows the registration of the module so that it is available to be used by the Analysis framework.
-  static RegisterLoadFileModule<JetScapeAscii> reg;
+  static RegisterLoadFileModule<JetScapeAsciiOneLine> reg;
   
 public:
-  JetScapeAscii(std::string name_in = "JetScapeAscii");
-  ~JetScapeAscii();
+  JetScapeAsciiOneLine(std::string name_in = "JetScapeAsciiOneLine");
+  ~JetScapeAsciiOneLine();
   std::string Name(){return name;}
   
   bool Load(std::string input_filename);
-  void Clear();//Clear the buffer
-  void Reset();//Go back to the first line
+  void Clear();
+  void Reset();
   
   int GetLine();
   void ShowLine();
@@ -34,8 +34,9 @@ private:
   
   const std::string name;
   
-  std::stringstream input_str_stream; //Full file data
-  std::string input_line; 
+
+  std::ifstream reading_file;
+  std::string input_line;
   int getLineStart;
   
   int SN, PID;
@@ -46,4 +47,4 @@ private:
   
 };
 
-#endif // JetScapeAscii_H
+#endif // JetScapeAsciiOneLine_H
