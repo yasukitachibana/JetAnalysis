@@ -37,7 +37,11 @@ double DeltaPhiCutBase::DeltaPhiAbs(double phi, double phi_b) // |DeltaPhi|
 //---------------------------------------------------------------------------------------------------------------------------
 void DeltaPhiCutBase::ShowDeltaPhiCutSetting()
 {
-  if (initialized == 0)
+  if (initialized)
+  {
+    PrintDeltaPhiCutSetting();
+  }
+  else
   {
     std::cout << std::endl;
     std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
@@ -46,10 +50,6 @@ void DeltaPhiCutBase::ShowDeltaPhiCutSetting()
     std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
     std::cout << std::endl;
     exit(-1);
-  }
-  else
-  {
-    PrintDeltaPhiCutSetting();
   }
 }
 //===========================================================================================================================
@@ -79,7 +79,7 @@ void DeltaPhiCut::PrintDeltaPhiCutSetting()
   std::cout << "[    DeltaPhiCut   ] ***-------------------------------------------" << std::endl;
   std::cout << "[    DeltaPhiCut   ] *** [Back-to-Back]" << std::endl;
   std::cout << "[    DeltaPhiCut   ] *** Delta Phi > " << delta_phi_min << " = " << delta_phi_min / pi << "*pi " << std::endl;
-  //std::cout << "[    DeltaPhiCut   ] *** TEST " << DeltaPhiCutBase::DeltaPhi(2*pi,-pi) / pi << std::endl;
+  // std::cout << "[    DeltaPhiCut   ] *** TEST " << DeltaPhiCutBase::DeltaPhi(2*pi,-pi) / pi << std::endl;
 }
 
 //-----------------------------------------------------------------
@@ -103,14 +103,14 @@ bool DeltaPhiCut::Trigger(fastjet::PseudoJet jet)
   // std::cout << "pTjet = " << jet.perp() << std::endl;
   // std::cout << "-> Phi = " << jet.phi() << std::endl;
   // std::cout << "-> Phi_tag = " << phi_basis << std::endl;
-  // std::cout << "-> DeltaPhiAbs(phi) = " << DeltaPhiAbs(jet.phi()) << std::endl;  
-  // std::cout << "-> delta_phi_min = " << delta_phi_min << std::endl;    
+  // std::cout << "-> DeltaPhiAbs(phi) = " << DeltaPhiAbs(jet.phi()) << std::endl;
+  // std::cout << "-> delta_phi_min = " << delta_phi_min << std::endl;
   return Trigger(jet.phi());
 }
 
 bool DeltaPhiCut::Trigger(double phi)
 {
-  return  DeltaPhiAbs(phi) >= delta_phi_min;
+  return DeltaPhiAbs(phi) >= delta_phi_min;
 }
 //===========================================================================================================================
 NoPhiCut::NoPhiCut()

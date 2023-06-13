@@ -32,16 +32,23 @@
       <Item>0</Item>
     </jetPtMin>
     <jetPtMax>
-      <Item>3000</Item>      
+      <Item>3000</Item>
     </jetPtMax>
     <nJetEv>0</nJetEv>
   </jetReco>
 
+  <massAdjust>
+    <adjust>1</adjust>
+    <adjustedQuant>E</adjustedQuant>    <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum   ENE, Ene, ene, ENERGY, Energy, energy, E, e: energy -->
+    <mass>-211</mass>    <!-- 0 or positive value: mass in GeV, negative value: particle id-->
+  </massAdjust>
+
+
   <jetTag>
-    <tagged>1</tagged>
-    <xJetTag>0</xJetTag> <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->  
-    <nTagEv>1</nTagEv> <!-- 0: inclusive, 1: Highest pt in each event -->  
-    <!-- tag basic iinfo -->    
+    <tagged>0</tagged>
+    <xJetTag>0</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
+    <nTagEv>1</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
+    <!-- tag basic iinfo -->
     <tagParticle>
       <Item>22</Item>
     </tagParticle>
@@ -60,16 +67,16 @@
     <isolation>1</isolation>
     <RIsolation>0.3</RIsolation>
     <cutIsolation>5</cutIsolation>
-    <varIsolation>ET</varIsolation>  <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
+    <varIsolation>ET</varIsolation>    <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
     <!-- <chIsolation>1</chIsolation>   -->
     <statIsolation>
       <Item>0</Item>
       <Item>1</Item>
-      <Item>-1</Item>             
+      <Item>-1</Item>
     </statIsolation>
     <!-- tag relative angle -->
     <deltaPhiCut>1</deltaPhiCut>
-    <deltaPhiMin>-0.875</deltaPhiMin> <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
   </jetTag>
 
   <observable>
@@ -345,7 +352,7 @@
     <Item>100</Item>
     <Item>110</Item>
     <Item>120</Item>
-        <!--        <Item>130</Item><Item>140</Item>-->
+    <!--        <Item>130</Item><Item>140</Item>-->
     <!--        <Item>150</Item><Item>160</Item><Item>170</Item><Item>180</Item><Item>190</Item><Item>200</Item>-->
     <!--        <Item>210</Item><Item>220</Item><Item>230</Item><Item>240</Item><Item>250</Item><Item>260</Item>-->
     <!--        <Item>270</Item><Item>280</Item><Item>290</Item><Item>300</Item><Item>350</Item><Item>400</Item>-->
