@@ -38,7 +38,7 @@
   </jetReco>
 
   <massAdjust>
-    <adjust>1</adjust>
+    <adjust>0</adjust>
     <adjustedQuant>E</adjustedQuant>    <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum   ENE, Ene, ene, ENERGY, Energy, energy, E, e: energy -->
     <mass>-211</mass>    <!-- 0 or positive value: mass in GeV, negative value: particle id-->
   </massAdjust>
