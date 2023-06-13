@@ -100,7 +100,7 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
             jet_pid_ptr->Trigger(p) &&
             jet_constpt_ptr->Trigger(p))
         {
-          particle_list.push_back(p);
+          particle_list.push_back(mass_adj_ptr->Adjust(p));
         }
         // For jet tag
         jet_tag_ptr->Feed(p);
@@ -207,6 +207,15 @@ void AnalysisModuleBase::ReadParametersFromXML()
   // ###############################################################################################################
   int leading_particle = 0;
   // ###############################################################################################################
+  //  <inputFiles>
+  p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
+  // ###############################################################################################################
+  //  <jetTag>
+  jet_tag = SetXML::Instance()->GetElementInt({"jetTag", "tagged"}, false);
+  // ###############################################################################################################
+  //  <MassAdjust>
+  int mass_adj = SetXML::Instance()->GetElementInt({"massAdjust", "adjust"}, false);
+  // ###############################################################################################################
   //  <observable>
   int ch_particle = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "chParticle"});
   std::vector<int> stat_particle = SetXML::Instance()->GetElementVectorInt({"observable", Name().c_str(), "statParticle", "Item"}, false);
@@ -218,12 +227,6 @@ void AnalysisModuleBase::ReadParametersFromXML()
   particlePtMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "particlePtMax", "Item"});
   int k0sStrangeness = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "K0SStrange"}, false);
   // ########################################################################### **********************************************####################################
-  //  <inputFiles>
-  p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
-  // ###############################################################################################################
-  //  <jetTag>
-  jet_tag = SetXML::Instance()->GetElementInt({"jetTag", "tagged"}, false);
-  // ###############################################################################################################
   variables = SetXML::Instance()->GetElementNameVector({"observable", Name().c_str(), "var"});
   for (auto var : variables)
   {
@@ -352,7 +355,30 @@ void AnalysisModuleBase::ReadParametersFromXML()
   {
     jet_tag_ptr->ShowJetTagSetting();
   }
-  // ###############################################################################################################
+
+  // ###################################################
+  if (mass_adj)
+  {
+    std::string adjusted_quantity = SetXML::Instance()->GetElementText({"massAdjust", "adjustedQuant"}, false);
+    double mass_for_adjustment = SetXML::Instance()->GetElementDouble({"massAdjust", "mass"});
+
+
+    if (MassAdjHelper::AdjustEnergy(adjusted_quantity))
+    {
+      mass_adj_ptr = std::unique_ptr<AdjustEnergyByMass>(new AdjustEnergyByMass());
+    }
+    else
+    {
+      mass_adj_ptr = std::unique_ptr<AdjustMomentumByMass>(new AdjustMomentumByMass());
+    }
+    mass_adj_ptr->Init(mass_for_adjustment);
+  }
+  else
+  {
+    mass_adj_ptr = std::unique_ptr<NoMassAdjust>(new NoMassAdjust());
+    mass_adj_ptr->Init();
+  }
+  //   ###############################################################################################################
   std::cout << std::endl;
   std::cout << "[AnalysisModuleBase] **********************************************" << std::endl;
   std::cout << "[AnalysisModuleBase] *** Settings" << std::endl;
@@ -363,6 +389,9 @@ void AnalysisModuleBase::ReadParametersFromXML()
   ShowObservableSetting();
   ShowJetSetting();
   ShowParticleSetting();
+  //-------------------------------------
+  mass_adj_ptr->ShowMassAdjustSetting();
+  //-------------------------------------
   ShowParamsSetting();
   std::cout << "[AnalysisModuleBase] **********************************************" << std::endl;
   std::cout << std::endl;

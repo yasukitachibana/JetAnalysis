@@ -24,7 +24,6 @@ void MomFracTagJet::ShowParamsSetting()
     std::cout << "[   MomFracTagJet  ] ***-------------------------------------------" << std::endl;
     std::cout << "[   MomFracTagJet  ] *** [MomFracTagJet]" << std::endl;
     smear_ptr->ShowSmearingSetting();
-    smear_ptr->Smear(150);
   }
 }
 

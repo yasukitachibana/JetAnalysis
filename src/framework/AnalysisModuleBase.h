@@ -21,6 +21,7 @@
 #include "ConstPt.h"
 #include "JetTag.h"
 #include "DeltaPhiCut.h"
+#include "MassAdjust.h"
 
 #include "Histogram.h"
 #include "Hist1D.h"
@@ -82,6 +83,8 @@ protected:
   //=========================================
   std::unique_ptr<DeltaPhiCutBase> jet_deltaphi_ptr;
   //=========================================
+  std::unique_ptr<MassAdjustBase> mass_adj_ptr;
+  //=========================================
   std::string particles_str;
 
   int jet_tag;
@@ -96,7 +99,8 @@ protected:
   std::vector<double> jetPtMaxForTrigger;
 
   //--
-  std::vector<int> statParticle;
+  std::vector<int>
+      statParticle;
   int particleRapidity;
   std::vector<double> particleRapMin;
   std::vector<double> particleRapMax;

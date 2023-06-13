@@ -339,6 +339,12 @@ void ParticleBase::PrintInfo() const
             << " eta=" << eta()
             << " y=" << rap()
             << " phi=" << phi()
+            << "\n[ParticleBase] e=" << e()
+            << " px=" << px()
+            << " py=" << py()
+            << " pz=" << pz()
+            << "\n[ParticleBase] modp2=" << modp2()            
+            << " m=" << m()            
             << "\n[ParticleBase]---------------------------------------------------"
             << std::endl;
 }
@@ -352,7 +358,14 @@ void ParticleBase::PrintInfo(int i) const
             << " pt=" << perp()
             << " eta=" << eta()
             << " y=" << rap()
-            << " phi=" << phi() << std::endl;
+            << " phi=" << phi() 
+            << ", e=" << e()
+            << " px=" << px()
+            << " py=" << py()
+            << " pz=" << pz()
+            << " modp2=" << modp2()
+            << " m=" << m()
+            << std::endl;
 }
 
 //===========================================================================================================================
