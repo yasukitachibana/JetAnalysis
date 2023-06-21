@@ -38,13 +38,10 @@ def GetArgs():
     parser.add_argument("--time", type=str, default="720:00:00")
     parser.add_argument("--mem", type=str, default="24G")
     
-    parser.add_argument("--e", type=str, default="/dev/null")
-    parser.add_argument("--o", type=str, default="/dev/null")
-
     parser.add_argument("--root", type=str, default="ON")
     parser.add_argument("--d", type=str, default="../build")
 
-    parser.add_argument("--n", type=str, default="jet_analysis")
+    parser.add_argument("--n", type=str, default="")
 
     parser.add_argument("--c", type=str, default="./Main")
 
@@ -119,7 +116,7 @@ def MainSubmission():
 
     args = GetArgs()
 
-    command_format = 'python gen_slurm_sub.py --xml {} --input {} --output {} --p "{}" --time {} --mem {} --n {} --root {} '
+    command_format = 'python gen_slurm_sub.py --xml {} --input {} --output {} --p "{}" --time {} --mem {} --n {} --o {} --e {} --root {} '
     ##########################################################################
     xml_file = args.xml
     #'../config/PromptPhoton/CMS/prompt_photon_cent0_10_60_10000.xml'
@@ -165,8 +162,11 @@ def MainSubmission():
 
         # Generate XML for this bin
         batch_xml_path = GenerateBatchXML(batch_xml_dir,pthat_low,pthat_high)
-        command = command_format.format(batch_xml_path, input_path, output_path, args.p, args.time, args.mem, name, args.root)
-        os.system(command)
+        out = os.path.splitext(batch_xml_path)[0]+'_out.txt'
+        error = os.path.splitext(batch_xml_path)[0]+'_error.txt'
+        command = command_format.format(batch_xml_path, input_path, output_path, args.p, args.time, args.mem, name, out, error, args.root)
+        print(command)    
+        #os.system(command)
 
     GenerateMergeXML(batch_xml_dir,sigma_files_path,pthat_bin_edges)
 
