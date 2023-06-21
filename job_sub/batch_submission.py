@@ -167,7 +167,7 @@ def MainSubmission():
         name = name_head + os.path.splitext(os.path.basename(batch_xml_path))[0]
         command = command_format.format(batch_xml_path, input_path, output_path, args.p, args.time, args.mem, name, out, error, args.root)
         print(command)    
-        #os.system(command)
+        os.system(command)
 
     GenerateMergeXML(batch_xml_dir,sigma_files_path,pthat_bin_edges)
 
