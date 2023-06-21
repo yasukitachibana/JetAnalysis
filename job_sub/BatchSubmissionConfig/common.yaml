@@ -1,0 +1,2 @@
+#default_sigma_files_path: '/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless'
+default_batch_xml_par_dir: './batch_xmls'
