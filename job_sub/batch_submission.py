@@ -93,7 +93,7 @@ def GenerateXMLFilename(name,filedir='',head=''):
         return os.path.join(filedir,filename)
 
 
-def SetMergeXML(sigma_files_path,pthat_bin_edges):
+def SetMergeXML(pthat_bin_edges):
     ex = exml.EditXml()    
 
     # set mode
@@ -102,14 +102,22 @@ def SetMergeXML(sigma_files_path,pthat_bin_edges):
     # set ptHat
     ex.EditParamsArray('./ptHat','Item',pthat_bin_edges)
 
+
+def SetXMLBase(ascii_one_line,sigma_files_path):
+
+    if ascii_one_line:
+        ex.EditParams('./inputFiles/inputStyle','JetScapeAsciiOneLine')    
+    else: 
+        ex.EditParams('./inputFiles/inputStyle','JetScapeAscii')    
     # set sigma file path
     ex.EditParams('./inputFiles/sigma/path',sigma_files_path)    
 
 
-def GenerateMergeXML(batch_xml_dir,sigma_files_path,pthat_bin_edges):
+
+def GenerateMergeXML(batch_xml_dir,pthat_bin_edges):
     ex = exml.EditXml()    
     merge_xml_path = GenerateXMLFilename('merge',batch_xml_dir)
-    SetMergeXML(sigma_files_path,pthat_bin_edges)
+    SetMergeXML(pthat_bin_edges)
     ex.PrintXml(merge_xml_path)
 
 def MainSubmission():
@@ -154,6 +162,10 @@ def MainSubmission():
     
     pthat_bin_edges = data['pthat_bin_edges']
     sigma_files_path = data['sigma_files_path']
+    ascii_one_line = data['ascii_one_line']
+
+    SetXMLBase(ascii_one_line,sigma_files_path)
+
 
 
     for i_pthat in range(len(pthat_bin_edges)-1):
@@ -169,7 +181,7 @@ def MainSubmission():
         print(command)    
         os.system(command)
 
-    GenerateMergeXML(batch_xml_dir,sigma_files_path,pthat_bin_edges)
+    GenerateMergeXML(batch_xml_dir,pthat_bin_edges)
 
 
 
