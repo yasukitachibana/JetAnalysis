@@ -140,12 +140,12 @@ def MainSubmission():
     if not args.xml_dir == '':
         batch_xml_par_dir = args.xml_dir
     xml_basename = os.path.basename(xml_file)
-    batch_xml_dau_dir = os.path.splitext(xml_basename)[0]
+    batch_xml_dau_dir = os.path.splitext(xml_basename)[0]+'_'+os.path.basename(input_path)
     batch_xml_dir = os.path.join(batch_xml_par_dir,batch_xml_dau_dir)
     gslurmsub.Mkdirs(batch_xml_dir)
 
     # Set Job Name
-    name_head = os.path.splitext(xml_basename)[0]+'_'+os.path.basename(input_path)
+    name_head = batch_xml_dau_dir
     if not args.n == '':
         name_head = args.n
 
