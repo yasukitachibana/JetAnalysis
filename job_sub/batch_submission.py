@@ -119,7 +119,7 @@ def MainSubmission():
 
     args = GetArgs()
 
-    command_format = 'python gen_slurm_sub --xml {} --input {} --output {} --p "{}" --time {} --mem {} --n {} --root {} '
+    command_format = 'python gen_slurm_sub.py --xml {} --input {} --output {} --p "{}" --time {} --mem {} --n {} --root {} '
     ##########################################################################
     xml_file = args.xml
     #'../config/PromptPhoton/CMS/prompt_photon_cent0_10_60_10000.xml'
