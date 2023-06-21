@@ -104,7 +104,7 @@ def SetMergeXML(pthat_bin_edges):
 
 
 def SetXMLBase(ascii_one_line,sigma_files_path):
-
+    ex = exml.EditXml()
     if ascii_one_line:
         ex.EditParams('./inputFiles/inputStyle','JetScapeAsciiOneLine')    
     else: 
@@ -176,9 +176,10 @@ def MainSubmission():
         batch_xml_path = GenerateBatchXML(batch_xml_dir,pthat_low,pthat_high)
         out = os.path.splitext(batch_xml_path)[0]+'_out.txt'
         error = os.path.splitext(batch_xml_path)[0]+'_error.txt'
-        name = name_head + os.path.splitext(os.path.basename(batch_xml_path))[0]
+        name = name_head + '_' + os.path.splitext(os.path.basename(batch_xml_path))[0]
         command = command_format.format(batch_xml_path, input_path, output_path, args.p, args.time, args.mem, name, out, error, args.root)
-        print(command)    
+        print('NAME: ',name)  
+        print('COMMAND: ',command)    
         os.system(command)
 
     GenerateMergeXML(batch_xml_dir,pthat_bin_edges)
