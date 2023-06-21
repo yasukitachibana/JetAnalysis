@@ -137,9 +137,9 @@ def MainSubmission():
     gslurmsub.Mkdirs(batch_xml_dir)
 
     # Set Job Name
-    name = xml_basename
+    name_head = os.path.splitext(xml_basename)[0]+'_'+os.path.basename(input_path)
     if not args.n == '':
-        name = args.n
+        name_head = args.n
 
 
     # Read XML
@@ -164,6 +164,7 @@ def MainSubmission():
         batch_xml_path = GenerateBatchXML(batch_xml_dir,pthat_low,pthat_high)
         out = os.path.splitext(batch_xml_path)[0]+'_out.txt'
         error = os.path.splitext(batch_xml_path)[0]+'_error.txt'
+        name = name_head + os.path.splitext(os.path.basename(batch_xml_path))[0]
         command = command_format.format(batch_xml_path, input_path, output_path, args.p, args.time, args.mem, name, out, error, args.root)
         print(command)    
         #os.system(command)
