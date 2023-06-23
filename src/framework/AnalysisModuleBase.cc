@@ -543,11 +543,11 @@ void AnalysisModuleBase::SetJetPtCut()
 
 
   double factor = 0.2;
-  // Smearing can be affected by this strong condition!
-  // if (reco_ptr->Name() == "NegativeReco")
-  // {
-  //   factor = 1.0;
-  // }
+  if (reco_ptr->Name() == "NegativeReco")
+  {
+    //To be safe for smearing!
+    factor = 0.4;
+  }
   jetPtCut = factor * jetPtCut;
   reco_ptr->SetJetPtCut(jetPtCut);
 }
@@ -654,8 +654,6 @@ void AnalysisModuleBase::DeleteHist()
   }
   hist_list.clear();
   hist_list.shrink_to_fit();
-}
-
 std::string AnalysisModuleBase::GetHistName(double ptHatMin, double ptHatMax,
                                             int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
