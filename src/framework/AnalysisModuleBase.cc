@@ -541,11 +541,13 @@ void AnalysisModuleBase::SetJetPtCut()
     }
   }
 
-  double factor = 0.6;
-  if (reco_ptr->Name() == "NegativeReco")
-  {
-    factor = 1.0;
-  }
+
+  double factor = 0.2;
+  // Smearing can be affected by this strong condition!
+  // if (reco_ptr->Name() == "NegativeReco")
+  // {
+  //   factor = 1.0;
+  // }
   jetPtCut = factor * jetPtCut;
   reco_ptr->SetJetPtCut(jetPtCut);
 }
