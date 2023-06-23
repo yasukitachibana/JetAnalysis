@@ -362,7 +362,6 @@ void AnalysisModuleBase::ReadParametersFromXML()
     std::string adjusted_quantity = SetXML::Instance()->GetElementText({"massAdjust", "adjustedQuant"}, false);
     double mass_for_adjustment = SetXML::Instance()->GetElementDouble({"massAdjust", "mass"});
 
-
     if (MassAdjHelper::AdjustEnergy(adjusted_quantity))
     {
       mass_adj_ptr = std::unique_ptr<AdjustEnergyByMass>(new AdjustEnergyByMass());
@@ -541,11 +540,10 @@ void AnalysisModuleBase::SetJetPtCut()
     }
   }
 
-
   double factor = 0.2;
   if (reco_ptr->Name() == "NegativeReco")
   {
-    //To be safe for smearing!
+    // To be safe for smearing!
     factor = 0.4;
   }
   jetPtCut = factor * jetPtCut;
@@ -654,6 +652,7 @@ void AnalysisModuleBase::DeleteHist()
   }
   hist_list.clear();
   hist_list.shrink_to_fit();
+}
 std::string AnalysisModuleBase::GetHistName(double ptHatMin, double ptHatMax,
                                             int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
