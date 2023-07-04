@@ -231,7 +231,9 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               fastjet::contrib::SoftDrop sd(beta_val, zcut_val, r_cone);
 
               // std::cout << "SoftDrop groomer is: " << sd.description() << std::endl;
+              // Recombiner is automatically inherited (Manually checked with sample events).
               fastjet::PseudoJet sd_jet = sd(j);
+
               bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
 
               // Set
@@ -243,6 +245,13 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               double mg_over_pt = -1.0;
               double ktg = -1.0;
               //--
+
+  
+              // std::cout << "\n jet-e" << j.e() << std::endl;
+              // std::cout << " jgr-e" << sd_jet.e() << std::endl;
+              // std::cout << " rg" << rg << std::endl;
+              // std::cout << " zg" << sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry() << std::endl;
+              // exit(-1);
 
               if (hasSub && additional_cond_ptr->Trigger(rg))
               {

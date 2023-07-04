@@ -85,44 +85,44 @@
 
     <!-- Hadrons -->
 
-    <!--    <SoftDropGroom>-->
-    <!--      <name>Soft Drop Grooming</name>-->
-    <!--      <chParticle>0</chParticle>-->
-    <!--      <statParticle>-->
-    <!--        <Item>0</Item><Item>1</Item><Item>-1</Item>-->
-    <!--      </statParticle>-->
-    <!--      <particleRapidity>0</particleRapidity>-->
-    <!--      <particleRapMin><Item>0.0</Item></particleRapMin>-->
-    <!--      <particleRapMax><Item>3.0</Item></particleRapMax>-->
-    <!--      <particlePtMin><Item>0.0</Item></particlePtMin>-->
-    <!--      <particlePtMax><Item>300</Item></particlePtMax>-->
-    <!--      -->
-    <!--      <beta><Item>0.0</Item></beta>-->
-    <!--      <zCut><Item>0.2</Item><Item>0.4</Item></zCut>-->
-    <!---->
-    <!---->
-    <!--      -->
-    <!--      -->
-    <!--      <var>-->
-    <!--        <zG>-->
-    <!--          <Item>0</Item>-->
-    <!--          <Item>0.2</Item>-->
-    <!--          <Item>0.4</Item>-->
-    <!--          <Item>0.6</Item>-->
-    <!--          <Item>0.8</Item>-->
-    <!--          <Item>1</Item>-->
-    <!--        </zG>-->
-    <!--        <thetaG>-->
-    <!--          <Item>0</Item>-->
-    <!--          <Item>0.2</Item>-->
-    <!--          <Item>0.4</Item>-->
-    <!--          <Item>0.6</Item>-->
-    <!--          <Item>0.8</Item>-->
-    <!--          <Item>1</Item>-->
-    <!--        </thetaG>-->
-    <!--      </var>-->
-    <!--      -->
-    <!--    </SoftDropGroom>-->
+       <SoftDropGroom>
+         <name>Soft Drop Grooming</name>
+         <chParticle>0</chParticle>
+         <statParticle>
+           <Item>0</Item><Item>1</Item><Item>-1</Item>
+         </statParticle>
+         <particleRapidity>0</particleRapidity>
+         <particleRapMin><Item>0.0</Item></particleRapMin>
+         <particleRapMax><Item>3.0</Item></particleRapMax>
+         <particlePtMin><Item>0.0</Item></particlePtMin>
+         <particlePtMax><Item>300</Item></particlePtMax>
+        
+         <beta><Item>0.0</Item></beta>
+         <zCut><Item>0.2</Item><Item>0.4</Item></zCut>
+    
+    
+        
+        
+         <var>
+           <zG>
+             <Item>0</Item>
+             <Item>0.2</Item>
+             <Item>0.4</Item>
+             <Item>0.6</Item>
+             <Item>0.8</Item>
+             <Item>1</Item>
+           </zG>
+           <thetaG>
+             <Item>0</Item>
+             <Item>0.2</Item>
+             <Item>0.4</Item>
+             <Item>0.6</Item>
+             <Item>0.8</Item>
+             <Item>1</Item>
+           </thetaG>
+         </var>
+        
+       </SoftDropGroom>
 
 
     <!--    <JetSpec>-->
