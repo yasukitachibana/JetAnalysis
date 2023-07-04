@@ -14,6 +14,13 @@
 
     <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
 
+    <statJet>
+      <Item>0</Item>
+      <!-- <Item>1</Item>
+      <Item>-1</Item> -->
+    </statJet>
+
+
     <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
@@ -64,11 +71,11 @@
     <SoftDropGroom>
       <name>Soft Drop Grooming</name>
       <chParticle>0</chParticle>
-      <!-- <statParticle>
+      <statParticle>
         <Item>0</Item>
-        <Item>1</Item>
-        <Item>-1</Item>
-      </statParticle> -->
+        <!-- <Item>1</Item>
+        <Item>-1</Item> -->
+      </statParticle>
 
       <particleRapidity>0</particleRapidity>      <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
 
