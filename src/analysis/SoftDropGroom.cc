@@ -273,13 +273,26 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 // ktg = zg * sd_jet.pt() * sin(rg);
                 // std::cout << "ktg_def1 = " << ktg;
                 ktg = j2.perp() * sin(rg);
-                //std::cout << ", ktg_def2 = " << ktg << std::endl;
-                std::cout << "j1.user_index = " << j1.user_index()
+                // std::cout << ", ktg_def2 = " << ktg << std::endl;
+                std::cout << "\n j1.user_index = " << j1.user_index()
                           << ", j2.user_index = " << j2.user_index() << std::endl;
-                if(j1.user_index()*j2.user_index()<0)
+                if (j1.user_index() * j2.user_index() < 0)
                 {
                   std::cout << " Negative Prong!\n\n\n\n " << std::endl;
-                  sleep(15);              
+                  sleep(15);
+                }
+                else
+                {
+                  while (j1.has_parents(j1, j2))
+                  {
+                    std::cout << "---j1.user_index = " << j1.user_index()
+                              << ", j2.user_index = " << j2.user_index() << std::endl;
+                    if (j1.user_index() * j2.user_index() < 0)
+                    {
+                      std::cout << " Negative Prong!\n\n\n\n " << std::endl;
+                      sleep(15);
+                    }
+                  }
                 }
               }
               else
