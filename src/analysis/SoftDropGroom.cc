@@ -276,6 +276,9 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 // std::cout << ", ktg_def2 = " << ktg << std::endl;
                 std::cout << "\n j1.user_index = " << j1.user_index()
                           << ", j2.user_index = " << j2.user_index() << std::endl;
+                std::cout << " j1.perp = " << j1.perp()
+                          << ", j2.perp = " << j2.perp() << std::endl;
+
                 if (j1.user_index() < 0 || j2.user_index() < 0)
                 {
                   std::cout << " Negative Prong!\n\n\n\n " << std::endl;
@@ -287,11 +290,12 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                   {
                     std::cout << "---j1.user_index = " << j1.user_index()
                               << ", j2.user_index = " << j2.user_index() << std::endl;
+                    std::cout << "---j1.perp = " << j1.perp()
+                              << ", j2.perp = " << j2.perp() << std::endl;
                     if (j1.user_index() < 0 || j2.user_index() < 0)
                     {
-                      std::cout << "---Negative Constituent!"  << std::endl;
-                    std::cout << "---j1.perp = " << j1.perp()
-                              << ", j2.perp = " << j2.perp()  << "\n\n\n\n " << std::endl;                      
+                      std::cout << "---Negative Constituent!"
+                                << "\n\n\n\n " << std::endl;
                       sleep(15);
                     }
                   }
