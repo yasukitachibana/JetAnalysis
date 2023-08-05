@@ -234,6 +234,44 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               // Recombiner is automatically inherited (Manually checked with sample events).
               fastjet::PseudoJet sd_jet = sd(j);
 
+              // Check user_index of groomed jet prongs
+              int posSub = 1; 
+              fastjet::PseudoJet j1, j2;
+              sd_jet.has_parents(j1, j2);
+
+              while (j1.user_index() < 0 || j2.user_index() < 0)
+              {
+                // If both two prongs are negatives, we give up Grooming.
+                if (j1.user_index() < 0 && j2.user_index() < 0)
+                {
+                  posSub = 0;
+                  break;
+                }
+
+                // Continue grooming by passing the positive prong
+                if (!(j1.user_index() < 0))
+                {
+                  sd_jet = sd(j1);
+                }
+                else
+                {
+                  sd_jet = sd(j2);
+                }
+
+                // Check whether the sd_jet has parents. If not, we give up grooming.
+                if (!sd_jet.has_parents(j1, j2))
+                {
+                  posSub = 0;
+                  break;
+                }
+              }
+              // j1 should always be the harder of the two subjets.
+              if (j1.perp() < j2.perp())
+              {
+                swap(j1, j2);
+              }
+
+              //-----------------------------------------------------------------------
               bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
 
               // Set
@@ -252,7 +290,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               // std::cout << " zg" << sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry() << std::endl;
               // exit(-1);
 
-              if (hasSub && additional_cond_ptr->Trigger(rg))
+              if (posSub && hasSub && additional_cond_ptr->Trigger(rg))
               {
                 // Fundamentals
                 zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
@@ -263,43 +301,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 mg_over_pt = mg / pt_jet; // groomed mass/jetPt
                 //-------------------------------
                 // kt
-                fastjet::PseudoJet j1, j2;
-                sd_jet.has_parents(j1, j2);
-                // j1 should always be the harder of the two subjets.
-                if (j1.perp() < j2.perp())
-                {
-                  swap(j1, j2);
-                }
-                // ktg = zg * sd_jet.pt() * sin(rg);
-                // std::cout << "ktg_def1 = " << ktg;
                 ktg = j2.perp() * sin(rg);
-                // std::cout << ", ktg_def2 = " << ktg << std::endl;
-                std::cout << "\n j1.user_index = " << j1.user_index()
-                          << ", j2.user_index = " << j2.user_index() << std::endl;
-                std::cout << " j1.perp = " << j1.perp()
-                          << ", j2.perp = " << j2.perp() << std::endl;
-
-                if (j1.user_index() < 0 || j2.user_index() < 0)
-                {
-                  std::cout << " Negative Prong!\n\n\n\n " << std::endl;
-                  sleep(15);
-                }
-                else
-                {
-                  while (j1.has_parents(j1, j2))
-                  {
-                    std::cout << "---j1.user_index = " << j1.user_index()
-                              << ", j2.user_index = " << j2.user_index() << std::endl;
-                    std::cout << "---j1.perp = " << j1.perp()
-                              << ", j2.perp = " << j2.perp() << std::endl;
-                    if (j1.user_index() < 0 || j2.user_index() < 0)
-                    {
-                      std::cout << "---Negative Constituent!"
-                                << "\n\n\n\n " << std::endl;
-                      sleep(15);
-                    }
-                  }
-                }
               }
               else
               {
