@@ -246,7 +246,6 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               double ktg = -1.0;
               //--
 
-  
               // std::cout << "\n jet-e" << j.e() << std::endl;
               // std::cout << " jgr-e" << sd_jet.e() << std::endl;
               // std::cout << " rg" << rg << std::endl;
@@ -259,12 +258,24 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
                 // mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
                 //  Standard
-                thg = rg / r_cone;      // theta_g = rg/R
+                thg = rg / r_cone;        // theta_g = rg/R
                 mg = sd_jet.m();          // groomed mass
                 mg_over_pt = mg / pt_jet; // groomed mass/jetPt
                 //-------------------------------
                 // kt
-                ktg = zg * sd_jet.pt() * sin(rg); //
+                fastjet::PseudoJet j1, j2;
+                sd_jet.has_parents(j1, j2);
+                // j1 should always be the harder of the two subjets.
+                if (j1.perp() < j2.perp())
+                {
+                  swap(j1, j2);
+                }
+                ktg = zg * sd_jet.pt() * sin(rg);
+                std::cout << "ktg_def1 = " << ktg;
+                ktg = j2.perp() * sin(rg);
+                std::cout << "ktg_def2 = " << ktg << std::endl;
+                std::cout << "j1.user_index = " << j1.user_index()
+                          << "j2.user_index = " << j2.user_index() << std::endl;
               }
               else
               {
