@@ -12,6 +12,7 @@
 #include "fastjet/WrappedStructure.hh"
 #include "fastjet/contrib/RecursiveSymmetryCutBase.hh"
 #include "fastjet/contrib/Nsubjettiness.hh"
+#include "negative_recombiner.h"
 
 // #include "jetCollection.hh"
 
@@ -122,8 +123,14 @@ fastjet::PseudoJet dyGroomer::doGrooming(fastjet::PseudoJet jet,
    //----------------------------------------------
    std::vector<fastjet::PseudoJet> particles, ghosts;
    fastjet::SelectorIsPureGhost().sift(jet.constituents(), ghosts, particles);
-
    fastjet::JetDefinition jet_def(fastjet::cambridge_algorithm, 1.);
+   // Set Recombiner----
+   int ui = -123456;
+   // create an instance of the negative energy recombiner, with a given flag ui
+   NegativeEnergyRecombiner uir(ui);
+   // tell jet_def to use negative energy recombiner
+   jet_def.set_recombiner(&uir);
+   //---
    fastjet::ClusterSequence cs(particles, jet_def);
    vector<fastjet::ClusterSequence::history_element> cs_history = cs.history();
    std::vector<fastjet::PseudoJet> tempJets = fastjet::sorted_by_pt(cs.inclusive_jets());
@@ -159,10 +166,16 @@ fastjet::PseudoJet dyGroomer::doGrooming(fastjet::PseudoJet jet,
    while (CurrentJet.has_parents(piece1, piece2))
    {
 
-      if (CurrentJet.pt2() <= 0)
+      if (CurrentJet.pt2() <= 0 ||
+          (piece1.user_index() < 0 && piece2.user_index() < 0))
+      {
          break;
+      }
 
-      if (piece1.pt() + piece2.pt() > 0 && piece1.E() > 0. && piece2.E() > 0. && piece1.m() > 0. && piece2.m() > 0.)
+      if (piece1.pt() + piece2.pt() > 0 &&
+          piece1.E() > 0. && piece2.E() > 0. &&
+          piece1.m() > 0. && piece2.m() > 0. &&
+          !(piece1.user_index() < 0) && !(piece2.user_index() < 0))
       {
          pt = piece1.pt() + piece2.pt();
          zg = min(piece1.pt(), piece2.pt()) / pt;
@@ -182,7 +195,7 @@ fastjet::PseudoJet dyGroomer::doGrooming(fastjet::PseudoJet jet,
          }
       }
 
-      if (piece1.pt() > piece2.pt())
+      if (piece1.pt() > piece2.pt() && !(piece1.user_index() < 0))
          CurrentJet = piece1;
       else
          CurrentJet = piece2;
@@ -197,7 +210,7 @@ fastjet::PseudoJet dyGroomer::doGrooming(fastjet::PseudoJet jet,
       has_substructure = true;
       fastjet::PseudoJet groomed_jet = tempJets_two[cs_history[current_in_ca_tree].jetp_index];
       groomed_jet.has_parents(daughter1, daughter2); // set prongs
-      return groomed_jet; // put CA reclusterd jet after grooming
+      return groomed_jet;                            // put CA reclusterd jet after grooming
    }
    else
    {

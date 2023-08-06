@@ -3,8 +3,7 @@
 
 #include "AnalysisModuleStandard.h"
 #include "fastjet/contrib/SoftDrop.hh"
-
-#include "negative_recombiner.h"
+//#include "negative_recombiner.h"
 #include "dyGroomer.h"
 
 #include <iostream>
