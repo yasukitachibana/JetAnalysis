@@ -235,7 +235,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               fastjet::PseudoJet sd_jet = sd(j);
 
               // Check user_index of groomed jet prongs
-              int posSub = 1; 
+              int posSub = 1;
               fastjet::PseudoJet j1, j2;
               sd_jet.has_parents(j1, j2);
 
@@ -282,6 +282,8 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               double mg = -1.0;
               double mg_over_pt = -1.0;
               double ktg = -1.0;
+              double pseudo_mg = -1.0;
+              double pseudo_mg_over_pt = -1.0;
               //--
 
               // std::cout << "\n jet-e" << j.e() << std::endl;
@@ -302,6 +304,14 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 //-------------------------------
                 // kt
                 ktg = j2.perp() * sin(rg);
+                //-------------------------------
+                // Pseudo Mass
+                double cos_theta_j1_j2 = (j1.px() * j2.px() +
+                                          j1.py() * j2.py() +
+                                          j1.pz() * j2.pz()) /
+                                         sqrt(j1.modp2() * j2.modp2());
+                pseudo_mg = 2 * j1.e() * j2.e() * (1 - cos_theta_j1_j2);
+                pseudo_mg_over_pt = pseudo_mg / pt_jet;
               }
               else
               {
@@ -359,20 +369,20 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               // std::cout << std::endl;
 
               // //std::cout << " ->" << varNames[X] << ": ";
-              // for (auto i : index[X])
-              // {
-              //   //std::cout << i << " ";
-              //   hist_list[i]->Fill(pseudo_mg, 1.0);
-              // }
-              // //std::cout << std::endl;
+              for (auto i : index[6])
+              {
+                // std::cout << i << " ";
+                hist_list[i]->Fill(pseudo_mg, 1.0);
+              }
+              // std::cout << std::endl;
 
               // //std::cout << " ->" << varNames[X] << ": ";
-              // for (auto i : index[X])
-              // {
-              //   //std::cout << i << " ";
-              //   hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
-              // }
-              // //std::cout << std::endl;
+              for (auto i : index[7])
+              {
+                // std::cout << i << " ";
+                hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
+              }
+              // std::cout << std::endl;
               //================================================================
             }
 
