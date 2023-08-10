@@ -62,7 +62,7 @@
   <!-- Observable -->
   <observable>
 
-    <SoftDropGroom>
+    <DynamicalGroom>
       <name>Dynamical Grooming</name>
       <chParticle>1</chParticle>
 
@@ -253,7 +253,7 @@
         </pseudoMGOverPt> -->
 
       </var>
-    </SoftDropGroom>
+    </DynamicalGroom>
 
   </observable>
 
