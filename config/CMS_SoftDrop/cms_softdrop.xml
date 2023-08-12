@@ -49,7 +49,7 @@
   <!-- Set Particle Mass -->
   <massAdjust>
     <adjust>1</adjust>
-    <adjustedQuant>P</adjustedQuant>    <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum   ENE, Ene, ene, ENERGY, Energy, energy, E, e: energy -->
+    <adjustedQuant>E</adjustedQuant>    <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum   ENE, Ene, ene, ENERGY, Energy, energy, E, e: energy -->
     <mass>0</mass>    <!-- 0 or positive value: mass in GeV, negative value: particle id-->
   </massAdjust>  
 
