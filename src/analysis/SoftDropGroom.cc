@@ -310,7 +310,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                                           j1.py() * j2.py() +
                                           j1.pz() * j2.pz()) /
                                          sqrt(j1.modp2() * j2.modp2());
-                pseudo_mg = 2.0 * j1.e() * j2.e() * (1 - cos_theta_j1_j2);
+                pseudo_mg = sqrt(2.0 * j1.e() * j2.e() * (1.0 - cos_theta_j1_j2));
                 pseudo_mg_over_pt = pseudo_mg / pt_jet;
 
                 std::cout << "j1: e=" << j1.e() << ", j2: e=" << j2.e() << std::endl;
