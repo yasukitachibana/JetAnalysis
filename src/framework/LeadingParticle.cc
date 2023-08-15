@@ -99,7 +99,8 @@ bool LeadingConstituent::Trigger(fastjet::PseudoJet jet, double r_cone)
   // std::cout << "\n[LeadingConstituent] *** jet pt = " << jet.perp() << " GeV" << std::endl;
   for (auto constituent : jet.constituents())
   {
-    if (constituent.perp() > leading_pt_min)
+    if ((!(constituent.user_index() < 0)) &&
+        constituent.perp() > leading_pt_min)
     {
       // std::cout << "[LeadingConstituent] *** pass ! pt = " << constituent.perp() << " GeV" << std::endl;
       return true;
@@ -136,10 +137,48 @@ void LeadingInCone::PrintLeadingParticleSetting()
   std::cout << "[LeadingConstituent] *** in Jet Cone Area" << std::endl;
 }
 
+void LeadingInCone::SetEvent(std::vector<std::shared_ptr<Particle>> particle_list_in)
+{
+  event_particle_list.clear();
+  event_particle_list.shrink_to_fit();
+  event_particle_list = particle_list_in;
+}
+
 bool LeadingInCone::Trigger(fastjet::PseudoJet jet, double r_cone)
 {
-  std::cout << "[LeadingInCone] Under Construction. Exit." << std::endl;
-  std::cout << "[LeadingInCone] jet cone size R = " << r_cone << std::endl;
-  exit(-1);
+
+  // std::cout << "In Leading:" << std::endl;
+  // std::cout << "n_particle = " << event_particle_list.size() << std::endl;
+  // std::cout << "#0 pstat=" << event_particle_list[0]->pstat()
+  //           << ", pid=" << event_particle_list[0]->pid()
+  //           << ", pt=" << event_particle_list[0]->perp()
+  //           << ", eta=" << event_particle_list[0]->eta() << std::endl;
+
+  for (auto p : event_particle_list)
+  {
+
+    double delta_eta = p->eta() - jet.eta();
+    double delta_phi = jet.delta_phi_to(p->GetPseudoJet());
+    double delta_r2 = delta_eta * delta_eta + delta_phi * delta_phi;
+
+    if (delta_r2 < r_cone * r_cone &&
+        p->perp() > leading_pt_min &&
+        lead_charged_ptr->Trigger(p) &&
+        p->pstat() != -1)
+    {
+      // std::cout << "Pass !: pstat=" << p->pstat()
+      //           << ", pid=" << p->pid()
+      //           << ", pt=" << p->perp()
+      //           << ", eta=" << p->eta() << std::endl;
+      return true;
+    }
+    // else
+    // {
+    //   std::cout << "fail !: pstat=" << p->pstat()
+    //             << ", pid=" << p->pid()
+    //             << ", pt=" << p->perp()
+    //             << ", eta=" << p->eta() << std::endl;
+    // }
+  }
   return false;
 }

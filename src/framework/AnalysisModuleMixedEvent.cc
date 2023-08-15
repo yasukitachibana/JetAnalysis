@@ -43,6 +43,8 @@ void AnalysisModuleMixedEvent::Clear(int seq_loaded)
 void AnalysisModuleMixedEvent::EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num)
 {
 
+  lead_ptr->SetEvent(particle_list);
+
   if (event_num % 2500 == 0)
   {
     std::cout

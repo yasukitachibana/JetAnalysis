@@ -42,7 +42,7 @@ public:
   virtual ~LeadingParticleBase() {}
   virtual void Init() {}
   virtual void Init(double leading_pt_min_in) {}
-  // virtual void SetEvent() {}
+  virtual void SetEvent(std::vector<std::shared_ptr<Particle>> particle_list_in) {}
   virtual bool Trigger(fastjet::PseudoJet jet, double r_cone) { return false; }
   virtual std::string Type() { return "None"; }
 
@@ -69,6 +69,7 @@ public:
   std::string Type() { return "No Leading Particle Requirement"; }
   void Init();
   void Init(double leading_pt_min_in);
+  void SetEvent(std::vector<std::shared_ptr<Particle>> particle_list_in) {}  
   bool Trigger(fastjet::PseudoJet jet, double r_cone) { return true; }
   void PrintLeadingParticleSetting() {}
 };
@@ -85,6 +86,7 @@ public:
   virtual std::string Type() { return "None [LeadingRequirement]"; }
   virtual bool Trigger(fastjet::PseudoJet jet, double r_cone) { return false; }
   virtual void Init(double leading_pt_min_in) {}
+  virtual void SetEvent(std::vector<std::shared_ptr<Particle>> particle_list_in) {}  
   virtual void PrintLeadingParticleSetting() {}
 
 protected:
@@ -99,6 +101,7 @@ public:
   std::string Type() { return "Leading Jet Constituent"; }
   bool Trigger(fastjet::PseudoJet jet, double r_cone);
   void Init(double leading_pt_min_in);
+  void SetEvent(std::vector<std::shared_ptr<Particle>> particle_list_in) {}  
   void PrintLeadingParticleSetting();
 };
 
@@ -110,10 +113,12 @@ public:
   std::string Type() { return "Leading Particle In Jet Cone Area"; }
   bool Trigger(fastjet::PseudoJet jet, double r_cone);
   void Init(double leading_pt_min_in);
+  void SetEvent(std::vector<std::shared_ptr<Particle>> particle_list_in);  
   void PrintLeadingParticleSetting();
 
 private:
   std::unique_ptr<ChargedBase> lead_charged_ptr;
+  std::vector<std::shared_ptr<Particle>> event_particle_list;
 };
 
 //===========================================================================================================================
