@@ -63,7 +63,7 @@ protected:
   std::shared_ptr<SubtractionModuleBase> sub_ptr;
   std::shared_ptr<LoadFileModuleBase> load_ptr;
   //=========================================
-  // std::unique_ptr<ChargedBase> jet_charged_ptr;
+  std::unique_ptr<LeadingParticleBase> lead_ptr;
   //=========================================
   std::unique_ptr<ChargedBase> jet_charged_ptr;
   std::unique_ptr<ChargedBase> particle_charged_ptr;

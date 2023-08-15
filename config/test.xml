@@ -19,6 +19,10 @@
     <!-- <jetConstPtMin>0.0</jetConstPtMin>
     <jetConstPtMax>3000</jetConstPtMax> -->
 
+    <leading>1</leading>
+    <leadMethod>C</leadMethod> <!-- Const (jet constituents) or Area (inside of jet cone R) -->
+    <leadCharged>0</leadCharged> <!-- only for Area method -->
+    <leadPtMin>3</leadPtMin> <!-- in GeV -->
 
 
     <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
