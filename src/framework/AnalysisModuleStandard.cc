@@ -25,6 +25,17 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
   // current_event = event_num;
   //================================================
 
+
+  // std::cout << "=========================================" << std::endl;
+  // std::cout << "Event Particle Info:" << std::endl;
+  // std::cout << "n_particle = " << particle_list.size() << std::endl;
+  // std::cout << "#0 pstat=" << particle_list[0]->pstat()
+  //           << ", pid=" << particle_list[0]->pid()
+  //           << ", pt=" << particle_list[0]->perp()
+  //           << ", eta=" << particle_list[0]->eta() << std::endl;  
+
+  lead_ptr->SetEvent(particle_list);  
+
   if (event_num % 2500 == 0)
   {
     std::cout
