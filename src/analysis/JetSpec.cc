@@ -5,7 +5,7 @@
 // Register the module with the base class
 RegisterAnalysisModule<JetSpec> JetSpec::reg("JetSpec");
 
-JetSpec::JetSpec(std::string name_in) : name(name_in)
+JetSpec::JetSpec(std::string name_in) : name(name_in), ui(-123456)
 {
   std::cout << "-@-Creating " << name << std::endl;
 }
@@ -15,25 +15,92 @@ JetSpec::~JetSpec()
   std::cout << "-$-Deleting " << name << std::endl;
 }
 
-void JetSpec::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
-                            std::vector<std::shared_ptr<Particle>> particle_list,
-                            int ir, int ijp, int ijr)
+// void JetSpec::SetObservable(int i_tag_particle, fastjet::PseudoJet jet,
+//                             std::vector<std::shared_ptr<Particle>> particle_list,
+//                             int ir, int ijp, int ijr)
+// {
+
+//   for (int iv = 0; iv < variables.size(); iv++)
+//   {
+//     for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
+//     {
+//       for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
+//       {
+
+//         int index = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, 0);
+//         hist_list[index]->JetTriggered();
+//         hist_list[index]->Fill(jet.perp(), 1.0);
+
+//       } // ipr
+//     }   // ipp
+//   }     // iv
+// }
+
+void JetSpec::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
 {
 
-  for (int iv = 0; iv < variables.size(); iv++)
+  std::vector<fastjet::PseudoJet> fj_inputs;
+  for (auto p : particle_list)
   {
-    for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
+    fj_inputs.push_back(p->GetPseudoJet());
+  }
+
+  for (int ir = 0; ir < jetR.size(); ir++)
+  {
+
+    double r_cone = jetR[ir];
+
+    // Jet reconstruction
+    fastjet::JetDefinition jetDef(fastjet::antikt_algorithm, r_cone);
+
+    // create an instance of the negative energy recombiner, with a given flag ui
+    NegativeEnergyRecombiner uir(ui);
+    // tell jet_def to use negative energy recombiner
+    jetDef.set_recombiner(&uir);
+    fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
+    std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
+
+    int n_jet = 0; // count number of jets in an event
+    for (auto j : jets)
     {
-      for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
+      double pt_jet = j.pt();
+      for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
       {
+        for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
+        {
 
-        int index = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, 0);
-        hist_list[index]->JetTriggered();
-        hist_list[index]->Fill(jet.perp(), 1.0);
+          if (JetTrigger(j, ir, ijp, ijr))
+          {
+            for (int iv = 0; iv < variables.size(); iv++)
+            {
+              for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
+              {
+                for (int ipr = 0; ipr < particleRapMin.size(); ipr++)
+                {
 
-      } // ipr
-    }   // ipp
-  }     // iv
+                  int index = GetHistIndex(iv, ir, ijp, ijr, ipp, ipr, 0);
+                  hist_list[index]->JetTriggered();
+                  hist_list[index]->Fill(j.perp(), 1.0);
+
+                } // ipr
+              }   // ipp
+            }     // iv
+
+          } // trigger
+
+        } // ijr
+      }   // ijp
+
+      // number of examined jet
+      n_jet++;
+      if (n_jet == nJetEv)
+      {
+        break;
+      }
+
+    } // jet
+
+  } // jetR
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
