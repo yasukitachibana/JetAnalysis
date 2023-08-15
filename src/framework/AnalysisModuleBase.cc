@@ -205,7 +205,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   int jet_const_pt_min = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMin"}, false);
   int jet_const_pt_max = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMax"}, false);
   // ###############################################################################################################
-  int leading_particle = 0;
+  int leading_particle = SetXML::Instance()->GetElementInt({"jetReco", "leading"}, false);
   // ###############################################################################################################
   //  <inputFiles>
   p_gun = SetXML::Instance()->GetElementInt({"inputFiles", "sigma", "pGun"}, false);
@@ -330,6 +330,27 @@ void AnalysisModuleBase::ReadParametersFromXML()
     jet_constpt_ptr = std::unique_ptr<ConstPtSelected>(new ConstPtSelected(jet_const_pt_min, jet_const_pt_max));
   }
   // ###############################################################################################################
+  if (leading_particle)
+  {
+    std::string lead_method = SetXML::Instance()->GetElementText({"jetReco", "leadMethod"});
+    double lead_pt_min = SetXML::Instance()->GetElementDouble({"jetReco", "leadPtMin"});
+
+    if (LeadingParticleHelper::LeadingConst(lead_method))
+    {
+    lead_ptr = std::unique_ptr<LeadingConstituent>(new LeadingConstituent());
+    }
+    else{
+    lead_ptr = std::unique_ptr<LeadingInCone>(new LeadingInCone());
+    }
+    lead_ptr->Init(lead_pt_min);
+  }
+  else
+  {
+    lead_ptr = std::unique_ptr<NoLeading>(new NoLeading());
+    lead_ptr->Init();
+  }
+
+  // ###############################################################################################################
   if (jet_tag)
   {
     jet_tag_ptr = std::unique_ptr<Tagged>(new Tagged(sub_ptr));
@@ -387,6 +408,7 @@ void AnalysisModuleBase::ReadParametersFromXML()
   //-------------------------------------
   ShowObservableSetting();
   ShowJetSetting();
+  lead_ptr->ShowLeadingParticleSetting();
   ShowParticleSetting();
   //-------------------------------------
   mass_adj_ptr->ShowMassAdjustSetting();
@@ -725,12 +747,14 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int
 
   double pt_jet = jet.perp();
   double rapidity_jet = jet_rap_ptr->Val(jet);
-
+  double r_cone = jetR[ir];
+  
   if (pt_jet >= jetPtMinForTrigger[ijp] &&
       pt_jet < jetPtMaxForTrigger[ijp] &&
       fabs(rapidity_jet) >= jetRapMin[ijr] &&
       fabs(rapidity_jet) < jetRapMax[ijr] &&
-      jet_deltaphi_ptr->Trigger(jet))
+      jet_deltaphi_ptr->Trigger(jet) &&
+      lead_ptr->Trigger(jet, r_cone))
   {
     return true;
   } // trigger

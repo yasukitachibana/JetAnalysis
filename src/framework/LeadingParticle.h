@@ -5,11 +5,30 @@
 #include "Pythia8/Pythia.h"
 
 #include "Particle.h"
+#include "Charged.h"
 // #include <vector>
 // #include <memory>
 // #include <iostream>
 // #include <sstream>
 // #include <iomanip>
+
+namespace LeadingParticleHelper
+{
+  bool LeadingConst(std::string method_in);
+
+  static const std::vector<std::string> cNames =
+      {"",
+       "Const", "const",
+       "Con", "con",
+       "C", "c",
+       "Constituent", "constituent",
+       "Constituents", "constituens"};
+
+  static const std::vector<std::string> aNames =
+      {"Area", "area", "Are", "are",
+       "A", "a", "R", "r",
+       "InCone", "inCone", "Incone", "incone"};
+}
 
 //===========================================================================================================================
 // BASE
@@ -19,38 +38,84 @@ class LeadingParticleBase
 {
 
 public:
+  LeadingParticleBase();
   virtual ~LeadingParticleBase() {}
-  // virtual bool Trigger(std::shared_ptr<Particle> p){return false;}
-  // bool LeadingParticleCheck(std::shared_ptr<Particle> p);
+  virtual void Init() {}
+  virtual void Init(double leading_pt_min_in) {}
+  // virtual void SetEvent() {}
+  virtual bool Trigger(fastjet::PseudoJet jet, double r_cone) { return false; }
   virtual std::string Type() { return "None"; }
 
+  bool Initialized() const { return initialized; }
+  void ShowLeadingParticleSetting();
+  virtual void PrintLeadingParticleSetting() {}
+
 protected:
-  static Pythia8::Pythia InternalHelperPythia;
+  bool initialized;
+
 }; // END BASE CLASS
 
 //===========================================================================================================================
 
 //===========================================================================================================================
-// (Simple) LeadingParticle Class
+// NoLeading Class
 //===========================================================================================================================
-// class LeadingParticleOnly : public LeadingParticleBase
-// {
 
-// public:
-//   LeadingParticleOnly(){}
-//   ~LeadingParticleOnly(){}
-//   bool Trigger(std::shared_ptr<Particle> p);
-//   std::string Type(){return "LeadingParticle";}
-// };
-
-class LeadingInclusive : public LeadingParticleBase
+class NoLeading : public LeadingParticleBase
 {
 public:
-  LeadingInclusive() {}
-  ~LeadingInclusive() {}
-  //   bool Trigger(std::shared_ptr<Particle> p){return true;}
-  std::string Type() { return "Full"; }
+  NoLeading();
+  ~NoLeading() {}
+  std::string Type() { return "No Leading Particle Requirement"; }
+  void Init();
+  void Init(double leading_pt_min_in);
+  bool Trigger(fastjet::PseudoJet jet, double r_cone) { return true; }
+  void PrintLeadingParticleSetting() {}
 };
+
+//===========================================================================================================================
+// LeadingRequirement Class
+//===========================================================================================================================
+
+class LeadingRequirement : public LeadingParticleBase
+{
+public:
+  LeadingRequirement();
+  ~LeadingRequirement() {}
+  virtual std::string Type() { return "None [LeadingRequirement]"; }
+  virtual bool Trigger(fastjet::PseudoJet jet, double r_cone) { return false; }
+  virtual void Init(double leading_pt_min_in) {}
+  virtual void PrintLeadingParticleSetting() {}
+
+protected:
+  double leading_pt_min;
+};
+
+class LeadingConstituent : public LeadingRequirement
+{
+public:
+  LeadingConstituent();
+  ~LeadingConstituent() {}
+  std::string Type() { return "Leading Jet Constituent"; }
+  bool Trigger(fastjet::PseudoJet jet, double r_cone);
+  void Init(double leading_pt_min_in);
+  void PrintLeadingParticleSetting();
+};
+
+class LeadingInCone : public LeadingRequirement
+{
+public:
+  LeadingInCone();
+  ~LeadingInCone() {}
+  std::string Type() { return "Leading Particle In Jet Cone Area"; }
+  bool Trigger(fastjet::PseudoJet jet, double r_cone);
+  void Init(double leading_pt_min_in);
+  void PrintLeadingParticleSetting();
+
+private:
+  std::unique_ptr<ChargedBase> lead_charged_ptr;
+};
+
 //===========================================================================================================================
 
 #endif
