@@ -50,6 +50,8 @@ public:
   int GetNbinsX(){ return Hist->GetNbinsX();}
   int FindBinX(double x){ return Hist->GetXaxis()->FindBin(x);}
   void DivideWithError( double norm, double norm_error );
+
+  void ResetOutliers(double cut);
   
 private:
   

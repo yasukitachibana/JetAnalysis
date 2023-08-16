@@ -120,6 +120,10 @@ void JetSpec::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, in
 
   for (auto hist : hist_list)
   {
+    //###########################
+    // Reset for Outliers
+    hist->ResetOutliers(2.0);
+    //###########################
     double n_ev = hist->Nev();
     if (n_ev != 0)
     {
