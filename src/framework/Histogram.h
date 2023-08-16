@@ -85,6 +85,8 @@ public:
   double SigmaErr(){return sigma_err;}
   //+++++++++++++++++++++++++++++++++++++
   
+  virtual void ResetOutliers(double cut){};
+
   virtual void DivideWithError( double norm, double norm_error ){}
 
 protected:
