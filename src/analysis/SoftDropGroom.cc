@@ -284,6 +284,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
               double ktg = -1.0;
               double pseudo_mg = -1.0;
               double pseudo_mg_over_pt = -1.0;
+              double ztg = -1.0;
               //--
 
               // std::cout << "\n jet-e" << j.e() << std::endl;
@@ -304,6 +305,7 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 //-------------------------------
                 // kt
                 ktg = j2.perp() * sin(rg);
+                ztg = zg * sin(rg);
                 //-------------------------------
                 // Pseudo Mass
                 double cos_theta_j1_j2 = (j1.px() * j2.px() +
@@ -383,6 +385,13 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
                 hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
               }
               // std::cout << std::endl;
+
+              // //std::cout << " ->" << varNames[X] << ": ";
+              for (auto i : index[8])
+              {
+                // std::cout << i << " ";
+                hist_list[i]->Fill(ztg, 1.0);
+              }
               //================================================================
             }
 

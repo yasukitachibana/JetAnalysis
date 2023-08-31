@@ -47,6 +47,7 @@ def GetArgs():
 
     parser.add_argument("--xml_dir", type=str, default="")
 
+
     parser.add_argument("--xml", type=str, default="")
     parser.add_argument("--input", type=str, default="")
     parser.add_argument("--output", type=str, default="")
