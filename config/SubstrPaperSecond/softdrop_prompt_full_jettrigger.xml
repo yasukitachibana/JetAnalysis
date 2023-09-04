@@ -30,8 +30,8 @@
     <jetConstPtMax>10000.0</jetConstPtMax>
 
     <jetPtMin>
-      <Item>40</Item>
-      <Item>60</Item>
+      <!-- <Item>40</Item> -->
+      <!-- <Item>60</Item> -->
       <Item>80</Item>
       <Item>100</Item>
       <Item>120</Item>
@@ -46,8 +46,8 @@
     </jetPtMin>
 
     <jetPtMax>
-      <Item>60</Item>
-      <Item>80</Item>
+      <!-- <Item>60</Item> -->
+      <!-- <Item>80</Item> -->
       <Item>100</Item>
       <Item>120</Item>
       <Item>140</Item>
@@ -64,6 +64,41 @@
 
     <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
+
+  <jetTag>
+    <tagged>1</tagged>
+    <xJetTag>0</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
+    <nTagEv>1</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
+    <!-- tag basic iinfo -->
+    <tagParticle>
+      <Item>22</Item>
+    </tagParticle>
+    <tagStat>
+      <Item>0</Item>
+      <Item>1</Item>
+    </tagStat>
+    <!-- tag pt cut -->
+    <tagPtMin>50</tagPtMin>
+    <tagPtMax>10000</tagPtMax>
+    <!-- tag rapidity cut -->
+    <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <tagRapMin>0</tagRapMin>
+    <tagRapMax>2.</tagRapMax>
+    <!-- tag isolation -->
+    <isolation>1</isolation>
+    <RIsolation>0.4</RIsolation>
+    <cutIsolation>5</cutIsolation>
+    <varIsolation>ET</varIsolation>    <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
+    <!-- <chIsolation>1</chIsolation>   -->
+    <statIsolation>
+      <Item>0</Item>
+      <Item>1</Item>
+      <Item>-1</Item>
+    </statIsolation>
+    <!-- tag relative angle -->
+    <deltaPhiCut>1</deltaPhiCut>
+    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+  </jetTag>
 
   <!-- Observable -->
   <observable>
@@ -146,7 +181,7 @@
           <Item>0.7</Item>
           <Item>0.8</Item>
           <Item>0.9</Item>
-          <Item>1.0</Item>                                                            
+          <Item>1.0</Item>
         </rG>
 
         <mG>
@@ -257,7 +292,7 @@
           <Item>0.24</Item>
           <Item>0.27</Item>
           <Item>0.3</Item>
-          <Item>0.4</Item>          
+          <Item>0.4</Item>
           <Item>0.5</Item>
           <Item>1.0</Item>
           <Item>10.0</Item>
@@ -283,7 +318,7 @@
           <Item>150.0</Item>
           <Item>200.0</Item>
           <Item>300.0</Item>
-          <Item>500.0</Item>                     
+          <Item>500.0</Item>
           <Item>10000.0</Item>
         </ktG>
 
@@ -295,16 +330,16 @@
           <Item>2.0</Item>
           <Item>3.0</Item>
           <Item>4.0</Item>
-          <Item>5.0</Item>          
+          <Item>5.0</Item>
           <Item>10.0</Item>
           <Item>15.0</Item>
           <Item>20.0</Item>
           <Item>30.0</Item>
           <Item>50.0</Item>
-          <Item>100.0</Item>          
+          <Item>100.0</Item>
           <Item>200.0</Item>
           <Item>300.0</Item>
-          <Item>500.0</Item>                    
+          <Item>500.0</Item>
           <Item>10000.0</Item>
         </ktG2>
 
@@ -316,31 +351,31 @@
         <pseudoMGOverPt>
           <Item>0.0</Item>
           <Item>10000.0</Item>
-        </pseudoMGOverPt>        
+        </pseudoMGOverPt>
 
         <ztG>
           <Item>0</Item>
           <Item>0.001</Item>
-          <Item>0.002</Item>          
+          <Item>0.002</Item>
           <Item>0.003</Item>
           <Item>0.004</Item>
-          <Item>0.005</Item>          
+          <Item>0.005</Item>
           <Item>0.006</Item>
           <Item>0.007</Item>
           <Item>0.008</Item>
-          <Item>0.009</Item>                              
+          <Item>0.009</Item>
           <Item>0.01</Item>
           <Item>0.0125</Item>
           <Item>0.015</Item>
           <Item>0.0175</Item>
-          <Item>0.02</Item>                              
+          <Item>0.02</Item>
           <Item>0.025</Item>
           <Item>0.03</Item>
           <Item>0.035</Item>
           <Item>0.04</Item>
           <Item>0.05</Item>
-          <Item>0.06</Item>                                                                                
-          <Item>0.07</Item>                                                                                          
+          <Item>0.06</Item>
+          <Item>0.07</Item>
           <Item>0.08</Item>
           <Item>0.1</Item>
           <Item>0.125</Item>
@@ -348,11 +383,11 @@
           <Item>0.2</Item>
           <Item>0.25</Item>
           <Item>0.3</Item>
-          <Item>0.35</Item>                                                            
+          <Item>0.35</Item>
           <Item>0.4</Item>
           <Item>0.45</Item>
-          <Item>0.5</Item>                         
-        </ztG>        
+          <Item>0.5</Item>
+        </ztG>
 
       </var>
     </SoftDropGroom>
