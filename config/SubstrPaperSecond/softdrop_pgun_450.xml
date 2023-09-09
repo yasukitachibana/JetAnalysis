@@ -114,14 +114,14 @@
 
       <beta>
         <Item>0.0</Item>
-        <Item>1.5</Item>
+        <!-- <Item>1.5</Item> -->
       </beta>
 
       <zCut>
-        <Item>0.1</Item>
+        <!-- <Item>0.1</Item> -->
         <Item>0.2</Item>
-        <Item>0.4</Item>
-        <Item>0.5</Item>
+        <!-- <Item>0.4</Item> -->
+        <!-- <Item>0.5</Item> -->
       </zCut>
 
       <var>
@@ -208,7 +208,7 @@
 
 
 
-        <mG2>
+        <!-- <mG2>
           <Item>0</Item>
           <Item>2</Item>
           <Item>4</Item>
@@ -260,7 +260,7 @@
           <Item>500</Item>
           <Item>1000</Item>
           <Item>10000</Item>
-        </mG3>
+        </mG3> -->
 
         <mGOverPt>
           <Item>0.0</Item>
@@ -306,7 +306,7 @@
         </ktG>
 
 
-        <ktG2>
+        <!-- <ktG2>
           <Item>0.0</Item>
           <Item>0.5</Item>
           <Item>1.0</Item>
@@ -325,7 +325,7 @@
           <Item>500.0</Item>
           <Item>10000.0</Item>
         </ktG2>
-
+ -->
         <pseudoMG>
           <Item>0.0</Item>
           <Item>10000.0</Item>
