@@ -1,0 +1,434 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <jetR>
+      <Item>0.2</Item>
+      <Item>0.4</Item>
+      <Item>0.6</Item>
+      <Item>0.8</Item>
+      <Item>1.0</Item>
+    </jetR>
+
+    <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
+
+    <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin>
+      <Item>0</Item>
+    </jetRapMin>
+    <jetRapMax>
+      <Item>2.0</Item>
+    </jetRapMax>
+
+    <jetConstPtMin>0.0</jetConstPtMin>
+    <jetConstPtMax>10000.0</jetConstPtMax>
+
+    <jetPtMin>
+      <Item>5</Item>
+      <Item>10</Item>
+      <Item>15</Item>
+      <Item>20</Item>
+      <Item>25</Item>
+      <Item>30</Item>
+      <Item>35</Item>
+      <Item>40</Item>
+      <Item>45</Item>
+      <Item>50</Item>
+      <Item>55</Item>
+      <Item>60</Item>
+      <Item>65</Item>
+      <Item>70</Item>
+      <Item>75</Item>
+      <Item>80</Item>
+      <Item>85</Item>
+      <Item>90</Item>
+      <Item>95</Item>
+      <Item>100</Item>
+      <Item>105</Item>
+      <Item>110</Item>
+      <Item>115</Item>
+      <Item>120</Item>
+
+      <Item>12</Item>
+      <Item>24</Item>
+      <Item>36</Item>
+      <Item>48</Item>
+      <Item>60</Item>
+      <Item>72</Item>
+      <Item>84</Item>
+      <Item>96</Item>
+      <Item>108</Item>
+      
+
+
+
+    </jetPtMin>
+
+    <jetPtMax>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+
+    </jetPtMax>
+
+
+    <nJetEv>1</nJetEv>    <!-- 0: inclusive -->
+  </jetReco>
+
+  <!-- Observable -->
+  <observable>
+
+    <SoftDropGroom>
+      <name>Soft Drop Grooming</name>
+      <chParticle>0</chParticle>
+      <!-- <statParticle>
+        <Item>0</Item>
+        <Item>1</Item>
+        <Item>-1</Item>
+      </statParticle> -->
+
+      <particleRapidity>1</particleRapidity>
+
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>4.0</Item>
+      </particleRapMax>
+
+      <!-- For ALICE Unfolded resutls -->
+      <particlePtMin>
+        <Item>0.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>10000.0</Item>
+      </particlePtMax>
+
+      <beta>
+        <Item>0.0</Item>
+        <Item>1.5</Item>
+      </beta>
+
+      <zCut>
+        <Item>0.1</Item>
+        <Item>0.2</Item>
+        <Item>0.4</Item>
+        <Item>0.5</Item>
+      </zCut>
+
+      <var>
+
+        <zG>
+          <Item>0.0</Item>
+          <Item>0.1</Item>
+          <Item>0.15</Item>
+          <Item>0.2</Item>
+          <Item>0.25</Item>
+          <Item>0.3</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+          <Item>0.45</Item>
+          <Item>0.5</Item>
+        </zG>
+
+        <thetaG>
+          <Item>0</Item>
+          <Item>1000</Item>
+        </thetaG>
+
+        <rG>
+          <Item>0</Item>
+          <Item>0.003</Item>
+          <Item>0.0042</Item>
+          <Item>0.0063</Item>
+          <Item>0.0096</Item>
+          <Item>0.0145</Item>
+          <Item>0.0220</Item>
+          <Item>0.0332</Item>
+          <Item>0.0503</Item>
+          <Item>0.0761</Item>
+          <Item>0.1153</Item>
+          <Item>0.1745</Item>
+          <Item>0.2642</Item>
+          <Item>0.4</Item>
+          <Item>0.5</Item>
+          <Item>0.6</Item>
+          <Item>0.7</Item>
+          <Item>0.8</Item>
+          <Item>0.9</Item>
+          <Item>1.0</Item>
+        </rG>
+
+        <mG>
+          <Item>0</Item>
+          <Item>1</Item>
+          <Item>2</Item>
+          <Item>3</Item>
+          <Item>4</Item>
+          <Item>5</Item>
+          <Item>6</Item>
+          <Item>7</Item>
+          <Item>8</Item>
+          <Item>9</Item>
+          <Item>10</Item>
+          <Item>12</Item>
+          <Item>14</Item>
+          <Item>16</Item>
+          <Item>18</Item>
+          <Item>20</Item>
+          <Item>25</Item>
+          <Item>30</Item>
+          <Item>35</Item>
+          <Item>40</Item>
+          <Item>45</Item>
+          <Item>50</Item>
+          <Item>60</Item>
+          <Item>70</Item>
+          <Item>80</Item>
+          <Item>90</Item>
+          <Item>100</Item>
+          <Item>120</Item>
+          <Item>140</Item>
+          <Item>160</Item>
+          <Item>180</Item>
+          <Item>200</Item>
+          <Item>250</Item>
+          <Item>500</Item>
+          <Item>1000</Item>
+          <Item>10000</Item>
+        </mG>
+
+
+
+        <mG2>
+          <Item>0</Item>
+          <Item>2</Item>
+          <Item>4</Item>
+          <Item>6</Item>
+          <Item>8</Item>
+          <Item>10</Item>
+          <Item>12</Item>
+          <Item>14</Item>
+          <Item>16</Item>
+          <Item>18</Item>
+          <Item>20</Item>
+          <Item>25</Item>
+          <Item>30</Item>
+          <Item>35</Item>
+          <Item>40</Item>
+          <Item>45</Item>
+          <Item>50</Item>
+          <Item>60</Item>
+          <Item>70</Item>
+          <Item>80</Item>
+          <Item>90</Item>
+          <Item>100</Item>
+          <Item>120</Item>
+          <Item>140</Item>
+          <Item>160</Item>
+          <Item>180</Item>
+          <Item>200</Item>
+          <Item>250</Item>
+          <Item>500</Item>
+          <Item>1000</Item>
+          <Item>10000</Item>
+        </mG2>
+
+
+        <mG3>
+          <Item>0</Item>
+          <Item>5</Item>
+          <Item>10</Item>
+          <Item>15</Item>
+          <Item>20</Item>
+          <Item>30</Item>
+          <Item>40</Item>
+          <Item>50</Item>
+          <Item>70</Item>
+          <Item>100</Item>
+          <Item>150</Item>
+          <Item>200</Item>
+          <Item>300</Item>
+          <Item>500</Item>
+          <Item>1000</Item>
+          <Item>10000</Item>
+        </mG3>
+
+        <mGOverPt>
+          <Item>0.0</Item>
+          <Item>0.04</Item>
+          <Item>0.06</Item>
+          <Item>0.08</Item>
+          <Item>0.1</Item>
+          <Item>0.12</Item>
+          <Item>0.15</Item>
+          <Item>0.18</Item>
+          <Item>0.21</Item>
+          <Item>0.24</Item>
+          <Item>0.27</Item>
+          <Item>0.3</Item>
+          <Item>0.4</Item>
+          <Item>0.5</Item>
+          <Item>1.0</Item>
+          <Item>10.0</Item>
+        </mGOverPt>
+
+        <ktG>
+          <Item>0.0</Item>
+          <Item>0.25</Item>
+          <Item>0.5</Item>
+          <Item>1.0</Item>
+          <Item>1.5</Item>
+          <Item>2.0</Item>
+          <Item>3.0</Item>
+          <Item>4.0</Item>
+          <Item>6.0</Item>
+          <Item>8.0</Item>
+          <Item>10.0</Item>
+          <Item>15.0</Item>
+          <Item>20.0</Item>
+          <Item>30.0</Item>
+          <Item>50.0</Item>
+          <Item>100.0</Item>
+          <Item>150.0</Item>
+          <Item>200.0</Item>
+          <Item>300.0</Item>
+          <Item>500.0</Item>
+          <Item>10000.0</Item>
+        </ktG>
+
+
+        <ktG2>
+          <Item>0.0</Item>
+          <Item>0.5</Item>
+          <Item>1.0</Item>
+          <Item>2.0</Item>
+          <Item>3.0</Item>
+          <Item>4.0</Item>
+          <Item>5.0</Item>
+          <Item>10.0</Item>
+          <Item>15.0</Item>
+          <Item>20.0</Item>
+          <Item>30.0</Item>
+          <Item>50.0</Item>
+          <Item>100.0</Item>
+          <Item>200.0</Item>
+          <Item>300.0</Item>
+          <Item>500.0</Item>
+          <Item>10000.0</Item>
+        </ktG2>
+
+        <pseudoMG>
+          <Item>0.0</Item>
+          <Item>10000.0</Item>
+        </pseudoMG>
+
+        <pseudoMGOverPt>
+          <Item>0.0</Item>
+          <Item>10000.0</Item>
+        </pseudoMGOverPt>
+
+        <ztG>
+          <Item>0</Item>
+          <Item>0.001</Item>
+          <Item>0.002</Item>
+          <Item>0.003</Item>
+          <Item>0.004</Item>
+          <Item>0.005</Item>
+          <Item>0.006</Item>
+          <Item>0.007</Item>
+          <Item>0.008</Item>
+          <Item>0.009</Item>
+          <Item>0.01</Item>
+          <Item>0.0125</Item>
+          <Item>0.015</Item>
+          <Item>0.0175</Item>
+          <Item>0.02</Item>
+          <Item>0.025</Item>
+          <Item>0.03</Item>
+          <Item>0.035</Item>
+          <Item>0.04</Item>
+          <Item>0.05</Item>
+          <Item>0.06</Item>
+          <Item>0.07</Item>
+          <Item>0.08</Item>
+          <Item>0.1</Item>
+          <Item>0.125</Item>
+          <Item>0.15</Item>
+          <Item>0.2</Item>
+          <Item>0.25</Item>
+          <Item>0.3</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+          <Item>0.45</Item>
+          <Item>0.5</Item>
+        </ztG>
+
+      </var>
+    </SoftDropGroom>
+
+  </observable>
+
+  <inputFiles>
+    <inputStyle>JetScapeAscii</inputStyle>
+    <events>
+      <head>JetscapeHadronListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>
+    <sigma>
+      <pGun>1</pGun>
+      <path>na</path>
+      <head>SigmaHardBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </sigma>
+    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divUnit>_Run</divUnit>
+  </inputFiles>
+
+  <!-- ptHatBins -->
+  <!-- ptHatBins -->
+  <ptHat>
+    <Item>50</Item>
+    <Item>50</Item>
+  </ptHat>
+
+</jetAnalysis>
