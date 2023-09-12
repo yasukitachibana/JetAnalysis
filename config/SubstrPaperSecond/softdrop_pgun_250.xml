@@ -420,8 +420,8 @@
   <!-- ptHatBins -->
   <!-- ptHatBins -->
   <ptHat>
-    <Item>50</Item>
-    <Item>50</Item>
+    <Item>250</Item>
+    <Item>250</Item>
   </ptHat>
 
 </jetAnalysis>
