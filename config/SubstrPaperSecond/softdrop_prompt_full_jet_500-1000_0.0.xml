@@ -30,59 +30,51 @@
     <jetConstPtMax>10000.0</jetConstPtMax>
 
     <jetPtMin>
-      
-      <Item>50</Item>
-      <Item>100</Item>      
-      <Item>150</Item>
-      <Item>200</Item>
-      <Item>250</Item>
-      <Item>300</Item>
-      <Item>350</Item>
-      <Item>400</Item>
-      <Item>450</Item>
-
-
-      <Item>45</Item>
-      <Item>90</Item>
-      <Item>135</Item>
-      <Item>180</Item>
-      <Item>225</Item>
-      <Item>270</Item>
-      <Item>315</Item>
-      <Item>360</Item>
-      <Item>405</Item>
-      
-      
-      
+      <Item>500</Item>
     </jetPtMin>
 
     <jetPtMax>
-
-      <Item>10000</Item>
-      <Item>10000</Item>      
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>            
-
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-      <Item>10000</Item>
-
+      <Item>1000</Item>
     </jetPtMax>
 
 
-    <nJetEv>1</nJetEv>    <!-- 0: inclusive -->
+    <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
+
+  <jetTag>
+    <tagged>1</tagged>
+    <xJetTag>0</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
+    <nTagEv>1</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
+    <!-- tag basic iinfo -->
+    <tagParticle>
+      <Item>22</Item>
+    </tagParticle>
+    <tagStat>
+      <Item>0</Item>
+      <Item>1</Item>
+    </tagStat>
+    <!-- tag pt cut -->
+    <tagPtMin>500</tagPtMin>
+    <tagPtMax>10000</tagPtMax>
+    <!-- tag rapidity cut -->
+    <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <tagRapMin>0</tagRapMin>
+    <tagRapMax>2.</tagRapMax>
+    <!-- tag isolation -->
+    <isolation>1</isolation>
+    <RIsolation>0.4</RIsolation>
+    <cutIsolation>5</cutIsolation>
+    <varIsolation>ET</varIsolation>    <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT: transverse energy -->
+    <!-- <chIsolation>1</chIsolation>   -->
+    <statIsolation>
+      <Item>0</Item>
+      <Item>1</Item>
+      <Item>-1</Item>
+    </statIsolation>
+    <!-- tag relative angle -->
+    <deltaPhiCut>1</deltaPhiCut>
+    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+  </jetTag>
 
   <!-- Observable -->
   <observable>
@@ -115,14 +107,14 @@
 
       <beta>
         <Item>0.0</Item>
-        <!-- <Item>1.5</Item> -->
+        <Item>1.5</Item>
       </beta>
 
       <zCut>
-        <!-- <Item>0.1</Item> -->
+        <Item>0.1</Item>
         <Item>0.2</Item>
-        <!-- <Item>0.4</Item> -->
-        <!-- <Item>0.5</Item> -->
+        <Item>0.4</Item>
+        <Item>0.5</Item>
       </zCut>
 
       <var>
@@ -209,7 +201,7 @@
 
 
 
-        <!-- <mG2>
+        <mG2>
           <Item>0</Item>
           <Item>2</Item>
           <Item>4</Item>
@@ -261,7 +253,7 @@
           <Item>500</Item>
           <Item>1000</Item>
           <Item>10000</Item>
-        </mG3> -->
+        </mG3>
 
         <mGOverPt>
           <Item>0.0</Item>
@@ -307,7 +299,7 @@
         </ktG>
 
 
-        <!-- <ktG2>
+        <ktG2>
           <Item>0.0</Item>
           <Item>0.5</Item>
           <Item>1.0</Item>
@@ -326,7 +318,7 @@
           <Item>500.0</Item>
           <Item>10000.0</Item>
         </ktG2>
- -->
+
         <pseudoMG>
           <Item>0.0</Item>
           <Item>10000.0</Item>
@@ -386,7 +378,6 @@
       <tail>.out</tail>
     </events>
     <sigma>
-      <pGun>1</pGun>
       <path>na</path>
       <head>SigmaHardBin</head>
       <join>_</join>
@@ -399,8 +390,73 @@
   <!-- ptHatBins -->
   <!-- ptHatBins -->
   <ptHat>
+    <Item>1</Item>
+    <Item>2</Item>
+    <Item>3</Item>
+    <Item>4</Item>
+    <Item>5</Item>
+    <Item>7</Item>
+    <Item>9</Item>
+    <Item>11</Item>
+    <Item>13</Item>
+    <Item>15</Item>
+    <Item>17</Item>
+    <Item>20</Item>
+    <Item>25</Item>
+    <Item>30</Item>
+    <Item>35</Item>
+    <Item>40</Item>
+    <Item>45</Item>
+    <Item>50</Item>
+    <Item>55</Item>
+    <Item>60</Item>
+    <Item>70</Item>
+    <Item>80</Item>
+    <Item>90</Item>
+    <Item>100</Item>
+    <Item>110</Item>
+    <Item>120</Item>
+    <Item>130</Item>
+    <Item>140</Item>
+    <Item>150</Item>
+    <Item>160</Item>
+    <Item>170</Item>
+    <Item>180</Item>
+    <Item>190</Item>
+    <Item>200</Item>
+    <Item>210</Item>
+    <Item>220</Item>
+    <Item>230</Item>
+    <Item>240</Item>
+    <Item>250</Item>
+    <Item>260</Item>
+    <Item>270</Item>
+    <Item>280</Item>
+    <Item>290</Item>
+    <Item>300</Item>
+    <Item>350</Item>
+    <Item>400</Item>
     <Item>450</Item>
-    <Item>450</Item>
+    <Item>500</Item>
+    <Item>550</Item>
+    <Item>600</Item>
+    <Item>700</Item>
+    <Item>800</Item>
+    <Item>900</Item>
+    <Item>1000</Item>
+    <Item>1100</Item>
+    <Item>1200</Item>
+    <Item>1300</Item>
+    <Item>1400</Item>
+    <Item>1500</Item>
+    <Item>1600</Item>
+    <Item>1700</Item>
+    <Item>1800</Item>
+    <Item>1900</Item>
+    <Item>2000</Item>
+    <Item>2200</Item>
+    <Item>2400</Item>
+    <Item>2510</Item>
   </ptHat>
 
 </jetAnalysis>
