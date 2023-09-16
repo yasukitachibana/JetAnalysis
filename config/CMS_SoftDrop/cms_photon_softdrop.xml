@@ -120,18 +120,10 @@
 
         <rG>
           <Item>0</Item>
-          <Item>0.02</Item>
           <Item>0.04</Item>
-          <Item>0.06</Item>
-          <Item>0.1</Item>
+          <Item>0.08</Item>
+          <Item>0.12</Item>
           <Item>0.2</Item>
-          <Item>0.35</Item>
-          <Item>0.4</Item>
-          <Item>0.6</Item>
-          <Item>0.8</Item>
-          <Item>1.0</Item>
-          <Item>1.5</Item>
-          <Item>10.0</Item>                              
         </rG>
 
         <mG>
