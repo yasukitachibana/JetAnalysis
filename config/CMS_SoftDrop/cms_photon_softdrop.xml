@@ -132,6 +132,10 @@
           <Item>10000</Item>
         </mG>
 
+        <ktG>
+          <Item>0.0</Item>
+          <Item>10000.0</Item>
+        </ktG>
 
         <mGOverPt>
           <Item>0.0</Item>
@@ -180,7 +184,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>1</Item>
+    <!-- <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -201,7 +205,7 @@
     <Item>55</Item>
     <Item>60</Item>
     <Item>70</Item>
-    <Item>80</Item>
+    <Item>80</Item> -->
     <Item>90</Item>
     <Item>100</Item>
     <Item>110</Item>
