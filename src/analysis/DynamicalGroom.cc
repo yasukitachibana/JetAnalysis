@@ -181,17 +181,19 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
     fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
     std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
 
-    int n_jet = 0; // count number of jets in an event
-    for (auto j : jets)
+    for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
     {
-      double pt_jet = j.pt();
-      for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
+      for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
       {
-        for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
+
+        int n_jet = 0; // count number of jets in an event
+        for (auto j : jets)
         {
 
+          double pt_jet = j.pt();
           if (JetTrigger(j, ir, ijp, ijr))
           {
+            n_jet++;
             // nParams for sets of parameters in the anlysis (e.g. beta and zcut)
             for (int ip = 0; ip < nParams; ip++)
             {
@@ -243,11 +245,11 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
                 rg = daughter1.delta_R(daughter2);
                 double ptsum = daughter1.pt() + daughter2.pt();
                 double min_pt = min(daughter1.pt(), daughter2.pt());
-                zg =  min_pt / ptsum;
-                thg = rg / r_cone;      // theta_g = rg/R
-                mg = dyg_jet.m();          // groomed mass
+                zg = min_pt / ptsum;
+                thg = rg / r_cone;        // theta_g = rg/R
+                mg = dyg_jet.m();         // groomed mass
                 mg_over_pt = mg / pt_jet; // groomed mass/jetPt
-                ktg = min_pt * sin(rg); //
+                ktg = min_pt * sin(rg);   //
               }
               //==========================================================================
 
@@ -321,17 +323,17 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
 
           } // trigger
 
-        } // ijr
-      }   // ijp
+          //====================================
+          // Reach Maximum Triggered Jet Number per Tag
+          if (nJetEv * (n_jet == nJetEv))
+          {
+            break;
+          }
+          //====================================
 
-      // number of triggered jet
-      n_jet++;
-      if (n_jet == nJetEv)
-      {
-        break;
-      }
-
-    } // jet
+        } // jet
+      }   // ijr
+    }     // ijp
 
   } // jetR
 }

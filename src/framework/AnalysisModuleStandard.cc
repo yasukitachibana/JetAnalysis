@@ -25,16 +25,15 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
   // current_event = event_num;
   //================================================
 
-
   // std::cout << "=========================================" << std::endl;
   // std::cout << "Event Particle Info:" << std::endl;
   // std::cout << "n_particle = " << particle_list.size() << std::endl;
   // std::cout << "#0 pstat=" << particle_list[0]->pstat()
   //           << ", pid=" << particle_list[0]->pid()
   //           << ", pt=" << particle_list[0]->perp()
-  //           << ", eta=" << particle_list[0]->eta() << std::endl;  
+  //           << ", eta=" << particle_list[0]->eta() << std::endl;
 
-  lead_ptr->SetEvent(particle_list);  
+  lead_ptr->SetEvent(particle_list);
 
   if (event_num % 2500 == 0)
   {
@@ -115,18 +114,20 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
   {
 
     double r_cone = jetR[ir];
-    int n_jet = 0;
+
     // Get Jets Reconstructed with Jet Cone Size = r_cone
     std::vector<fastjet::PseudoJet> jets = reco_ptr->JetReco(r_cone, particle_list);
-    for (auto j : jets)
+
+    for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
     {
-
-      // std::cout << "jet#" << i_jet << std::endl;
-
-      for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
+      for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
       {
-        for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
+
+        int n_jet = 0;
+        for (auto j : jets)
         {
+
+          // std::cout << "jet#" << i_jet << std::endl;
 
           if (JetTrigger(j, ir, ijp, ijr))
           {
@@ -140,17 +141,20 @@ void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Partic
             //           << j.phi() << " eta="
             //           << j.eta() << std::endl;
             //================================================
+
+            // Count Triggered Jet
+            n_jet++;
           } // trigger
-        }
+
+          //====================================
+          // Reach Maximum Triggered Jet Number per Tag
+          if (nJetEv * (n_jet == nJetEv))
+          {
+            break;
+          }
+          //====================================
+        } // jet
       }
-
-      n_jet++;
-      if (n_jet == nJetEv)
-      {
-        break;
-      }
-
-    } // jet
-
+    }
   } // jetR
 }

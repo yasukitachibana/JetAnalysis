@@ -49,7 +49,7 @@ int MomFracTagJet::ReadOptionParametersFromXML()
 
 std::string MomFracTagJet::GetParamsTag(int i)
 {
-  std::string tag = smear_ptr->SettingTag();  
+  std::string tag = smear_ptr->SettingTag();
   return tag;
 }
 
@@ -139,7 +139,7 @@ void MomFracTagJet::
 
                 //====================================
                 // Reach Maximum Triggered Jet Number per Tag
-                if (n_jet == nJetEv)
+                if (nJetEv * (n_jet == nJetEv))
                 {
                   break;
                 }
@@ -179,9 +179,9 @@ void MomFracTagJet::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
       // std::cout<< "----------" << std::endl;
       // total_hist->Show();
       // hist->Show();
-      // std::cout<< "sigma / n_ev: " << sigma / n_ev << std::endl;      
+      // std::cout<< "sigma / n_ev: " << sigma / n_ev << std::endl;
       total_hist->Add(hist, sigma / n_ev);
-      //total_hist->Show();      
+      // total_hist->Show();
     }
   }
 
