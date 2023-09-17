@@ -88,7 +88,7 @@
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>2.0</Item>
+        <Item>3.0</Item>
       </particleRapMax>
 
       <particlePtMin>
@@ -124,6 +124,7 @@
           <Item>0.08</Item>
           <Item>0.12</Item>
           <Item>0.2</Item>
+          <Item>10.0</Item>          
         </rG>
 
         <mG>
