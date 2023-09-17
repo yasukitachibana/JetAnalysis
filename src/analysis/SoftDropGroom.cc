@@ -192,17 +192,18 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
     fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
     std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
 
-    int n_jet = 0; // count number of jets in an event
-    for (auto j : jets)
+    for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
     {
-      double pt_jet = j.pt();
-      for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
+      for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
       {
-        for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
-        {
 
+        int n_jet = 0; // count number of jets in an event
+        for (auto j : jets)
+        {
+          double pt_jet = j.pt();
           if (JetTrigger(j, ir, ijp, ijr))
           {
+            n_jet++;
             // nParams for sets of parameters in the anlysis (e.g. beta and zcut)
             for (int ip = 0; ip < nParams; ip++)
             {
@@ -397,17 +398,16 @@ void SoftDropGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> part
 
           } // trigger
 
-        } // ijr
-      }   // ijp
-
-      // number of triggered jet
-      n_jet++;
-      if (n_jet == nJetEv)
-      {
-        break;
-      }
-
-    } // jet
+          //====================================
+          // Reach Maximum Triggered Jet Number per Tag
+          if (nJetEv * (n_jet == nJetEv))
+          {
+            break;
+          }
+          //====================================
+        } // jet
+      }   // ijr
+    }     // ijp
 
   } // jetR
 }

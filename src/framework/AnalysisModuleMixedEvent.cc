@@ -122,30 +122,35 @@ void AnalysisModuleMixedEvent::OneEventAnalysis(std::vector<std::shared_ptr<Part
   for (int ir = 0; ir < jetR.size(); ir++)
   {
     double r_cone = jetR[ir];
-    int n_jet = 0;
+
     // Get Jets Reconstructed with Jet Cone Size = r_cone
     std::vector<fastjet::PseudoJet> jets = reco_ptr->JetReco(r_cone, particle_list);
-    for (auto j : jets)
+
+    for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
     {
-
-      for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
+      for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
       {
-        for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
-        {
 
+        int n_jet = 0;
+        for (auto j : jets)
+        {
           if (JetTrigger(j, ir, ijp, ijr))
           {
 
             SetObservable(i_tag_particle, j, particle_list, mixed_event_particle_list, ir, ijp, ijr);
 
+            // Count Triggered Jet
+            n_jet++;
           } // trigger
-        }
-      }
 
-      n_jet++;
-      if (n_jet == nJetEv)
-      {
-        break;
+          //====================================
+          // Reach Maximum Triggered Jet Number per Tag
+          if (nJetEv * (n_jet == nJetEv))
+          {
+            break;
+          }
+          //====================================
+        }
       }
 
     } // jet

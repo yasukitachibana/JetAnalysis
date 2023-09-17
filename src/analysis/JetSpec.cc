@@ -60,17 +60,18 @@ void JetSpec::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_l
     fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
     std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
 
-    int n_jet = 0; // count number of jets in an event
-    for (auto j : jets)
+    for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
     {
-      double pt_jet = j.pt();
-      for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
+      for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
       {
-        for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
-        {
 
+        int n_jet = 0; // count number of jets in an event
+        for (auto j : jets)
+        {
+          double pt_jet = j.pt();
           if (JetTrigger(j, ir, ijp, ijr))
           {
+            n_jet++;
             for (int iv = 0; iv < variables.size(); iv++)
             {
               for (int ipp = 0; ipp < particlePtMin.size(); ipp++)
@@ -87,18 +88,16 @@ void JetSpec::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_l
             }     // iv
 
           } // trigger
-
-        } // ijr
-      }   // ijp
-
-      // number of examined jet
-      n_jet++;
-      if (n_jet == nJetEv)
-      {
-        break;
-      }
-
-    } // jet
+          //====================================
+          // Reach Maximum Triggered Jet Number per Tag
+          if (nJetEv * (n_jet == nJetEv))
+          {
+            break;
+          }
+          //====================================
+        } // jet
+      }   // ijr
+    }     // ijp
 
   } // jetR
 }
@@ -120,10 +119,10 @@ void JetSpec::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, in
 
   for (auto hist : hist_list)
   {
-    //###########################
-    // Reset for Outliers
+    // ###########################
+    //  Reset for Outliers
     hist->ResetOutliers(2.0);
-    //###########################
+    // ###########################
     double n_ev = hist->Nev();
     if (n_ev != 0)
     {
