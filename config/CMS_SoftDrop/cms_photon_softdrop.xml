@@ -29,7 +29,7 @@
       <Item>100</Item>
       <Item>100</Item>      
     </jetPtMax>
-    <nJetEv>1</nJetEv>    <!-- 0: inclusive -->
+    <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
   </jetReco>
 
   <jetTag>
