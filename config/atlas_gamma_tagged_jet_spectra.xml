@@ -22,10 +22,10 @@
       <Item>2.8</Item>
     </jetRapMax>
     <jetPtMin>
-      <Item>30</Item>
+      <Item>50</Item>
     </jetPtMin>
     <jetPtMax>
-      <Item>1000.0</Item>
+      <Item>10000.0</Item>
     </jetPtMax>
     <nJetEv>0</nJetEv>
   </jetReco>
@@ -44,7 +44,7 @@
     </tagStat>
     <!-- tag pt cut -->
     <tagPtMin>50</tagPtMin>
-    <tagPtMax>2510</tagPtMax>
+    <tagPtMax>10000.0</tagPtMax>
     <!-- tag rapidity cut -->
     <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <tagRapMin>0</tagRapMin>
