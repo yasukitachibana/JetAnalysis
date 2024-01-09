@@ -34,6 +34,8 @@
 set(FASTJET_FOUND FALSE)
 set(FASTJET $ENV{FASTJET})
 
+message("FASTJET: " ${FASTJET})
+
 if(FASTJET)
 
     # Check for fastjet-config script
