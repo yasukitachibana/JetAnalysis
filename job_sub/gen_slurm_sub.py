@@ -51,7 +51,7 @@ def main():
     
     parser.add_argument("--p", type=str, default="primary")
     parser.add_argument("--time", type=str, default="720:00:00")
-    parser.add_argument("--mem", type=str, default="24G")
+    parser.add_argument("--mem", type=str, default="64G")
     
     parser.add_argument("--e", type=str, default="/dev/null")
     parser.add_argument("--o", type=str, default="/dev/null")
