@@ -133,8 +133,9 @@ def GetXmlList(args):
         data = yaml.safe_load(ymlf)
 
     xml_list = data['xml_list']
+    xml_common_path = data['common_path']
 
-    return xml_list
+    return xml_list, xml_common_path
 
 def GetOutputPathList(args,xml_list):
     output_path_base = args.output
@@ -147,8 +148,9 @@ def MainListSubmission(args):
         xml_list = [args.xml]
         output_path_list = [args.output]
     elif args.xml_list == 'on':
-        xml_list = [xml_name+'.xml' for xml_name in GetXmlList(args)]
-        output_path_list = GetOutputPathList(args,xml_list)
+        xml_name_list, xml_common_path = GetXmlList(args)
+        output_path_list = GetOutputPathList(args,xml_name_list)
+        xml_list = [os.path.join(xml_common_path,xml_name+'.xml') for xml_name in xml_list]
     else:
         print('ERROR: xml_list must be on or off')
         exit()
