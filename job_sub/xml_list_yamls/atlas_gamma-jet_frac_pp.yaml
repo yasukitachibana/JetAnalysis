@@ -1,1 +1,2 @@
-xml_list: ['prompt_photon_pp_asym_63.1_79.6.xml','prompt_photon_pp_asym_79.6_100.xml','prompt_photon_pp_asym_100_158.xml','prompt_photon_pp_asym_158_200.xml']
+common_path: '/wsu/home/go/go54/go5410/JetAnalysis/config/PromptPhoton/ATLAS'
+xml_list: ['prompt_photon_pp_asym_63.1_79.6','prompt_photon_pp_asym_79.6_100','prompt_photon_pp_asym_100_158','prompt_photon_pp_asym_158_200']
