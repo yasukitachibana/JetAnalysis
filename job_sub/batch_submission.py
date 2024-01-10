@@ -136,21 +136,30 @@ def GetXmlList(args):
 
     return xml_list
 
+def GetOutputPathList(args,xml_list):
+    output_path_base = args.output
+    return [output_path_base.format(xml_name) for xml_name in xml_list]
+
+
 def MainListSubmission(args):
     
     if args.xml_list == 'off':
         xml_list = [args.xml]
+        output_path_list = [args.output]
     elif args.xml_list == 'on':
-        xml_list = GetXmlList(args)
+        xml_list = [xml_name+'.xml' for xml_name in GetXmlList(args)]
+        output_path_list = GetOutputPathList(args,xml_list)
     else:
         print('ERROR: xml_list must be on or off')
         exit()
 
-    for xml_file in xml_list:
+    for i_xml, xml_file in enumerate(xml_list):
+        output_path = output_path_list[i_xml]
         print(xml_file)
-        MainSubmission(args,xml_file)
+        print(output_path)        
+        MainSubmission(args,xml_file,output_path)
 
-def MainSubmission(args,xml_file):
+def MainSubmission(args,xml_file,output_path):
     # print('Yes!')
     # exit()
 
@@ -158,7 +167,7 @@ def MainSubmission(args,xml_file):
     ##########################################################################
     #'../config/PromptPhoton/CMS/prompt_photon_cent0_10_60_10000.xml'
     input_path = args.input
-    output_path = args.output
+    #output_path = args.output
         
     yaml_file = args.yaml
     #os.path.join('BatchSubmissionConfig','jetscape_photon_high_stat.yaml')
