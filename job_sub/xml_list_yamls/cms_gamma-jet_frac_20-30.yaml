@@ -1,0 +1,2 @@
+common_path: '/wsu/home/go/go54/go5410/JetAnalysis/config/PromptPhoton/CMS'
+xml_list: ['prompt_photon_cent10_30_60_10000', 'prompt_photon_cent0_30_40_50', 'prompt_photon_cent0_30_50_60', 'prompt_photon_cent0_30_60_80', 'prompt_photon_cent0_30_80_100', 'prompt_photon_cent0_30_100_10000']
