@@ -150,7 +150,7 @@ def MainListSubmission(args):
     elif args.xml_list == 'on':
         xml_name_list, xml_common_path = GetXmlList(args)
         output_path_list = GetOutputPathList(args,xml_name_list)
-        xml_list = [os.path.join(xml_common_path,xml_name+'.xml') for xml_name in xml_list]
+        xml_list = [os.path.join(xml_common_path,xml_name+'.xml') for xml_name in xml_name_list]
     else:
         print('ERROR: xml_list must be on or off')
         exit()
