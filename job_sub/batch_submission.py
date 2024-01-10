@@ -51,7 +51,9 @@ def GetArgs():
     parser.add_argument("--xml", type=str, default="")
     parser.add_argument("--input", type=str, default="")
     parser.add_argument("--output", type=str, default="")
-    parser.add_argument("--yaml", type=str, default="")    
+    parser.add_argument("--yaml", type=str, default="")
+    parser.add_argument("--xml_list", type=str, default="off")
+    parser.add_argument("--merge", type=str, default="no")
     
     args = parser.parse_args()
 
@@ -115,19 +117,45 @@ def SetXMLBase(ascii_one_line,sigma_files_path):
 
 
 
-def GenerateMergeXML(batch_xml_dir,pthat_bin_edges):
+def GenerateMergeXML(batch_xml_dir,pthat_bin_edges,file_generate):
     ex = exml.EditXml()    
     merge_xml_path = GenerateXMLFilename('merge',batch_xml_dir)
-    SetMergeXML(pthat_bin_edges)
-    ex.PrintXml(merge_xml_path)
+    if file_generate == 'yes':
+        SetMergeXML(pthat_bin_edges)
+        ex.PrintXml(merge_xml_path)
+    return merge_xml_path
 
-def MainSubmission():
+def GetXmlList(args):
+    xml_list = []
+    xml_list_file = args.xml #This is Yaml File
+    # Open Yaml
+    with open(xml_list_file, 'r') as ymlf:
+        data = yaml.safe_load(ymlf)
 
-    args = GetArgs()
+    xml_list = data['xml_list']
+
+    return xml_list
+
+def MainListSubmission(args):
+    
+    if args.xml_list == 'off':
+        xml_list = [args.xml]
+    elif args.xml_list == 'on':
+        xml_list = GetXmlList(args)
+    else:
+        print('ERROR: xml_list must be on or off')
+        exit()
+
+    for xml_file in xml_list:
+        print(xml_file)
+        MainSubmission(args,xml_file)
+
+def MainSubmission(args,xml_file):
+    # print('Yes!')
+    # exit()
 
     command_format = 'python gen_slurm_sub.py --xml {} --input {} --output {} --p "{}" --time {} --mem {} --n {} --o {} --e {} --root {} '
     ##########################################################################
-    xml_file = args.xml
     #'../config/PromptPhoton/CMS/prompt_photon_cent0_10_60_10000.xml'
     input_path = args.input
     output_path = args.output
@@ -168,31 +196,44 @@ def MainSubmission():
     SetXMLBase(ascii_one_line,sigma_files_path)
 
 
+    if args.merge == 'no':
+        for i_pthat in range(len(pthat_bin_edges)-1):
+            pthat_low = pthat_bin_edges[i_pthat]
+            pthat_high = pthat_bin_edges[i_pthat+1]
 
-    for i_pthat in range(len(pthat_bin_edges)-1):
-        pthat_low = pthat_bin_edges[i_pthat]
-        pthat_high = pthat_bin_edges[i_pthat+1]
+            # Generate XML for this bin
+            batch_xml_path = GenerateBatchXML(batch_xml_dir,pthat_low,pthat_high)
+            out = os.path.splitext(batch_xml_path)[0]+'_out.txt'
+            error = os.path.splitext(batch_xml_path)[0]+'_error.txt'
+            name = name_head + '_' + os.path.splitext(os.path.basename(batch_xml_path))[0]
+            command = command_format.format(batch_xml_path, input_path, output_path, args.p, args.time, args.mem, name, out, error, args.root)
+            print('NAME: ',name)  
+            print('COMMAND: ',command)    
+            os.system(command)
 
-        # Generate XML for this bin
-        batch_xml_path = GenerateBatchXML(batch_xml_dir,pthat_low,pthat_high)
-        out = os.path.splitext(batch_xml_path)[0]+'_out.txt'
-        error = os.path.splitext(batch_xml_path)[0]+'_error.txt'
-        name = name_head + '_' + os.path.splitext(os.path.basename(batch_xml_path))[0]
-        command = command_format.format(batch_xml_path, input_path, output_path, args.p, args.time, args.mem, name, out, error, args.root)
+        merge_xml_path = GenerateMergeXML(batch_xml_dir,pthat_bin_edges,args.merge)
+    elif args.merge == 'yes':
+        merge_xml_path = GenerateMergeXML(batch_xml_dir,pthat_bin_edges,args.merge)
+        out = os.path.splitext(merge_xml_path)[0]+'_out.txt'
+        error = os.path.splitext(merge_xml_path)[0]+'_error.txt'
+        name = name_head + '_' + os.path.splitext(os.path.basename(merge_xml_path))[0]
+        command = command_format.format(merge_xml_path, input_path, output_path, args.p, args.time, args.mem, name, out, error, args.root)
         print('NAME: ',name)  
         print('COMMAND: ',command)    
-        os.system(command)
+        os.system(command) 
 
-    GenerateMergeXML(batch_xml_dir,pthat_bin_edges)
-
+    else:
+        print('ERROR: merge must be yes or no')
+        exit()
 
 
 
 
 def main():
     
-    SetDefaultPram(common_yaml_file)    
-    MainSubmission()
+    SetDefaultPram(common_yaml_file)
+    args = GetArgs()    
+    MainListSubmission(args)
 
 
 
