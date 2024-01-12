@@ -187,9 +187,15 @@ void MomFracTagJet::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int i
 
   total_hist->Print("count_");
 
+  // absolute normalization
+  total_hist->Scale(1.0, "width");
+  total_hist->ResetNjet(nTagTotal);
+  total_hist->Print("abso_norm_");  
+
   if (nTagTotal != 0)
   {
-    total_hist->Scale(1.0 / nTagTotal, "width");
+    // bin width normalization has already been done for absolute normalization above
+    total_hist->Scale(1.0 / nTagTotal);
     total_hist->Print("momfractagjet_");
   }
   else
