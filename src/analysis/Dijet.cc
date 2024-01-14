@@ -1,25 +1,25 @@
-#include "DynamicalGroom.h"
+#include "Dijet.h"
 #include "TMath.h"
 
 // using namespace Analysis;
 
 // Register the module with the base class
-RegisterAnalysisModule<DynamicalGroom> DynamicalGroom::reg("DynamicalGroom");
+RegisterAnalysisModule<Dijet> Dijet::reg("Dijet");
 
-DynamicalGroom::DynamicalGroom(std::string name_in) : name(name_in), ui(-123456)
+Dijet::Dijet(std::string name_in) : name(name_in), ui(-123456)
 {
   std::cout << "-@-Creating " << name << std::endl;
   std::cout << "Reconstruction Method is Fixed in " << name << "[Negative Recombiner]" << std::endl;
   std::cout << "Setting of Reconstruction in XML is to be ignored" << std::endl;
 }
 
-DynamicalGroom::~DynamicalGroom()
+Dijet::~Dijet()
 {
   std::cout << "-$-Deleting " << name << std::endl;
 }
 
 //--------------------------------------------------------------------------------------------------
-int DynamicalGroom::ReadVariablesFromXML(std::string tag)
+int Dijet::ReadVariablesFromXML(std::string tag)
 {
   int exist = 0;
   // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
@@ -40,7 +40,7 @@ int DynamicalGroom::ReadVariablesFromXML(std::string tag)
   return exist;
 }
 
-std::string DynamicalGroom::VariableSuffix(int i)
+std::string Dijet::VariableSuffix(int i)
 {
   if (i == 1)
   {
@@ -52,7 +52,7 @@ std::string DynamicalGroom::VariableSuffix(int i)
   }
 }
 
-int DynamicalGroom::ReadOptionParametersFromXML()
+int Dijet::ReadOptionParametersFromXML()
 {
 
   beta = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "aDyn", "Item"});
@@ -85,22 +85,22 @@ int DynamicalGroom::ReadOptionParametersFromXML()
 
 //------------------------------------------------------------
 // Get Tags for Parameters
-std::string DynamicalGroom::GetParamsTag(int i)
+std::string Dijet::GetParamsTag(int i)
 {
   return GetParamsTag(GetParamIndex(i));
 }
 
-std::string DynamicalGroom::GetParamsTag(std::array<int, 2> i)
+std::string Dijet::GetParamsTag(std::array<int, 2> i)
 {
   return GetParamsTag(i[0], i[1]);
 }
 
-std::string DynamicalGroom::GetParamsTag(int i_beta, int i_zCut)
+std::string Dijet::GetParamsTag(int i_beta, int i_zCut)
 {
   return GetParamsTag(beta[i_beta], zCut[i_zCut]);
 }
 
-std::string DynamicalGroom::GetParamsTag(double beta_sd, double z_cut_sd)
+std::string Dijet::GetParamsTag(double beta_sd, double z_cut_sd)
 {
   std::ostringstream oss;
 
@@ -112,17 +112,17 @@ std::string DynamicalGroom::GetParamsTag(double beta_sd, double z_cut_sd)
 }
 //------------------------------------------------------------
 // Get Index of Tags for Parameters
-int DynamicalGroom::GetParamIndex(std::array<int, 2> i)
+int Dijet::GetParamIndex(std::array<int, 2> i)
 {
   return GetParamIndex(i[0], i[1]);
 }
 
-int DynamicalGroom::GetParamIndex(int i_beta, int i_zCut)
+int Dijet::GetParamIndex(int i_beta, int i_zCut)
 {
   return zCut.size() * (i_beta) + i_zCut;
 }
 
-std::array<int, 2> DynamicalGroom::GetParamIndex(int i)
+std::array<int, 2> Dijet::GetParamIndex(int i)
 {
   int i_beta = i / zCut.size();
   int i_zCut = i % zCut.size();
@@ -130,10 +130,10 @@ std::array<int, 2> DynamicalGroom::GetParamIndex(int i)
 }
 //------------------------------------------------------------
 
-void DynamicalGroom::ShowParamsSetting()
+void Dijet::ShowParamsSetting()
 {
   std::cout << "[AnalyzeModuleBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalyzeModuleBase] *** [DynamicalGroom]" << std::endl;
+  std::cout << "[AnalyzeModuleBase] *** [Dijet]" << std::endl;
 
   std::cout << "[AnalyzeModuleBase] *** aDyn: ";
   for (auto b : beta)
@@ -151,13 +151,13 @@ void DynamicalGroom::ShowParamsSetting()
 }
 
 //--------------------------------------------------------------------------------------------------
-double DynamicalGroom::CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
+double Dijet::CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
                                        double pmod2, double px2, double py2, double pz2)
 {
   return (px1 * px2 + py1 * py2 + pz1 * pz2) / pmod1 / pmod2;
 }
 
-void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
+void Dijet::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
 {
 
   std::vector<fastjet::PseudoJet> fj_inputs;
@@ -226,7 +226,7 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
               bool hasSub = false;
               fastjet::PseudoJet daughter1, daughter2;
               fastjet::PseudoJet dyg_jet = dyg.doGrooming(j, daughter1, daughter2, hasSub);
-              // std::cout << "[DynamicalGroom] groom-test: " << has_substructure << endl;
+              // std::cout << "[Dijet] groom-test: " << has_substructure << endl;
               //==========================================================================
 
               //==========================================================================
@@ -339,7 +339,7 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// bool DynamicalGroom::SDCondition(double z_g, double theta_g, double z_cut, double beta)
+// bool Dijet::SDCondition(double z_g, double theta_g, double z_cut, double beta)
 // {
 //   if (theta_g > DBL_EPSILON)
 //   {
@@ -351,11 +351,11 @@ void DynamicalGroom::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> par
 //   return false;
 // }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-void DynamicalGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
+void Dijet::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
   //
   std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
-  std::cout << "[DynamicalGroom] hist_name = " << hist_name << std::endl;
+  std::cout << "[Dijet] hist_name = " << hist_name << std::endl;
 
   auto total_hist = CreateHist(hist_name, iv);
   auto normalized_hist = CreateHist("normalized_" + hist_name, iv);
@@ -381,18 +381,18 @@ void DynamicalGroom::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int 
   if (nJetTotal != 0)
   {
     total_hist->Scale(1.0 / nJetTotal, "width");
-    total_hist->Print("DynamicalGroom_");
+    total_hist->Print("Dijet_");
   }
   else
   {
-    std::cout << "[DynamicalGroom] 0-total Jet" << std::endl;
-    std::cout << "[DynamicalGroom] Skip. " << std::endl;
+    std::cout << "[Dijet] 0-total Jet" << std::endl;
+    std::cout << "[Dijet] Skip. " << std::endl;
   }
   total_hist->DeleteTH();
   // #############################################
   normalized_hist->Scale(1.0, "width");
   normalized_hist->Normalize("width");
-  normalized_hist->Print("DynamicalGroom_");
+  normalized_hist->Print("Dijet_");
   normalized_hist->DeleteTH();
   // #############################################
 }
