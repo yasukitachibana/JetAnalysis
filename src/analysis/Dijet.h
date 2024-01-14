@@ -1,5 +1,5 @@
-#ifndef DYNAMICALGROOM_H
-#define DYNAMICALGROOM_H
+#ifndef DIJET_H
+#define DIJET_H
 
 #include "AnalysisModuleStandard.h"
 #include "fastjet/contrib/SoftDrop.hh"
@@ -9,11 +9,11 @@
 #include <iostream>
 
 
-class DynamicalGroom : public AnalysisModuleStandard
+class Dijet : public AnalysisModuleStandard
 {
 private:
   // Allows the registration of the module so that it is available to be used by the Analysis framework.
-  static RegisterAnalysisModule<DynamicalGroom> reg;
+  static RegisterAnalysisModule<Dijet> reg;
   const std::string name;
 
   void OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle);
@@ -50,9 +50,9 @@ private:
   // bool SDCondition(double z_g, double theta_g, double z_cut, double beta);
 
 public:
-  DynamicalGroom(std::string name_in = "DynamicalGroom");
-  ~DynamicalGroom();
+  Dijet(std::string name_in = "Dijet");
+  ~Dijet();
   std::string Name() { return name; }
 };
 
-#endif // DynamicalGroom_H
+#endif // Dijet_H
