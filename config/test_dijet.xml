@@ -59,53 +59,76 @@
     <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
 
       <pTLeadMin>
-        <Item>10.0</Item>
+        <Item>80.0</Item>
       </pTLeadMin>        
       <pTLeadMax>
-        <Item>1000.0</Item>
+        <Item>120.0</Item>
       </pTLeadMax>
 
       <pTSubMin>
-        <Item>10.0</Item>
+        <Item>0.0</Item>
       </pTSubMin>        
       <pTSubMax>
         <Item>1000.0</Item>
       </pTSubMax>
 
-    <xDijet>0</xDijet>    <!-- 1: subleading jet triggered by momentum fraction xJ instead of pTjet-->      
+    <xDijet>1</xDijet>    <!-- 1: subleading jet triggered by momentum fraction xJ instead of pTjet-->      
 
       <var>
 
         <xJ>
           <Item>0</Item>
+          <Item>0.25</Item>
+          <Item>0.5</Item>
+          <Item>0.75</Item>                    
           <Item>1</Item>          
         </xJ>  
 
-        <pTLead>
+
+        <deltaPt>
+          <Item>-100</Item>
+          <Item>-20</Item>
+          <Item>-15</Item>
+          <Item>-10</Item>
+          <Item>-5</Item>
           <Item>0</Item>
-          <Item>1</Item>          
+          <Item>5</Item>
+          <Item>10</Item>
+          <Item>15</Item>
+          <Item>20</Item>
+          <Item>100</Item>
+        </deltaPt> 
+
+        <pTLead>
+          <Item>20</Item>
+          <Item>40</Item>
+          <Item>60</Item>
+          <Item>80</Item>
+          <Item>100</Item>          
+          <Item>120</Item>                              
         </pTLead>   
            
         <pTSub>
-          <Item>0</Item>
-          <Item>1</Item>          
+          <Item>20</Item>
+          <Item>40</Item>
+          <Item>60</Item>
+          <Item>80</Item>
+          <Item>100</Item>          
+          <Item>120</Item>                              
         </pTSub> 
 
         <deltaPhi>
           <Item>0</Item>
-          <Item>1</Item>          
+          <Item>1</Item>
+          <Item>2</Item>          
+          <Item>3</Item>          
+          <Item>4</Item>
+          <Item>5</Item>
+          <Item>6</Item>
+          <Item>7</Item>
         </deltaPhi>   
 
-        <xJ2>
-          <Item>0</Item>
-          <Item>1</Item>          
-        </xJ2> 
-
-        <xJ3>
-          <Item>0</Item>
-          <Item>1</Item>          
-        </xJ3>               
-
+        
       </var>
 
     </Dijet>

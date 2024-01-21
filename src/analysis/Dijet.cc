@@ -20,7 +20,7 @@ Dijet::~Dijet()
 int Dijet::ReadVariablesFromXML(std::string tag)
 {
   int exist = 0;
-  // n_var is for 0:"xJ", 1:"pTLead", 2:"pTSub", 3:"deltaPhi"
+  // n_var is for 0:"xJ", 1:"pTLead", 2:"pTSub", 3:"deltaPhi", 4:"deltaPt"
   for (int i = 0; i < n_var; i++)
   {
     // tag specifies sets of parameters in the anlysis
@@ -132,14 +132,14 @@ std::string Dijet::GetParamsTag(
 
   oss << std::fixed
       << "pt_lead"
-      << std::setprecision(0) << (pt_lead_min)
+      << std::setprecision(2) << (pt_lead_min)
       << "-"
-      << std::setprecision(0) << (pt_lead_max)
+      << std::setprecision(2) << (pt_lead_max)
       << "_"
       << "pt_sub"
-      << std::setprecision(0) << (pt_sub_min)
+      << std::setprecision(2) << (pt_sub_min)
       << "-"
-      << std::setprecision(0) << (pt_sub_max);
+      << std::setprecision(2) << (pt_sub_max);
   return oss.str();
 }
 
@@ -243,7 +243,7 @@ void Dijet::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_lis
                     // std::cout << "Trgger!: pt_jet_sub = " << pt_jet_sub << std::endl;
 
                     std::array<double, n_var> val = {pt_jet_sub/pt_jet_lead, pt_jet_lead, pt_jet_sub, 
-                    dijet_deltaphi_ptr->DeltaPhi02Pi(j_sub.phi(),j_lead.phi())};
+                    dijet_deltaphi_ptr->DeltaPhi02Pi(j_sub.phi(),j_lead.phi()), pt_jet_lead-pt_jet_sub};
 
                     for (int i = 0; i < n_var; i++)
                     {
