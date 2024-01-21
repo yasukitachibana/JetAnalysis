@@ -40,10 +40,10 @@ private:
   int ReadVariablesFromXML(std::string tag);
   std::string VariableSuffix(int i);
 
-  static const int n_var = 4;
+  static const int n_var = 5;
   // 0:"xJ", 1:"pTLead", 2:"pTSub", 3:"deltaPhi"
   std::array<std::vector<int>, n_var> i_var;
-  std::array<std::string, n_var> varNames = {"xJ", "pTLead", "pTSub", "deltaPhi"};
+  std::array<std::string, n_var> varNames = {"xJ", "pTLead", "pTSub", "deltaPhi","deltaPt"};
 
 public:
   Dijet(std::string name_in = "Dijet");
