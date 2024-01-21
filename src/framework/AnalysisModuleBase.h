@@ -121,7 +121,8 @@ protected:
   //=========================================
   bool RapidityCut(std::shared_ptr<Particle> p);
   //=========================================
-  bool JetTrigger(fastjet::PseudoJet jets, int ir, int ijp, int ijr);
+  bool JetTrigger(fastjet::PseudoJet jet, int ir, int ijr, double jet_pt_min, double jet_pt_max);
+  bool JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr);
   bool ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr);
   //=========================================
 

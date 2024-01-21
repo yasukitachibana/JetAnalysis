@@ -30,6 +30,8 @@ public:
   //------------------------------------------------------------------
   static double PhiFormat(double phi_in);
   static double DeltaPhi(double phi, double phi_b);    // in range -pi .. pi
+  static double DeltaPhi02Pi(double phi, double phi_b); // in range 0 .. 2pi
+
   static double DeltaPhiAbs(double phi, double phi_b); // |DeltaPhi|
   //------------------------------------------------------------------
 
@@ -69,6 +71,7 @@ private:
   double phi_basis = 0.0;
 
   double DeltaPhi(double phi);    // in range -pi .. pi
+  double DeltaPhi02Pi(double phi);    // in range 0 .. 2pi
   double DeltaPhiAbs(double phi); // |DeltaPhi|
 
   void PrintDeltaPhiCutSetting();
