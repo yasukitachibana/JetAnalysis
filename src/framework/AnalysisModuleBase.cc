@@ -742,15 +742,15 @@ bool AnalysisModuleBase::RapidityCut(std::shared_ptr<Particle> p)
   }
 }
 // ###############################################################################################################
-bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr)
+bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijr, double jet_pt_min, double jet_pt_max)
 {
 
   double pt_jet = jet.perp();
   double rapidity_jet = jet_rap_ptr->Val(jet);
   double r_cone = jetR[ir];
   
-  if (pt_jet >= jetPtMinForTrigger[ijp] &&
-      pt_jet < jetPtMaxForTrigger[ijp] &&
+  if (pt_jet >= jet_pt_min &&
+      pt_jet < jet_pt_max &&
       fabs(rapidity_jet) >= jetRapMin[ijr] &&
       fabs(rapidity_jet) < jetRapMax[ijr] &&
       jet_deltaphi_ptr->Trigger(jet) &&
@@ -760,6 +760,13 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int
   } // trigger
 
   return false;
+
+}
+
+
+bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr)
+{
+  return JetTrigger(jet, ir, ijr, jetPtMinForTrigger[ijp], jetPtMaxForTrigger[ijp]);
 }
 
 bool AnalysisModuleBase::ParticleTrigger(std::shared_ptr<Particle> p, int ipp, int ipr)

@@ -29,6 +29,20 @@ double DeltaPhiCutBase::DeltaPhi(double phi, double phi_b) // in range -pi .. pi
   return dphi;
 }
 
+double DeltaPhiCutBase::DeltaPhi02Pi(double phi, double phi_b) // in range 0 .. 2pi
+{
+  double dphi = phi - phi_b;
+  if (dphi < 0)
+  {
+    dphi += twopi;
+  }
+  if (dphi > 2*pi)
+  {
+    dphi -= twopi;
+  }
+  return dphi;
+}
+
 double DeltaPhiCutBase::DeltaPhiAbs(double phi, double phi_b) // |DeltaPhi|
 {
   return fabs(DeltaPhi(phi, phi_b));
@@ -86,6 +100,11 @@ void DeltaPhiCut::PrintDeltaPhiCutSetting()
 double DeltaPhiCut::DeltaPhi(double phi) // in range -pi .. pi
 {
   return DeltaPhiCutBase::DeltaPhi(phi, phi_basis);
+}
+
+double DeltaPhiCut::DeltaPhi02Pi(double phi) // in range 0 .. 2pi
+{
+  return DeltaPhiCutBase::DeltaPhi02Pi(phi, phi_basis);
 }
 
 double DeltaPhiCut::DeltaPhiAbs(double phi) // |DeltaPhi|

@@ -6,11 +6,9 @@
 // Register the module with the base class
 RegisterAnalysisModule<Dijet> Dijet::reg("Dijet");
 
-Dijet::Dijet(std::string name_in) : name(name_in), ui(-123456)
+Dijet::Dijet(std::string name_in) : name(name_in)
 {
   std::cout << "-@-Creating " << name << std::endl;
-  std::cout << "Reconstruction Method is Fixed in " << name << "[Negative Recombiner]" << std::endl;
-  std::cout << "Setting of Reconstruction in XML is to be ignored" << std::endl;
 }
 
 Dijet::~Dijet()
@@ -22,10 +20,10 @@ Dijet::~Dijet()
 int Dijet::ReadVariablesFromXML(std::string tag)
 {
   int exist = 0;
-  // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
+  // n_var is for 0:"xJ", 1:"pTLead", 2:"pTSub", 3:"deltaPhi"
   for (int i = 0; i < n_var; i++)
   {
-    // tag specifies sets of parameters in the anlysis (e.g. beta and zcut)
+    // tag specifies sets of parameters in the anlysis
     std::string var = varNames[i] + tag;
     auto ite = std::find(variables.begin(), variables.end(), var);
     if (ite != variables.end())
@@ -54,15 +52,48 @@ std::string Dijet::VariableSuffix(int i)
 
 int Dijet::ReadOptionParametersFromXML()
 {
+  // Set PT Cut Setting----------------------
+  pTLeadMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "pTLeadMin", "Item"});
+  pTLeadMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "pTLeadMax", "Item"});
+  pTSubMin = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "pTSubMin", "Item"});
+  pTSubMax = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "pTSubMax", "Item"});
 
-  beta = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "aDyn", "Item"});
-  // Parameter name, beta, is used instead of a in dynamical grooming for structual reason
-  zCut = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zCut", "Item"}, false);
-
+  // Check the consistency of the number of parameters
+  int n_param = pTLeadMin.size();
+  if (n_param != pTLeadMax.size() ||
+      n_param != pTSubMin.size() ||
+      n_param != pTSubMax.size())
+  {
+    std::cout << "[Dijet] Error! Inconsistent number of pTLeadMin, pTLeadMax, pTSubMin, pTSubMax! Exit." << std::endl;
+    exit(1);
+  }
+  // Set DeltaPhi Cut Setting----------------------
+  delta_phi_cut = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "deltaPhiCut"});
+  if (delta_phi_cut)
+  {
+    delta_phi_min = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "deltaPhiMin"});
+    delta_phi_min = DeltaPhiCutBase::PhiFormat(delta_phi_min);
+    dijet_deltaphi_ptr = std::unique_ptr<DeltaPhiCut>(new DeltaPhiCut(delta_phi_min));
+  }
+  else
+  {
+    dijet_deltaphi_ptr = std::unique_ptr<NoPhiCut>(new NoPhiCut());
+  }
+  // Set xJ Cut Setting----------------------
+  int xDijet = SetXML::Instance()->GetElementInt({"observable", Name().c_str(), "xDijet"});
+  if (xDijet)
+  {
+    x_dijet_ptr = std::unique_ptr<TagXCut>(new TagXCut());
+  }
+  else
+  {
+    x_dijet_ptr = std::unique_ptr<TagPtJetCut>(new TagPtJetCut());
+  }
+  //-----------------------------------------
   for (int i = 1; i < 30; i++)
   {
     std::string i_str = VariableSuffix(i);
-    // std::cout << i_str << std::endl;
+    // // std::cout << i_str << std::endl;
     if (ReadVariablesFromXML(i_str) == 0)
     {
       break;
@@ -80,319 +111,177 @@ int Dijet::ReadOptionParametersFromXML()
     std::cout << std::endl;
   }
 
-  return beta.size() * zCut.size();
+  // Return the number of parameters
+  return n_param;
 }
 
 //------------------------------------------------------------
 // Get Tags for Parameters
 std::string Dijet::GetParamsTag(int i)
 {
-  return GetParamsTag(GetParamIndex(i));
+  return GetParamsTag(
+      pTLeadMin[i], pTLeadMax[i],
+      pTSubMin[i], pTSubMax[i]);
 }
 
-std::string Dijet::GetParamsTag(std::array<int, 2> i)
-{
-  return GetParamsTag(i[0], i[1]);
-}
-
-std::string Dijet::GetParamsTag(int i_beta, int i_zCut)
-{
-  return GetParamsTag(beta[i_beta], zCut[i_zCut]);
-}
-
-std::string Dijet::GetParamsTag(double beta_sd, double z_cut_sd)
+std::string Dijet::GetParamsTag(
+    double pt_lead_min, double pt_lead_max,
+    double pt_sub_min, double pt_sub_max)
 {
   std::ostringstream oss;
 
   oss << std::fixed
-      << "aDyn" << std::setprecision(2) << (beta_sd) << "_"
-      << "zCut" << std::setprecision(2) << (z_cut_sd);
-
+      << "pt_lead"
+      << std::setprecision(0) << (pt_lead_min)
+      << "-"
+      << std::setprecision(0) << (pt_lead_max)
+      << "_"
+      << "pt_sub"
+      << std::setprecision(0) << (pt_sub_min)
+      << "-"
+      << std::setprecision(0) << (pt_sub_max);
   return oss.str();
 }
-//------------------------------------------------------------
-// Get Index of Tags for Parameters
-int Dijet::GetParamIndex(std::array<int, 2> i)
-{
-  return GetParamIndex(i[0], i[1]);
-}
-
-int Dijet::GetParamIndex(int i_beta, int i_zCut)
-{
-  return zCut.size() * (i_beta) + i_zCut;
-}
-
-std::array<int, 2> Dijet::GetParamIndex(int i)
-{
-  int i_beta = i / zCut.size();
-  int i_zCut = i % zCut.size();
-  return std::array<int, 2>{i_beta, i_zCut};
-}
-//------------------------------------------------------------
 
 void Dijet::ShowParamsSetting()
 {
-  std::cout << "[AnalyzeModuleBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalyzeModuleBase] *** [Dijet]" << std::endl;
-
-  std::cout << "[AnalyzeModuleBase] *** aDyn: ";
-  for (auto b : beta)
+  std::cout << "[AnalyzeBase] ***-------------------------------------------" << std::endl;
+  std::cout << "[AnalyzeBase] *** [Dijet]" << std::endl;
+  std::cout << "[AnalyzeBase] *** Maximum number of subleading jets per a leading jet: " << nJetEv << std::endl;
+  for (int i = 0; i < pTLeadMin.size(); i++)
   {
-    std::cout << b << ", ";
+    std::cout << "[AnalyzeBase] *** "
+              << "Setting"
+              << i
+              << " ---"
+              << std::endl;
+    std::cout << "[AnalyzeBase] *** "
+              << " -leading jet, pt_jet: "
+              << pTLeadMin[i]
+              << "-"
+              << pTLeadMax[i]
+              << " GeV"
+              << std::endl;
+    std::cout << "[AnalyzeBase] *** "
+              << " -subleading jet, "
+              << x_dijet_ptr->Var()
+              << ": "
+              << pTSubMin[i]
+              << "-"
+              << pTSubMax[i]
+              << " "
+              << x_dijet_ptr->UnitVar()
+              << std::endl;
   }
-  std::cout << "\b\b  " << std::endl;
-
-  std::cout << "[AnalyzeModuleBase] *** z_cut: ";
-  for (auto z : zCut)
-  {
-    std::cout << z << ", ";
-  }
-  std::cout << "\b\b  " << std::endl;
+  dijet_deltaphi_ptr->ShowDeltaPhiCutSetting();
 }
 
 //--------------------------------------------------------------------------------------------------
-double Dijet::CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
-                                       double pmod2, double px2, double py2, double pz2)
-{
-  return (px1 * px2 + py1 * py2 + pz1 * pz2) / pmod1 / pmod2;
-}
 
 void Dijet::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
 {
-
   std::vector<fastjet::PseudoJet> fj_inputs;
   for (auto p : particle_list)
   {
     fj_inputs.push_back(p->GetPseudoJet());
   }
 
+  //==============================================================================
+
+  // For Loop for Different Jet Cone Sizes
   for (int ir = 0; ir < jetR.size(); ir++)
   {
 
+    //==============================================================================
+    // Jet Reconstruction
+    //------------------------------------------------------------------------------
+    // Jet Cone Size
     double r_cone = jetR[ir];
+    // Get Reconstructed Jet List
+    std::vector<fastjet::PseudoJet> jets = reco_ptr->JetReco(r_cone, particle_list);
+    // PrintParticleInfoList(jets);
+    //==============================================================================
 
-    // Jet reconstruction
-    fastjet::JetDefinition jetDef(fastjet::antikt_algorithm, r_cone);
-
-    // create an instance of the negative energy recombiner, with a given flag ui
-    NegativeEnergyRecombiner uir(ui);
-    // tell jet_def to use negative energy recombiner
-    jetDef.set_recombiner(&uir);
-    fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
-    std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
-
+    // For Loop for pTjet and Rapidity Cuts
     for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
     {
       for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
       {
 
-        int n_jet = 0; // count number of jets in an event
-        for (auto j : jets)
+        for (int ip = 0; ip < nParams; ip++)
         {
-
-          double pt_jet = j.pt();
-          if (JetTrigger(j, ir, ijp, ijr))
+          int n_dijet = 0; // count number of dijets in an event (If a dijet is found, we do not look for another dijet in the same event)
+          for (int i_lead = 0; i_lead < jets.size(); i_lead++)
           {
-            n_jet++;
-            // nParams for sets of parameters in the anlysis (e.g. beta and zcut)
-            for (int ip = 0; ip < nParams; ip++)
+            // Leading Jet
+            fastjet::PseudoJet j_lead = jets[i_lead];
+            if (JetTrigger(j_lead, ir, ijr, pTLeadMin[ip], pTLeadMax[ip]))
             {
+              // Set Leading Jet Pt Cut
+              double pt_jet_lead = j_lead.perp();
 
-              auto ip_array = GetParamIndex(ip);
-              double beta_val = beta[ip_array[0]];
-              double zcut_val = zCut[ip_array[1]];
+              // std::cout << "Trgger!: pt_jet_lead = " << pt_jet_lead << std::endl;
 
-              // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
-              std::array<std::vector<int>, n_var> index;
-              for (int i = 0; i < n_var; i++)
+              double pt_jet_sub_min = x_dijet_ptr->SetJetPtCut(pTSubMin[ip], pt_jet_lead);
+              double pt_jet_sub_max = x_dijet_ptr->SetJetPtCut(pTSubMax[ip], pt_jet_lead);
+
+              // Set Leading Jet Phi
+              dijet_deltaphi_ptr->PhiBasis(j_lead.phi());
+
+              int n_sublead = 0; // count number of subleading jets in an event
+
+              for (int i_sub = i_lead + 1; i_sub < jets.size(); i_sub++)
               {
-                // i_var[i] is vector. Each element of the vector is for each of multiple bin settings.
-                // index[i] stores the indices for all bin settings for this parameter set.
-                index[i] = GetHistIndex(i_var[i], ir, ijp, ijr, 0, 0, ip);
-                // std::cout << varNames[i] << ": ";
-                for (auto ii : index[i])
+                // Subleading Jet
+                fastjet::PseudoJet j_sub = jets[i_sub];
+                if (JetTrigger(j_sub, ir, ijr, pt_jet_sub_min, pt_jet_sub_max))
                 {
-                  // std::cout << ii << " ";
-                  hist_list[ii]->JetTriggered();
+                  if (dijet_deltaphi_ptr->Trigger(j_sub))
+                  {
+                    double pt_jet_sub = j_sub.perp();
+
+                    // std::cout << "Trgger!: pt_jet_sub = " << pt_jet_sub << std::endl;
+
+                    std::array<double, n_var> val = {pt_jet_sub/pt_jet_lead, pt_jet_lead, pt_jet_sub, 
+                    dijet_deltaphi_ptr->DeltaPhi02Pi(j_sub.phi(),j_lead.phi())};
+
+                    for (int i = 0; i < n_var; i++)
+                    {
+                      for (auto iv : i_var[i])
+                      {
+                        int index = GetHistIndex(iv, ir, ijp, ijr, 0, 0, ip);
+
+                        hist_list[index]->JetTriggered();
+                        hist_list[index]->Fill(val[i], 1.0);
+                      }
+                    }
+                    n_dijet++;
+                    n_sublead++;
+
+                  } // sub trigger angle
+                }   // sub trigger
+                //====================================
+                // Reach Maximum Subleading Jet Number per Leading Jet
+                if (nJetEv * (n_sublead == nJetEv))
+                {
+                  break;
                 }
-                // std::cout << endl;
-              }
-
-              //==========================================================================
-              // Grooming
-              //==========================================================================
-              // Define Dynamical Grooming condition
-              dyGroomer dyg(beta_val, zcut_val);
-              bool hasSub = false;
-              fastjet::PseudoJet daughter1, daughter2;
-              fastjet::PseudoJet dyg_jet = dyg.doGrooming(j, daughter1, daughter2, hasSub);
-              // std::cout << "[Dijet] groom-test: " << has_substructure << endl;
-              //==========================================================================
-
-              //==========================================================================
-              // Set Groomed Jet Observables
-              //==========================================================================
-              double rg = -1.0;
-              double zg = -1.0;
-              double thg = -1.0;
-              double mg = -1.0;
-              double mg_over_pt = -1.0;
-              double ktg = -1.0;
-              //--
-              if (hasSub)
-              {
-                // Fundamentals
-                rg = daughter1.delta_R(daughter2);
-                double ptsum = daughter1.pt() + daughter2.pt();
-                double min_pt = min(daughter1.pt(), daughter2.pt());
-                zg = min_pt / ptsum;
-                thg = rg / r_cone;        // theta_g = rg/R
-                mg = dyg_jet.m();         // groomed mass
-                mg_over_pt = mg / pt_jet; // groomed mass/jetPt
-                ktg = min_pt * sin(rg);   //
-              }
-              //==========================================================================
-
-              //================================================================
-              // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
-              // std::cout << " ->" << varNames[0] << ": ";
-              for (auto i : index[0])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(zg, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // std::cout << " ->" << varNames[1] << ": ";
-              for (auto i : index[1])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(thg, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // std::cout << " ->" << varNames[2] << ": ";
-              for (auto i : index[2])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(rg, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // std::cout << " ->" << varNames[3] << ": ";
-              for (auto i : index[3])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(mg, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // std::cout << " ->" << varNames[4] << ": ";
-              for (auto i : index[4])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(mg_over_pt, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // std::cout << " ->" << varNames[5] << ": ";
-              for (auto i : index[5])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(ktg, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // //std::cout << " ->" << varNames[X] << ": ";
-              // for (auto i : index[X])
-              // {
-              //   //std::cout << i << " ";
-              //   hist_list[i]->Fill(pseudo_mg, 1.0);
-              // }
-              // //std::cout << std::endl;
-
-              // //std::cout << " ->" << varNames[X] << ": ";
-              // for (auto i : index[X])
-              // {
-              //   //std::cout << i << " ";
-              //   hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
-              // }
-              // //std::cout << std::endl;
-              //================================================================
+                //====================================
+              } // i_sub
+            }   // lead trigger
+            // If a dijet is found, we do not look for another dijet with different leading jet in the same event
+            if (n_dijet > 0)
+            {
+              break;
             }
-
-          } // trigger
-
-          //====================================
-          // Reach Maximum Triggered Jet Number per Tag
-          if (nJetEv * (n_jet == nJetEv))
-          {
-            break;
-          }
-          //====================================
-
-        } // jet
-      }   // ijr
-    }     // ijp
-
-  } // jetR
+          } // i_lead
+        }   // ip (leading and subleading jet pt cuts)
+      }     // ijr
+    }       // ijp
+  }         // ir
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// bool Dijet::SDCondition(double z_g, double theta_g, double z_cut, double beta)
-// {
-//   if (theta_g > DBL_EPSILON)
-//   {
-//     if (z_g > z_cut * pow(theta_g, beta))
-//     {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void Dijet::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
-  //
-  std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
-  std::cout << "[Dijet] hist_name = " << hist_name << std::endl;
-
-  auto total_hist = CreateHist(hist_name, iv);
-  auto normalized_hist = CreateHist("normalized_" + hist_name, iv);
-
-  total_hist->Init();
-  normalized_hist->Init();
-
-  double nJetTotal = 0.0;
-
-  for (auto hist : hist_list)
-  {
-    double n_ev = hist->Nev();
-    if (n_ev != 0)
-    {
-      nJetTotal += hist->GetNjetSigmaOverEev();
-      double sigma = hist->Sigma();
-      total_hist->Add(hist, sigma / n_ev);
-      normalized_hist->Add(hist, sigma / n_ev);
-    }
-  }
-  // #############################################
-  total_hist->Print("count_"); // millibarn
-  if (nJetTotal != 0)
-  {
-    total_hist->Scale(1.0 / nJetTotal, "width");
-    total_hist->Print("Dijet_");
-  }
-  else
-  {
-    std::cout << "[Dijet] 0-total Jet" << std::endl;
-    std::cout << "[Dijet] Skip. " << std::endl;
-  }
-  total_hist->DeleteTH();
-  // #############################################
-  normalized_hist->Scale(1.0, "width");
-  normalized_hist->Normalize("width");
-  normalized_hist->Print("Dijet_");
-  normalized_hist->DeleteTH();
-  // #############################################
 }

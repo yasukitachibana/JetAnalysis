@@ -2,12 +2,9 @@
 #define DIJET_H
 
 #include "AnalysisModuleStandard.h"
-#include "fastjet/contrib/SoftDrop.hh"
-//#include "negative_recombiner.h"
-#include "dyGroomer.h"
-
+// #include "fastjet/contrib/SoftDrop.hh"
+// #include "negative_recombiner.h"
 #include <iostream>
-
 
 class Dijet : public AnalysisModuleStandard
 {
@@ -24,30 +21,29 @@ private:
   void ShowParamsSetting();
 
   std::string GetParamsTag(int i);
-  std::string GetParamsTag(std::array<int, 2> i);
-  std::string GetParamsTag(int i_beta, int i_zCut);
-  std::string GetParamsTag(double beta_sd, double z_cut_sd);
+  std::string GetParamsTag(
+      double pt_lead_min, double pt_lead_max,
+      double pt_sub_min, double pt_sub_max);
 
-  int GetParamIndex(int i_beta, int i_zCut);
-  int GetParamIndex(std::array<int, 2> i);
-  std::array<int, 2> GetParamIndex(int i);
-
-  std::vector<double> beta;
-  std::vector<double> zCut;
+  //-----------------------------------------
+  int delta_phi_cut;
+  double delta_phi_min;
+  std::unique_ptr<DeltaPhiCutBase> dijet_deltaphi_ptr;
+  //-----------------------------------------
+  std::unique_ptr<TagXCutBase> x_dijet_ptr;
+  //-----------------------------------------
+  std::vector<double> pTLeadMin;
+  std::vector<double> pTLeadMax;
+  std::vector<double> pTSubMin;
+  std::vector<double> pTSubMax;
 
   int ReadVariablesFromXML(std::string tag);
   std::string VariableSuffix(int i);
 
-  static const int n_var = 6;
-  // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"ktG", *:"pseudoMG", *:"pseudoMGOverPt",
+  static const int n_var = 4;
+  // 0:"xJ", 1:"pTLead", 2:"pTSub", 3:"deltaPhi"
   std::array<std::vector<int>, n_var> i_var;
-  std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG", "mG", "mGOverPt", "ktG"};
-
-  int ui;
-
-  double CosOpeningAngle(double pmod1, double px1, double py1, double pz1,
-                         double pmod2, double px2, double py2, double pz2);
-  // bool SDCondition(double z_g, double theta_g, double z_cut, double beta);
+  std::array<std::string, n_var> varNames = {"xJ", "pTLead", "pTSub", "deltaPhi"};
 
 public:
   Dijet(std::string name_in = "Dijet");
