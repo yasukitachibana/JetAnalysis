@@ -242,8 +242,8 @@ void Dijet::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_lis
 
                     // std::cout << "Trgger!: pt_jet_sub = " << pt_jet_sub << std::endl;
 
-                    std::array<double, n_var> val = {pt_jet_sub/pt_jet_lead, pt_jet_lead, pt_jet_sub, 
-                    dijet_deltaphi_ptr->DeltaPhi02Pi(j_sub.phi(),j_lead.phi()), pt_jet_lead-pt_jet_sub};
+                    std::array<double, n_var> val = {pt_jet_sub / pt_jet_lead, pt_jet_lead, pt_jet_sub,
+                                                     dijet_deltaphi_ptr->DeltaPhi02Pi(j_sub.phi(), j_lead.phi()), pt_jet_lead - pt_jet_sub};
 
                     for (int i = 0; i < n_var; i++)
                     {
@@ -284,4 +284,41 @@ void Dijet::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_lis
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void Dijet::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
+  std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
+  std::cout << "[MomFracTagJet] hist_name = " << hist_name << std::endl;
+
+  auto total_hist = CreateHist(hist_name, iv);
+  total_hist->Init();
+
+  double nDijetTotal = 0.0;
+
+  for (auto hist : hist_list)
+  {
+    double n_ev = hist->Nev();
+    if (n_ev != 0)
+    {
+      nDijetTotal += hist->GetNjetSigmaOverEev();
+      double sigma = hist->Sigma();
+      total_hist->Add(hist, sigma / n_ev);
+    }
+  }
+
+  // absolute normalization
+  total_hist->Scale(1.0, "width");
+  total_hist->ResetNjet(nDijetTotal);
+  total_hist->Print("abso_norm_");
+
+  if (nDijetTotal != 0)
+  {
+    // bin width normalization has already been done for absolute normalization above
+    total_hist->Scale(1.0 / nDijetTotal);
+    total_hist->Print("momfracdijet_");
+  }
+  else
+  {
+    std::cout << "[MomFracTagJet] 0-total Dijet" << std::endl;
+    std::cout << "[MomFracTagJet] Skip. " << std::endl;
+  }
+
+  total_hist->DeleteTH();
 }
