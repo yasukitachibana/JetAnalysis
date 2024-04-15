@@ -422,7 +422,8 @@
   <inputFiles>
     <inputStyle>JetScapeAscii</inputStyle>
     <events>
-      <head>JetscapeHadronListBin</head>
+      <!-- <head>JetscapeHadronListBin</head> -->
+      <head>JetscapePartonListBin</head>      
       <join>_</join>
       <tail>.out</tail>
     </events>

@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <jetR>
+      <Item>0.2</Item>
+      <Item>0.4</Item>
+      <Item>0.6</Item>
+      <Item>0.8</Item>
+      <Item>1.0</Item>
+    </jetR>
+
+    <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
+
+    <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin>
+      <Item>0</Item>
+    </jetRapMin>
+    <jetRapMax>
+      <Item>2.0</Item>
+    </jetRapMax>
+
+    <jetConstPtMin>0.0</jetConstPtMin>
+    <jetConstPtMax>10000.0</jetConstPtMax>
+
+    <jetPtMin>
+      <Item>5</Item>
+      <Item>10</Item>
+      <Item>15</Item>
+      <Item>20</Item>
+      <Item>25</Item>
+      <Item>30</Item>
+      <Item>35</Item>
+      <Item>40</Item>
+      <Item>45</Item>
+      <Item>50</Item>
+      <Item>55</Item>
+      <Item>60</Item>
+      <Item>65</Item>
+      <Item>70</Item>
+      <Item>75</Item>
+      <Item>80</Item>
+      <Item>85</Item>
+      <Item>90</Item>
+      <Item>95</Item>
+      <Item>100</Item>
+      <Item>105</Item>
+      <Item>110</Item>
+      <Item>115</Item>
+      <Item>120</Item>
+      <Item>125</Item>
+      <Item>130</Item>
+      <Item>135</Item>
+      <Item>140</Item>
+
+      <Item>14</Item>
+      <Item>28</Item>
+      <Item>42</Item>
+      <Item>56</Item>
+      <Item>70</Item>
+      <Item>84</Item>
+      <Item>98</Item>
+      <Item>112</Item>
+      <Item>126</Item>
+
+
+
+
+
+
+    </jetPtMin>
+
+    <jetPtMax>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+      <Item>10000</Item>
+
+    </jetPtMax>
+
+
+    <nJetEv>1</nJetEv>    <!-- 0: inclusive -->
+  </jetReco>
+
+  <!-- Observable -->
+  <observable>
+
+    <JetMass>
+      <name>Jet Mass</name>
+      <chParticle>0</chParticle>
+      <!-- <statParticle>
+        <Item>0</Item>
+        <Item>1</Item>
+        <Item>-1</Item>
+      </statParticle> -->
+
+      <particleRapidity>1</particleRapidity>
+
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>4.0</Item>
+      </particleRapMax>
+
+      <!-- For ALICE Unfolded resutls -->
+      <particlePtMin>
+        <Item>0.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>10000.0</Item>
+      </particlePtMax>
+
+      <var>
+        <m>
+          <Item>0</Item>
+          <Item>1</Item>
+          <Item>2</Item>
+          <Item>3</Item>
+          <Item>4</Item>
+          <Item>5</Item>
+          <Item>6</Item>
+          <Item>7</Item>
+          <Item>8</Item>
+          <Item>9</Item>
+          <Item>10</Item>
+          <Item>12</Item>
+          <Item>14</Item>
+          <Item>16</Item>
+          <Item>18</Item>
+          <Item>20</Item>
+          <Item>25</Item>
+          <Item>30</Item>
+          <Item>35</Item>
+          <Item>40</Item>
+          <Item>45</Item>
+          <Item>50</Item>
+          <Item>60</Item>
+          <Item>70</Item>
+          <Item>80</Item>
+          <Item>90</Item>
+          <Item>100</Item>
+          <Item>120</Item>
+          <Item>140</Item>
+          <Item>160</Item>
+          <Item>180</Item>
+          <Item>200</Item>
+          <Item>250</Item>
+          <Item>500</Item>
+          <Item>1000</Item>
+          <Item>10000</Item>
+        </m>
+      </var>
+    </JetMass>
+
+  </observable>
+
+
+  <inputFiles>
+    <inputStyle>JetScapeAscii</inputStyle>
+    <events>
+      <!-- <head>JetscapeHadronListBin</head> -->
+      <head>JetscapePartonListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>
+    <sigma>
+      <pGun>1</pGun>
+      <path>na</path>
+      <head>SigmaHardBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </sigma>
+    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divUnit>_Run</divUnit>
+  </inputFiles>
+
+  <!-- ptHatBins -->
+  <!-- ptHatBins -->
+  <ptHat>
+    <Item>140</Item>
+    <Item>140</Item>
+  </ptHat>
+
+</jetAnalysis>
