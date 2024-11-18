@@ -19,38 +19,96 @@ SoftDropGroomConditional::~SoftDropGroomConditional()
 }
 
 //--------------------------------------------------------------------------------------------------
-int SoftDropGroomConditional::ReadVariablesFromXML(std::string tag)
+
+std::string SoftDropGroomConditional::GetConditionalCutTag(std::string cutname, double lower, double upper)
 {
-  int exist = 0;
-  // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
-  for (int i = 0; i < n_var; i++)
+  std::ostringstream oss;
+
+  oss << std::fixed
+      << cutname 
+      << std::setprecision(2) << (lower) << "-"
+      << std::setprecision(2) << (upper);
+
+  return oss.str();
+}
+
+void SoftDropGroomConditional::SetVaribalesWithCondition()
+{
+  std::cout << "SetVaribalesWithCondition " << std::endl;
+
+  // n_var is for 0:"zG", 1:"thetaG", 2:"rG"
+  
+  // For zG ==================================================================
+  for ( int i = 0; i < thetaGcutbins.size() - 1; i++)
   {
-    // tag specifies sets of parameters in the anlysis (e.g. beta and zcut)
-    std::string var = varNames[i] + tag;
-    auto ite = std::find(variables.begin(), variables.end(), var);
+    // std::cout << GetConditionalCutTag(conditionalCutNames[0], thetaGcutbins[i], thetaGcutbins[i+1])
+    //           << std::endl;
+
+    std::string tag = GetConditionalCutTag(conditionalCutNames[0], thetaGcutbins[i], thetaGcutbins[i+1]);
+    std::string var = varNames[0] + "_" + tag;     
+    auto ite = std::find(variables.begin(), variables.end(), var);             
     if (ite != variables.end())
     {
       int index = distance(variables.begin(), ite);
+      // std::cout << var << " " << *ite << ": " << index << std::endl;
       // std::cout << var << " " << index << std::endl;
-      i_var[i].push_back(index);
-      exist++;
+      i_var[0].push_back(index);
+    }
+    else
+    {
+      std::cout << "[SoftDropGroomConditional] No Variables with Name " << var << std::endl;      
+      std::cout << "[SoftDropGroomConditional] Please fix the XML " << var << std::endl;    
+      std::cout << "[SoftDropGroomConditional] EXIT" << std::endl;          
+      exit(-1);
     }
   }
 
-  return exist;
+  // For thetaG and rG =======================================================
+  for ( int i = 0; i < zGcutbins.size() - 1; i++)
+  {
+    // std::cout << GetConditionalCutTag(conditionalCutNames[1], zGcutbins[i], zGcutbins[i+1])
+    //           << std::endl;
+    std::string tag = GetConditionalCutTag(conditionalCutNames[1], zGcutbins[i], zGcutbins[i+1]);
+
+    // thetaG
+    std::string var = varNames[1] + "_" + tag;
+    auto ite = std::find(variables.begin(), variables.end(), var);         
+    if (ite != variables.end())
+    {
+      int index = distance(variables.begin(), ite);
+      // std::cout << var << " " << *ite << ": " << index << std::endl;
+      // std::cout << var << " " << index << std::endl;
+      i_var[1].push_back(index);
+    }
+    else
+    {
+      std::cout << "[SoftDropGroomConditional] No Variables with Name " << var << std::endl;      
+      std::cout << "[SoftDropGroomConditional] Please fix the XML " << var << std::endl;    
+      std::cout << "[SoftDropGroomConditional] EXIT" << std::endl;          
+      exit(-1);
+    }
+
+    // rG
+    var = varNames[2] + "_" + tag;
+    ite = std::find(variables.begin(), variables.end(), var);         
+    if (ite != variables.end())
+    {
+      int index = distance(variables.begin(), ite);
+      // std::cout << var << " " << *ite << ": " << index << std::endl;
+      // std::cout << var << " " << index << std::endl;
+      i_var[2].push_back(index);
+    }
+    else
+    {
+      std::cout << "[SoftDropGroomConditional] No Variables with Name " << var << std::endl;      
+      std::cout << "[SoftDropGroomConditional] Please fix the XML " << var << std::endl;    
+      std::cout << "[SoftDropGroomConditional] EXIT" << std::endl;          
+      exit(-1);
+    }
+
+  }
 }
 
-std::string SoftDropGroomConditional::VariableSuffix(int i)
-{
-  if (i == 1)
-  {
-    return "";
-  }
-  else
-  {
-    return std::to_string(i);
-  }
-}
 
 int SoftDropGroomConditional::ReadOptionParametersFromXML()
 {
@@ -59,15 +117,20 @@ int SoftDropGroomConditional::ReadOptionParametersFromXML()
   zCut = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zCut", "Item"});
   double deltaRCut = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "deltaRCut"}, false);
 
-  for (int i = 1; i < 30; i++)
-  {
-    std::string i_str = VariableSuffix(i);
-    // std::cout << i_str << std::endl;
-    if (ReadVariablesFromXML(i_str) == 0)
-    {
-      break;
-    }
-  }
+  thetaGcutbins = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "thetaGcutbins", "Item"}); 
+  zGcutbins = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zGcutbins", "Item"});    
+
+  SetVaribalesWithCondition();
+  // for (int i = 1; i < 30; i++)
+  // {
+  //   std::string i_str = VariableSuffix(i);
+  //   // std::cout << "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" << std::endl;
+  //   // std::cout << i_str << std::endl;
+  //   if (ReadVariablesFromXML(i_str) == 0)
+  //   {
+  //     break;
+  //   }
+  // }
 
   for (int i = 0; i < n_var; i++)
   {
@@ -322,77 +385,76 @@ void SoftDropGroomConditional::OneEventAnalysis(std::vector<std::shared_ptr<Part
               }
 
               //================================================================
-              // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
+              // 0:"zG", 1:"thetaG", 2:"rG",
+              // 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
               // std::cout << " ->" << varNames[0] << ": ";
-              for (auto i : index[0])
+
+
+              for ( int i = 0; i < thetaGcutbins.size() - 1; i++)
               {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(zg, 1.0);
+                if( thg >= thetaGcutbins[i] && thg < thetaGcutbins[i+1])
+                {
+                  hist_list[index[0][i]]->Fill(zg, 1.0);
+                }
               }
+
+              for ( int i = 0; i < zGcutbins.size() - 1; i++)
+              {
+                if( zg >= zGcutbins[i] && zg < zGcutbins[i+1])
+                {
+                  hist_list[index[1][i]]->Fill(thg, 1.0);
+                  hist_list[index[2][i]]->Fill(rg, 1.0);
+                }
+              }              
+
               // std::cout << std::endl;
 
-              // std::cout << " ->" << varNames[1] << ": ";
-              for (auto i : index[1])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(thg, 1.0);
-              }
-              // std::cout << std::endl;
+              // // std::cout << " ->" << varNames[3] << ": ";
+              // for (auto i : index[3])
+              // {
+              //   // std::cout << i << " ";
+              //   hist_list[i]->Fill(mg, 1.0);
+              // }
+              // // std::cout << std::endl;
 
-              // std::cout << " ->" << varNames[2] << ": ";
-              for (auto i : index[2])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(rg, 1.0);
-              }
-              // std::cout << std::endl;
+              // // std::cout << " ->" << varNames[4] << ": ";
+              // for (auto i : index[4])
+              // {
+              //   // std::cout << i << " ";
+              //   hist_list[i]->Fill(mg_over_pt, 1.0);
+              // }
+              // // std::cout << std::endl;
 
-              // std::cout << " ->" << varNames[3] << ": ";
-              for (auto i : index[3])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(mg, 1.0);
-              }
-              // std::cout << std::endl;
+              // // std::cout << " ->" << varNames[5] << ": ";
+              // for (auto i : index[5])
+              // {
+              //   // std::cout << i << " ";
+              //   hist_list[i]->Fill(ktg, 1.0);
+              // }
+              // // std::cout << std::endl;
 
-              // std::cout << " ->" << varNames[4] << ": ";
-              for (auto i : index[4])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(mg_over_pt, 1.0);
-              }
-              // std::cout << std::endl;
+              // // //std::cout << " ->" << varNames[X] << ": ";
+              // for (auto i : index[6])
+              // {
+              //   // std::cout << i << " ";
+              //   hist_list[i]->Fill(pseudo_mg, 1.0);
+              // }
+              // // std::cout << std::endl;
 
-              // std::cout << " ->" << varNames[5] << ": ";
-              for (auto i : index[5])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(ktg, 1.0);
-              }
-              // std::cout << std::endl;
+              // // //std::cout << " ->" << varNames[X] << ": ";
+              // for (auto i : index[7])
+              // {
+              //   // std::cout << i << " ";
+              //   hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
+              // }
+              // // std::cout << std::endl;
 
-              // //std::cout << " ->" << varNames[X] << ": ";
-              for (auto i : index[6])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(pseudo_mg, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // //std::cout << " ->" << varNames[X] << ": ";
-              for (auto i : index[7])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
-              }
-              // std::cout << std::endl;
-
-              // //std::cout << " ->" << varNames[X] << ": ";
-              for (auto i : index[8])
-              {
-                // std::cout << i << " ";
-                hist_list[i]->Fill(ztg, 1.0);
-              }
+              // // //std::cout << " ->" << varNames[X] << ": ";
+              // for (auto i : index[8])
+              // {
+              //   // std::cout << i << " ";
+              //   hist_list[i]->Fill(ztg, 1.0);
+              // }
               //================================================================
             }
 
@@ -400,7 +462,7 @@ void SoftDropGroomConditional::OneEventAnalysis(std::vector<std::shared_ptr<Part
 
           //====================================
           // Reach Maximum Triggered Jet Number per Tag
-          if (nJetEv * (n_jet == nJetEv))
+          if (nJetEv && (n_jet == nJetEv))
           {
             break;
           }

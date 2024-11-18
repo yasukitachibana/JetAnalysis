@@ -78,13 +78,24 @@ private:
   std::vector<double> beta;
   std::vector<double> zCut;
 
-  int ReadVariablesFromXML(std::string tag);
-  std::string VariableSuffix(int i);
+  std::vector<double> thetaGcutbins;
+  std::vector<double> zGcutbins;
 
-  static const int n_var = 9;
-  // 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"ktG", 6:"pseudoMG", 7:"pseudoMGOverPt", 8:"ztG"
+  std::array<std::string, 2> conditionalCutNames = {"tgCut", "zgCut"};
+  void SetVaribalesWithCondition();
+  std::string GetConditionalCutTag(std::string cutname, double lower, double upper);
+  // int ReadVariablesFromXML(std::string tag);
+  // int ReadVariablesFromXML();  
+  // std::string VariableSuffix(int i);
+
+  // static const int n_var = 9;
+  static const int n_var = 3;
+  // 0:"zG", 1:"thetaG", 2:"rG", 
+  //3:"mG", 4:"mGOverPt", 5:"ktG", 6:"pseudoMG", 7:"pseudoMGOverPt", 8:"ztG"
   std::array<std::vector<int>, n_var> i_var;
-  std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG", "mG", "mGOverPt", "ktG", "pseudoMG", "pseudoMGOverPt","ztG"};
+  std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG"};
+
+  
 
   int ui;
 
