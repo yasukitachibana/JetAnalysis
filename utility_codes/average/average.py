@@ -90,12 +90,24 @@ def main():
   default=1,
   help="diff")  
 
+  parser.add_argument(
+  "-head", 
+  "--header",
+  type=str, 
+  metavar="header",
+  default="# x_center x_low x_high value error n_jet n_event",
+  help="header")  
+
 
   # Parse the arguments
   args = parser.parse_args()  
 
   input_directory_name = args.inputDirectory
   output_directory_name = args.outputDirectory
+  
+  if not os.path.exists(output_directory_name):
+    print(f"Creating directory: {output_directory_name}")
+    os.makedirs(output_directory_name)
   # output_filename = os.path.join(output_directory_name, args.outputFilename)
 
 
@@ -117,7 +129,11 @@ def main():
 
     output_data = GetDataAvr(filenames, args.comments, args.diff)
 
-    print(output_data)
+    # print(output_data)
+    output_filename = os.path.join(output_directory_name,input_filename)
+    print('Writing to file: \n   ', output_filename)
+
+    np.savetxt(output_filename, output_data, header=args.header)
 
   # input_filename_list = glob.glob(os.path.join(input_directory_name, '*.txt'))
   # print("Input files:" , input_filename_list)
