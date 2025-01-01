@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <jetR>
+      <Item>0.4</Item>
+    </jetR>
+
+    <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
+
+    <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin>
+      <Item>0</Item>
+    </jetRapMin>
+    <jetRapMax>
+      <Item>2.0</Item>
+    </jetRapMax>
+
+    <!-- For ALICE Unfolded resutls -->
+    <jetConstPtMin>0.0</jetConstPtMin>
+    <jetConstPtMax>2510.0</jetConstPtMax>
+
+    <jetPtMin>
+      <Item>30</Item>
+    </jetPtMin>
+    <jetPtMax>
+      <Item>1000</Item>
+    </jetPtMax>
+
+    <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
+  </jetReco>
+
+  <!-- Set Particle Mass -->
+  <!-- <massAdjust>
+    <adjust>1</adjust>
+    <adjustedQuant>E</adjustedQuant>     -->
+  <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum   ENE, Ene, ene, ENERGY, Energy,
+  energy, E, e: energy -->
+  <!-- <mass>-211</mass>     -->
+  <!-- 0 or positive value: mass in GeV, negative value: particle id-->
+  <!-- </massAdjust> -->
+
+  <!-- Observable -->
+  <observable>
+
+    <HardestKt>
+      <name>Hardest kT</name>
+      <chParticle>0</chParticle>
+
+      <particleRapidity>1</particleRapidity>
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>5.0</Item>
+      </particleRapMax>
+
+      <!-- For ALICE Unfolded resutls -->
+      <particlePtMin>
+        <Item>0.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>2510.0</Item>
+      </particlePtMax>
+
+      <ktBins>
+        <Item>0.0</Item>
+        <Item>10.0</Item>
+        <Item>20.0</Item>
+        <Item>40.0</Item>
+        <Item>100.0</Item>
+        <Item>1000.0</Item>
+      </ktBins>
+
+
+      <var>
+        <zG>
+          <Item>0.2</Item>
+          <Item>0.5</Item>
+        </zG>
+
+        <thetaG>
+          <Item>0</Item>
+          <Item>1.0</Item>
+        </thetaG>
+
+        <rG>
+          <Item>0</Item>
+          <Item>0.2</Item>
+        </rG>
+
+        <mG>
+          <Item>0</Item>
+          <Item>5000</Item>
+        </mG>
+
+        <mGOverPt>
+          <Item>0.0</Item>
+          <Item>1.0</Item>
+        </mGOverPt>
+
+        <ktG>
+          <Item>0.0</Item>
+          <Item>10.0</Item>
+          <Item>20.0</Item>
+          <Item>40.0</Item>
+          <Item>100.0</Item>
+          <Item>1000.0</Item>
+        </ktG>
+
+        <lnOneOverRg>
+          <Item>0.91</Item>
+          <Item>1.05</Item>
+          <Item>1.2</Item>
+          <Item>1.31</Item>
+          <Item>1.61</Item>
+          <Item>1.97</Item>
+          <Item>2.3</Item>
+          <Item>2.6</Item>
+          <Item>2.92</Item>
+          <Item>3.25</Item>
+          <Item>3.92</Item>
+          <Item>4.25</Item>
+        </lnOneOverRg>
+
+      </var>
+
+    </HardestKt>
+
+  </observable>
+
+  <inputFiles>
+    <inputStyle>JetScapeAscii</inputStyle>
+    <events>
+      <head>JetscapeHadronListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>
+    <sigma>
+      <path>na</path>
+      <head>SigmaHardBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </sigma>
+    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divUnit>_Run</divUnit>
+  </inputFiles>
+
+  <!-- ptHatBins -->
+  <ptHat>
+    <!--        <Item>1</Item><Item>2</Item><Item>3</Item><Item>4</Item><Item>5</Item>-->
+    <!--        <Item>7</Item>-->
+    <!--        <Item>9</Item><Item>11</Item>-->
+    <!--        <Item>13</Item><Item>15</Item>-->
+    <!--
+    <Item>17</Item><Item>20</Item><Item>25</Item><Item>30</Item><Item>35</Item><Item>40</Item>-->
+    <!--
+    <Item>45</Item><Item>50</Item><Item>55</Item><Item>60</Item><Item>70</Item><Item>80</Item>-->
+    <!--        <Item>90</Item>-->
+    <Item>100</Item>
+    <Item>110</Item>
+    <Item>120</Item>
+    <!--        <Item>130</Item><Item>140</Item>-->
+    <!--
+    <Item>150</Item><Item>160</Item><Item>170</Item><Item>180</Item><Item>190</Item><Item>200</Item>-->
+    <!--
+    <Item>210</Item><Item>220</Item><Item>230</Item><Item>240</Item><Item>250</Item><Item>260</Item>-->
+    <!--
+    <Item>270</Item><Item>280</Item><Item>290</Item><Item>300</Item><Item>350</Item><Item>400</Item>-->
+    <!--
+    <Item>450</Item><Item>500</Item><Item>550</Item><Item>600</Item><Item>700</Item><Item>800</Item>-->
+    <!--
+    <Item>900</Item><Item>1000</Item><Item>1100</Item><Item>1200</Item><Item>1300</Item><Item>1400</Item>-->
+    <!--
+    <Item>1500</Item><Item>1600</Item><Item>1700</Item><Item>1800</Item><Item>1900</Item><Item>2000</Item>-->
+    <!--        <Item>2200</Item><Item>2400</Item><Item>2510</Item>-->
+  </ptHat>
+
+</jetAnalysis>
