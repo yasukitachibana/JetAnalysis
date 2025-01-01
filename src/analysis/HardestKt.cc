@@ -248,6 +248,7 @@ void HardestKt::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle
             double mg = -1.0;
             double mg_over_pt = -1.0;
             double ktg = -1.0;
+            double ln_one_over_rg = -1.0;            
             //--
             if (hasSub)
             {
@@ -260,6 +261,7 @@ void HardestKt::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle
               mg = hardest_kt_jet.m();  // groomed mass
               mg_over_pt = mg / pt_jet; // groomed mass/jetPt
               ktg = min_pt * rg;        // CMS definition of kt
+              ln_one_over_rg = -log(rg); // ln(1/rg)
             }
             //==========================================================================
 
@@ -335,6 +337,12 @@ void HardestKt::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle
                 {
                   // std::cout << i << " ";
                   hist_list[i]->Fill(ktg, 1.0);
+                }
+
+                for (auto i : index[6])
+                {
+                  // std::cout << i << " ";
+                  hist_list[i]->Fill(ln_one_over_rg, 1.0);
                 }
                 // std::cout << std::endl;
 
