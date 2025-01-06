@@ -32,15 +32,28 @@ def GetData2(filename1,filename2, comments, diff = 1):
   data1 = GetData1(filename1, comments, diff)
   data2 = GetData1(filename2, comments, diff)
 
-  data = data1
-  y1 = data1[:,3]
-  err1 = data1[:,4]
-  y2 = data2[:,3]
-  err2 = data2[:,4]
 
-  y, err = SumError(0.5*y1, 0.5*err1, 0.5*y2, 0.5*err2)
-  data[:,3] = y
-  data[:,4] = err
+  if data1.ndim == 2:
+    data = data1
+    y1 = data1[:,3]
+    err1 = data1[:,4]
+    y2 = data2[:,3]
+    err2 = data2[:,4]
+
+    y, err = SumError(0.5*y1, 0.5*err1, 0.5*y2, 0.5*err2)
+    data[:,3] = y
+    data[:,4] = err
+  elif data1.ndim == 1:
+    data = data1
+    y1 = data1[3]
+    err1 = data1[4]
+    y2 = data2[3]
+    err2 = data2[4]
+
+    y, err = SumError(0.5*y1, 0.5*err1, 0.5*y2, 0.5*err2)
+    data[3] = y
+    data[4] = err
+
   return data
 
 ####################################################################################
