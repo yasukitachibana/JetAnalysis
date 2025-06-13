@@ -275,8 +275,8 @@
 
   <!-- ptHatBins -->
   <!-- ptHatBins -->
-  <ptHat>
-    <Item>1</Item>
+<ptHat>
+    <!-- <Item>1</Item>
     <Item>2</Item>
     <Item>3</Item>
     <Item>4</Item>
@@ -288,7 +288,7 @@
     <Item>15</Item>
     <Item>17</Item>
     <Item>20</Item>
-    <Item>25</Item>
+    <Item>25</Item> -->
     <Item>30</Item>
     <Item>35</Item>
     <Item>40</Item>
@@ -315,7 +315,7 @@
     <Item>230</Item>
     <Item>240</Item>
     <Item>250</Item>
-    <Item>260</Item>
+    <!-- <Item>260</Item>
     <Item>270</Item>
     <Item>280</Item>
     <Item>290</Item>
@@ -342,7 +342,8 @@
     <Item>2000</Item>
     <Item>2200</Item>
     <Item>2400</Item>
-    <Item>2510</Item>
-  </ptHat>
+    <Item>2510</Item> -->
+    </ptHat>
+
 
 </jetAnalysis>
