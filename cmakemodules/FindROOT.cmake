@@ -81,9 +81,15 @@ If(ROOT_CONFIG_EXECUTABLE)
    
   # extract major, minor, and patch versions from
   # the version string given by root-config
-  String(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+\\/[0-9][0-9]+.*" "\\1" ROOT_VERSION_MAJOR "${ROOT_VERSION_STRING}")
-  String(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\/[0-9][0-9]+.*" "\\1" ROOT_VERSION_MINOR "${ROOT_VERSION_STRING}")
-  String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\/([0-9][0-9]+).*" "\\1" ROOT_VERSION_PATCH "${ROOT_VERSION_STRING}")
+  # String(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+\\/[0-9][0-9]+.*" "\\1" ROOT_VERSION_MAJOR "${ROOT_VERSION_STRING}")
+  # String(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\/[0-9][0-9]+.*" "\\1" ROOT_VERSION_MINOR "${ROOT_VERSION_STRING}")
+  # String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\/([0-9][0-9]+).*" "\\1" ROOT_VERSION_PATCH "${ROOT_VERSION_STRING}")
+
+  # split version string (e.g. "6.34.04") into its numeric parts
+  string(REGEX MATCHALL "[0-9]+" _root_ver_list ${ROOT_VERSION_STRING})
+  list(GET    _root_ver_list 0 ROOT_VERSION_MAJOR)
+  list(GET    _root_ver_list 1 ROOT_VERSION_MINOR)
+  list(GET    _root_ver_list 2 ROOT_VERSION_PATCH)
 
   # compute overall version numbers which can be compared at once
   #Math(EXPR req_vers "${ROOT_FIND_VERSION_MAJOR}*10000 + ${ROOT_FIND_VERSION_MINOR}*100 + ${ROOT_FIND_VERSION_PATCH}")
