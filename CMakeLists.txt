@@ -22,8 +22,8 @@ endif()
 cmake_policy(SET CMP0042 NEW)
 
 # Tell cmake where to find modules
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmakemodules")
-
+# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmakemodules")
+list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_LIST_DIR}/cmakemodules")
 
 ###############################
 ### Compiler & Linker Flags ###
