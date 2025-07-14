@@ -14,6 +14,8 @@ def GetDataAvr(filenames, comments, diff):
     return GetData1(filenames[0], comments, diff)
   elif len(filenames) == 2:
     return GetData2(filenames[0],filenames[1], comments, diff)    
+  elif len(filenames) == 3:  
+    return GetData3(filenames[0],filenames[1],filenames[2], comments, diff)
   else:
     print("under construction")
     return 0
@@ -25,10 +27,6 @@ def GetData1(filename, comments, diff = 1):
   return np.loadtxt(filename, comments=comments)
 
 def GetData2(filename1,filename2, comments, diff = 1):
-  if diff == 1:
-    if filename1 == filename2:
-      print('Error: Taking average of the same data table. Exit')
-      exit()
   data1 = GetData1(filename1, comments, diff)
   data2 = GetData1(filename2, comments, diff)
 
@@ -51,6 +49,45 @@ def GetData2(filename1,filename2, comments, diff = 1):
     err2 = data2[4]
 
     y, err = SumError(0.5*y1, 0.5*err1, 0.5*y2, 0.5*err2)
+    data[3] = y
+    data[4] = err
+
+  return data
+
+def GetData3(filename1,filename2,filename3,comments, diff = 1):
+  data1 = GetData1(filename1, comments, diff)
+  data2 = GetData1(filename2, comments, diff)
+  data3 = GetData1(filename3, comments, diff)
+
+  if data1.ndim == 2:
+    data = data1
+    y1 = data1[:,3]
+    err1 = data1[:,4]
+    y2 = data2[:,3]
+    err2 = data2[:,4]
+    y3 = data3[:,3]
+    err3 = data3[:,4]
+
+    y, err = SumError(y1, err1, y2, err2)
+    y, err = SumError(y, err, y3, err3)
+    y = y/3.0
+    err = err/3.0
+    data[:,3] = y
+    data[:,4] = err
+
+  elif data1.ndim == 1:
+    data = data1
+    y1 = data1[3]
+    err1 = data1[4]
+    y2 = data2[3]
+    err2 = data2[4]
+    y3 = data3[3]
+    err3 = data3[4]
+
+    y, err = SumError(y1, err1, y2, err2)
+    y, err = SumError(y, err, y3, err3)
+    y = y/3.0
+    err = err/3.0
     data[3] = y
     data[4] = err
 

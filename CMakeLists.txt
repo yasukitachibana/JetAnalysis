@@ -5,6 +5,10 @@
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 project (JetAnalysis CXX C)
 
+if(APPLE)
+  set(CMAKE_OSX_DEPLOYMENT_TARGET "15.0" CACHE STRING "Minimum OS X deployment version" FORCE)
+endif()
+
 # Fail if cmake is called in the source directory
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   message("source directory:" ${CMAKE_SOURCE_DIR})
