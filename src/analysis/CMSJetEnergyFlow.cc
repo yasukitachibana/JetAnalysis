@@ -26,7 +26,6 @@ int CMSJetEnergyFlow::ReadOptionParametersFromXML()
 
 //------------------------------------------------------------
 
-
 void CMSJetEnergyFlow::ShowParamsSetting()
 {
   std::cout << "[AnalysisModuleBase] ***-------------------------------------------" << std::endl;
@@ -34,7 +33,6 @@ void CMSJetEnergyFlow::ShowParamsSetting()
 
   std::cout << "[AnalysisModuleBase] *** DeltaRmatch: "
             << delta_R_match << std::endl;
-  
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -160,18 +158,29 @@ void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> p
             // std::cout << "[CMSJetEnergyFlow] Matched wider cone " << r_cone2 << " jet: " << matched_jet2_candidate.pt() << std::endl;
             // std::cout<<"====="<<std::endl;
             //--------------------------------------------------
+            fastjet::PseudoJet jet2 = matched_jet2_candidate;
 
             // Fill Histograms
             for (int iv = 0; iv < variables.size(); iv++)
             {
-              int index = GetHistIndex(iv, ir, ijp, ijr, 0, 0, 0); 
+              int index = GetHistIndex(iv, ir, ijp, ijr, 0, 0, 0);
 
+              hist_list[index]->JetTriggered();
 
+              if (variables[iv] == "deltaPt")
+              {
+                
+                double val = jet1.pt() - jet2.pt();
+                hist_list[index]->Fill(val, 1.0);
 
-              std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
-              std::cout << "[CMSJetEnergyFlow] Filling histogram index" << index << std::endl;       
-              
-              hist_list[index]->JetTriggered();              
+                // std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
+              }
+              else if (variables[iv] == "meanDeltaPt")
+              {
+                double weight = jet1.pt() - jet2.pt();
+                hist_list[index]->Fill(0.5, weight);
+                // std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
+              }
             }
             // hist_list[ii]->JetTriggered();
           }
@@ -183,9 +192,7 @@ void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> p
       }
     }
   }
-
 }
-
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void CMSJetEnergyFlow::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)

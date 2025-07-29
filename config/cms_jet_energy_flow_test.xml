@@ -95,16 +95,10 @@
           <Item>28.5</Item>
         </deltaPt>
 
-        <Rjetlow>
-          <Item>0.025</Item>
-          <Item>0.075</Item>
-          <Item>0.125</Item>
-          <Item>0.175</Item>
-          <Item>0.225</Item>
-          <Item>0.275</Item>
-          <Item>0.325</Item>
-          <Item>0.375</Item>
-        </Rjetlow>
+        <meanDeltaPt>
+          <Item>0</Item>
+          <Item>1</Item>
+        </meanDeltaPt>
 
 
       </var>
