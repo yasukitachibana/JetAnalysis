@@ -18,471 +18,175 @@ CMSJetEnergyFlow::~CMSJetEnergyFlow()
   std::cout << "-$-Deleting " << name << std::endl;
 }
 
-//--------------------------------------------------------------------------------------------------
-
-// std::string CMSJetEnergyFlow::GetConditionalCutTag(std::string cutname, double lower, double upper)
-// {
-//   std::ostringstream oss;
-
-//   oss << std::fixed
-//       << cutname 
-//       << std::setprecision(2) << (lower) << "-"
-//       << std::setprecision(2) << (upper);
-
-//   return oss.str();
-// }
-
-// void CMSJetEnergyFlow::SetVaribalesWithCondition()
-// {
-//   std::cout << "SetVaribalesWithCondition " << std::endl;
-
-//   // n_var is for 0:"zG", 1:"thetaG", 2:"rG"
-  
-//   // For zG ==================================================================
-//   for ( int i = 0; i < thetaGcutbins.size() - 1; i++)
-//   {
-//     // std::cout << GetConditionalCutTag(conditionalCutNames[0], thetaGcutbins[i], thetaGcutbins[i+1])
-//     //           << std::endl;
-
-//     std::string tag = GetConditionalCutTag(conditionalCutNames[0], thetaGcutbins[i], thetaGcutbins[i+1]);
-//     std::string var = varNames[0] + "_" + tag;     
-//     auto ite = std::find(variables.begin(), variables.end(), var);             
-//     if (ite != variables.end())
-//     {
-//       int index = distance(variables.begin(), ite);
-//       // std::cout << var << " " << *ite << ": " << index << std::endl;
-//       // std::cout << var << " " << index << std::endl;
-//       i_var[0].push_back(index);
-//     }
-//     else
-//     {
-//       std::cout << "[CMSJetEnergyFlow] No Variables with Name " << var << std::endl;      
-//       std::cout << "[CMSJetEnergyFlow] Please fix the XML " << var << std::endl;    
-//       std::cout << "[CMSJetEnergyFlow] EXIT" << std::endl;          
-//       exit(-1);
-//     }
-//   }
-
-//   // For thetaG and rG =======================================================
-//   for ( int i = 0; i < zGcutbins.size() - 1; i++)
-//   {
-//     // std::cout << GetConditionalCutTag(conditionalCutNames[1], zGcutbins[i], zGcutbins[i+1])
-//     //           << std::endl;
-//     std::string tag = GetConditionalCutTag(conditionalCutNames[1], zGcutbins[i], zGcutbins[i+1]);
-
-//     // thetaG
-//     std::string var = varNames[1] + "_" + tag;
-//     auto ite = std::find(variables.begin(), variables.end(), var);         
-//     if (ite != variables.end())
-//     {
-//       int index = distance(variables.begin(), ite);
-//       // std::cout << var << " " << *ite << ": " << index << std::endl;
-//       // std::cout << var << " " << index << std::endl;
-//       i_var[1].push_back(index);
-//     }
-//     else
-//     {
-//       std::cout << "[CMSJetEnergyFlow] No Variables with Name " << var << std::endl;      
-//       std::cout << "[CMSJetEnergyFlow] Please fix the XML " << var << std::endl;    
-//       std::cout << "[CMSJetEnergyFlow] EXIT" << std::endl;          
-//       exit(-1);
-//     }
-
-//     // rG
-//     var = varNames[2] + "_" + tag;
-//     ite = std::find(variables.begin(), variables.end(), var);         
-//     if (ite != variables.end())
-//     {
-//       int index = distance(variables.begin(), ite);
-//       // std::cout << var << " " << *ite << ": " << index << std::endl;
-//       // std::cout << var << " " << index << std::endl;
-//       i_var[2].push_back(index);
-//     }
-//     else
-//     {
-//       std::cout << "[CMSJetEnergyFlow] No Variables with Name " << var << std::endl;      
-//       std::cout << "[CMSJetEnergyFlow] Please fix the XML " << var << std::endl;    
-//       std::cout << "[CMSJetEnergyFlow] EXIT" << std::endl;          
-//       exit(-1);
-//     }
-
-//   }
-// }
-
-
 int CMSJetEnergyFlow::ReadOptionParametersFromXML()
 {
-
-  // beta = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "beta", "Item"});
-  // zCut = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zCut", "Item"});
-  // double deltaRCut = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "deltaRCut"}, false);
-
-  // thetaGcutbins = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "thetaGcutbins", "Item"}); 
-  // zGcutbins = SetXML::Instance()->GetElementVectorDouble({"observable", Name().c_str(), "zGcutbins", "Item"});    
-
-  // SetVaribalesWithCondition();
-  // // for (int i = 1; i < 30; i++)
-  // // {
-  // //   std::string i_str = VariableSuffix(i);
-  // //   // std::cout << "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" << std::endl;
-  // //   // std::cout << i_str << std::endl;
-  // //   if (ReadVariablesFromXML(i_str) == 0)
-  // //   {
-  // //     break;
-  // //   }
-  // // }
-
-  // for (int i = 0; i < n_var; i++)
-  // {
-  //   std::cout
-  //       << varNames[i] << ": ";
-  //   for (auto iv : i_var[i])
-  //   {
-  //     std::cout << iv << " ";
-  //   }
-  //   std::cout << std::endl;
-  // }
-
-  // if (deltaRCut < DBL_EPSILON)
-  // {
-  //   additional_cond_ptr = std::unique_ptr<SDNoCondition>(new SDNoCondition());
-  // }
-  // else
-  // {
-  //   additional_cond_ptr = std::unique_ptr<SDDeltaRCut>(new SDDeltaRCut(deltaRCut));
-  // }
-
-  // return beta.size() * zCut.size();
+  delta_R_match = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "delta_R_match"});
+  return 1;
 }
 
 //------------------------------------------------------------
-// Get Tags for Parameters
-std::string CMSJetEnergyFlow::GetParamsTag(int i)
-{
-  // return GetParamsTag(GetParamIndex(i));
-  return 0;
-}
 
-// std::string CMSJetEnergyFlow::GetParamsTag(std::array<int, 2> i)
-// {
-//   return GetParamsTag(i[0], i[1]);
-// }
-
-// std::string CMSJetEnergyFlow::GetParamsTag(int i_beta, int i_zCut)
-// {
-//   return GetParamsTag(beta[i_beta], zCut[i_zCut]);
-// }
-
-// std::string CMSJetEnergyFlow::GetParamsTag(double beta_sd, double z_cut_sd)
-// {
-//   std::ostringstream oss;
-
-//   oss << std::fixed
-//       << "beta" << std::setprecision(2) << (beta_sd) << "_"
-//       << "zCut" << std::setprecision(2) << (z_cut_sd);
-
-//   return oss.str();
-// }
-// //------------------------------------------------------------
-// // Get Index of Tags for Parameters
-// int CMSJetEnergyFlow::GetParamIndex(std::array<int, 2> i)
-// {
-//   return GetParamIndex(i[0], i[1]);
-// }
-
-// int CMSJetEnergyFlow::GetParamIndex(int i_beta, int i_zCut)
-// {
-//   return zCut.size() * (i_beta) + i_zCut;
-// }
-
-// std::array<int, 2> CMSJetEnergyFlow::GetParamIndex(int i)
-// {
-//   int i_beta = i / zCut.size();
-//   int i_zCut = i % zCut.size();
-//   return std::array<int, 2>{i_beta, i_zCut};
-// }
-//------------------------------------------------------------
 
 void CMSJetEnergyFlow::ShowParamsSetting()
 {
-  std::cout << "[AnalyzeBase] ***-------------------------------------------" << std::endl;
-  std::cout << "[AnalyzeBase] *** [CMSJetEnergyFlow]" << std::endl;
+  std::cout << "[AnalysisModuleBase] ***-------------------------------------------" << std::endl;
+  std::cout << "[AnalysisModuleBase] *** [CMSJetEnergyFlow]" << std::endl;
 
-  // std::cout << "[AnalyzeBase] *** beta: ";
-  // for (auto b : beta)
-  // {
-  //   std::cout << b << ", ";
-  // }
-  // std::cout << "\b\b  " << std::endl;
-
-  // std::cout << "[AnalyzeBase] *** z_cut: ";
-  // for (auto z : zCut)
-  // {
-  //   std::cout << z << ", ";
-  // }
-  // std::cout << "\b\b  " << std::endl;
-
-  // additional_cond_ptr->ShowSettings();
+  std::cout << "[AnalysisModuleBase] *** DeltaRmatch: "
+            << delta_R_match << std::endl;
+  
 }
 
 //--------------------------------------------------------------------------------------------------
-
 
 void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
 {
 
-  // std::vector<fastjet::PseudoJet> fj_inputs;
-  // for (auto p : particle_list)
-  // {
-  //   fj_inputs.push_back(p->GetPseudoJet());
-  // }
+  // Pass all particles to jet reconstruction algorithm
+  std::vector<fastjet::PseudoJet> fj_inputs;
+  for (auto p : particle_list)
+  {
+    fj_inputs.push_back(p->GetPseudoJet());
+  }
 
-  // for (int ir = 0; ir < jetR.size(); ir++)
-  // {
+  for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
+  {
+    for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
+    {
 
-  //   double r_cone = jetR[ir];
+      std::vector<std::vector<fastjet::PseudoJet>> jetR_list;
 
-  //   // Jet reconstruction
-  //   fastjet::JetDefinition jetDef(fastjet::antikt_algorithm, r_cone);
+      for (int ir = 0; ir < jetR.size(); ir++)
+      {
+        double r_cone = jetR[ir];
 
-  //   // create an instance of the negative energy recombiner, with a given flag ui
-  //   NegativeEnergyRecombiner uir(ui);
-  //   // tell jet_def to use negative energy recombiner
-  //   jetDef.set_recombiner(&uir);
-  //   fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
-  //   std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
+        // Jet reconstruction
+        fastjet::JetDefinition jetDef(fastjet::antikt_algorithm, r_cone);
+        // create an instance of the negative energy recombiner, with a given flag ui
+        NegativeEnergyRecombiner uir(ui);
+        // tell jet_def to use negative energy recombiner
+        jetDef.set_recombiner(&uir);
+        fastjet::ClusterSequence clustSeq(fj_inputs, jetDef);
+        std::vector<fastjet::PseudoJet> jets = sorted_by_pt(clustSeq.inclusive_jets(reco_ptr->JetPtCut()));
 
-  //   for (int ijp = 0; ijp < jetPtMin.size(); ijp++)
-  //   {
-  //     for (int ijr = 0; ijr < jetRapMin.size(); ijr++)
-  //     {
+        std::vector<fastjet::PseudoJet> triggered_jets; // Store jets that pass the trigger condition
 
-  //       int n_jet = 0; // count number of jets in an event
-  //       for (auto j : jets)
-  //       {
-  //         double pt_jet = j.pt();
-  //         if (JetTrigger(j, ir, ijp, ijr))
-  //         {
-  //           n_jet++;
-  //           // nParams for sets of parameters in the anlysis (e.g. beta and zcut)
-  //           for (int ip = 0; ip < nParams; ip++)
-  //           {
+        // Loop over jets and apply trigger condition
+        for (auto j : jets)
+        {
+          if (JetTrigger(j, ir, ijp, ijr))
+          {
+            // Store the jet that passes the trigger condition
+            triggered_jets.push_back({j});
+          }
+        }
+        // Add the list of triggered jets for this cone size
+        jetR_list.push_back(triggered_jets);
+      }
 
-  //             auto ip_array = GetParamIndex(ip);
-  //             double beta_val = beta[ip_array[0]];
-  //             double zcut_val = zCut[ip_array[1]];
+      for (int ir = 0; ir < jetR.size() - 1; ir++)
+      {
+        int ir1 = ir;
+        int ir2 = ir + 1;
+        double r_cone1 = jetR[ir1]; // narrower jet cone size
+        double r_cone2 = jetR[ir2]; // wider jet cone size
 
-  //             // n_var is for 0:"zG", 1:"thetaG", 2:"rG", 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"...
-  //             std::array<std::vector<int>, n_var> index;
-  //             for (int i = 0; i < n_var; i++)
-  //             {
-  //               // i_var[i] is vector. Each element of the vector is for each of multiple bin settings.
-  //               // index[i] stores the indices for all bin settings for this parameter set.
-  //               index[i] = GetHistIndex(i_var[i], ir, ijp, ijr, 0, 0, ip);
-  //               // std::cout << varNames[i] << ": ";
-  //               for (auto ii : index[i])
-  //               {
-  //                 // std::cout << ii << " ";
-  //                 hist_list[ii]->JetTriggered();
-  //               }
-  //               // std::cout << endl;
-  //             }
+        std::vector<fastjet::PseudoJet> jet1_list = jetR_list[ir1]; // narrower cone jets
+        std::vector<fastjet::PseudoJet> jet2_list = jetR_list[ir2]; // wider cone jets
 
-  //             // Define SoftDrop condition
-  //             fastjet::contrib::SoftDrop sd(beta_val, zcut_val, r_cone);
+        // Loop over jets in narrower cone
+        for (std::size_t i_jet1 = 0; i_jet1 < jet1_list.size(); ++i_jet1)
+        {
 
-  //             // std::cout << "SoftDrop groomer is: " << sd.description() << std::endl;
-  //             // Recombiner is automatically inherited (Manually checked with sample events).
-  //             fastjet::PseudoJet sd_jet = sd(j);
+          // Get the current jet from the narrower cone list
+          auto jet1 = jet1_list[i_jet1];
 
-  //             // Check user_index of groomed jet prongs
-  //             int posSub = 1;
-  //             fastjet::PseudoJet j1, j2;
-  //             sd_jet.has_parents(j1, j2);
+          // Initialize the matched candidate index
+          std::size_t matched_jet2_candidate_index = -1;
+          double min_delta_r = delta_R_match; // Initialize with the delta R match threshold
 
-  //             while (j1.user_index() < 0 || j2.user_index() < 0)
-  //             {
-  //               // If both two prongs are negatives, we give up Grooming.
-  //               if (j1.user_index() < 0 && j2.user_index() < 0)
-  //               {
-  //                 posSub = 0;
-  //                 break;
-  //               }
+          for (std::size_t i_jet2 = 0; i_jet2 < jet2_list.size(); ++i_jet2)
+          {
+            // Get the current jet from the wider cone list
+            auto jet2 = jet2_list[i_jet2];
 
-  //               // Continue grooming by passing the positive prong
-  //               if (!(j1.user_index() < 0))
-  //               {
-  //                 sd_jet = sd(j1);
-  //               }
-  //               else
-  //               {
-  //                 sd_jet = sd(j2);
-  //               }
+            // Calculate delta R between the two jets
+            double delta_r = jet1.delta_R(jet2);
 
-  //               // Check whether the sd_jet has parents. If not, we give up grooming.
-  //               if (!sd_jet.has_parents(j1, j2))
-  //               {
-  //                 posSub = 0;
-  //                 break;
-  //               }
-  //             }
-  //             // j1 should always be the harder of the two subjets.
-  //             if (j1.perp() < j2.perp())
-  //             {
-  //               swap(j1, j2);
-  //             }
+            // Check if this is the closest match so far
+            if (delta_r < min_delta_r)
+            {
+              matched_jet2_candidate_index = i_jet2;
+              min_delta_r = delta_r;
+            }
+          }
 
-  //             //-----------------------------------------------------------------------
-  //             bool hasSub = sd_jet.structure_of<contrib::SoftDrop>().has_substructure();
+          fastjet::PseudoJet matched_jet2_candidate;
+          // If a match was found, process the matched jet
+          if (matched_jet2_candidate_index != -1)
+          {
+            matched_jet2_candidate = jet2_list[matched_jet2_candidate_index];
+          }
+          else
+          {
+            continue; // Skip to the next narrower cone jet if no match is found
+          }
 
-  //             // Set
-  //             double rg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
-  //             double zg = -1.0;
-  //             // double mu = -1.0;
-  //             double thg = -1.0;
-  //             double mg = -1.0;
-  //             double mg_over_pt = -1.0;
-  //             double ktg = -1.0;
-  //             double pseudo_mg = -1.0;
-  //             double pseudo_mg_over_pt = -1.0;
-  //             double ztg = -1.0;
-  //             //--
+          std::size_t matched_jet1_candidate_index = -1;
+          min_delta_r = delta_R_match; // Reset for matching back to narrower cone
+          for (std::size_t i_jet1_candidate = 0; i_jet1_candidate < jet1_list.size(); ++i_jet1_candidate)
+          {
+            // Get the current jet from the narrower cone list
+            auto jet1_candidate = jet1_list[i_jet1_candidate];
 
-  //             // std::cout << "\n jet-e" << j.e() << std::endl;
-  //             // std::cout << " jgr-e" << sd_jet.e() << std::endl;
-  //             // std::cout << " rg" << rg << std::endl;
-  //             // std::cout << " zg" << sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry() << std::endl;
-  //             // exit(-1);
+            // Calculate delta R between the two jets
+            double delta_r = matched_jet2_candidate.delta_R(jet1_candidate);
 
-  //             if (posSub && hasSub && additional_cond_ptr->Trigger(rg))
-  //             {
-  //               // Fundamentals
-  //               zg = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
-  //               // mu = sd_jet.structure_of<fastjet::contrib::SoftDrop>().mu();
-  //               //  Standard
-  //               thg = rg / r_cone;        // theta_g = rg/R
-  //               mg = sd_jet.m();          // groomed mass
-  //               mg_over_pt = mg / pt_jet; // groomed mass/jetPt
-  //               //-------------------------------
-  //               // kt
-  //               ktg = j2.perp() * sin(rg);
-  //               ztg = zg * sin(rg);
-  //               //-------------------------------
-  //               // Pseudo Mass
-  //               double cos_theta_j1_j2 = (j1.px() * j2.px() +
-  //                                         j1.py() * j2.py() +
-  //                                         j1.pz() * j2.pz()) /
-  //                                        sqrt(j1.modp2() * j2.modp2());
-  //               pseudo_mg = sqrt(2.0 * j1.e() * j2.e() * (1.0 - cos_theta_j1_j2));
-  //               pseudo_mg_over_pt = pseudo_mg / pt_jet;
-  //             }
-  //             else
-  //             {
-  //               rg = -1.0;
-  //             }
+            // Check if this is the closest match so far
+            if (delta_r < min_delta_r)
+            {
+              matched_jet1_candidate_index = i_jet1_candidate;
+              min_delta_r = delta_r;
+            }
+          }
 
-  //             //================================================================
-  //             // 0:"zG", 1:"thetaG", 2:"rG",
-  //             // 3:"mG", 4:"mGOverPt", 5:"pseudoMG", 6:"pseudoMGOverPt"
-  //             // std::cout << " ->" << varNames[0] << ": ";
+          // If a match was found, process the matched jet
+          if (matched_jet1_candidate_index == i_jet1)
+          {
+            ////////////////////////////////////////////////////
+            // Process the matched jets
+            //--------------------------------------------------
+            // std::cout << "[CMSJetEnergyFlow] Matched narrower cone " << r_cone1 << " jet: " << jet1.pt() << std::endl;
+            // std::cout << "[CMSJetEnergyFlow] Matched wider cone " << r_cone2 << " jet: " << matched_jet2_candidate.pt() << std::endl;
+            // std::cout<<"====="<<std::endl;
+            //--------------------------------------------------
+
+            // Fill Histograms
+            for (int iv = 0; iv < variables.size(); iv++)
+            {
+              int index = GetHistIndex(iv, ir, ijp, ijr, 0, 0, 0); 
 
 
-  //             for ( int i = 0; i < thetaGcutbins.size() - 1; i++)
-  //             {
-  //               if( thg >= thetaGcutbins[i] && thg < thetaGcutbins[i+1])
-  //               {
-  //                 hist_list[index[0][i]]->Fill(zg, 1.0);
-  //               }
-  //             }
 
-  //             for ( int i = 0; i < zGcutbins.size() - 1; i++)
-  //             {
-  //               if( zg >= zGcutbins[i] && zg < zGcutbins[i+1])
-  //               {
-  //                 hist_list[index[1][i]]->Fill(thg, 1.0);
-  //                 hist_list[index[2][i]]->Fill(rg, 1.0);
-  //               }
-  //             }              
+              std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
+              std::cout << "[CMSJetEnergyFlow] Filling histogram index" << index << std::endl;       
+              
+              hist_list[index]->JetTriggered();              
+            }
+            // hist_list[ii]->JetTriggered();
+          }
+          else
+          {
+            continue; // Skip to the next narrower cone jet if no match is found
+          }
+        }
+      }
+    }
+  }
 
-  //             // std::cout << std::endl;
-
-  //             // // std::cout << " ->" << varNames[3] << ": ";
-  //             // for (auto i : index[3])
-  //             // {
-  //             //   // std::cout << i << " ";
-  //             //   hist_list[i]->Fill(mg, 1.0);
-  //             // }
-  //             // // std::cout << std::endl;
-
-  //             // // std::cout << " ->" << varNames[4] << ": ";
-  //             // for (auto i : index[4])
-  //             // {
-  //             //   // std::cout << i << " ";
-  //             //   hist_list[i]->Fill(mg_over_pt, 1.0);
-  //             // }
-  //             // // std::cout << std::endl;
-
-  //             // // std::cout << " ->" << varNames[5] << ": ";
-  //             // for (auto i : index[5])
-  //             // {
-  //             //   // std::cout << i << " ";
-  //             //   hist_list[i]->Fill(ktg, 1.0);
-  //             // }
-  //             // // std::cout << std::endl;
-
-  //             // // //std::cout << " ->" << varNames[X] << ": ";
-  //             // for (auto i : index[6])
-  //             // {
-  //             //   // std::cout << i << " ";
-  //             //   hist_list[i]->Fill(pseudo_mg, 1.0);
-  //             // }
-  //             // // std::cout << std::endl;
-
-  //             // // //std::cout << " ->" << varNames[X] << ": ";
-  //             // for (auto i : index[7])
-  //             // {
-  //             //   // std::cout << i << " ";
-  //             //   hist_list[i]->Fill(pseudo_mg_over_pt, 1.0);
-  //             // }
-  //             // // std::cout << std::endl;
-
-  //             // // //std::cout << " ->" << varNames[X] << ": ";
-  //             // for (auto i : index[8])
-  //             // {
-  //             //   // std::cout << i << " ";
-  //             //   hist_list[i]->Fill(ztg, 1.0);
-  //             // }
-  //             //================================================================
-  //           }
-
-  //         } // trigger
-
-  //         //====================================
-  //         // Reach Maximum Triggered Jet Number per Tag
-  //         if (nJetEv && (n_jet == nJetEv))
-  //         {
-  //           break;
-  //         }
-  //         //====================================
-  //       } // jet
-  //     }   // ijr
-  //   }     // ijp
-
-  // } // jetR
 }
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// bool CMSJetEnergyFlow::SDCondition(double z_g, double theta_g, double z_cut, double beta)
-// {
-//   if (theta_g > DBL_EPSILON)
-//   {
-//     if (z_g > z_cut * pow(theta_g, beta))
-//     {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void CMSJetEnergyFlow::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
