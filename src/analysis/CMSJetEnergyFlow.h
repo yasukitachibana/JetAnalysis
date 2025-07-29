@@ -66,40 +66,11 @@ private:
   int ReadOptionParametersFromXML();
   void ShowParamsSetting();
 
-  std::string GetParamsTag(int i);
-  std::string GetParamsTag(std::array<int, 2> i);
-  std::string GetParamsTag(int i_beta, int i_zCut);
-  std::string GetParamsTag(double beta_sd, double z_cut_sd);
-
-  int GetParamIndex(int i_beta, int i_zCut);
-  int GetParamIndex(std::array<int, 2> i);
-  std::array<int, 2> GetParamIndex(int i);
-
-  std::vector<double> beta;
-  std::vector<double> zCut;
-
-  std::vector<double> thetaGcutbins;
-  std::vector<double> zGcutbins;
-
-  std::array<std::string, 2> conditionalCutNames = {"tgCut", "zgCut"};
-  void SetVaribalesWithCondition();
-  std::string GetConditionalCutTag(std::string cutname, double lower, double upper);
-  // int ReadVariablesFromXML(std::string tag);
-  // int ReadVariablesFromXML();  
-  // std::string VariableSuffix(int i);
-
-  // static const int n_var = 9;
-  static const int n_var = 3;
-  // 0:"zG", 1:"thetaG", 2:"rG", 
-  //3:"mG", 4:"mGOverPt", 5:"ktG", 6:"pseudoMG", 7:"pseudoMGOverPt", 8:"ztG"
-  std::array<std::vector<int>, n_var> i_var;
-  std::array<std::string, n_var> varNames = {"zG", "thetaG", "rG"};
-
-  
+  double delta_R_match; 
 
   int ui;
 
-  std::unique_ptr<SDAdditionalCondition> additional_cond_ptr;
+
 
 
 

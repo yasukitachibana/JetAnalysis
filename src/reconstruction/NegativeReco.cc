@@ -17,7 +17,7 @@ std::vector<fastjet::PseudoJet>
 NegativeReco::JetReco(double r_cone, std::vector<std::shared_ptr<Particle>> particle_list)
 {
 
-  // First pass only particles with stat >=0 to jet reconstruction algorithm
+  // Pass all particles to jet reconstruction algorithm
   std::vector<fastjet::PseudoJet> fj_inputs;
   for (auto p : particle_list)
   {
