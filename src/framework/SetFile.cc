@@ -5,6 +5,7 @@
 
 #include <sstream>
 #include <iomanip>
+#include <cmath>    // std::round, std::abs
 
 SetFile *SetFile::m_pInstance = NULL;
 
@@ -119,12 +120,12 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
   int r_precision = 4;
   // Detect Precision of Cone Size
   double v2 = jetR * 100.0;
-  if (std::fabs(v2 - std::round(v2)) < eps)
+  if (std::abs(v2 - std::round(v2)) < eps)
   {
     r_precision = 3;
   }
   double v1 = jetR * 10.0;
-  if (std::fabs(v1 - std::round(v1)) < eps)
+  if (std::abs(v1 - std::round(v1)) < eps)
   {
     r_precision = 1;
   }
@@ -174,12 +175,12 @@ SetFile::GetHistName(std::string observable,
   int r_precision = 4;
   // Detect Precision of Cone Size
   double v2 = jetR * 100.0;
-  if (std::fabs(v2 - std::round(v2)) < eps)
+  if (std::abs(v2 - std::round(v2)) < eps)
   {
     r_precision = 3;
   }
   double v1 = jetR * 10.0;
-  if (std::fabs(v1 - std::round(v1)) < eps)
+  if (std::abs(v1 - std::round(v1)) < eps)
   {
     r_precision = 1;
   }
