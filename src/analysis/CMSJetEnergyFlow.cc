@@ -169,20 +169,19 @@ void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> p
 
               if (variables[iv] == "deltaPt")
               {
-                
-                double val = jet1.pt() - jet2.pt();
+
+                double val = jet2.pt() - jet1.pt();
                 hist_list[index]->Fill(val, 1.0);
 
                 // std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
               }
               else if (variables[iv] == "meanDeltaPt")
               {
-                double weight = jet1.pt() - jet2.pt();
+                double weight = jet2.pt() - jet1.pt();
                 hist_list[index]->Fill(0.5, weight);
                 // std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
               }
             }
-            // hist_list[ii]->JetTriggered();
           }
           else
           {
@@ -197,47 +196,37 @@ void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> p
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void CMSJetEnergyFlow::CombineHist(int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
-  // //
-  // std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
-  // std::cout << "[CMSJetEnergyFlow] hist_name = " << hist_name << std::endl;
+  //
+  std::string hist_name = GetHistName(iv, ir, ijp, ijr, ipp, ipr, ip);
+  std::cout << "[CMSJetEnergyFlow] hist_name = " << hist_name << std::endl;
 
-  // auto total_hist = CreateHist(hist_name, iv);
-  // auto normalized_hist = CreateHist("normalized_" + hist_name, iv);
+  // Combine histograms for deltaPt
 
-  // total_hist->Init();
-  // normalized_hist->Init();
+  auto total_hist = CreateHist(hist_name, iv);
+  total_hist->Init();
 
-  // double nJetTotal = 0.0;
-
-  // for (auto hist : hist_list)
-  // {
-  //   double n_ev = hist->Nev();
-  //   if (n_ev != 0)
-  //   {
-  //     nJetTotal += hist->GetNjetSigmaOverEev();
-  //     double sigma = hist->Sigma();
-  //     total_hist->Add(hist, sigma / n_ev);
-  //     normalized_hist->Add(hist, sigma / n_ev);
-  //   }
-  // }
-  // // #############################################
-  // total_hist->JetTriggered(nJetTotal);
-  // total_hist->Print("count_"); // millibarn
-  // if (nJetTotal != 0)
-  // {
-  //   total_hist->Scale(1.0 / nJetTotal, "width");
-  //   total_hist->Print("CMSJetEnergyFlow_");
-  // }
-  // else
-  // {
-  //   std::cout << "[CMSJetEnergyFlow] 0-total Jet" << std::endl;
-  //   std::cout << "[CMSJetEnergyFlow] Skip. " << std::endl;
-  // }
-  // total_hist->DeleteTH();
-  // // #############################################
-  // normalized_hist->Scale(1.0, "width");
-  // normalized_hist->Normalize("width");
-  // normalized_hist->Print("CMSJetEnergyFlow_");
-  // normalized_hist->DeleteTH();
-  // // #############################################
+  double nJetTotal = 0.0;
+  for (auto hist : hist_list)
+  {
+    double n_ev = hist->Nev();
+    if (n_ev != 0)
+    {
+      nJetTotal += hist->GetNjetSigmaOverEev();
+      double sigma = hist->Sigma();
+      total_hist->Add(hist, sigma / n_ev);
+    }
+  }
+  total_hist->JetTriggered(nJetTotal);
+  total_hist->Print("count_"); // millibarn
+  if (nJetTotal != 0)
+  {
+    total_hist->Scale(1.0 / nJetTotal, "width");
+    total_hist->Print("CMSJetEnergyFlow_");
+  }
+  else
+  {
+    std::cout << "[CMSJetEnergyFlow] 0-total Jet" << std::endl;
+    std::cout << "[CMSJetEnergyFlow] Skip. " << std::endl;
+  }
+  total_hist->DeleteTH();
 }

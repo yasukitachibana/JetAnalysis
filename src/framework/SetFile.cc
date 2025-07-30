@@ -105,15 +105,30 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
 
   std::ostringstream oss;
 
-  int r_precision = 1;
-  if (jetR < 0.1)
+  // int r_precision = 1;
+  // if (jetR < 0.1)
+  // {
+  //   r_precision = 3;
+  //   if (jetR < 0.01)
+  //   {
+  //     r_precision = 4;
+  //   }
+  // }
+
+  const double eps = 1e-9;
+  int r_precision = 4;
+  // Detect Precision of Cone Size
+  double v2 = jetR * 100.0;
+  if (std::fabs(v2 - std::round(v2)) < eps)
   {
     r_precision = 3;
-    if (jetR < 0.01)
-    {
-      r_precision = 4;
-    }
   }
+  double v1 = jetR * 10.0;
+  if (std::fabs(v1 - std::round(v1)) < eps)
+  {
+    r_precision = 1;
+  }
+
   oss << std::fixed
       << "hist_"
       << "ptHat" << std::setprecision(0) << (ptHatMin) << "-" << (ptHatMax) << "_"
@@ -146,14 +161,27 @@ SetFile::GetHistName(std::string observable,
 
   std::ostringstream oss;
 
-  int r_precision = 1;
-  if (jetR < 0.1)
+  // int r_precision = 1;
+  // if (jetR < 0.1)
+  // {
+  //   r_precision = 3;
+  //   if (jetR < 0.01)
+  //   {
+  //     r_precision = 4;
+  //   }
+  // }
+  const double eps = 1e-9;
+  int r_precision = 4;
+  // Detect Precision of Cone Size
+  double v2 = jetR * 100.0;
+  if (std::fabs(v2 - std::round(v2)) < eps)
   {
     r_precision = 3;
-    if (jetR < 0.01)
-    {
-      r_precision = 4;
-    }
+  }
+  double v1 = jetR * 10.0;
+  if (std::fabs(v1 - std::round(v1)) < eps)
+  {
+    r_precision = 1;
   }
 
   oss << std::fixed
