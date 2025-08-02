@@ -26,12 +26,12 @@
       <Item>0</Item>
     </jetRapMin>
     <jetRapMax>
-      <Item>0.7</Item>
+      <Item>0.5</Item>
     </jetRapMax>
 
     <!-- For ALICE Unfolded resutls -->
-    <jetConstPtMin>0.0</jetConstPtMin>
-    <jetConstPtMax>2510.0</jetConstPtMax>
+    <jetConstPtMin>0.150</jetConstPtMin>
+    <jetConstPtMax>1000.0</jetConstPtMax>
 
     <jetPtMin>
       <Item>60</Item>
@@ -45,10 +45,7 @@
 
   <!-- Set Particle Mass -->
   <massAdjust>
-    <adjust>1</adjust>
-    <adjustedQuant>E</adjustedQuant>    <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum
-    ENE, Ene, ene, ENERGY, Energy, energy, E, e: energy -->
-    <mass>-211</mass>    <!-- 0 or positive value: mass in GeV, negative value: particle id-->
+    <adjust>0</adjust>
   </massAdjust>
 
   <!-- Observable -->
@@ -63,15 +60,15 @@
         <Item>0.0</Item>
       </particleRapMin>
       <particleRapMax>
-        <Item>2.0</Item>
+        <Item>1.0</Item>
       </particleRapMax>
 
       <!-- For ALICE Unfolded resutls -->
       <particlePtMin>
-        <Item>0.0</Item>
+        <Item>0.15</Item>
       </particlePtMin>
       <particlePtMax>
-        <Item>2510.0</Item>
+        <Item>1000.0</Item>
       </particlePtMax>
 
       <delta_R_match>
