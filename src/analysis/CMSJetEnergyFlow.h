@@ -67,6 +67,8 @@ private:
   void ShowParamsSetting();
 
   double delta_R_match; 
+  double match_jet_pt_min;
+  double match_jet_pt_max;  
 
   int ui;
 

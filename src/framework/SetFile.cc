@@ -117,6 +117,8 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
   // }
 
   const double eps = 1e-9;
+
+
   int r_precision = 4;
   // Detect Precision of Cone Size
   double v2 = jetR * 100.0;
@@ -130,6 +132,18 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
     r_precision = 1;
   }
 
+  int particle_pt_precision = 4;
+  double w2 = particlePtMin * 100.0;
+  if (std::abs(w2 - std::round(w2)) < eps)  
+  {
+    particle_pt_precision = 3;
+  }
+  double w1 = particlePtMin * 10.0;
+  if (std::abs(w2 - std::round(w2)) < eps)  
+  {
+    particle_pt_precision = 1;
+  }  
+
   oss << std::fixed
       << "hist_"
       << "ptHat" << std::setprecision(0) << (ptHatMin) << "-" << (ptHatMax) << "_"
@@ -138,7 +152,7 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
       << "jetr" << std::setprecision(r_precision) << (jetR) << "_"
       << jet_cut_name << std::setprecision(jet_cut_precision) << (jetPtMin) << "-" << (jetPtMax) << "_"
       << "rapj" << std::setprecision(1) << (jetRapMin) << "-" << (jetRapMax) << "_"
-      << "pt" << std::setprecision(1) << (particlePtMin) << "-" << (particlePtMax) << "_"
+      << "pt" << std::setprecision(particle_pt_precision) << (particlePtMin) << "-" << (particlePtMax) << "_"
       << "rap" << std::setprecision(1) << (particleRapMin) << "-" << (particleRapMax);
 
   if (tag != "")
@@ -185,6 +199,18 @@ SetFile::GetHistName(std::string observable,
     r_precision = 1;
   }
 
+  int particle_pt_precision = 4;
+  double w2 = particlePtMin * 100.0;
+  if (std::abs(w2 - std::round(w2)) < eps)  
+  {
+    particle_pt_precision = 3;
+  }
+  double w1 = particlePtMin * 10.0;
+  if (std::abs(w2 - std::round(w2)) < eps)  
+  {
+    particle_pt_precision = 1;
+  }    
+
   oss << std::fixed
       << "hist_total_"
       << observable << "_"
@@ -192,7 +218,7 @@ SetFile::GetHistName(std::string observable,
       << "jetr" << std::setprecision(r_precision) << (jetR) << "_"
       << jet_cut_name << std::setprecision(jet_cut_precision) << (jetPtMin) << "-" << (jetPtMax) << "_"
       << "rapj" << std::setprecision(1) << (jetRapMin) << "-" << (jetRapMax) << "_"
-      << "pt" << std::setprecision(1) << (particlePtMin) << "-" << (particlePtMax) << "_"
+      << "pt" << std::setprecision(particle_pt_precision) << (particlePtMin) << "-" << (particlePtMax) << "_"
       << "rap" << std::setprecision(1) << (particleRapMin) << "-" << (particleRapMax);
 
   if (tag != "")
