@@ -21,6 +21,10 @@ CMSJetEnergyFlow::~CMSJetEnergyFlow()
 int CMSJetEnergyFlow::ReadOptionParametersFromXML()
 {
   delta_R_match = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "delta_R_match"});
+
+  match_jet_pt_min = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "match_jet_pt_min"});
+  match_jet_pt_max = SetXML::Instance()->GetElementDouble({"observable", Name().c_str(), "match_jet_pt_max"});
+
   return 1;
 }
 
@@ -72,7 +76,8 @@ void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> p
         // Loop over jets and apply trigger condition
         for (auto j : jets)
         {
-          if (JetTrigger(j, ir, ijp, ijr))
+            // match_jet_pt_min and match_jet_pt_max are used to filter jets based on their transverse momentum
+          if (JetTrigger(j, ir, ijr, match_jet_pt_min, match_jet_pt_max))
           {
             // Store the jet that passes the trigger condition
             triggered_jets.push_back({j});
@@ -98,6 +103,15 @@ void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> p
 
           // Get the current jet from the narrower cone list
           auto jet1 = jet1_list[i_jet1];
+
+          // Check if the narrower jet passes the pT trigger condition
+          if( jet1.pt() < jetPtMinForTrigger[ijp] || jet1.pt() > jetPtMaxForTrigger[ijp] )
+          {
+            continue;
+          }
+
+          // jet1.pt();
+
 
           // Initialize the matched candidate index
           std::size_t matched_jet2_candidate_index = -1;
@@ -166,19 +180,17 @@ void CMSJetEnergyFlow::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> p
               int index = GetHistIndex(iv, ir, ijp, ijr, 0, 0, 0);
 
               hist_list[index]->JetTriggered();
-
+              double delta_pt = jet2.pt() - jet1.pt();
               if (variables[iv] == "deltaPt")
               {
 
-                double val = jet2.pt() - jet1.pt();
-                hist_list[index]->Fill(val, 1.0);
+                hist_list[index]->Fill(delta_pt, 1.0);
 
                 // std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
               }
               else if (variables[iv] == "meanDeltaPt")
               {
-                double weight = jet2.pt() - jet1.pt();
-                hist_list[index]->Fill(0.5, weight);
+                hist_list[index]->Fill(0.5, delta_pt);
                 // std::cout << "[CMSJetEnergyFlow] Filling histograms for variable" << iv << " : " << variables[iv] << std::endl;
               }
             }
