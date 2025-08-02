@@ -139,7 +139,7 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
     particle_pt_precision = 3;
   }
   double w1 = particlePtMin * 10.0;
-  if (std::abs(w2 - std::round(w2)) < eps)  
+  if (std::abs(w1 - std::round(w1)) < eps)  
   {
     particle_pt_precision = 1;
   }  
@@ -199,18 +199,20 @@ SetFile::GetHistName(std::string observable,
     r_precision = 1;
   }
 
+
   int particle_pt_precision = 4;
   double w2 = particlePtMin * 100.0;
   if (std::abs(w2 - std::round(w2)) < eps)  
   {
     particle_pt_precision = 3;
   }
-  double w1 = particlePtMin * 10.0;
-  if (std::abs(w2 - std::round(w2)) < eps)  
+  double w1 = particlePtMin * 10.0;   
+  if (std::abs(w1 - std::round(w1)) < eps)  
   {
     particle_pt_precision = 1;
   }    
 
+  
   oss << std::fixed
       << "hist_total_"
       << observable << "_"
