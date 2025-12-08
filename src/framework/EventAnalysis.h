@@ -25,6 +25,12 @@ private:
   int nSeq;
 
 
+
+
+
+
+
+
 };
 
 #endif

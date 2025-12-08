@@ -1,4 +1,5 @@
 #include "CombineEvents.h"
+#include "SetPtHatBins.h"
 
 #include <iostream>
 
@@ -16,7 +17,7 @@ CombineEvents::~CombineEvents()
 void CombineEvents::Init()
 {
   std::cout << "[CombineEvents] Intialize CombineEvents" << std::endl;
-  ptHat = SetXML::Instance()->GetElementVectorDouble({"ptHat", "Item"});
+  ptHat = SetPtHatBins::GetPtHatBins();
 }
 
 void CombineEvents::Clear()
