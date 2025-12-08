@@ -5,7 +5,7 @@
 
 #include <sstream>
 #include <iomanip>
-#include <cmath>    // std::round, std::abs
+#include <cmath> // std::round, std::abs
 
 SetFile *SetFile::m_pInstance = NULL;
 
@@ -46,18 +46,33 @@ void SetFile::Init(std::string m_in_name, std::string m_out_name)
     jet_cut_precision = 0;
   }
 
+  single_number_id = SetXML::Instance()->GetElementInt({"inputFiles", "singleNumberId"}, false);
+
   input_head = SetXML::Instance()->GetElementText({"inputFiles", "events", "head"});
-  input_join = SetXML::Instance()->GetElementText({"inputFiles", "events", "join"});
   input_tail = SetXML::Instance()->GetElementText({"inputFiles", "events", "tail"});
 
-  sigma_head = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "head"});
-  sigma_join = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "join"});
-  sigma_tail = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "tail"});
-
-  sigma_dir = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "path"});
-  if (sigma_dir == "na")
+  if (single_number_id == 1)
   {
-    sigma_dir = in_dir;
+    input_join = "";
+  }
+  else
+  {
+    input_join = SetXML::Instance()->GetElementText({"inputFiles", "events", "join"});
+  }
+
+  sigma_last_line = SetXML::Instance()->GetElementInt({"inputFiles", "sigmaLastLine"}, false);
+
+  if (sigma_last_line == 0)
+  {
+    sigma_head = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "head"});
+    sigma_join = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "join"});
+    sigma_tail = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "tail"});
+
+    sigma_dir = SetXML::Instance()->GetElementText({"inputFiles", "sigma", "path"});
+    if (sigma_dir == "na")
+    {
+      sigma_dir = in_dir;
+    }
   }
 }
 
@@ -70,7 +85,15 @@ void SetFile::SetDir(std::string m_in_name, std::string m_out_name)
 std::string
 SetFile::GetInputFileName(double ptHatMin, double ptHatMax, int i_seq)
 {
-  return in_dir + '/' + input_head + std::to_string(int(ptHatMin)) + input_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + input_tail;
+
+  std::string upto_id_part = in_dir + '/' + input_head + std::to_string(int(ptHatMin));
+
+  if (single_number_id != 1)
+  {
+    upto_id_part = upto_id_part + input_join + std::to_string(int(ptHatMax));
+  }
+
+  return upto_id_part + GetDivTail(i_seq) + input_tail;
 }
 
 std::string
@@ -118,7 +141,6 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
 
   const double eps = 1e-9;
 
-
   int r_precision = 4;
   // Detect Precision of Cone Size
   double v2 = jetR * 100.0;
@@ -134,15 +156,15 @@ SetFile::GetHistName(double ptHatMin, double ptHatMax,
 
   int particle_pt_precision = 4;
   double w2 = particlePtMin * 100.0;
-  if (std::abs(w2 - std::round(w2)) < eps)  
+  if (std::abs(w2 - std::round(w2)) < eps)
   {
     particle_pt_precision = 3;
   }
   double w1 = particlePtMin * 10.0;
-  if (std::abs(w1 - std::round(w1)) < eps)  
+  if (std::abs(w1 - std::round(w1)) < eps)
   {
     particle_pt_precision = 1;
-  }  
+  }
 
   oss << std::fixed
       << "hist_"
@@ -199,20 +221,18 @@ SetFile::GetHistName(std::string observable,
     r_precision = 1;
   }
 
-
   int particle_pt_precision = 4;
   double w2 = particlePtMin * 100.0;
-  if (std::abs(w2 - std::round(w2)) < eps)  
+  if (std::abs(w2 - std::round(w2)) < eps)
   {
     particle_pt_precision = 3;
   }
-  double w1 = particlePtMin * 10.0;   
-  if (std::abs(w1 - std::round(w1)) < eps)  
+  double w1 = particlePtMin * 10.0;
+  if (std::abs(w1 - std::round(w1)) < eps)
   {
     particle_pt_precision = 1;
-  }    
+  }
 
-  
   oss << std::fixed
       << "hist_total_"
       << observable << "_"

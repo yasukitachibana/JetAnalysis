@@ -73,6 +73,10 @@ private:
   std::string jet_cut_name;
   int jet_cut_precision; 
   std::string division_unit;
+  int single_number_id;
+  int sigma_last_line;
+
+  // std::string pthat_tag;   
   
   std::string in_dir;
   std::string out_dir;
@@ -83,6 +87,8 @@ private:
   std::string sigma_head;
   std::string sigma_join;
   std::string sigma_tail;
+
+
   
   std::string GetDivTail(int i_seq);
   
