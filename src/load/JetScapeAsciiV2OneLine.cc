@@ -173,3 +173,124 @@ int JetScapeAsciiV2OneLine::Last()
     return 1;
   }
 }
+
+void JetScapeAsciiV2OneLine::LoadSigma(std::string sigma_filename, double &sigma, double &sigma_err)
+{
+  if (sigmaLastLine == 1)
+  {
+    LoadSigmaLastLine(sigma_filename, sigma, sigma_err);
+  }
+  else
+  {
+    LoadSeparatedSigma(sigma_filename, sigma, sigma_err);
+  }
+}
+
+void JetScapeAsciiV2OneLine::LoadSigmaLastLine(std::string sigma_filename, double &sigma, double &sigma_err)
+{
+
+  std::ifstream ifs(sigma_filename, std::ios::binary);
+  if (!ifs)
+  {
+    std::cerr << "[JetScapeAsciiV2OneLine] Cannot open file: " << sigma_filename << std::endl;
+    return;
+  }
+
+  // Move to the end of file
+  ifs.seekg(0, std::ios::end);
+  std::streamoff pos = static_cast<std::streamoff>(ifs.tellg());
+  if (pos <= 0)
+  {
+    std::cerr << "[JetScapeAsciiV2OneLine] File is empty: " << sigma_filename << std::endl;
+    return;
+  }
+
+  char c;
+
+  // --- Step 1: Skip trailing whitespace/newlines at the end of the file ---
+  while (pos > 0)
+  {
+    pos -= 1; // move back by 1 byte
+    ifs.seekg(pos, std::ios::beg);
+    ifs.get(c);
+
+    // Stop when we find a non-whitespace character
+    if (!std::isspace(static_cast<unsigned char>(c)))
+    {
+      break;
+    }
+  }
+
+  // If pos == 0 and that character is whitespace, there is no valid line
+  if (pos <= 0 && std::isspace(static_cast<unsigned char>(c)))
+  {
+    std::cerr << "[JetScapeAsciiV2OneLine] No non-empty line found in: " << sigma_filename << std::endl;
+    return;
+  }
+
+  // --- Step 2: Move backwards to find the previous newline to locate the line start ---
+  while (pos > 0)
+  {
+    pos -= 1;
+    ifs.seekg(pos, std::ios::beg);
+    ifs.get(c);
+    if (c == '\n')
+    {
+      pos += 1; // the line begins right after this newline
+      break;
+    }
+  }
+
+  // --- Step 3: Read exactly one line starting from the detected position ---
+  ifs.clear();
+  ifs.seekg(pos, std::ios::beg);
+
+  std::string line;
+  std::getline(ifs, line);
+
+  std::istringstream iss(line);
+  std::string hash, label1, label2;
+
+  std::cout << "[JetScapeAsciiV2OneLine] Sigma line: " << line << std::endl;
+
+  iss >> hash >> label1 >> sigma >> label2 >> sigma_err; 
+
+  std::cout << "[JetScapeAsciiV2OneLine] sigmaGen = " << sigma << std::endl;
+  std::cout << "[JetScapeAsciiV2OneLine] sigmaErr = " << sigma_err << std::endl;
+
+}
+
+void JetScapeAsciiV2OneLine::LoadSeparatedSigma(std::string sigma_filename, double &sigma, double &sigma_err)
+{
+  // Read file
+  std::ifstream ifs;
+  std::stringstream str_stream;
+
+  ifs.open(sigma_filename.c_str()); // open the input file
+  str_stream << ifs.rdbuf();        // read the file
+  if (ifs.is_open())
+  {
+    ifs.close();
+  }
+  else
+  {
+    ifs.close();
+    std::cout << "[JetScapeAsciiV2OneLine] " << sigma_filename << " NOT FOUND" << std::endl;
+    return;
+  }
+
+  std::string str;
+
+  while (getline(str_stream, str))
+  {
+
+    if (str.find("#") == std::string::npos && !str.empty())
+    {
+
+      sscanf(str.data(),
+             "%lf %lf",
+             &sigma, &sigma_err);
+      break;
+    }
+  }
+}
