@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>2</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <jetR>
+      <Item>0.4</Item>
+    </jetR>
+    <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
+    <!-- <statJet>
+      <Item>0</Item><Item>1</Item><Item>-1</Item>
+    </statJet> -->
+
+    <!-- <jetConstPtMin>0.0</jetConstPtMin>
+    <jetConstPtMax>3000</jetConstPtMax> -->
+
+    <leading>0</leading>
+    <leadMethod>C</leadMethod> <!-- Const (jet constituents) or Area (inside of jet cone R) -->
+    <leadCharged>1</leadCharged> <!-- only for Area method -->
+    <leadPtMin>3</leadPtMin> <!-- in GeV -->
+
+
+    <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin>
+      <Item>0</Item>
+    </jetRapMin>
+    <jetRapMax>
+      <Item>1.6</Item>
+    </jetRapMax>
+    <jetPtMin>
+      <Item>0</Item>
+    </jetPtMin>
+    <jetPtMax>
+      <Item>3000</Item>
+    </jetPtMax>
+    <nJetEv>0</nJetEv>
+  </jetReco>
+
+  <massAdjust>
+    <adjust>0</adjust>
+    <adjustedQuant>E</adjustedQuant>    <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum
+    ENE, Ene, ene, ENERGY, Energy, energy, E, e: energy -->
+    <mass>-211</mass>    <!-- 0 or positive value: mass in GeV, negative value: particle id-->
+  </massAdjust>
+
+
+  <jetTag>
+    <tagged>0</tagged>
+    <xJetTag>0</xJetTag>    <!-- 1: jet triggered by momentum fraction Xjtag instead of pTjet-->
+    <nTagEv>1</nTagEv>    <!-- 0: inclusive, 1: Highest pt in each event -->
+    <!-- tag basic iinfo -->
+    <tagParticle>
+      <Item>22</Item>
+    </tagParticle>
+    <tagStat>
+      <Item>0</Item>
+      <Item>1</Item>
+    </tagStat>
+    <!-- tag pt cut -->
+    <tagPtMin>100</tagPtMin>
+    <tagPtMax>10000</tagPtMax>
+    <!-- tag rapidity cut -->
+    <tagRapidity>1</tagRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <tagRapMin>0</tagRapMin>
+    <tagRapMax>0.7</tagRapMax>
+    <!-- tag isolation -->
+    <isolation>1</isolation>
+    <RIsolation>0.3</RIsolation>
+    <cutIsolation>5</cutIsolation>
+    <varIsolation>ET</varIsolation>    <!-- pT, PT, Pt, pt: transverse momentum   ET, et, Et, eT:
+    transverse energy -->
+    <!-- <chIsolation>1</chIsolation>   -->
+    <statIsolation>
+      <Item>0</Item>
+      <Item>1</Item>
+      <Item>-1</Item>
+    </statIsolation>
+    <!-- tag relative angle -->
+    <deltaPhiCut>1</deltaPhiCut>
+    <deltaPhiMin>-0.875</deltaPhiMin>    <!-- negative value: to be multiplied by pi, 7/8 = 0.875-->
+  </jetTag>
+
+  <observable>
+    <!-- Hadrons -->
+    <SoftDropGroom>
+      <name>Soft Drop Grooming</name>
+      <chParticle>0</chParticle>
+      <statParticle>
+        <Item>0</Item>
+        <Item>1</Item>
+        <Item>-1</Item>
+      </statParticle>
+      <particleRapidity>0</particleRapidity>
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>3.0</Item>
+      </particleRapMax>
+      <particlePtMin>
+        <Item>0.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>300</Item>
+      </particlePtMax>
+
+      <beta>
+        <Item>0.0</Item>
+      </beta>
+      <zCut>
+        <Item>0.2</Item>
+        <Item>0.4</Item>
+      </zCut>
+
+
+      <var>
+        <zG>
+          <Item>0</Item>
+          <Item>0.2</Item>
+          <Item>0.4</Item>
+          <Item>0.6</Item>
+          <Item>0.8</Item>
+          <Item>1</Item>
+        </zG>
+        <thetaG>
+          <Item>0</Item>
+          <Item>0.2</Item>
+          <Item>0.4</Item>
+          <Item>0.6</Item>
+          <Item>0.8</Item>
+          <Item>1</Item>
+        </thetaG>
+      </var>
+
+    </SoftDropGroom>
+  </observable>
+
+  <inputFiles>
+    <inputStyle>JetScapeAsciiV2OneLine</inputStyle>
+    <singleNumberId>1</singleNumberId>
+    <sigmaLastLine>1</sigmaLastLine>
+    <events>
+      <head>jet_</head>
+      <tail>_final_state_hadrons.dat</tail>
+    </events>
+    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+    <divUnit>_Run</divUnit>
+  </inputFiles>
+
+  <!-- ptHatBins -->
+  <ptHat>
+    <evenlySpaced>1</evenlySpaced>
+    <min>1</min>
+    <max>3</max>
+    <interval>1</interval>
+  </ptHat>
+
+
+</jetAnalysis>
