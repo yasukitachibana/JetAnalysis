@@ -100,7 +100,21 @@ std::string
 SetFile::GetSigmaFileName(double ptHatMin, double ptHatMax, int i_seq)
 {
   // return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + GetDivTail(i_seq) + sigma_tail;
-  return sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin)) + sigma_join + std::to_string(int(ptHatMax)) + sigma_tail;
+
+  if (sigma_last_line == 1)
+  {
+    return GetInputFileName(ptHatMin, ptHatMax, i_seq);
+  }
+  else
+  {
+    std::string upto_id_part = sigma_dir + '/' + sigma_head + std::to_string(int(ptHatMin));
+
+    if (single_number_id != 1)
+    {
+      upto_id_part = upto_id_part + sigma_join + std::to_string(int(ptHatMax));
+    }
+    return upto_id_part + sigma_tail;
+  }
 }
 
 std::string SetFile::GetDivTail(int i_seq)

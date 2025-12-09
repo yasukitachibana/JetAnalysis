@@ -24,7 +24,7 @@ public:
   int EventEnd();
   int ValidLine();
   int Last();
-  // void LoadSigma(std::string sigma_filename, double &sigma, double &sigma_err);  
+  void LoadSigma(std::string sigma_filename, double &sigma, double &sigma_err);  
 
   std::shared_ptr<Particle> GetParticle();  
 
@@ -42,6 +42,9 @@ private:
   //===========================
   void ReadParametersFromXML();
   void ShowParamsSetting();
+  void LoadSeparatedSigma(std::string sigma_filename, double &sigma, double &sigma_err);
+  void LoadSigmaLastLine(std::string sigma_filename, double &sigma, double &sigma_err);
+  //===========================
   int sigmaLastLine;
 
 
