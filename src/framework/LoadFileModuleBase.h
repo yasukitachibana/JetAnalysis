@@ -4,7 +4,9 @@
 //#include "Pythia8/Pythia.h"
 //#include "Particle.h"
 
+#include "SetXML.h"
 #include "Particle.h"
+
 
 #include <map>
 #include <vector>

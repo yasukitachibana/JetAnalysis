@@ -105,6 +105,10 @@ void AnalysisModuleStandard::EventEndMark(std::vector<std::shared_ptr<Particle>>
   particle_list.clear();
   particle_list.shrink_to_fit();
   event_num++;
+
+  // std::cout << "--Debug--[AnalysisModuleStandard]" << std::endl;
+  // std::cout << "event_num: " << event_num << std::endl;
+  // load_ptr->ShowLine();
 }
 
 void AnalysisModuleStandard::OneEventAnalysis(std::vector<std::shared_ptr<Particle>> particle_list, int i_tag_particle)
