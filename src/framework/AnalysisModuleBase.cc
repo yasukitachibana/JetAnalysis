@@ -73,8 +73,6 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
     jet_tag_ptr->TagEventClear();
     while (load_ptr->GetLine())
     {
-      //    std::cout << "main" << std::endl;
-      //    load_ptr->ShowLine();
 
       if (load_ptr->EventEnd())
       {
@@ -116,7 +114,7 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
     std::cout
         << "\n[AnalysisModuleBase] Last Event" << event_num
         << " -- DONE! (" << std::to_string(getMemoryUsage()) << "MB) ..."
-        << std::endl;
+        << std::endl;      
   }
   //*******************************************************************************************
   load_ptr->Clear();

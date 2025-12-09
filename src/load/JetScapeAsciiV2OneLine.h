@@ -10,7 +10,41 @@ private:
   static RegisterLoadFileModule<JetScapeAsciiV2OneLine> reg;
 
 public:
+  JetScapeAsciiV2OneLine(std::string name_in = "JetScapeAsciiV2OneLine");
+  ~JetScapeAsciiV2OneLine();
+  void Init();
+
+  std::string Name() { return name; }
+
+  bool Load(std::string input_filename);
+  void Clear();
+
+  int GetLine();
+  void ShowLine();
+  int EventEnd();
+  int ValidLine();
+  int Last();
+  // void LoadSigma(std::string sigma_filename, double &sigma, double &sigma_err);  
+
+  std::shared_ptr<Particle> GetParticle();  
+
 private:
+  const std::string name;
+
+  std::ifstream reading_file;
+  std::string input_line;
+  int getLineStart;
+
+  int SN, PID, Status;
+  double E, Px, Py, Pz;
+
+
+  //===========================
+  void ReadParametersFromXML();
+  void ShowParamsSetting();
+  int sigmaLastLine;
+
+
 };
 
 #endif // JetScapeAsciiV2OneLine_H
