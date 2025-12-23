@@ -162,8 +162,10 @@ def main():
             if args.dry_run:
                 print(f"DRY-RUN: ln -s {rel_target} {link_name}   (from {xml_name})")
             else:
+                print(f"Creating symlink: {link_name} -> {os.path.basename(target_dat)} (from {xml_name})")
                 os.symlink(rel_target, link_path)
                 created += 1
+                print(f"  Created")
 
     # 集計出力（標準出力）
     print("\n=== Summary (pTHatMin, pTHatMax) -> #Runs ===")
