@@ -20,7 +20,6 @@ def read_tag_text(root, tag):
 def parse_int(s):
     if s is None:
         return None
-    # " 240 " みたいなのを許容
     m = re.search(r"-?\d+", s)
     return int(m.group(0)) if m else None
 
@@ -60,12 +59,45 @@ def ensure_dir(path, dry_run=False):
     os.makedirs(path, exist_ok=True)
 
 
+def write_mapping_tsv(rows, outfile, dry_run=False):
+    """
+    rows: list of dict with keys:
+      symlink_path, target_dat, xml_name, pmin, pmax, run_idx, created(bool), reason(str)
+    """
+    if dry_run:
+        print(f"DRY-RUN: would write mapping table to: {outfile}")
+        return
+
+    with open(outfile, "w") as f:
+        f.write("\t".join([
+            "symlink_path",
+            "target_dat",
+            "xml_name",
+            "pTHatMin",
+            "pTHatMax",
+            "run_idx",
+            "created",
+            "reason"
+        ]) + "\n")
+        for r in rows:
+            f.write("\t".join([
+                str(r.get("symlink_path", "")),
+                str(r.get("target_dat", "")),
+                str(r.get("xml_name", "")),
+                str(r.get("pmin", "")),
+                str(r.get("pmax", "")),
+                str(r.get("run_idx", "")),
+                str(r.get("created", "")),
+                str(r.get("reason", "")),
+            ]) + "\n")
+
+
 def main():
     ap = argparse.ArgumentParser(
         description=(
             "Scan jet_RunX.xml, read pTHatMin/Max, create symlinks "
             "JetscapeHadronListBin{pmin}_{pmax}_Run{run_idx}.out -> jet_X_final_state_hadrons.dat, "
-            "and write ptHat summary XML."
+            "and write ptHat summary XML + mapping table."
         )
     )
     ap.add_argument(
@@ -111,6 +143,16 @@ def main():
         action="store_true",
         help="Write ptHat summary into the input folder instead of link-dir"
     )
+    ap.add_argument(
+        "--mapping-filename",
+        default="link_mapping.tsv",
+        help="Filename for mapping table TSV (default: link_mapping.tsv)"
+    )
+    ap.add_argument(
+        "--mapping-in-input-folder",
+        action="store_true",
+        help="Write mapping table into the input folder instead of link-dir"
+    )
 
     args = ap.parse_args()
 
@@ -119,9 +161,7 @@ def main():
         print(f"ERROR: not a directory: {folder}", file=sys.stderr)
         sys.exit(1)
 
-    # --------------------------------------------------------
-    # decide link output directory (NO RS_PREFIX LOGIC)
-    # --------------------------------------------------------
+    # decide link output directory (NO prefix logic)
     if args.link_dir is not None:
         link_dir = os.path.abspath(args.link_dir)
     else:
@@ -135,7 +175,8 @@ def main():
     rx = re.compile(args.pattern)
 
     run_counter = defaultdict(int)   # (pmin,pmax) -> next run index
-    planned = defaultdict(list)      # (pmin,pmax) -> list of (xml, target, link_name, link_path)
+    # planned[(pmin,pmax)] = list of dicts including run_idx etc.
+    planned = defaultdict(list)
 
     xml_files = sorted(name for name in os.listdir(folder) if rx.match(name))
 
@@ -144,6 +185,9 @@ def main():
         sys.exit(1)
     else:
         print(f"Found {len(xml_files)} XML files to process.")
+
+    # mapping rows (write at end)
+    mapping_rows = []
 
     # --------------------------------------------------------
     # scan XML files
@@ -177,25 +221,50 @@ def main():
         run_idx = run_counter[key]
         run_counter[key] += 1
 
-        link_name = args.link_pattern.format(
-            pmin=pmin, pmax=pmax, run_idx=run_idx
-        )
+        link_name = args.link_pattern.format(pmin=pmin, pmax=pmax, run_idx=run_idx)
         link_path = os.path.join(link_dir, link_name)
 
-        planned[key].append((xml_name, target_dat, link_name, link_path))
+        planned[key].append({
+            "xml_name": xml_name,
+            "target_dat": target_dat,
+            "link_name": link_name,
+            "link_path": link_path,
+            "pmin": pmin,
+            "pmax": pmax,
+            "run_idx": run_idx,
+        })
 
     # --------------------------------------------------------
     # create symlinks
     # --------------------------------------------------------
     created = 0
     for (pmin, pmax), items in planned.items():
-        for (xml_name, target_dat, link_name, link_path) in items:
+        for item in items:
+            xml_name = item["xml_name"]
+            target_dat = item["target_dat"]
+            link_name = item["link_name"]
+            link_path = item["link_path"]
+            run_idx = item["run_idx"]
+
+            row = {
+                "symlink_path": link_path,
+                "target_dat": target_dat,
+                "xml_name": xml_name,
+                "pmin": pmin,
+                "pmax": pmax,
+                "run_idx": run_idx,
+                "created": False,
+                "reason": "",
+            }
+
             if not os.path.exists(target_dat):
-                print(
+                msg = (
                     f"WARNING: target not found, skip link: {link_name} -> "
-                    f"{os.path.basename(target_dat)} (from {xml_name})",
-                    file=sys.stderr
+                    f"{os.path.basename(target_dat)} (from {xml_name})"
                 )
+                print(msg, file=sys.stderr)
+                row["reason"] = "target_missing"
+                mapping_rows.append(row)
                 continue
 
             if os.path.lexists(link_path):
@@ -204,17 +273,30 @@ def main():
                         os.remove(link_path)
                 else:
                     print(f"WARNING: link exists, skip (use --force): {link_name}", file=sys.stderr)
+                    row["reason"] = "link_exists"
+                    mapping_rows.append(row)
                     continue
 
             rel_target = os.path.relpath(target_dat, start=os.path.dirname(link_path))
 
             if args.dry_run:
                 print(f"DRY-RUN: ln -s {rel_target} {link_path}   (from {xml_name})")
+                row["reason"] = "dry_run"
+                mapping_rows.append(row)
             else:
-                print(f"Creating symlink: {link_name} -> {os.path.basename(target_dat)} (from {xml_name})")
-                os.symlink(rel_target, link_path)
-                created += 1
-                print("  Created")
+                try:
+                    print(f"Creating symlink: {link_name} -> {os.path.basename(target_dat)} (from {xml_name})")
+                    os.symlink(rel_target, link_path)
+                    created += 1
+                    row["created"] = True
+                    row["reason"] = "created"
+                    mapping_rows.append(row)
+                    print("  Created")
+                except PermissionError:
+                    # record and re-raise: permissions are critical; but mapping table should still be useful
+                    row["reason"] = "permission_denied"
+                    mapping_rows.append(row)
+                    raise
 
     # --------------------------------------------------------
     # console summary
@@ -235,6 +317,19 @@ def main():
     else:
         write_ptHat_summary(run_counter, summary_path)
         print(f"\nptHat summary written to: {summary_path}")
+
+    # --------------------------------------------------------
+    # write mapping table
+    # --------------------------------------------------------
+    mapping_dir = folder if args.mapping_in_input_folder else link_dir
+    ensure_dir(mapping_dir, dry_run=args.dry_run)
+    mapping_path = os.path.join(mapping_dir, args.mapping_filename)
+    write_mapping_tsv(mapping_rows, mapping_path, dry_run=args.dry_run)
+
+    if not args.dry_run:
+        print(f"Mapping table written to: {mapping_path}")
+    else:
+        print(f"DRY-RUN: would write mapping table to: {mapping_path}")
 
     if args.dry_run:
         print("\n(DRY-RUN) No links created.")
