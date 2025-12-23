@@ -7,6 +7,9 @@ import xml.etree.ElementTree as ET
 from collections import defaultdict
 
 
+WSU_LINK_BASE = "/wsu/home/go/go54/go5410/ritoban_data_links"
+
+
 def read_tag_text(root, tag):
     el = root.find(".//" + tag)
     if el is None or el.text is None:
@@ -23,7 +26,18 @@ def parse_int(s):
 
 
 def write_ptHat_summary(run_counter, outfile):
+    """
+    Format:
 
+      <ptHat>
+        <Item>pmin(first)</Item>
+        <Item>pmax(bin1)</Item>
+        <RunNum>nrun(bin1)</RunNum>
+        <Item>pmax(bin2)</Item>
+        <RunNum>nrun(bin2)</RunNum>
+        ...
+      </ptHat>
+    """
     with open(outfile, "w") as f:
         f.write("<ptHat>\n")
 
@@ -37,11 +51,20 @@ def write_ptHat_summary(run_counter, outfile):
         f.write("</ptHat>\n")
 
 
+def ensure_dir(path, dry_run=False):
+    if os.path.isdir(path):
+        return
+    if dry_run:
+        print(f"DRY-RUN: would create directory: {path}")
+        return
+    os.makedirs(path, exist_ok=True)
+
+
 def main():
     ap = argparse.ArgumentParser(
         description=(
             "Scan jet_RunX.xml, read pTHatMin/Max, create symlinks "
-            "JetscapeHadronList<min>_<max>_RunN.out -> jet_X_final_state_hadrons.dat, "
+            "JetscapeHadronListBin{pmin}_{pmax}_Run{run_idx}.out -> jet_X_final_state_hadrons.dat, "
             "and write ptHat summary XML."
         )
     )
@@ -70,9 +93,23 @@ def main():
         help="Pattern for symlink names (default: JetscapeHadronListBin{pmin}_{pmax}_Run{run_idx}.out)"
     )
     ap.add_argument(
+        "--link-dir",
+        default=None,
+        help=(
+            "Directory where symlinks will be created. "
+            "If omitted, defaults to "
+            "/wsu/home/go/go54/go5410/ritoban_data_links/<basename(folder)>"
+        )
+    )
+    ap.add_argument(
         "--summary-filename",
         default="ptHat_summary.xml",
         help="Filename for ptHat summary XML (default: ptHat_summary.xml)"
+    )
+    ap.add_argument(
+        "--summary-in-input-folder",
+        action="store_true",
+        help="Write ptHat summary into the input folder instead of link-dir"
     )
 
     args = ap.parse_args()
@@ -82,14 +119,25 @@ def main():
         print(f"ERROR: not a directory: {folder}", file=sys.stderr)
         sys.exit(1)
 
+    # --------------------------------------------------------
+    # decide link output directory (NO RS_PREFIX LOGIC)
+    # --------------------------------------------------------
+    if args.link_dir is not None:
+        link_dir = os.path.abspath(args.link_dir)
+    else:
+        link_dir = os.path.join(WSU_LINK_BASE, os.path.basename(folder))
+
+    ensure_dir(link_dir, dry_run=args.dry_run)
+
+    print(f"Input folder : {folder}")
+    print(f"Link output  : {link_dir}")
+
     rx = re.compile(args.pattern)
 
-    # (min,max) -> next run index
-    run_counter = defaultdict(int)
-    # (min,max) -> list of (xmlfile, target_dat, linkname, linkpath)
-    planned = defaultdict(list)
+    run_counter = defaultdict(int)   # (pmin,pmax) -> next run index
+    planned = defaultdict(list)      # (pmin,pmax) -> list of (xml, target, link_name, link_path)
 
-    xml_files = sorted([name for name in os.listdir(folder) if rx.match(name)])
+    xml_files = sorted(name for name in os.listdir(folder) if rx.match(name))
 
     if not xml_files:
         print("No matching XML files found.", file=sys.stderr)
@@ -97,9 +145,13 @@ def main():
     else:
         print(f"Found {len(xml_files)} XML files to process.")
 
+    # --------------------------------------------------------
+    # scan XML files
+    # --------------------------------------------------------
     for xml_name in xml_files:
         print(f"Processing {xml_name}...")
         xml_path = os.path.join(folder, xml_name)
+
         try:
             tree = ET.parse(xml_path)
             root = tree.getroot()
@@ -111,8 +163,6 @@ def main():
         pmax = parse_int(read_tag_text(root, "pTHatMax"))
         outfn = read_tag_text(root, "outputFilename")
 
-        # print(f"  pTHatMin={pmin}, pTHatMax={pmax}, outputFilename={outfn}")
-
         if pmin is None or pmax is None:
             print(f"WARNING: {xml_name}: missing pTHatMin/pTHatMax; skipped", file=sys.stderr)
             continue
@@ -120,24 +170,23 @@ def main():
             print(f"WARNING: {xml_name}: missing outputFilename; skipped", file=sys.stderr)
             continue
 
-        # outputFilename例: /mnt/tmp//jet_130  -> basename: jet_130
         base = os.path.basename(outfn.rstrip("/"))
-        # 想定される hadron 出力: jet_130_final_state_hadrons.dat
         target_dat = os.path.join(folder, f"{base}_final_state_hadrons.dat")
 
         key = (pmin, pmax)
         run_idx = run_counter[key]
         run_counter[key] += 1
 
-        link_name = args.link_pattern.format(pmin=pmin, pmax=pmax, run_idx=run_idx)
-        link_path = os.path.join(folder, link_name)
-
-        # print(f"  Target data file: {target_dat}")
-        # print(f"  Target link: {link_path}")
+        link_name = args.link_pattern.format(
+            pmin=pmin, pmax=pmax, run_idx=run_idx
+        )
+        link_path = os.path.join(link_dir, link_name)
 
         planned[key].append((xml_name, target_dat, link_name, link_path))
 
-    # 実行
+    # --------------------------------------------------------
+    # create symlinks
+    # --------------------------------------------------------
     created = 0
     for (pmin, pmax), items in planned.items():
         for (xml_name, target_dat, link_name, link_path) in items:
@@ -149,7 +198,6 @@ def main():
                 )
                 continue
 
-            # 既存処理（壊れたリンクも検出）
             if os.path.lexists(link_path):
                 if args.force:
                     if not args.dry_run:
@@ -159,23 +207,34 @@ def main():
                     continue
 
             rel_target = os.path.relpath(target_dat, start=os.path.dirname(link_path))
+
             if args.dry_run:
-                print(f"DRY-RUN: ln -s {rel_target} {link_name}   (from {xml_name})")
+                print(f"DRY-RUN: ln -s {rel_target} {link_path}   (from {xml_name})")
             else:
                 print(f"Creating symlink: {link_name} -> {os.path.basename(target_dat)} (from {xml_name})")
                 os.symlink(rel_target, link_path)
                 created += 1
-                print(f"  Created")
+                print("  Created")
 
-    # 集計出力（標準出力）
+    # --------------------------------------------------------
+    # console summary
+    # --------------------------------------------------------
     print("\n=== Summary (pTHatMin, pTHatMax) -> #Runs ===")
-    for (pmin, pmax) in sorted(run_counter.keys()):
-        print(f"{pmin:>6} {pmax:>6}  ->  {run_counter[(pmin, pmax)]}")
+    for (pmin, pmax), nrun in sorted(run_counter.items()):
+        print(f"{pmin:>6} {pmax:>6}  ->  {nrun}")
 
-    # Summary をファイルに書き出し
-    summary_path = os.path.join(folder, args.summary_filename)
-    write_ptHat_summary(run_counter, summary_path)
-    print(f"\nptHat summary written to: {summary_path}")
+    # --------------------------------------------------------
+    # write ptHat summary XML
+    # --------------------------------------------------------
+    summary_dir = folder if args.summary_in_input_folder else link_dir
+    ensure_dir(summary_dir, dry_run=args.dry_run)
+    summary_path = os.path.join(summary_dir, args.summary_filename)
+
+    if args.dry_run:
+        print(f"\nDRY-RUN: would write ptHat summary to: {summary_path}")
+    else:
+        write_ptHat_summary(run_counter, summary_path)
+        print(f"\nptHat summary written to: {summary_path}")
 
     if args.dry_run:
         print("\n(DRY-RUN) No links created.")
