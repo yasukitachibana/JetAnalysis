@@ -25,10 +25,10 @@ public:
   void SetDir(std::string m_in_name, std::string m_out_name);
   
   std::string
-  GetInputFileName( double ptHatMin, double ptHatMax, int i_seq = 0 );
+  GetInputFileName( double ptHatMin, double ptHatMax, int i_seq);
   
   std::string
-  GetSigmaFileName( double ptHatMin, double ptHatMax, int i_seq = 0 );
+  GetSigmaFileName( double ptHatMin, double ptHatMax, int i_seq);
   
   
   std::string

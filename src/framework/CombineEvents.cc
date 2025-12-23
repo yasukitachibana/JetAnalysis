@@ -17,7 +17,8 @@ CombineEvents::~CombineEvents()
 void CombineEvents::Init()
 {
   std::cout << "[CombineEvents] Intialize CombineEvents" << std::endl;
-  ptHat = SetPtHatBins::Instance()->PtHatBinList();  
+  ptHat = SetPtHatBins::Instance()->PtHatBinList();
+  runNum = SetPtHatBins::Instance()->RunNumList();
 }
 
 void CombineEvents::Clear()
@@ -29,7 +30,7 @@ void CombineEvents::Combine()
 {
 
   std::cout << "---------------------------------------------------------" << std::endl;
-  obs_ptr->Combine(ptHat);
+  obs_ptr->Combine(ptHat, runNum);
   std::cout << "---------------------------------------------------------" << std::endl;
   std::cout << "[CombineEvents] Done CombineEvents" << std::endl;
 }

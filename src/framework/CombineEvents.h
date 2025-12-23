@@ -15,6 +15,7 @@ public:
 private:
   std::shared_ptr<AnalysisModuleBase> obs_ptr;
   std::vector<double> ptHat;
+  std::vector<int> runNum;
 };
 
 #endif

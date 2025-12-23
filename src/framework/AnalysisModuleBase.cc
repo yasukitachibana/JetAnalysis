@@ -114,7 +114,7 @@ int AnalysisModuleBase::Analyze(std::string input_file_name)
     std::cout
         << "\n[AnalysisModuleBase] Last Event" << event_num
         << " -- DONE! (" << std::to_string(getMemoryUsage()) << "MB) ..."
-        << std::endl;      
+        << std::endl;
   }
   //*******************************************************************************************
   load_ptr->Clear();
@@ -143,7 +143,7 @@ void AnalysisModuleBase::Clear(int seq_loaded)
   DeleteHist();
 }
 
-void AnalysisModuleBase::Combine(std::vector<double> ptHat)
+void AnalysisModuleBase::Combine(std::vector<double> ptHat, std::vector<int> runNum)
 {
 
   for (int iv = 0; iv < variables.size(); iv++)
@@ -165,19 +165,19 @@ void AnalysisModuleBase::Combine(std::vector<double> ptHat)
                 int nPtHatBins = ptHat.size() - 1;
                 for (int i_pthat_bin = 0; i_pthat_bin < nPtHatBins; i_pthat_bin++)
                 {
-                  LoadHist(ptHat[i_pthat_bin], ptHat[i_pthat_bin + 1], iv, ir, ijp, ijr, ipp, ipr, ip);
+                  LoadHist(runNum[i_pthat_bin], ptHat[i_pthat_bin], ptHat[i_pthat_bin + 1], iv, ir, ijp, ijr, ipp, ipr, ip);
                 }
                 //_____________________________________________________________________________________
                 CombineHist(iv, ir, ijp, ijr, ipp, ipr, ip);
                 DeleteHist();
 
               } // option parameters
-            }   // had_rap
-          }     // had_pt
-        }       // jet_rap
-      }         // jet_pt
-    }           // jetR
-  }             // variable
+            } // had_rap
+          } // had_pt
+        } // jet_rap
+      } // jet_pt
+    } // jetR
+  } // variable
 
   CombineFinisher();
 }
@@ -335,10 +335,11 @@ void AnalysisModuleBase::ReadParametersFromXML()
 
     if (LeadingParticleHelper::LeadingConst(lead_method))
     {
-    lead_ptr = std::unique_ptr<LeadingConstituent>(new LeadingConstituent());
+      lead_ptr = std::unique_ptr<LeadingConstituent>(new LeadingConstituent());
     }
-    else{
-    lead_ptr = std::unique_ptr<LeadingInCone>(new LeadingInCone());
+    else
+    {
+      lead_ptr = std::unique_ptr<LeadingInCone>(new LeadingInCone());
     }
     lead_ptr->Init(lead_pt_min);
   }
@@ -627,17 +628,17 @@ void AnalysisModuleBase::GenerateHist(double ptHatMin, double ptHatMax)
 
                 //
               } // option parameters
-            }   // had_rap
-          }     // had_pt
-        }       // jet_rap
-      }         // jet_pt
-    }           // jetR
-  }             // variable
+            } // had_rap
+          } // had_pt
+        } // jet_rap
+      } // jet_pt
+    } // jetR
+  } // variable
 
   std::cout << "[AnalysisModuleBase] number of generated histogram: " << nHist << std::endl;
 }
 
-void AnalysisModuleBase::LoadHist(double ptHatMin, double ptHatMax,
+void AnalysisModuleBase::LoadHist(int nSeq, double ptHatMin, double ptHatMax,
                                   int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip)
 {
   //*******************************************************************************************
@@ -646,17 +647,25 @@ void AnalysisModuleBase::LoadHist(double ptHatMin, double ptHatMax,
   hist_this_bin->Init();
   hist_this_bin->LoadHistFromFile();
   //*******************************************************************************************
-  double sigma, sigma_err;
+  double sigma = 0.0, sigma_err = 0.0;
   if (p_gun == 1)
   {
     sigma = 1.0;
-    sigma_err = 0.0;
   }
   else
   {
-    std::string sigma_file_name = SetFile::Instance()->GetSigmaFileName(ptHatMin, ptHatMax);
-    std::cout << "[AnalysisModuleBase] Load Sigma File: " << sigma_file_name << std::endl;
-    load_ptr->LoadSigma(sigma_file_name, sigma, sigma_err);
+    for (int i_seq = 0; i_seq < nSeq; i_seq++)
+    {
+      std::string sigma_file_name = SetFile::Instance()->GetSigmaFileName(ptHatMin, ptHatMax, i_seq);
+      std::cout << "[AnalysisModuleBase] Load Sigma File: " << sigma_file_name << std::endl;
+      double sigma_this_seq, sigma_err_this_seq;      
+      load_ptr->LoadSigma(sigma_file_name, sigma_this_seq, sigma_err_this_seq);
+      std::cout << "[AnalysisModuleBase] Sigma[" << i_seq << "] = "<< sigma_this_seq << ", sigma error[" << i_seq << "] = "<< sigma_err_this_seq << std::endl;
+      sigma += sigma_this_seq;
+      sigma_err += sigma_err_this_seq * sigma_err_this_seq;     
+    }
+    sigma = sigma / nSeq;
+    sigma_err = sqrt(sigma_err) / nSeq;
   }
   std::cout << "[AnalysisModuleBase] Sigma = " << sigma << ", sigma error = " << sigma_err << std::endl;
   hist_this_bin->SetSigma(sigma, sigma_err);
@@ -746,7 +755,7 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijr, dou
   double pt_jet = jet.perp();
   double rapidity_jet = jet_rap_ptr->Val(jet);
   double r_cone = jetR[ir];
-  
+
   if (pt_jet >= jet_pt_min &&
       pt_jet < jet_pt_max &&
       fabs(rapidity_jet) >= jetRapMin[ijr] &&
@@ -758,9 +767,7 @@ bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijr, dou
   } // trigger
 
   return false;
-
 }
-
 
 bool AnalysisModuleBase::JetTrigger(fastjet::PseudoJet jet, int ir, int ijp, int ijr)
 {

@@ -42,7 +42,7 @@ public:
             std::shared_ptr<LoadFileModuleBase> load_ptr_in);
   void Set(double ptHatMin, double ptHatMax);
   int Analyze(std::string input_file_name);
-  void Combine(std::vector<double> ptHat);
+  void Combine(std::vector<double> ptHat, std::vector<int> runNum);
   //=========================================
   virtual void Clear(int seq_loaded);
   //=========================================
@@ -130,7 +130,7 @@ private:
   int p_gun;
   virtual void EventEndMark(std::vector<std::shared_ptr<Particle>> &particle_list, int &event_num) {}
   //=========================================
-  void LoadHist(double ptHatMin, double ptHatMax,
+  void LoadHist(int nSeq, double ptHatMin, double ptHatMax,
                 int iv, int ir, int ijp, int ijr, int ipp, int ipr, int ip);
   //=========================================
   void ReadParametersFromXML();

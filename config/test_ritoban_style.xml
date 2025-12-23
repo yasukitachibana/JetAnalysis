@@ -150,6 +150,9 @@
     </events>    
     <divNum>-1</divNum>    <!-- 0: default, 1-:  divided. -1: vector-->
     <divUnit>_Run</divUnit>
+    <!-- <sigma>
+      <pGun>1</pGun>
+    </sigma>     -->
   </inputFiles>
 
   <!-- ptHatBins -->
