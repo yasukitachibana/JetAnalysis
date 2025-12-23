@@ -22,19 +22,16 @@ void EventAnalysis::Init()
 
   std::cout << "[EventAnalysiss] Intialize EventAnalysiss" << std::endl;
 
-  ptHat = SetPtHatBins::GetPtHatBins();
-
-  nSeq = SetXML::Instance()->GetElementInt({"inputFiles", "divNum"});
-  if (nSeq == 0)
-  {
-    nSeq = 1;
-  }
+  ptHat = SetPtHatBins::Instance()->PtHatBinList();
+  runNum = SetPtHatBins::Instance()->RunNumList();
 }
 
 void EventAnalysis::Clear()
 {
   ptHat.clear();
   ptHat.shrink_to_fit();
+  runNum.clear();
+  runNum.shrink_to_fit();
 }
 
 void EventAnalysis::Analyze()
@@ -54,7 +51,7 @@ void EventAnalysis::Analyze()
   {
 
     std::cout << "---------------------------------------------------------" << std::endl;
-    std::cout << "[EventAnalysiss] Start Analysis for pt_hat: " << ptHat[i_pthat_bin] << "-" << ptHat[i_pthat_bin + 1] << "GeV." << std::endl;
+    std::cout << "[EventAnalysiss] Start Analysis for pt_hat: " << ptHat[i_pthat_bin] << "-" << ptHat[i_pthat_bin + 1] << "GeV, RunNum: " << runNum[i_pthat_bin] << std::endl;
     std::cout << "---------------------------------------------------------" << std::endl;
 
     //++++++++++++++++++++++++++++++++++++++++++++++++
@@ -62,7 +59,7 @@ void EventAnalysis::Analyze()
     obs_ptr->Set(ptHat[i_pthat_bin], ptHat[i_pthat_bin + 1]);
     //++++++++++++++++++++++++++++++++++++++++++++++++
     int seq_loaded = 0;
-    for (int i_seq = 0; i_seq < nSeq; i_seq++)
+    for (int i_seq = 0; i_seq < runNum[i_pthat_bin]; i_seq++)
     {
       std::string input_file_name = SetFile::Instance()->GetInputFileName(ptHat[i_pthat_bin], ptHat[i_pthat_bin + 1], i_seq);
       seq_loaded += obs_ptr->Analyze(input_file_name);

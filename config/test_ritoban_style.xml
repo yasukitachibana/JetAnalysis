@@ -2,7 +2,7 @@
 
 <jetAnalysis>
 
-  <mode>2</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
   <subtractionMethod>NaiveNegativeSub</subtractionMethod>
 
   <!-- Jet Reconstruction-->
@@ -142,22 +142,24 @@
 
   <inputFiles>
     <inputStyle>JetScapeAsciiV2OneLine</inputStyle>
-    <singleNumberId>1</singleNumberId>
     <sigmaLastLine>1</sigmaLastLine>
     <events>
-      <head>jet_</head>
-      <tail>_final_state_hadrons.dat</tail>
-    </events>
-    <divNum>0</divNum>    <!-- 0: default, 1-:  divided-->
+      <head>JetscapeHadronListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>    
+    <divNum>-1</divNum>    <!-- 0: default, 1-:  divided. -1: vector-->
     <divUnit>_Run</divUnit>
   </inputFiles>
 
   <!-- ptHatBins -->
   <ptHat>
-    <evenlySpaced>1</evenlySpaced>
-    <min>1</min>
-    <max>3</max>
-    <interval>1</interval>
+    <!-- <evenlySpaced>0</evenlySpaced> -->
+    <Item>2200</Item>
+    <Item>2400</Item>
+    <RunNum>2</RunNum>
+    <Item>2510</Item>
+    <RunNum>2</RunNum>    
   </ptHat>
 
 

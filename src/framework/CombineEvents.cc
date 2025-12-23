@@ -17,7 +17,7 @@ CombineEvents::~CombineEvents()
 void CombineEvents::Init()
 {
   std::cout << "[CombineEvents] Intialize CombineEvents" << std::endl;
-  ptHat = SetPtHatBins::GetPtHatBins();
+  ptHat = SetPtHatBins::Instance()->PtHatBinList();  
 }
 
 void CombineEvents::Clear()

@@ -13,4 +13,14 @@ namespace VectorUtil
     return vec;
   }
 
+  std::vector<int> VectorArange(int start, int stop, int step)
+  {
+    std::vector<int> vec(1, start);
+    for (int val = start + step; val < stop; val += step)
+    {
+      vec.push_back(val);
+    }
+    return vec;
+  }  
+
 }

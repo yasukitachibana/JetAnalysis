@@ -25,13 +25,13 @@ void SetFile::Init(std::string m_in_name, std::string m_out_name)
   SetDir(m_in_name, m_out_name);
 
   division_number = SetXML::Instance()->GetElementInt({"inputFiles", "divNum"});
-  if (division_number > 0)
+  if (division_number == 0)
   {
-    division_unit = SetXML::Instance()->GetElementText({"inputFiles", "divUnit"});
+    division_unit = "";
   }
   else
   {
-    division_unit = "";
+  division_unit = SetXML::Instance()->GetElementText({"inputFiles", "divUnit"});    
   }
 
   xjtag = SetXML::Instance()->GetElementInt({"jetTag", "xJetTag"}, false);

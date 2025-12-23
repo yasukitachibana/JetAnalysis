@@ -3,6 +3,7 @@
 #include "CombineEvents.h"
 #include "SetXML.h"
 #include "SetFile.h"
+#include "SetPtHatBins.h"
 
 #include <iostream>
 
@@ -16,8 +17,10 @@ JetAnalysis::JetAnalysis(std::string xml_filename_in,
   std::cout << "=========================================================" << std::endl;
   SetXML::Instance()->OpenXMLFile(xml_filename);
   std::cout << "=========================================================" << std::endl;
-  SetFile::Instance()->Init(input_dirname, output_dirname);
+  SetPtHatBins::Instance()->Init();
   std::cout << "=========================================================" << std::endl;
+  SetFile::Instance()->Init(input_dirname, output_dirname);
+  std::cout << "=========================================================" << std::endl;  
 }
 
 JetAnalysis::JetAnalysis()

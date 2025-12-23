@@ -22,7 +22,8 @@ private:
   
   std::shared_ptr<AnalysisModuleBase> obs_ptr;
   std::vector<double> ptHat;
-  int nSeq;
+  std::vector<int> runNum;
+
 
 
 
