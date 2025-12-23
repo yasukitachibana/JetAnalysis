@@ -111,7 +111,7 @@ def main():
         pmax = parse_int(read_tag_text(root, "pTHatMax"))
         outfn = read_tag_text(root, "outputFilename")
 
-        print(f"  pTHatMin={pmin}, pTHatMax={pmax}, outputFilename={outfn}")
+        # print(f"  pTHatMin={pmin}, pTHatMax={pmax}, outputFilename={outfn}")
 
         if pmin is None or pmax is None:
             print(f"WARNING: {xml_name}: missing pTHatMin/pTHatMax; skipped", file=sys.stderr)
@@ -132,8 +132,8 @@ def main():
         link_name = args.link_pattern.format(pmin=pmin, pmax=pmax, run_idx=run_idx)
         link_path = os.path.join(folder, link_name)
 
-        print(f"  Target data file: {target_dat}")
-        print(f"  Target link: {link_path}")
+        # print(f"  Target data file: {target_dat}")
+        # print(f"  Target link: {link_path}")
 
         planned[key].append((xml_name, target_dat, link_name, link_path))
 
