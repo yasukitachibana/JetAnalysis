@@ -8,6 +8,7 @@ from collections import defaultdict
 
 
 WSU_LINK_BASE = "/wsu/home/go/go54/go5410/ritoban_data_links"
+# WSU_LINK_BASE = "./test/"
 
 
 def read_tag_text(root, tag):
@@ -97,7 +98,9 @@ def main():
         description=(
             "Scan jet_RunX.xml, read pTHatMin/Max, create symlinks "
             "JetscapeHadronListBin{pmin}_{pmax}_Run{run_idx}.out -> jet_X_final_state_hadrons.dat, "
-            "and write ptHat summary XML + mapping table."
+            "and write ptHat summary XML + mapping table.\n\n"
+            "IMPORTANT: This script pre-checks that ALL target .dat files exist before creating any symlink. "
+            "If any are missing, it prints the full missing list and exits with error without creating links."
         )
     )
     ap.add_argument(
@@ -152,6 +155,16 @@ def main():
         "--mapping-in-input-folder",
         action="store_true",
         help="Write mapping table into the input folder instead of link-dir"
+    )
+    ap.add_argument(
+        "--missing-list-filename",
+        default="missing_targets.tsv",
+        help="Filename for missing-target list (TSV) written when missing targets are found (default: missing_targets.tsv)"
+    )
+    ap.add_argument(
+        "--missing-in-input-folder",
+        action="store_true",
+        help="Write missing-target list into the input folder instead of link-dir when missing targets are found"
     )
 
     args = ap.parse_args()
@@ -235,6 +248,67 @@ def main():
         })
 
     # --------------------------------------------------------
+    # pre-check: ensure ALL target .dat files exist BEFORE creating any symlink
+    # --------------------------------------------------------
+    missing = []  # list of dicts: {xml_name, target_dat, pmin, pmax, run_idx}
+    required_total = 0
+
+    for (pmin, pmax), items in planned.items():
+        for item in items:
+            required_total += 1
+            target_dat = item["target_dat"]
+            if not os.path.exists(target_dat):
+                missing.append({
+                    "xml_name": item["xml_name"],
+                    "target_dat": target_dat,
+                    "pmin": item["pmin"],
+                    "pmax": item["pmax"],
+                    "run_idx": item["run_idx"],
+                })
+
+    if missing:
+        missing_sorted = sorted(missing, key=lambda d: (d["pmin"], d["pmax"], d["run_idx"], d["xml_name"]))
+
+        print("\nERROR: Some final_state_hadrons.dat files are missing.", file=sys.stderr)
+        print("       No symlinks were created.", file=sys.stderr)
+        print(f"Missing count: {len(missing_sorted)} / total required: {required_total}", file=sys.stderr)
+        print("----- Missing file list (detailed) -----", file=sys.stderr)
+
+        for m in missing_sorted:
+            print(
+                f"[pTHat {m['pmin']},{m['pmax']}] run_idx={m['run_idx']}  "
+                f"xml={m['xml_name']}  missing={m['target_dat']}",
+                file=sys.stderr
+            )
+
+        uniq_paths = sorted({m["target_dat"] for m in missing_sorted})
+        print("\n----- Unique missing paths -----", file=sys.stderr)
+        for p in uniq_paths:
+            print(p, file=sys.stderr)
+
+        # Also write a TSV file listing missing targets (useful for later fixing)
+        missing_dir = folder if args.missing_in_input_folder else link_dir
+        ensure_dir(missing_dir, dry_run=args.dry_run)
+        missing_path = os.path.join(missing_dir, args.missing_list_filename)
+
+        if args.dry_run:
+            print(f"\nDRY-RUN: would write missing-target list to: {missing_path}", file=sys.stderr)
+        else:
+            with open(missing_path, "w") as f:
+                f.write("\t".join(["pTHatMin", "pTHatMax", "run_idx", "xml_name", "missing_target_dat"]) + "\n")
+                for m in missing_sorted:
+                    f.write("\t".join([
+                        str(m["pmin"]),
+                        str(m["pmax"]),
+                        str(m["run_idx"]),
+                        str(m["xml_name"]),
+                        str(m["target_dat"]),
+                    ]) + "\n")
+            print(f"\nMissing-target list written to: {missing_path}", file=sys.stderr)
+
+        sys.exit(1)
+
+    # --------------------------------------------------------
     # create symlinks
     # --------------------------------------------------------
     created = 0
@@ -257,6 +331,8 @@ def main():
                 "reason": "",
             }
 
+            # At this point, target_dat is guaranteed to exist (pre-check),
+            # but keep the guard anyway (defensive).
             if not os.path.exists(target_dat):
                 msg = (
                     f"WARNING: target not found, skip link: {link_name} -> "
