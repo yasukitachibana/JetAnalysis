@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <jetR>
+      <Item>0.2</Item>
+      <Item>0.4</Item>
+      <Item>1.0</Item>
+    </jetR>
+
+    <chJet>1</chJet>    <!-- 0: full jet, 1: charged jet -->
+
+    <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+    <jetRapMin>
+      <Item>0</Item>
+      <Item>0</Item>
+      <Item>0</Item>
+    </jetRapMin>
+    <jetRapMax>
+      <Item>0.7</Item>
+      <Item>0.5</Item>
+      <Item>1.0</Item>
+    </jetRapMax>
+
+    <!-- For ALICE Unfolded resutls -->
+    <jetConstPtMin>0.0</jetConstPtMin>
+    <jetConstPtMax>2510.0</jetConstPtMax>
+
+    <jetPtMin>
+      <Item>40</Item>
+      <Item>60</Item>
+      <Item>80</Item>
+      <Item>100</Item>
+      <Item>150</Item>
+      <Item>200</Item>
+    </jetPtMin>
+    <jetPtMax>
+      <Item>60</Item>
+      <Item>80</Item>
+      <Item>100</Item>
+      <Item>150</Item>
+      <Item>200</Item>
+      <Item>300</Item>
+    </jetPtMax>
+
+    <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
+  </jetReco>
+
+  <!-- Set Particle Mass -->
+  <massAdjust>
+    <adjust>1</adjust>
+    <adjustedQuant>E</adjustedQuant>    <!-- MOM, Mom, mom, MOMENTUM, Momentum, momentum, P, p: momentum
+    ENE, Ene, ene, ENERGY, Energy, energy, E, e: energy -->
+    <mass>-211</mass>    <!-- 0 or positive value: mass in GeV, negative value: particle id-->
+  </massAdjust>
+
+  <!-- Observable -->
+  <observable>
+
+    <SoftDropGroom>
+      <name>Soft Drop Grooming</name>
+      <chParticle>1</chParticle>
+
+      <particleRapidity>1</particleRapidity>
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>2.0</Item>
+      </particleRapMax>
+
+      <!-- For ALICE Unfolded resutls -->
+      <particlePtMin>
+        <Item>0.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>2510.0</Item>
+      </particlePtMax>
+
+      <beta>
+        <Item>0.0</Item>
+      </beta>
+      <zCut>
+        <Item>0.2</Item>
+        <Item>0.4</Item>
+      </zCut>
+
+      <var>
+
+        <zG>
+          <Item>0.0</Item>
+          <Item>0.2</Item>
+          <Item>0.25</Item>
+          <Item>0.3</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+          <Item>0.45</Item>
+          <Item>0.5</Item>
+        </zG>
+
+        <thetaG>
+          <Item>0</Item>
+          <Item>0.1</Item>
+          <Item>0.15</Item>
+          <Item>0.22</Item>
+          <Item>0.3</Item>
+          <Item>0.4</Item>
+          <Item>0.5</Item>
+          <Item>0.7</Item>
+          <Item>1.0</Item>
+        </thetaG>
+
+        <thetaG2>
+          <Item>0</Item>
+          <Item>0.05</Item>
+          <Item>0.1</Item>
+          <Item>0.15</Item>
+          <Item>0.25</Item>
+          <Item>0.5</Item>
+          <Item>0.875</Item>
+          <Item>1.0</Item>
+        </thetaG2>
+
+        <rG>
+          <Item>0</Item>
+          <Item>0.02</Item>
+          <Item>0.04</Item>
+          <Item>0.06</Item>
+          <Item>0.1</Item>
+          <Item>0.2</Item>
+          <Item>0.35</Item>
+          <Item>0.4</Item>
+          <Item>0.5</Item>
+          <Item>0.6</Item>
+          <Item>0.8</Item>
+          <Item>1.0</Item>
+          <Item>1.2</Item>
+          <Item>1.5</Item>
+        </rG>
+
+        <mG>
+          <Item>0</Item>
+          <Item>0.3</Item>
+          <Item>0.6</Item>
+          <Item>0.9</Item>
+          <Item>1.2</Item>
+          <Item>1.6</Item>
+          <Item>2</Item>
+          <Item>2.4</Item>
+          <Item>2.8</Item>
+          <Item>3.2</Item>
+          <Item>3.6</Item>
+          <Item>4</Item>
+          <Item>4.6</Item>
+          <Item>5.2</Item>
+          <Item>6</Item>
+          <Item>7</Item>
+        </mG>
+
+        <mG2>
+          <Item>0</Item>
+          <Item>1</Item>
+          <Item>2</Item>
+          <Item>3</Item>
+          <Item>4</Item>
+          <Item>5</Item>
+          <Item>6</Item>
+          <Item>7</Item>
+          <Item>8</Item>
+          <Item>9</Item>
+          <Item>10</Item>
+        </mG2>
+
+        <mG3>
+          <Item>0</Item>
+          <Item>1.8</Item>
+          <Item>3.6</Item>
+          <Item>5.8</Item>
+          <Item>8</Item>
+          <Item>12</Item>
+        </mG3>
+
+        <mG4>
+          <Item>0</Item>
+          <Item>1</Item>
+          <Item>2</Item>
+          <Item>3</Item>
+          <Item>4</Item>
+          <Item>5</Item>
+          <Item>6</Item>
+          <Item>7</Item>
+          <Item>8</Item>
+          <Item>9</Item>
+          <Item>10</Item>
+          <Item>11</Item>
+          <Item>13</Item>
+          <Item>16</Item>
+        </mG4>
+
+        <mGOverPt>
+          <Item>0.0</Item>
+          <Item>0.04</Item>
+          <Item>0.06</Item>
+          <Item>0.08</Item>
+          <Item>0.1</Item>
+          <Item>0.12</Item>
+          <Item>0.15</Item>
+          <Item>0.18</Item>
+          <Item>0.21</Item>
+          <Item>0.26</Item>
+          <Item>0.3</Item>
+          <Item>0.4</Item>
+          <Item>0.5</Item>
+          <Item>1.0</Item>
+          <Item>10.0</Item>
+        </mGOverPt>
+
+        <ktG>
+          <Item>0.0</Item>
+          <Item>0.25</Item>
+          <Item>0.5</Item>
+          <Item>1.0</Item>
+          <Item>1.5</Item>
+          <Item>2.0</Item>
+          <Item>3.0</Item>
+          <Item>4.0</Item>
+          <Item>6.0</Item>
+          <Item>8.0</Item>
+          <Item>10.0</Item>
+          <Item>15.0</Item>
+          <Item>20.0</Item>
+          <Item>25.0</Item>
+          <Item>100.0</Item>
+          <Item>10000.0</Item>
+        </ktG>
+
+
+        <pseudoMG>
+          <Item>0.0</Item>
+          <Item>10000.0</Item>
+        </pseudoMG>
+
+        <pseudoMGOverPt>
+          <Item>0.0</Item>
+          <Item>10000.0</Item>
+        </pseudoMGOverPt>
+
+      </var>
+    </SoftDropGroom>
+
+  </observable>
+
+
+  <inputFiles>
+    <inputStyle>JetScapeAsciiV2OneLine</inputStyle>
+    <sigmaLastLine>1</sigmaLastLine>
+    <events>
+      <head>JetscapeHadronListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>
+    <divNum>-1</divNum> <!-- 0: default, 1-:  divided. -1: vector-->
+    <divUnit>_Run</divUnit>
+    <sigma>
+      <pGun>0</pGun>
+    </sigma>
+  </inputFiles>
+
+
+  <!-- ptHatBins -->
+  <ptHat>
+    <Item>4</Item>
+    <Item>5</Item>
+    <RunNum>40</RunNum>
+    <Item>7</Item>
+    <RunNum>40</RunNum>
+    <Item>9</Item>
+    <RunNum>40</RunNum>
+    <Item>11</Item>
+    <RunNum>40</RunNum>
+    <Item>13</Item>
+    <RunNum>40</RunNum>
+    <Item>15</Item>
+    <RunNum>40</RunNum>
+    <Item>17</Item>
+    <RunNum>40</RunNum>
+    <Item>20</Item>
+    <RunNum>40</RunNum>
+    <Item>25</Item>
+    <RunNum>40</RunNum>
+    <Item>30</Item>
+    <RunNum>40</RunNum>
+    <Item>35</Item>
+    <RunNum>40</RunNum>
+    <Item>40</Item>
+    <RunNum>40</RunNum>
+    <Item>45</Item>
+    <RunNum>40</RunNum>
+    <Item>50</Item>
+    <RunNum>40</RunNum>
+    <Item>55</Item>
+    <RunNum>40</RunNum>
+    <Item>60</Item>
+    <RunNum>40</RunNum>
+    <Item>70</Item>
+    <RunNum>40</RunNum>
+    <Item>80</Item>
+    <RunNum>40</RunNum>
+    <Item>90</Item>
+    <RunNum>40</RunNum>
+    <Item>100</Item>
+    <RunNum>40</RunNum>
+    <Item>110</Item>
+    <RunNum>40</RunNum>
+    <Item>120</Item>
+    <RunNum>40</RunNum>
+    <Item>130</Item>
+    <RunNum>40</RunNum>
+    <Item>140</Item>
+    <RunNum>40</RunNum>
+    <Item>150</Item>
+    <RunNum>40</RunNum>
+    <Item>160</Item>
+    <RunNum>40</RunNum>
+    <Item>170</Item>
+    <RunNum>40</RunNum>
+    <Item>180</Item>
+    <RunNum>40</RunNum>
+    <Item>190</Item>
+    <RunNum>53</RunNum>
+    <Item>200</Item>
+    <RunNum>53</RunNum>
+    <Item>210</Item>
+    <RunNum>21</RunNum>
+    <Item>220</Item>
+    <RunNum>21</RunNum>
+    <Item>230</Item>
+    <RunNum>21</RunNum>
+    <Item>240</Item>
+    <RunNum>21</RunNum>
+    <Item>250</Item>
+    <RunNum>21</RunNum>
+    <Item>260</Item>
+    <RunNum>21</RunNum>
+    <Item>270</Item>
+    <RunNum>21</RunNum>
+    <Item>280</Item>
+    <RunNum>21</RunNum>
+    <Item>290</Item>
+    <RunNum>21</RunNum>
+    <Item>300</Item>
+    <RunNum>21</RunNum>
+    <Item>350</Item>
+    <RunNum>21</RunNum>
+    <Item>400</Item>
+    <RunNum>21</RunNum>
+    <Item>450</Item>
+    <RunNum>21</RunNum>
+    <Item>500</Item>
+    <RunNum>21</RunNum>
+    <Item>550</Item>
+    <RunNum>21</RunNum>
+    <Item>600</Item>
+    <RunNum>21</RunNum>
+    <Item>700</Item>
+    <RunNum>21</RunNum>
+    <Item>800</Item>
+    <RunNum>21</RunNum>
+    <Item>900</Item>
+    <RunNum>21</RunNum>
+    <Item>1000</Item>
+    <RunNum>21</RunNum>
+    <Item>1100</Item>
+    <RunNum>21</RunNum>
+    <Item>1200</Item>
+    <RunNum>21</RunNum>
+    <Item>1300</Item>
+    <RunNum>21</RunNum>
+    <Item>1400</Item>
+    <RunNum>21</RunNum>
+    <Item>1500</Item>
+    <RunNum>21</RunNum>
+    <Item>1600</Item>
+    <RunNum>21</RunNum>
+    <Item>1700</Item>
+    <RunNum>21</RunNum>
+    <Item>1800</Item>
+    <RunNum>21</RunNum>
+    <Item>1900</Item>
+    <RunNum>21</RunNum>
+    <Item>2000</Item>
+    <RunNum>21</RunNum>
+    <Item>2200</Item>
+    <RunNum>21</RunNum>
+    <Item>2400</Item>
+    <RunNum>21</RunNum>
+    <Item>2510</Item>
+    <RunNum>21</RunNum>
+  </ptHat>
+
+</jetAnalysis>
