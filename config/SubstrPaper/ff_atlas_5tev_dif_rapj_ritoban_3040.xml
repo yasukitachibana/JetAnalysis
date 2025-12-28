@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+
+<jetAnalysis>
+
+  <mode>0</mode>  <!-- 0: w/ combine, 1: w/o combine, 2: only combine-->
+  <subtractionMethod>NaiveNegativeSub</subtractionMethod>
+
+  <!-- Jet Reconstruction-->
+  <jetReco>
+    <reconstructionMethod>NegativeReco</reconstructionMethod>
+    <!-- <reconstructionMethod>StandardReco</reconstructionMethod> -->
+    <jetR>
+      <Item>0.4</Item>
+    </jetR>
+    <chJet>0</chJet>    <!-- 0: full jet, 1: charged jet -->
+    <!-- <statJet><Item>0</Item><Item>1</Item><Item>-1</Item></statJet> -->
+    <jetRapidity>0</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
+
+    <jetRapMin>
+      <Item>0.0</Item>
+      <!-- <Item>0.3</Item><Item>1.2</Item> -->
+    </jetRapMin>
+    <jetRapMax>
+      <Item>0.3</Item>
+      <!-- <Item>0.8</Item><Item>2.1</Item> -->
+    </jetRapMax>
+
+    <jetPtMin>
+      <Item>126</Item>
+      <Item>158.488</Item>
+      <Item>199.525</Item>
+      <Item>251.186</Item>
+      <Item>316.224</Item>
+    </jetPtMin>
+    <jetPtMax>
+      <Item>158.488</Item>
+      <Item>199.525</Item>
+      <Item>251.186</Item>
+      <Item>316.224</Item>
+      <Item>398.101</Item>
+    </jetPtMax>
+    <nJetEv>0</nJetEv>
+  </jetReco>
+
+  <observable>
+
+    <FragF>
+      <name>Jet Fragmentation Function</name>
+      <chParticle>1</chParticle>
+      <!-- <statParticle><Item>0</Item><Item>1</Item><Item>-1</Item></statParticle> -->
+      <particleRapidity>1</particleRapidity>
+
+      <particleRapMin>
+        <Item>0.0</Item>
+      </particleRapMin>
+      <particleRapMax>
+        <Item>1.0</Item>
+      </particleRapMax>
+      <particlePtMin>
+        <Item>1.0</Item>
+      </particlePtMin>
+      <particlePtMax>
+        <Item>398.101</Item>
+      </particlePtMax>
+
+      <var>
+        <pt>
+          <Item>1.0</Item>
+          <Item>1.58</Item>
+          <Item>2.51</Item>
+          <Item>3.98</Item>
+          <Item>6.31</Item>
+          <Item>10</Item>
+          <Item>15.85</Item>
+          <Item>25.12</Item>
+          <Item>39.81</Item>
+          <Item>63.09</Item>
+          <Item>100</Item>
+          <Item>158.49</Item>
+          <Item>251.18</Item>
+        </pt>
+
+        <z>
+          <Item>0.0046</Item>
+          <Item>0.0068</Item>
+          <Item>0.01</Item>
+          <Item>0.0158</Item>
+          <Item>0.0251</Item>
+          <Item>0.0398</Item>
+          <Item>0.0631</Item>
+          <Item>0.1</Item>
+          <Item>0.1585</Item>
+          <Item>0.2512</Item>
+          <Item>0.3981</Item>
+          <Item>0.631</Item>
+          <Item>1.0</Item>
+        </z>
+
+      </var>
+    </FragF>
+
+  </observable>
+
+  <inputFiles>
+    <inputStyle>JetScapeAsciiV2OneLine</inputStyle>
+    <sigmaLastLine>1</sigmaLastLine>
+    <events>
+      <head>JetscapeHadronListBin</head>
+      <join>_</join>
+      <tail>.out</tail>
+    </events>
+    <divNum>-1</divNum> <!-- 0: default, 1-:  divided. -1: vector-->
+    <divUnit>_Run</divUnit>
+    <sigma>
+      <pGun>0</pGun>
+    </sigma>
+  </inputFiles>
+
+  <!-- ptHatBins -->
+  <ptHat>
+    <Item>4</Item>
+    <Item>5</Item>
+    <RunNum>40</RunNum>
+    <Item>7</Item>
+    <RunNum>40</RunNum>
+    <Item>9</Item>
+    <RunNum>40</RunNum>
+    <Item>11</Item>
+    <RunNum>40</RunNum>
+    <Item>13</Item>
+    <RunNum>40</RunNum>
+    <Item>15</Item>
+    <RunNum>40</RunNum>
+    <Item>17</Item>
+    <RunNum>40</RunNum>
+    <Item>20</Item>
+    <RunNum>40</RunNum>
+    <Item>25</Item>
+    <RunNum>40</RunNum>
+    <Item>30</Item>
+    <RunNum>40</RunNum>
+    <Item>35</Item>
+    <RunNum>40</RunNum>
+    <Item>40</Item>
+    <RunNum>40</RunNum>
+    <Item>45</Item>
+    <RunNum>40</RunNum>
+    <Item>50</Item>
+    <RunNum>40</RunNum>
+    <Item>55</Item>
+    <RunNum>40</RunNum>
+    <Item>60</Item>
+    <RunNum>40</RunNum>
+    <Item>70</Item>
+    <RunNum>40</RunNum>
+    <Item>80</Item>
+    <RunNum>40</RunNum>
+    <Item>90</Item>
+    <RunNum>40</RunNum>
+    <Item>100</Item>
+    <RunNum>40</RunNum>
+    <Item>110</Item>
+    <RunNum>40</RunNum>
+    <Item>120</Item>
+    <RunNum>40</RunNum>
+    <Item>130</Item>
+    <RunNum>40</RunNum>
+    <Item>140</Item>
+    <RunNum>40</RunNum>
+    <Item>150</Item>
+    <RunNum>40</RunNum>
+    <Item>160</Item>
+    <RunNum>40</RunNum>
+    <Item>170</Item>
+    <RunNum>40</RunNum>
+    <Item>180</Item>
+    <RunNum>40</RunNum>
+    <Item>190</Item>
+    <RunNum>53</RunNum>
+    <Item>200</Item>
+    <RunNum>53</RunNum>
+    <Item>210</Item>
+    <RunNum>21</RunNum>
+    <Item>220</Item>
+    <RunNum>21</RunNum>
+    <Item>230</Item>
+    <RunNum>21</RunNum>
+    <Item>240</Item>
+    <RunNum>21</RunNum>
+    <Item>250</Item>
+    <RunNum>21</RunNum>
+    <Item>260</Item>
+    <RunNum>21</RunNum>
+    <Item>270</Item>
+    <RunNum>21</RunNum>
+    <Item>280</Item>
+    <RunNum>21</RunNum>
+    <Item>290</Item>
+    <RunNum>21</RunNum>
+    <Item>300</Item>
+    <RunNum>21</RunNum>
+    <Item>350</Item>
+    <RunNum>21</RunNum>
+    <Item>400</Item>
+    <RunNum>21</RunNum>
+    <Item>450</Item>
+    <RunNum>21</RunNum>
+    <Item>500</Item>
+    <RunNum>21</RunNum>
+    <Item>550</Item>
+    <RunNum>21</RunNum>
+    <Item>600</Item>
+    <RunNum>21</RunNum>
+    <Item>700</Item>
+    <RunNum>21</RunNum>
+    <Item>800</Item>
+    <RunNum>21</RunNum>
+    <Item>900</Item>
+    <RunNum>21</RunNum>
+    <Item>1000</Item>
+    <RunNum>21</RunNum>
+    <Item>1100</Item>
+    <RunNum>21</RunNum>
+    <Item>1200</Item>
+    <RunNum>21</RunNum>
+    <Item>1300</Item>
+    <RunNum>21</RunNum>
+    <Item>1400</Item>
+    <RunNum>21</RunNum>
+    <Item>1500</Item>
+    <RunNum>21</RunNum>
+    <Item>1600</Item>
+    <RunNum>21</RunNum>
+    <Item>1700</Item>
+    <RunNum>21</RunNum>
+    <Item>1800</Item>
+    <RunNum>21</RunNum>
+    <Item>1900</Item>
+    <RunNum>21</RunNum>
+    <Item>2000</Item>
+    <RunNum>21</RunNum>
+    <Item>2200</Item>
+    <RunNum>21</RunNum>
+    <Item>2400</Item>
+    <RunNum>21</RunNum>
+    <Item>2510</Item>
+    <RunNum>21</RunNum>
+  </ptHat>
+</jetAnalysis>
