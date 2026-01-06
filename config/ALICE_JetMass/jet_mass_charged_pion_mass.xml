@@ -145,7 +145,7 @@
       <tail>.out</tail>
     </events>
     <sigma>
-      <path>/wsu/home/go/go54/go5410/maj-shen/AAPaperData/5020_PP_Colorless</path>
+      <path>/.rs/volumes/rs_grp_majshen/rs_vol_majshen/4b596bdf-783d-4cb4-b08f-cfd87da578f4/tier1/AAPaperData/5020_PP_Colorless</path>
       <!-- <path>na</path> -->
       <head>SigmaHardBin</head>
       <join>_</join>
