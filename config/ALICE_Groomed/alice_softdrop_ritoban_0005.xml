@@ -275,7 +275,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <Item>4</Item>
+    <!-- <Item>4</Item>
     <Item>5</Item>
     <RunNum>16</RunNum>
     <Item>7</Item>
@@ -311,12 +311,12 @@
     <Item>70</Item>
     <RunNum>16</RunNum>
     <Item>80</Item>
-    <RunNum>16</RunNum>
+    <RunNum>16</RunNum> -->
     <Item>90</Item>
-    <RunNum>16</RunNum>
+    <!-- <RunNum>16</RunNum> -->
     <Item>100</Item>
     <RunNum>16</RunNum>
-    <Item>110</Item>
+    <!-- <Item>110</Item>
     <RunNum>16</RunNum>
     <Item>120</Item>
     <RunNum>16</RunNum>
@@ -401,7 +401,7 @@
     <Item>2400</Item>
     <RunNum>2</RunNum>
     <Item>2510</Item>
-    <RunNum>2</RunNum>
+    <RunNum>2</RunNum> -->
   </ptHat>
 
 </jetAnalysis>
