@@ -9,9 +9,9 @@
   <jetReco>
     <reconstructionMethod>NegativeReco</reconstructionMethod>
     <jetR>
-      <Item>0.2</Item>
+      <!-- <Item>0.2</Item> -->
       <Item>0.4</Item>
-      <Item>1.0</Item>
+      <!-- <Item>1.0</Item> -->
     </jetR>
 
     <chJet>1</chJet>    <!-- 0: full jet, 1: charged jet -->
@@ -19,13 +19,13 @@
     <jetRapidity>1</jetRapidity>    <!-- 0: rapidity(Y), 1: pseudorapidity(Eta) -->
     <jetRapMin>
       <Item>0</Item>
-      <Item>0</Item>
-      <Item>0</Item>
+      <!-- <Item>0</Item> -->
+      <!-- <Item>0</Item> -->
     </jetRapMin>
     <jetRapMax>
-      <Item>0.7</Item>
+      <!-- <Item>0.7</Item> -->
       <Item>0.5</Item>
-      <Item>1.0</Item>
+      <!-- <Item>1.0</Item> -->
     </jetRapMax>
 
     <!-- For ALICE Unfolded resutls -->
@@ -33,20 +33,20 @@
     <jetConstPtMax>2510.0</jetConstPtMax>
 
     <jetPtMin>
-      <Item>40</Item>
+      <!-- <Item>40</Item> -->
       <Item>60</Item>
-      <Item>80</Item>
+      <!-- <Item>80</Item>
       <Item>100</Item>
       <Item>150</Item>
-      <Item>200</Item>
+      <Item>200</Item> -->
     </jetPtMin>
     <jetPtMax>
-      <Item>60</Item>
+      <!-- <Item>60</Item> -->
       <Item>80</Item>
-      <Item>100</Item>
+      <!-- <Item>100</Item>
       <Item>150</Item>
       <Item>200</Item>
-      <Item>300</Item>
+      <Item>300</Item> -->
     </jetPtMax>
 
     <nJetEv>0</nJetEv>    <!-- 0: inclusive -->
@@ -88,12 +88,12 @@
       </beta>
       <zCut>
         <Item>0.2</Item>
-        <Item>0.4</Item>
+        <!-- <Item>0.4</Item> -->
       </zCut>
 
       <var>
 
-        <zG>
+        <!-- <zG>
           <Item>0.0</Item>
           <Item>0.2</Item>
           <Item>0.25</Item>
@@ -102,7 +102,7 @@
           <Item>0.4</Item>
           <Item>0.45</Item>
           <Item>0.5</Item>
-        </zG>
+        </zG> -->
 
         <thetaG>
           <Item>0</Item>
@@ -127,7 +127,7 @@
           <Item>1.0</Item>
         </thetaG2>
 
-        <rG>
+        <!-- <rG>
           <Item>0</Item>
           <Item>0.02</Item>
           <Item>0.04</Item>
@@ -249,7 +249,7 @@
         <pseudoMGOverPt>
           <Item>0.0</Item>
           <Item>10000.0</Item>
-        </pseudoMGOverPt>
+        </pseudoMGOverPt> -->
 
       </var>
     </SoftDropGroom>
@@ -303,20 +303,20 @@
     <Item>45</Item>
     <RunNum>40</RunNum>
     <Item>50</Item>
-    <RunNum>40</RunNum>
+    <RunNum>40</RunNum> -->
     <Item>55</Item>
-    <RunNum>40</RunNum>
+    <!-- <RunNum>40</RunNum> -->
     <Item>60</Item>
     <RunNum>40</RunNum>
     <Item>70</Item>
     <RunNum>40</RunNum>
     <Item>80</Item>
-    <RunNum>40</RunNum> -->
+    <RunNum>40</RunNum>
     <Item>90</Item>
-    <!-- <RunNum>40</RunNum> -->
+    <RunNum>40</RunNum>
     <Item>100</Item>
     <RunNum>40</RunNum>
-    <!-- <Item>110</Item>
+    <Item>110</Item>
     <RunNum>40</RunNum>
     <Item>120</Item>
     <RunNum>40</RunNum>
@@ -326,7 +326,7 @@
     <RunNum>40</RunNum>
     <Item>150</Item>
     <RunNum>40</RunNum>
-    <Item>160</Item>
+    <!-- <Item>160</Item>
     <RunNum>40</RunNum>
     <Item>170</Item>
     <RunNum>40</RunNum>
