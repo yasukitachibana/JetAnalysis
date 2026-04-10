@@ -93,7 +93,7 @@
 
       <var>
 
-        <zG>
+        <!-- <zG>
           <Item>0.0</Item>
           <Item>0.2</Item>
           <Item>0.25</Item>
@@ -102,7 +102,7 @@
           <Item>0.4</Item>
           <Item>0.45</Item>
           <Item>0.5</Item>
-        </zG>
+        </zG> -->
 
         <thetaG>
           <Item>0</Item>
@@ -127,7 +127,7 @@
           <Item>1.0</Item>
         </thetaG2>
 
-        <rG>
+        <!-- <rG>
           <Item>0</Item>
           <Item>0.02</Item>
           <Item>0.04</Item>
@@ -142,9 +142,9 @@
           <Item>1.0</Item>
           <Item>1.2</Item>
           <Item>1.5</Item>
-        </rG>
+        </rG> -->
 
-        <mG>
+        <!-- <mG>
           <Item>0</Item>
           <Item>0.3</Item>
           <Item>0.6</Item>
@@ -249,7 +249,7 @@
         <pseudoMGOverPt>
           <Item>0.0</Item>
           <Item>10000.0</Item>
-        </pseudoMGOverPt>
+        </pseudoMGOverPt> -->
 
       </var>
     </SoftDropGroom>
