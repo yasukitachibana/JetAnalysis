@@ -275,7 +275,7 @@
 
   <!-- ptHatBins -->
   <ptHat>
-    <!-- <Item>4</Item>
+    <Item>4</Item>
     <Item>5</Item>
     <RunNum>40</RunNum>
     <Item>7</Item>
@@ -303,9 +303,9 @@
     <Item>45</Item>
     <RunNum>40</RunNum>
     <Item>50</Item>
-    <RunNum>40</RunNum> -->
+    <RunNum>40</RunNum>
     <Item>55</Item>
-    <!-- <RunNum>40</RunNum> -->
+    <RunNum>40</RunNum>
     <Item>60</Item>
     <RunNum>40</RunNum>
     <Item>70</Item>
