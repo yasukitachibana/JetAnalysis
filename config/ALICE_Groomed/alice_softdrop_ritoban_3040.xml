@@ -366,7 +366,7 @@
     <RunNum>21</RunNum>
     <Item>550</Item>
     <RunNum>21</RunNum>
-    <Item>600</Item>
+    <!-- <Item>600</Item>
     <RunNum>21</RunNum>
     <Item>700</Item>
     <RunNum>21</RunNum>
@@ -401,7 +401,7 @@
     <Item>2400</Item>
     <RunNum>21</RunNum>
     <Item>2510</Item>
-    <RunNum>21</RunNum>
+    <RunNum>21</RunNum> -->
   </ptHat>
 
 </jetAnalysis>
