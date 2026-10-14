@@ -200,8 +200,8 @@ void AnalysisModuleBase::ReadParametersFromXML()
   jetPtMax = SetXML::Instance()->GetElementVectorDouble({"jetReco", "jetPtMax", "Item"});
   jetPtMinForTrigger = jetPtMin;
   jetPtMaxForTrigger = jetPtMax;
-  int jet_const_pt_min = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMin"}, false);
-  int jet_const_pt_max = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMax"}, false);
+  double jet_const_pt_min = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMin"}, false);
+  double jet_const_pt_max = SetXML::Instance()->GetElementDouble({"jetReco", "jetConstPtMax"}, false);    
   // ###############################################################################################################
   int leading_particle = SetXML::Instance()->GetElementInt({"jetReco", "leading"}, false);
   // ###############################################################################################################
